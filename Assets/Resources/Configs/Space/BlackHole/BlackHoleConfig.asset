@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c778bb43676f471db4284bc0232827c1, type: 3}
-  m_Name: RedGiantConfig
+  m_Name: BlackHoleConfig
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 4384360181799517527, guid: 741897e1e3fcd674cbd2cb3b30e737b5, type: 3}
-  <MinSize>k__BackingField: 50
-  <MaxSize>k__BackingField: 150
-  <MinPlanetCount>k__BackingField: 1
-  <MaxPlanetCount>k__BackingField: 6
-  <MinOrbit>k__BackingField: 5
-  <MaxOrbit>k__BackingField: 15
+  <Prefab>k__BackingField: {fileID: 9185690166822878347, guid: d323e824ea7dba046b0a9234398a31fd, type: 3}
+  <MinSize>k__BackingField: 10
+  <MaxSize>k__BackingField: 100
+  Type: 3

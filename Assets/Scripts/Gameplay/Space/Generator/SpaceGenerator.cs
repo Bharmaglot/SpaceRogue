@@ -94,15 +94,14 @@ namespace Gameplay.Space.Generator
         private int GetStarRadius(StarSpawnConfig starSpawnConfig, Tilemap tilemap)
         {
             var maxStarSize = default(float);
-            var maxOrbit = default(float);
+            
 
             foreach (var item in starSpawnConfig.WeightConfigs)
             {
                 maxStarSize = Mathf.Max(maxStarSize, item.Config.MaxSize);
-                maxOrbit = Mathf.Max(maxOrbit, item.Config.MaxOrbit);
             }
 
-            var radius = (maxStarSize / 2 + maxOrbit)
+            var radius = (maxStarSize)
                 / Mathf.Max(tilemap.cellSize.x * tilemap.transform.localScale.x,
                             tilemap.cellSize.y * tilemap.transform.localScale.y);
             Debug.Log($"Radius: {Mathf.CeilToInt(radius)}");

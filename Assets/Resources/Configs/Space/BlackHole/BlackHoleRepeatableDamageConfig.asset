@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea54ab0ce50eba449a898ee9e77918b, type: 3}
+  m_Name: BlackHoleRepeatableDamageConfig
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 7270451338639525291, guid: 307341d784745a848837acc4d02d06f7, type: 3}
+  <DamageSize>k__BackingField: 3
+  <DamageValue>k__BackingField: 10
+  <DamageCooldown>k__BackingField: 3

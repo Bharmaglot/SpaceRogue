@@ -30,6 +30,11 @@ public static class Constants
             public static readonly string SpaceConfig = Path.Combine(SPACE, nameof(SpaceConfig));
             public static readonly string DefaultStarSpawn = Path.Combine(SPACE, nameof(DefaultStarSpawn));
             public static readonly string DefaultPlanetSpawn = Path.Combine(SPACE, nameof(DefaultPlanetSpawn));
+            public static readonly string DefaultPlanetarySystemConfig = Path.Combine(SPACE, nameof(DefaultPlanetarySystemConfig));
+            public static readonly string DefaultPlanetSystemOfTypeConfig = Path.Combine(SPACE, nameof(DefaultPlanetSystemOfTypeConfig));
+            public static readonly string DefaultGravityOfTypeConfig = Path.Combine(SPACE, nameof(DefaultGravityOfTypeConfig));
+            public static readonly string RepeatableDamageOfTypeConfig = Path.Combine(SPACE, nameof(RepeatableDamageOfTypeConfig));
+
         }
 
         public record Background

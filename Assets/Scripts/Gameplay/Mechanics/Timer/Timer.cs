@@ -36,6 +36,11 @@ namespace Gameplay.Mechanics.Timer
             OnStart.Invoke();
         }
 
+        public void UpdateValue(float value)
+        {
+            _currentValue = value;
+        }
+
         public void SetMaxValue(float newMaxValue)
         {
             if (newMaxValue == 0.0f) throw new ArgumentException("Timer cannot be initialized with zero!", nameof(newMaxValue));

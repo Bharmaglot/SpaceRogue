@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <WeightConfigs>k__BackingField:
   - <Weight>k__BackingField: 300
-    <Config>k__BackingField: {fileID: 11400000, guid: bd987e05d66544746b27b9fef21d0eb5, type: 2}
-  - <Weight>k__BackingField: 250
-    <Config>k__BackingField: {fileID: 11400000, guid: f2e5d99a7fe90f047bd089e17494b549, type: 2}
-  - <Weight>k__BackingField: 450
-    <Config>k__BackingField: {fileID: 11400000, guid: 7f74e740208719b409436e0776b302fd, type: 2}
+    <Config>k__BackingField: {fileID: 11400000, guid: 08659ccf7e4a5fd43b781121ef370291, type: 2}
+  - <Weight>k__BackingField: 200
+    <Config>k__BackingField: {fileID: 11400000, guid: 797627067352aef4482d071673655d83, type: 2}
+  - <Weight>k__BackingField: 400
+    <Config>k__BackingField: {fileID: 11400000, guid: 9d3fcfdcdbc199e479cee8b71b5e5dd1, type: 2}
+  - <Weight>k__BackingField: 50
+    <Config>k__BackingField: {fileID: 11400000, guid: be2137ccaf5971344a575bad008a7ce0, type: 2}
+  - <Weight>k__BackingField: 100
+    <Config>k__BackingField: {fileID: 11400000, guid: a31d3a3ee6adc584c81e4c4326829682, type: 2}

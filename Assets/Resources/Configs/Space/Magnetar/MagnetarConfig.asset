@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c778bb43676f471db4284bc0232827c1, type: 3}
-  m_Name: WhiteDwarfConfig
+  m_Name: MagnetarConfig
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 5519097654485216471, guid: 24d9fea718d6f4e4bad61bfe540417a2, type: 3}
-  <MinSize>k__BackingField: 25
-  <MaxSize>k__BackingField: 50
-  <MinPlanetCount>k__BackingField: 0
-  <MaxPlanetCount>k__BackingField: 2
-  <MinOrbit>k__BackingField: 10
-  <MaxOrbit>k__BackingField: 20
+  <Prefab>k__BackingField: {fileID: 2486957531872307257, guid: 3d63532d2cbaa5347916433500a969f7, type: 3}
+  <MinSize>k__BackingField: 10
+  <MaxSize>k__BackingField: 15
+  Type: 5

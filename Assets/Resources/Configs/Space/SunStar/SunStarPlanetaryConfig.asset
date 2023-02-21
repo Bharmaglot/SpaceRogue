@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c778bb43676f471db4284bc0232827c1, type: 3}
-  m_Name: SunStarConfig
+  m_Script: {fileID: 11500000, guid: 2721cb616a28a8e4c9807d73bfe47599, type: 3}
+  m_Name: SunStarPlanetaryConfig
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: -2578164791343960300, guid: 796ce20e71d95af459b00990c646b520, type: 3}
-  <MinSize>k__BackingField: 40
-  <MaxSize>k__BackingField: 60
   <MinPlanetCount>k__BackingField: 1
   <MaxPlanetCount>k__BackingField: 4
   <MinOrbit>k__BackingField: 10
