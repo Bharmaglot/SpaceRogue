@@ -44,35 +44,32 @@ namespace Gameplay.Space
             PlanetController[] planets = null;
             GravityController gravity = null;
             DamageZoneController damageZone = null;
+
+            _gravityAreaFactory = new GravityAreaFactory(starSpawnPosition, starSize);
+            _damageZoneAreaFactory = new DamageZoneAreaFactory(starSpawnPosition, starSize);
+            _planetarySystemFactory = new PlanetarySystemFactory(starView, starSize, _planetSpawnConfig, starSpawnPosition);
+
             switch (config.Type)
             {
                 case SpaceObjectType.BlackHole:
-                    _gravityAreaFactory = new GravityAreaFactory(starSpawnPosition, starSize, _gravityOfTypeConfig.BlackHoleConfig);
-                    gravity = _gravityAreaFactory.CreateGravityArea(starsParent);
-                    _damageZoneAreaFactory = new DamageZoneAreaFactory(starSpawnPosition, starSize, _repeatebleDamageOfTypeConfig.BlackHoleConfig);
-                    damageZone = _damageZoneAreaFactory.CreateDamageZone(starsParent);
+                    gravity = _gravityAreaFactory.CreateGravityArea(starsParent, _gravityOfTypeConfig.BlackHoleConfig);
+                    damageZone = _damageZoneAreaFactory.CreateDamageZone(starsParent, _repeatebleDamageOfTypeConfig.BlackHoleConfig);
                     break;
                 case SpaceObjectType.SunStar:
-                       _planetarySystemFactory = new PlanetarySystemFactory(starView, _planetSystemOfTypeConfig.SunStarConfig, starSize, _planetSpawnConfig, starSpawnPosition);
-                    planets = _planetarySystemFactory.CreatePlanetarySystem();
+                    planets = _planetarySystemFactory.CreatePlanetarySystem(_planetSystemOfTypeConfig.SunStarConfig);
                     break;
                 case SpaceObjectType.WhiteDwarf:
-                    _planetarySystemFactory = new PlanetarySystemFactory(starView, _planetSystemOfTypeConfig.WhiteDwarfConfig, starSize, _planetSpawnConfig, starSpawnPosition);
-                    planets = _planetarySystemFactory.CreatePlanetarySystem();
+                    planets = _planetarySystemFactory.CreatePlanetarySystem(_planetSystemOfTypeConfig.WhiteDwarfConfig);
                     break;
                 case SpaceObjectType.RedGiant:
-                    _planetarySystemFactory = new PlanetarySystemFactory(starView, _planetSystemOfTypeConfig.RedGiantConfig, starSize, _planetSpawnConfig, starSpawnPosition);
-                    planets = _planetarySystemFactory.CreatePlanetarySystem();
+                    planets = _planetarySystemFactory.CreatePlanetarySystem(_planetSystemOfTypeConfig.RedGiantConfig);
                     break;
                 case SpaceObjectType.Magnetar:
-                    _gravityAreaFactory = new GravityAreaFactory(starSpawnPosition, starSize, _gravityOfTypeConfig.MagnetarConfig);
-                    gravity = _gravityAreaFactory.CreateGravityArea(starsParent);
-                    _damageZoneAreaFactory = new DamageZoneAreaFactory(starSpawnPosition, starSize, _repeatebleDamageOfTypeConfig.MagnetarConfig);
-                    damageZone = _damageZoneAreaFactory.CreateDamageZone(starsParent);
+                    gravity = _gravityAreaFactory.CreateGravityArea(starsParent, _gravityOfTypeConfig.MagnetarConfig);
+                    damageZone = _damageZoneAreaFactory.CreateDamageZone(starsParent, _repeatebleDamageOfTypeConfig.MagnetarConfig);
                     break;
-
                 default:
-                    Debug.Log("Появилось что-то непонятное");
+                    Debug.Log("Type not recognized");
                     break;
             }
             return (new StarController(starView, starsParent), planets, gravity, damageZone);

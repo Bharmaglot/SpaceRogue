@@ -50,11 +50,11 @@ namespace Gameplay.Space
 
             foreach (var starSpawnPoint in _levelGenerator.GetSpawnPoints(CellType.Star))
             {
-                var (star, planetsController, gravity, damageZone) = _spaceObjectFactory.CreateStarSystem(starSpawnPoint, _view.Stars);
+                var (star, planetsControllers, gravity, damageZone) = _spaceObjectFactory.CreateStarSystem(starSpawnPoint, _view.Stars);
                 AddController(star);
-                if (planetsController != null)
+                if (planetsControllers != null)
                 {
-                    AddPlanetControllers(planetsController);
+                    AddPlanetControllers(planetsControllers);
                 }
                 if(gravity != null)
                 {

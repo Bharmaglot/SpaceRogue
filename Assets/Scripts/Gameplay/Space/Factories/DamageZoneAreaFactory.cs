@@ -14,21 +14,20 @@ namespace Gameplay.Space
     {
         private readonly Vector3 _spawnPosition;
         private readonly float _centerObjectSize;
-        private readonly RepeatableDamageConfig _damageConfig;
+        private RepeatableDamageConfig _damageConfig;
 
-        public DamageZoneAreaFactory(Vector3 starSpawnPosition, float starSize, RepeatableDamageConfig damageConfig)
+        public DamageZoneAreaFactory(Vector3 spawnPosition, float starSize)
         {
-            _spawnPosition = starSpawnPosition;
+            _spawnPosition = spawnPosition;
             _centerObjectSize = starSize;
-            _damageConfig = damageConfig;
         }
 
-        public DamageZoneController CreateDamageZone(Transform starsParent)
+        public DamageZoneController CreateDamageZone(Transform spaceObjectParent, RepeatableDamageConfig damageConfig)
         {
             var damageZonePosition = _spawnPosition;
-            float damageZoneSize = _centerObjectSize * _damageConfig.DamageSize;
-            var damageZoneView = CreateDamageZoneView(_damageConfig.Prefab, damageZoneSize, _spawnPosition);
-            return (new DamageZoneController(damageZoneView, starsParent, _damageConfig.DamageValue, _damageConfig.DamageCooldown));
+            float damageZoneSize = _centerObjectSize * damageConfig.DamageSize;
+            var damageZoneView = CreateDamageZoneView(damageConfig.Prefab, damageZoneSize, _spawnPosition);
+            return (new DamageZoneController(damageZoneView, spaceObjectParent, damageConfig.DamageValue, damageConfig.DamageCooldown));
         }
 
         public DamageZoneView CreateDamageZoneView(DamageZoneView prefab, float size, Vector3 spawnPosition)

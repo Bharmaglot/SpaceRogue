@@ -13,30 +13,29 @@ namespace Gameplay.Space
     public sealed class PlanetarySystemFactory 
 {
         private readonly StarView _starView;
-        private readonly PlanetarySystemConfig _planetarySystemConfig;
         private readonly System.Random _random;
         private readonly float _starSize;
         private readonly PlanetSpawnConfig _planetSpawnConfig;
         private readonly Vector3 _starSpawnPosition;
 
-        public PlanetarySystemFactory(StarView starView, PlanetarySystemConfig planetarySystemConfig, float starSize, PlanetSpawnConfig planetSpawnConfig, Vector3 starSpawnPosition)
+        public PlanetarySystemFactory(StarView starView, float starSize, PlanetSpawnConfig planetSpawnConfig, Vector3 starSpawnPosition)
         {
             _starView = starView;
-            _planetarySystemConfig = planetarySystemConfig;
+            
             _random = new System.Random();
             _starSize = starSize;
             _planetSpawnConfig = planetSpawnConfig;
             _starSpawnPosition = starSpawnPosition;
         }
 
-        public PlanetController[] CreatePlanetarySystem()
+        public PlanetController[] CreatePlanetarySystem(PlanetarySystemConfig planetarySystemConfig)
         {
-            int planetCount = RandomPicker.PickRandomBetweenTwoValues(_planetarySystemConfig.MinPlanetCount, _planetarySystemConfig.MaxPlanetCount, _random);
+            int planetCount = RandomPicker.PickRandomBetweenTwoValues(planetarySystemConfig.MinPlanetCount, planetarySystemConfig.MaxPlanetCount, _random);
             var planets = new PlanetController[planetCount];
 
             if (planetCount <= 0) return (new PlanetController[planetCount]);
 
-            float[] planetOrbits = GetPlanetOrbitList(planetCount, _planetarySystemConfig.MinOrbit, _planetarySystemConfig.MaxOrbit, _starSize, _random);
+            float[] planetOrbits = GetPlanetOrbitList(planetCount, planetarySystemConfig.MinOrbit, planetarySystemConfig.MaxOrbit, _starSize, _random);
 
             for (int i = 0; i < planets.Length; i++)
             {

@@ -34,7 +34,7 @@ namespace Abstracts
 
         public void TakeRepetableDamage(IRepeatableDamageView repeatableDamageComponent, IDamagingView damageComponent)
         {
-            _cooldown = repeatableDamageComponent.CooldownDamage;
+            _cooldown = repeatableDamageComponent.DamageCooldown;
             _dZTimer = new(_cooldown);
             _dZTimer.Start();
             _cooldownDamageComponent = damageComponent;
@@ -48,7 +48,7 @@ namespace Abstracts
 
         public void TimeToDamage()
         {
-            if (_dZTimer.CurrentValue < 1f)
+            if (_dZTimer.CurrentValue <= 0)
             {
                 _dZTimer.UpdateValue(_cooldown);
                 TakeDamage(_cooldownDamageComponent);

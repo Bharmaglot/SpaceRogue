@@ -14,22 +14,21 @@ namespace Gameplay.Space
     {
         private readonly Vector3 _spawnPosition;
         private readonly float _centerObjectSize;
-        private readonly GravityConfig _gravityConfig;
+        private GravityConfig _gravityConfig;
 
-        public GravityAreaFactory(Vector3 starSpawnPosition, float starSize, GravityConfig gravityConfig)
+        public GravityAreaFactory(Vector3 starSpawnPosition, float objectSize)
         {
             _spawnPosition = starSpawnPosition;
-            _centerObjectSize = starSize;
-            _gravityConfig = gravityConfig;
+            _centerObjectSize = objectSize;
+            
         }
 
-        public GravityController CreateGravityArea(Transform starsParent)
+        public GravityController CreateGravityArea(Transform starsParent, GravityConfig gravityConfig)
         {
-
             var gravityPosition = _spawnPosition;
-            float gravityAreaSize = _centerObjectSize * _gravityConfig.RadiusGravity;
-            var gravityView = CreateGravityView(_gravityConfig.Prefab, gravityAreaSize, gravityPosition);
-            return (new GravityController(gravityView, starsParent, _gravityConfig));
+            float gravityAreaSize = _centerObjectSize * gravityConfig.RadiusGravity;
+            var gravityView = CreateGravityView(gravityConfig.Prefab, gravityAreaSize, gravityPosition);
+            return (new GravityController(gravityView, starsParent, gravityConfig));
         }
 
 

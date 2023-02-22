@@ -7,15 +7,15 @@ namespace Gameplay.Space.Star
     public class GravityController : BaseController
     {
         public GravityView GravityView { get; }
-        public PointEffector2D PointEffector;
+        public PointEffector2D PointEffector2D;
         private readonly GravityConfig _gravityConfig;
 
         public GravityController(GravityView gravityView, Transform BlackHoleParent, GravityConfig gravityConfig)
         {
             GravityView = gravityView;
             GravityView.transform.parent = BlackHoleParent;
-            PointEffector = gravityView.GetComponent<PointEffector2D>();
-            PointEffector.forceMagnitude = -gravityConfig.ForceGravity;
+            PointEffector2D = gravityView.GetComponent<PointEffector2D>();
+            PointEffector2D.forceMagnitude = -gravityConfig.ForceGravity;
 
 
             AddGameObject(GravityView.gameObject);

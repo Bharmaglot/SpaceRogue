@@ -1,4 +1,4 @@
-namespace Abstracts
+namespace Gameplay.Space
 {
     public enum SpaceObjectType
     {

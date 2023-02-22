@@ -9,17 +9,15 @@ namespace Gameplay.Space.Star
     {
         public DamageZoneView DamageZoneView { get; }
 
-        private int RepeatableDamage;
         
 
         public DamageZoneController(DamageZoneView damageZoneView, Transform spaceObjectParent, int damage, float cooldownDamage)
         {
             DamageZoneView = damageZoneView;
             DamageZoneView.transform.parent = spaceObjectParent;
-            RepeatableDamage = damage;
-            DamageZoneView.CooldownDamage = cooldownDamage;
+            DamageZoneView.DamageCooldown = cooldownDamage;
 
-            var DamageModel = new DamageModel(RepeatableDamage);
+            var DamageModel = new DamageModel(damage);
 
             DamageZoneView.Init(DamageModel);
 

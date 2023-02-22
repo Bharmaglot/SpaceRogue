@@ -1,7 +1,7 @@
 namespace Gameplay.Damage
 {
-    public interface IRepeatableDamageView
+    public interface IRepeatableDamageView : IDamagingView
     {
-        public float CooldownDamage { get; set; }
+        public float DamageCooldown { get; set; }
     }
 }

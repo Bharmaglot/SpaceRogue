@@ -12,7 +12,5 @@ namespace Scriptables.Space
 
         [field: SerializeField] public int MinOrbit { get; private set; }
         [field: SerializeField] public int MaxOrbit { get; private set; }
-
-
     }
 }
