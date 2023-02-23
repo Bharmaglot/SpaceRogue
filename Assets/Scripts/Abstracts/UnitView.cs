@@ -13,12 +13,11 @@ namespace Abstracts
 
         private Timer _dZTimer;
         private IDamagingView _cooldownDamageComponent;
-        private float _cooldown;
 
         public event Action<DamageModel> DamageTaken = (DamageModel _) => { };
 
         public void OnTriggerEnter2D(Collider2D other)
-        {   
+        {
             CollisionEnter(other.gameObject);
         }
 
@@ -34,26 +33,23 @@ namespace Abstracts
 
         public void TakeRepetableDamage(IRepeatableDamageView repeatableDamageComponent, IDamagingView damageComponent)
         {
-            _cooldown = repeatableDamageComponent.DamageCooldown;
-            _dZTimer = new(_cooldown);
-            _dZTimer.Start();
+
             _cooldownDamageComponent = damageComponent;
-            EntryPoint.SubscribeToUpdate(TimeToDamage);
+            _dZTimer = new(repeatableDamageComponent.DamageCooldown);
+            _dZTimer.Start();
+            _dZTimer.OnExpire += DamageOnTick;
 
         }
         public void StopTakeRepetableDamage()
         {
+            _dZTimer.OnExpire -= DamageOnTick;
             _dZTimer.Dispose();
         }
 
-        public void TimeToDamage()
+        public void DamageOnTick()
         {
-            if (_dZTimer.CurrentValue <= 0)
-            {
-                _dZTimer.UpdateValue(_cooldown);
-                TakeDamage(_cooldownDamageComponent);
-
-            }
+            TakeDamage(_cooldownDamageComponent);
+            _dZTimer.Start();
         }
 
         private void CollisionEnter(GameObject go)
@@ -86,10 +82,7 @@ namespace Abstracts
             if (repeatableDamageComponent is not null)
             {
                 StopTakeRepetableDamage();
-                EntryPoint.UnsubscribeFromUpdate(TimeToDamage);
             }
         }
-
-
     }
 }
