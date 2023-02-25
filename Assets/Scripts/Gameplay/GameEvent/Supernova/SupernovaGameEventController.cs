@@ -62,15 +62,15 @@ namespace Gameplay.GameEvent
             }
         }
 
-        private bool TryGetNearestStarView(Vector3 position, float radius, out StarView starView)
+        private bool TryGetNearestStarView(Vector3 position, float radius, out SpaceObjectView starView)
         {
             starView = null;
             var colliders = Physics2D.OverlapCircleAll(position, radius);
 
-            var views = new List<StarView>();
+            var views = new List<SpaceObjectView>();
             foreach (var item in colliders)
             {
-                if (item.TryGetComponent(out StarView view))
+                if (item.TryGetComponent(out SpaceObjectView view))
                 {
                     if (!view.InGameEvent)
                     {
@@ -89,9 +89,9 @@ namespace Gameplay.GameEvent
 
         }
 
-        private StarView GetClosestStarView(List<StarView> starViews, Vector3 currentPosition)
+        private SpaceObjectView GetClosestStarView(List<SpaceObjectView> starViews, Vector3 currentPosition)
         {
-            var view = default(StarView);
+            var view = default(SpaceObjectView);
             var closestDistanceSqr = Mathf.Infinity;
 
             for (int i = 0; i < starViews.Count; i++)

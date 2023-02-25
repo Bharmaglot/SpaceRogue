@@ -5,7 +5,7 @@ using Abstracts;
 namespace Scriptables.Space
 {
     [CreateAssetMenu(fileName = nameof(GravityConfig), menuName = "Configs/Space/SpaceObjectEffects/" + nameof(GravityConfig))]
-    public class GravityConfig : ScriptableObject
+    public class GravityConfig : SpaceObjectEffectConfig
     {
         [field: SerializeField] public GravityView Prefab { get; private set; }
         [field: SerializeField] public float ForceGravity { get; private set; }

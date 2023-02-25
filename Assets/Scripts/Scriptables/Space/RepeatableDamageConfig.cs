@@ -5,7 +5,7 @@ using Abstracts;
 namespace Scriptables.Space
 {
     [CreateAssetMenu(fileName = nameof(RepeatableDamageConfig), menuName = "Configs/Space/SpaceObjectEffects/" + nameof(RepeatableDamageConfig))]
-    public class RepeatableDamageConfig : ScriptableObject
+    public class RepeatableDamageConfig : SpaceObjectEffectConfig
     {
         [field: SerializeField] public DamageZoneView Prefab { get; private set; }
         [field: SerializeField, Range(1f, 5f)] public float DamageSize { get; private set; }

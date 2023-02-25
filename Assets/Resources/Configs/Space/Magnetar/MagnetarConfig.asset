@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c778bb43676f471db4284bc0232827c1, type: 3}
+  m_Script: {fileID: 11500000, guid: f02c13e9dc6cf1d4da8cb82b62965c4d, type: 3}
   m_Name: MagnetarConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 2486957531872307257, guid: 3d63532d2cbaa5347916433500a969f7, type: 3}
   <MinSize>k__BackingField: 10
   <MaxSize>k__BackingField: 15
+  <Effects>k__BackingField: []
   Type: 5

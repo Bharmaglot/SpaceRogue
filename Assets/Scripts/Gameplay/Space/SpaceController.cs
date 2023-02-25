@@ -19,10 +19,7 @@ namespace Gameplay.Space
         private readonly ResourcePath _starSpawnConfigPath = new(Constants.Configs.Space.DefaultStarSpawn);
         private readonly ResourcePath _planetSpawnConfigPath = new(Constants.Configs.Space.DefaultPlanetSpawn);
         private readonly ResourcePath _groupSpawnConfigPath = new(Constants.Configs.Enemy.EnemySpawnConfig);
-        private readonly ResourcePath _planetarySystemConfigPath = new(Constants.Configs.Space.DefaultPlanetarySystemConfig);
-        private readonly ResourcePath _planetSystemOfTypeConfig = new(Constants.Configs.Space.DefaultPlanetSystemOfTypeConfig);
-        private readonly ResourcePath _gravityOfTypeConfig = new(Constants.Configs.Space.DefaultGravityOfTypeConfig);
-        private readonly ResourcePath _repeatableDamageOfTypeConfig = new(Constants.Configs.Space.RepeatableDamageOfTypeConfig);
+
 
  
 
@@ -38,20 +35,17 @@ namespace Gameplay.Space
             var starSpawnConfig = ResourceLoader.LoadObject<StarSpawnConfig>(_starSpawnConfigPath);
             var planetSpawnConfig = ResourceLoader.LoadObject<PlanetSpawnConfig>(_planetSpawnConfigPath);
             var enemySpawnConfig = ResourceLoader.LoadObject<EnemySpawnConfig>(_groupSpawnConfigPath);
-            var planetSystemOfTypeConfig = ResourceLoader.LoadObject<PlanetSystemOfTypeConfig>(_planetSystemOfTypeConfig);
-            var gravityOfTypeConfig = ResourceLoader.LoadObject<GravityOfTypeConfig>(_gravityOfTypeConfig);
-            var repeatableDamageConfig = ResourceLoader.LoadObject<RepeatableDamageOfTypeConfig>(_repeatableDamageOfTypeConfig);
 
-            _spaceObjectFactory = new SpaceObjectFactory(starSpawnConfig, planetSpawnConfig, gravityOfTypeConfig, planetSystemOfTypeConfig, repeatableDamageConfig);
+            _spaceObjectFactory = new SpaceObjectFactory(starSpawnConfig, planetSpawnConfig);
 
             _levelGenerator = new(_view, _config, starSpawnConfig, enemySpawnConfig);
             _levelGenerator.Generate();
             AddObstacleController(_view.ObstacleView, _config.ObstacleForce);
 
-            foreach (var starSpawnPoint in _levelGenerator.GetSpawnPoints(CellType.Star))
+            foreach (var spaceObjectSpawnPoint in _levelGenerator.GetSpawnPoints(CellType.Star))
             {
-                var (star, planetsControllers, gravity, damageZone) = _spaceObjectFactory.CreateStarSystem(starSpawnPoint, _view.Stars);
-                AddController(star);
+                var (spaceObject, planetsControllers, gravity, damageZone) = _spaceObjectFactory.CreateStarSystem(spaceObjectSpawnPoint, _view.Stars);
+                AddController(spaceObject);
                 if (planetsControllers != null)
                 {
                     AddPlanetControllers(planetsControllers);

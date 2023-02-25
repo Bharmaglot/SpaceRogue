@@ -11,18 +11,18 @@ namespace Gameplay.Space.Planet
         private readonly float _currentSpeed;
         private readonly bool _isMovingRetrograde;
         
-        private readonly StarView _starView;
+        private readonly SpaceObjectView _spaceObjectView;
 
-        public PlanetController(PlanetView view, StarView starView, float speed, bool isMovingRetrograde, float planetDamage)
+        public PlanetController(PlanetView view, SpaceObjectView spaceObjectView, float speed, bool isMovingRetrograde, float planetDamage)
         {
             _view = view;
-            _view.transform.parent = starView.transform;
+            _view.transform.parent = spaceObjectView.transform;
 
             var damageModel = new DamageModel(planetDamage);
             view.Init(damageModel);
 
             AddGameObject(view.gameObject);
-            _starView = starView;
+            _spaceObjectView = spaceObjectView;
             _currentSpeed = speed;
             _isMovingRetrograde = isMovingRetrograde;
             _view.CollisionEnter += Dispose;
@@ -38,10 +38,10 @@ namespace Gameplay.Space.Planet
 
         private void Move(float deltaTime)
         {
-            if (_starView is not null)
+            if (_spaceObjectView is not null)
             {
                 _view.transform.RotateAround(
-                    _starView.transform.position,
+                    _spaceObjectView.transform.position,
                     _isMovingRetrograde ? Vector3.forward : Vector3.back,
                     _currentSpeed * deltaTime
                 );

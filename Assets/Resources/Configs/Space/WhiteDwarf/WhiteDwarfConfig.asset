@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c778bb43676f471db4284bc0232827c1, type: 3}
+  m_Script: {fileID: 11500000, guid: f02c13e9dc6cf1d4da8cb82b62965c4d, type: 3}
   m_Name: WhiteDwarfConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 5519097654485216471, guid: 24d9fea718d6f4e4bad61bfe540417a2, type: 3}
   <MinSize>k__BackingField: 25
   <MaxSize>k__BackingField: 50
+  <Effects>k__BackingField: []
   Type: 1

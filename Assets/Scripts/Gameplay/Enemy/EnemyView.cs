@@ -19,7 +19,7 @@ namespace Gameplay.Enemy
 
         private void CollisionEnter(GameObject gameObject)
         {
-            if (gameObject.TryGetComponent(out IDamagingView view) && !gameObject.TryGetComponent(out StarView _))
+            if (gameObject.TryGetComponent(out IDamagingView view) && !gameObject.TryGetComponent(out SpaceObjectView _))
             {
                 TakeDamage(view);
             }

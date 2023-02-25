@@ -19,7 +19,7 @@ namespace Gameplay.Space.Planet
 
         public void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.TryGetComponent(out StarView starView) || collision.gameObject.TryGetComponent(out PlanetView planetView))
+            if (collision.gameObject.TryGetComponent(out SpaceObjectView starView) || collision.gameObject.TryGetComponent(out PlanetView planetView))
             {
                 CollisionEnter();
             }
@@ -27,7 +27,7 @@ namespace Gameplay.Space.Planet
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.TryGetComponent(out StarView starView))
+            if (collision.gameObject.TryGetComponent(out SpaceObjectView starView))
             {
                 CollisionEnter();
             }

@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c778bb43676f471db4284bc0232827c1, type: 3}
+  m_Script: {fileID: 11500000, guid: f02c13e9dc6cf1d4da8cb82b62965c4d, type: 3}
   m_Name: BlackHoleConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 9185690166822878347, guid: d323e824ea7dba046b0a9234398a31fd, type: 3}
   <MinSize>k__BackingField: 10
   <MaxSize>k__BackingField: 100
+  <Effects>k__BackingField: []
   Type: 3

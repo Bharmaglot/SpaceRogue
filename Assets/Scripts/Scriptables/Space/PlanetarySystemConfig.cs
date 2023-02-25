@@ -5,7 +5,7 @@ using Abstracts;
 namespace Scriptables.Space
 {
     [CreateAssetMenu(fileName = nameof(PlanetarySystemConfig), menuName = "Configs/Space/" + nameof(PlanetarySystemConfig))]
-    public class PlanetarySystemConfig : ScriptableObject
+    public class PlanetarySystemConfig : SpaceObjectEffectConfig
     {
         [field: SerializeField] public int MinPlanetCount { get; private set; }
         [field: SerializeField] public int MaxPlanetCount { get; private set; }

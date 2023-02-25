@@ -12,18 +12,18 @@ namespace Gameplay.Space
 {
     public sealed class PlanetarySystemFactory 
 {
-        private readonly StarView _starView;
+        private readonly SpaceObjectView _spaceObjectView;
         private readonly System.Random _random;
         private readonly float _starSize;
         private readonly PlanetSpawnConfig _planetSpawnConfig;
         private readonly Vector3 _starSpawnPosition;
 
-        public PlanetarySystemFactory(StarView starView, float starSize, PlanetSpawnConfig planetSpawnConfig, Vector3 starSpawnPosition)
+        public PlanetarySystemFactory(SpaceObjectView spaceObjectView, float spaceObjectSize, PlanetSpawnConfig planetSpawnConfig, Vector3 starSpawnPosition)
         {
-            _starView = starView;
+            _spaceObjectView = spaceObjectView;
             
             _random = new System.Random();
-            _starSize = starSize;
+            _starSize = spaceObjectSize;
             _planetSpawnConfig = planetSpawnConfig;
             _starSpawnPosition = starSpawnPosition;
         }
@@ -45,7 +45,7 @@ namespace Gameplay.Space
                 float planetDamage = RandomPicker.PickRandomBetweenTwoValues(planetConfig.MinDamage, planetConfig.MaxDamage, _random);
                 bool isPlanetMovingRetrograde = RandomPicker.TakeChance(planetConfig.RetrogradeMovementChance, _random);
                 var planetView = CreatePlanetView(planetConfig.Prefab, planetSize, _starSize, planetOrbits[i], _starSpawnPosition);
-                planets[i] = new PlanetController(planetView, _starView, planetSpeed, isPlanetMovingRetrograde, planetDamage);
+                planets[i] = new PlanetController(planetView, _spaceObjectView, planetSpeed, isPlanetMovingRetrograde, planetDamage);
             }
 
             return (new PlanetController[planetCount]);
