@@ -15,5 +15,6 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 2486957531872307257, guid: 3d63532d2cbaa5347916433500a969f7, type: 3}
   <MinSize>k__BackingField: 10
   <MaxSize>k__BackingField: 15
-  <Effects>k__BackingField: []
-  Type: 5
+  <Effects>k__BackingField:
+  - {fileID: 11400000, guid: 676ec310181586144b0769c5653bdba8, type: 2}
+  - {fileID: 11400000, guid: d2410f14c2d21484f8c2f903b7c563ca, type: 2}
