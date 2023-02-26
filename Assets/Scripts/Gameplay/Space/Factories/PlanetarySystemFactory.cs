@@ -47,8 +47,7 @@ namespace Gameplay.Space
                 var planetView = CreatePlanetView(planetConfig.Prefab, planetSize, _starSize, planetOrbits[i], _starSpawnPosition);
                 planets[i] = new PlanetController(planetView, _spaceObjectView, planetSpeed, isPlanetMovingRetrograde, planetDamage);
             }
-
-            return (new PlanetController[planetCount]);
+            return planets;
         }
 
         private static float[] GetPlanetOrbitList(int planetCount, float minOrbit, float maxOrbit, float starSize, System.Random random)
