@@ -1,9 +1,8 @@
 using System;
-using Asteroids;
 using Gameplay.Asteroids;
 using Gameplay.Enemy;
 
-namespace Gameplay.Services
+namespace Gameplay.GameProgress
 {
     public sealed class Level : IDisposable
     {

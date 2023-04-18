@@ -3,6 +3,7 @@ using Gameplay.Abstracts;
 using Gameplay.Background;
 using Gameplay.Enemy;
 using Gameplay.Enemy.Movement;
+using Gameplay.GameProgress;
 using Gameplay.Input;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
@@ -46,7 +47,7 @@ namespace Gameplay.Installers
         private void InstallCurrentGameState()
         {
             Container
-                .Bind<CurrentGameState>()
+                .Bind<CurrentGameProgress>()
                 .AsSingle()
                 .NonLazy();
         }

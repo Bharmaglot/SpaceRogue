@@ -4,6 +4,7 @@ using Gameplay.Services;
 using Scriptables;
 using Services;
 using System;
+using Gameplay.GameProgress;
 using Gameplay.Input;
 using UI.Game;
 using UnityEngine;
@@ -51,20 +52,20 @@ namespace UI.Services
             MinimapInit(_minimapConfig.MinimapCameraSize, _minimapConfig.MinimapColor, _minimapConfig.MinimapAlpha);
 
 
-            _currentLevelProgress.LevelCreated += OnLevelCreated;
+            _currentLevelProgress.LevelStarted += OnLevelStarted;
             _currentLevelProgress.PlayerSpawned += OnPlayerSpawned;
             _currentLevelProgress.PlayerDestroyed += OnPlayerDestroyed;
         }
 
         public void Dispose()
         {
-            _currentLevelProgress.LevelCreated -= OnLevelCreated;
+            _currentLevelProgress.LevelStarted -= OnLevelStarted;
             _currentLevelProgress.PlayerSpawned -= OnPlayerSpawned;
             _currentLevelProgress.PlayerDestroyed -= OnPlayerDestroyed;
             _updater.UnsubscribeFromUpdate(FollowPlayer);
         }
 
-        private void OnLevelCreated(Level level)
+        private void OnLevelStarted(Level level)
         {
             _mapCameraSize = level.MapCameraSize;
         }

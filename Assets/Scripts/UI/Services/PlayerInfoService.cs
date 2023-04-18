@@ -1,6 +1,7 @@
 using Gameplay.Events;
 using Gameplay.Services;
 using System;
+using Gameplay.GameProgress;
 using UI.Game;
 
 namespace UI.Services

@@ -1,6 +1,7 @@
 using Gameplay.Minimap;
 using Scriptables;
 using UI.Services;
+using UI.Services.LevelInfo;
 using UnityEngine;
 using Zenject;
 
@@ -50,7 +51,7 @@ namespace UI.Installers
         private void InstallLevelInfoService()
         {
             Container
-                .BindInterfacesAndSelfTo<LevelInfoService>()
+                .BindInterfacesAndSelfTo<LevelInfoAdapter>()
                 .AsSingle()
                 .NonLazy();
         }

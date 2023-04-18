@@ -1,38 +1,30 @@
 using System;
 using Gameplay.Events;
-using Gameplay.LevelProgress;
 using Gameplay.Player;
 
-namespace Gameplay.Services
+namespace Gameplay.GameProgress
 {
     public sealed class CurrentLevelProgress : IDisposable
     {
-        private readonly LevelFactory _levelFactory;
+        private readonly Level _level;
         private readonly PlayerFactory _playerFactory;
         
-        public event Action<Level> LevelCreated = (_) => { };
+        public event Action<Level> LevelStarted = (_) => { };
         public event Action<int> DefeatedEnemiesCountChange = (_) => { };
         public event Action<PlayerSpawnedEventArgs> PlayerSpawned = (_) => { };
         public event Action PlayerDestroyed = () => { };
 
-        public CurrentLevelProgress(LevelFactory levelFactory, PlayerFactory playerFactory)
+        public CurrentLevelProgress(Level level, PlayerFactory playerFactory)
         {
-            _levelFactory = levelFactory;
+            _level = level;
             _playerFactory = playerFactory;
 
-            _levelFactory.LevelCreated += OnLevelCreated;
             _playerFactory.PlayerSpawned += OnPlayerSpawned;
         }
 
         public void Dispose()
         {
-            _levelFactory.LevelCreated -= OnLevelCreated;
             _playerFactory.PlayerSpawned -= OnPlayerSpawned;
-        }
-
-        private void OnLevelCreated(Level level)
-        {
-            LevelCreated.Invoke(level);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEventArgs args)

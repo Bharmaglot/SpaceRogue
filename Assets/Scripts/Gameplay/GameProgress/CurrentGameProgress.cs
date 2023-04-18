@@ -1,8 +1,6 @@
-using Gameplay.LevelProgress;
-
-namespace Gameplay.Services
+namespace Gameplay.GameProgress
 {
-    public sealed class CurrentGameState
+    public sealed class CurrentGameProgress
     {
         private readonly LevelFactory _levelFactory;
         
@@ -10,7 +8,7 @@ namespace Gameplay.Services
         
         public int CurrentLevelNumber { get; private set; }
 
-        public CurrentGameState(LevelFactory levelFactory)
+        public CurrentGameProgress(LevelFactory levelFactory)
         {
             _levelFactory = levelFactory;
             

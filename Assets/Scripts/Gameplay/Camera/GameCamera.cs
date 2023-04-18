@@ -1,5 +1,6 @@
 using System;
 using Gameplay.Events;
+using Gameplay.GameProgress;
 using Gameplay.Services;
 using Services;
 using UnityEngine;

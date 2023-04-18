@@ -1,6 +1,4 @@
 using System;
-using Asteroids;
-using Gameplay.Asteroids;
 using Gameplay.Asteroids.Factories;
 using Gameplay.Enemy;
 using Gameplay.Player;
@@ -11,7 +9,7 @@ using Gameplay.Space.Obstacle;
 using Scriptables;
 using Zenject;
 
-namespace Gameplay.LevelProgress
+namespace Gameplay.GameProgress
 {
     public sealed class LevelFactory : PlaceholderFactory<int, Level>
     {
