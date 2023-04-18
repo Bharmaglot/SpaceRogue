@@ -74,7 +74,7 @@ namespace Gameplay.Installers
         private void InstallLevelProgressService()
         {
             Container
-                .BindInterfacesAndSelfTo<CurrentLevelProgress>()
+                .BindInterfacesAndSelfTo<LevelProgress>()
                 .AsSingle()
                 .NonLazy();
         }

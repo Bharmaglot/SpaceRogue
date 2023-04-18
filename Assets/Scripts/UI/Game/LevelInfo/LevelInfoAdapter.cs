@@ -7,22 +7,22 @@ namespace UI.Game.LevelInfo
     public sealed class LevelInfoAdapter : IDisposable
     {
         private readonly LevelInfoView _view;
-        private readonly CurrentLevelProgress _currentLevelProgress;
+        private readonly LevelProgress _levelProgress;
 
-        public LevelInfoAdapter(LevelInfoView levelInfoView, CurrentLevelProgress currentLevelProgress)
+        public LevelInfoAdapter(LevelInfoView levelInfoView, LevelProgress levelProgress)
         {
             _view = levelInfoView;
-            _currentLevelProgress = currentLevelProgress;
+            _levelProgress = levelProgress;
             
             _view.Hide();
-            _currentLevelProgress.LevelStarted += InitView;
-            _currentLevelProgress.DefeatedEnemiesCountChange += UpdateDefeatedEnemiesCount;
+            _levelProgress.LevelStarted += InitView;
+            _levelProgress.DefeatedEnemiesCountChange += UpdateDefeatedEnemiesCount;
         }
 
         public void Dispose()
         {
-            _currentLevelProgress.LevelStarted -= InitView;
-            _currentLevelProgress.DefeatedEnemiesCountChange -= UpdateDefeatedEnemiesCount;
+            _levelProgress.LevelStarted -= InitView;
+            _levelProgress.DefeatedEnemiesCountChange -= UpdateDefeatedEnemiesCount;
         }
 
         private void InitView(Level level)

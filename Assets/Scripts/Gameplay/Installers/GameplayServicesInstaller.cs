@@ -25,7 +25,7 @@ namespace Gameplay.Installers
         public override void InstallBindings()
         {
             InstallGameplayMechanics();
-            InstallCurrentGameState();
+            InstallGameProgressState();
             InstallBackground();
             InstallPlayerInput();
             InstallEnemyInput();
@@ -44,10 +44,10 @@ namespace Gameplay.Installers
                 .AsSingle();
         }
 
-        private void InstallCurrentGameState()
+        private void InstallGameProgressState()
         {
             Container
-                .Bind<CurrentGameProgress>()
+                .Bind<GameProgressState>()
                 .AsSingle()
                 .NonLazy();
         }

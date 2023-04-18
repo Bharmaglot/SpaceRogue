@@ -8,22 +8,22 @@ namespace UI.Services
 {
     public sealed class PlayerInfoService : IDisposable
     {
-        private readonly CurrentLevelProgress _currentLevelProgress;
+        private readonly LevelProgress _levelProgress;
         public PlayerWeaponView PlayerWeaponView { get; private set; }
 
-        public PlayerInfoService(CurrentLevelProgress currentLevelProgress, PlayerInfoView playerInfoView)
+        public PlayerInfoService(LevelProgress levelProgress, PlayerInfoView playerInfoView)
         {
-            _currentLevelProgress = currentLevelProgress;
+            _levelProgress = levelProgress;
             PlayerWeaponView = playerInfoView.PlayerWeaponView;
 
             ShowPlayerInfo(false);
 
-            _currentLevelProgress.PlayerSpawned += OnPlayerSpawned;
+            _levelProgress.PlayerSpawned += OnPlayerSpawned;
         }
 
         public void Dispose()
         {
-            _currentLevelProgress.PlayerSpawned -= OnPlayerSpawned;
+            _levelProgress.PlayerSpawned -= OnPlayerSpawned;
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEventArgs obj)

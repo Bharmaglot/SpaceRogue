@@ -4,19 +4,19 @@ using Gameplay.Player;
 
 namespace Gameplay.GameProgress
 {
-    public sealed class CurrentLevelProgress : IDisposable
+    public sealed class LevelProgress : IDisposable
     {
-        private readonly Level _level;
+        //private readonly Level _level;
         private readonly PlayerFactory _playerFactory;
         
-        public event Action<Level> LevelStarted = (_) => { };
-        public event Action<int> DefeatedEnemiesCountChange = (_) => { };
-        public event Action<PlayerSpawnedEventArgs> PlayerSpawned = (_) => { };
+        public event Action<Level> LevelStarted = _ => { };
+        public event Action<int> DefeatedEnemiesCountChange = _ => { };
+        public event Action<PlayerSpawnedEventArgs> PlayerSpawned = _ => { };
         public event Action PlayerDestroyed = () => { };
 
-        public CurrentLevelProgress(Level level, PlayerFactory playerFactory)
+        public LevelProgress(/*Level level,*/ PlayerFactory playerFactory)
         {
-            _level = level;
+            //_level = level;
             _playerFactory = playerFactory;
 
             _playerFactory.PlayerSpawned += OnPlayerSpawned;

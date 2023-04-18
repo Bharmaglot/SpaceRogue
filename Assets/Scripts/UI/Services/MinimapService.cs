@@ -16,7 +16,7 @@ namespace UI.Services
         private const int CameraZAxisOffset = -1;
 
         private readonly Updater _updater;
-        private readonly CurrentLevelProgress _currentLevelProgress;
+        private readonly LevelProgress _levelProgress;
         private readonly PlayerInput _playerInput;
         private readonly RectTransform _mainRectTransform;
         private readonly Camera _minimapCamera;
@@ -33,11 +33,11 @@ namespace UI.Services
         private Transform _playerTransform;
         private bool _isButtonPressed;
 
-        public MinimapService(Updater updater, CurrentLevelProgress currentLevelProgress, PlayerInput playerInput,
+        public MinimapService(Updater updater, LevelProgress levelProgress, PlayerInput playerInput,
             MainCanvas mainCanvas, MinimapCamera minimapCamera, MinimapView minimapView, MinimapConfig minimapConfig)
         {
             _updater = updater;
-            _currentLevelProgress = currentLevelProgress;
+            _levelProgress = levelProgress;
             _playerInput = playerInput;
             _mainRectTransform = (RectTransform)mainCanvas.transform;
             _minimapCamera = minimapCamera.GetComponent<Camera>();
@@ -52,16 +52,16 @@ namespace UI.Services
             MinimapInit(_minimapConfig.MinimapCameraSize, _minimapConfig.MinimapColor, _minimapConfig.MinimapAlpha);
 
 
-            _currentLevelProgress.LevelStarted += OnLevelStarted;
-            _currentLevelProgress.PlayerSpawned += OnPlayerSpawned;
-            _currentLevelProgress.PlayerDestroyed += OnPlayerDestroyed;
+            _levelProgress.LevelStarted += OnLevelStarted;
+            _levelProgress.PlayerSpawned += OnPlayerSpawned;
+            _levelProgress.PlayerDestroyed += OnPlayerDestroyed;
         }
 
         public void Dispose()
         {
-            _currentLevelProgress.LevelStarted -= OnLevelStarted;
-            _currentLevelProgress.PlayerSpawned -= OnPlayerSpawned;
-            _currentLevelProgress.PlayerDestroyed -= OnPlayerDestroyed;
+            _levelProgress.LevelStarted -= OnLevelStarted;
+            _levelProgress.PlayerSpawned -= OnPlayerSpawned;
+            _levelProgress.PlayerDestroyed -= OnPlayerDestroyed;
             _updater.UnsubscribeFromUpdate(FollowPlayer);
         }
 
