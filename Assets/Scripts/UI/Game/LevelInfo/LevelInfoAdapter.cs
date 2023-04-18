@@ -1,15 +1,12 @@
 using System;
 using Gameplay.GameProgress;
-using UI.Game;
 using UnityEngine;
 
-namespace UI.Services.LevelInfo
+namespace UI.Game.LevelInfo
 {
     public sealed class LevelInfoAdapter : IDisposable
     {
         private readonly LevelInfoView _view;
-        private readonly LevelNumberView _levelNumberView;
-        private readonly EnemiesCountView _enemiesCountView;
         private readonly CurrentLevelProgress _currentLevelProgress;
 
         public LevelInfoAdapter(LevelInfoView levelInfoView, CurrentLevelProgress currentLevelProgress)

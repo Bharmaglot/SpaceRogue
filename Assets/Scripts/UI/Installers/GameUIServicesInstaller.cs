@@ -1,7 +1,7 @@
 using Gameplay.Minimap;
 using Scriptables;
+using UI.Game.LevelInfo;
 using UI.Services;
-using UI.Services.LevelInfo;
 using UnityEngine;
 using Zenject;
 
@@ -17,7 +17,6 @@ namespace UI.Installers
             InstallPlayerInfoService();
             InstallPlayerStatusBarService();
             InstallPlayerSpeedometerService();
-            InstallLevelInfoService();
             InstallMinimapService();
             
             InstallEnemyStatusBarService();
@@ -47,15 +46,7 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
-        
-        private void InstallLevelInfoService()
-        {
-            Container
-                .BindInterfacesAndSelfTo<LevelInfoAdapter>()
-                .AsSingle()
-                .NonLazy();
-        }
-        
+
         private void InstallMinimapService()
         {
             Container

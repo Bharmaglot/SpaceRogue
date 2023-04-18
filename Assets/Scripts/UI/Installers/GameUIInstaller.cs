@@ -2,6 +2,7 @@ using UI.Game;
 using UnityEngine;
 using Zenject;
 using Gameplay.Survival;
+using UI.Game.LevelInfo;
 
 namespace UI.Installers
 {
@@ -9,11 +10,11 @@ namespace UI.Installers
     {
         [field: Header("GameUICanvas")]
         [field: SerializeField] public MainCanvas MainCanvas { get; private set; }
-        [field: SerializeField] public GameCanvasView GameCanvasView{ get; private set; }
+        [field: SerializeField] public GameCanvasView GameCanvasView { get; private set; }
 
         [field: Header("Permanent UI")]
-        [field: SerializeField] public PlayerInfoView PlayerInfoView{ get; private set; }
-        [field: SerializeField] public LevelInfoView LevelInfoView{ get; private set; }
+        [field: SerializeField] public PlayerInfoView PlayerInfoView { get; private set; }
+        [field: SerializeField] public LevelInfoView LevelInfoView { get; private set; }
         [field: SerializeField] public MinimapView MinimapView { get; private set; }
 
         [field: Header("For instantiate other UI")]
@@ -62,6 +63,11 @@ namespace UI.Installers
             Container
                 .Bind<LevelInfoView>()
                 .FromInstance(LevelInfoView)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<LevelInfoAdapter>()
                 .AsSingle()
                 .NonLazy();
         }
