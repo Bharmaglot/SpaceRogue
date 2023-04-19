@@ -7,5 +7,6 @@ namespace Gameplay.Shooting.Scriptables
     {
         [field: SerializeField] public WeaponMountType WeaponMountType { get; private set; } = WeaponMountType.None;
         [field: SerializeField] public WeaponConfig MountedWeapon { get; private set; }
+        [field: SerializeField] public TurretConfig TurretConfig { get; private set; }
     }
 }

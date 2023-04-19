@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Utilities.Mathematics
@@ -20,6 +23,11 @@ namespace Utilities.Mathematics
             float x = Mathf.Cos(radianAngle);
             float y = Mathf.Sin(radianAngle);
             return new Vector3(x, y, 0);
+        }
+
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
+        {
+            return source.Select(x => new { Item = x, Value = selector(x) }).Min().Item;
         }
     }
 }

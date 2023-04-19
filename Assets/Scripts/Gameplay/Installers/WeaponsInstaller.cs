@@ -51,7 +51,7 @@ namespace Gameplay.Installers
                 .WhenInjectedInto<TurretViewFactory>();
             
             Container
-                .BindFactory<Transform, TurretView, TurretViewFactory>()
+                .BindFactory<Transform, TurretConfig, TurretView, TurretViewFactory>()
                 .AsSingle();
         }
         
