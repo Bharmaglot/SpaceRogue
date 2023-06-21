@@ -1,7 +1,7 @@
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Enums;
 using UnityEngine;
+
 
 namespace Gameplay.Shooting
 {

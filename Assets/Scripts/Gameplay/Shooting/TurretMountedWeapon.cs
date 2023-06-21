@@ -1,11 +1,13 @@
-using Gameplay.Abstracts;
-using System;
 using Gameplay.Shooting.Factories;
 using Gameplay.Shooting.Scriptables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Services;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
+using SpaceRogue.Services;
+
 
 namespace Gameplay.Shooting
 {

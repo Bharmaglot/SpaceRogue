@@ -1,8 +1,8 @@
-namespace Services.SceneLoader
+namespace SpaceRogue.Abstraction
 {
     public interface ISceneLoader
     {
-        public void LoadGameScene();
-        public void LoadMenuScene();
+        void LoadGameScene();
+        void LoadMenuScene();
     }
 }

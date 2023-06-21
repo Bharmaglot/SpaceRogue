@@ -1,9 +1,11 @@
-using System;
 using Gameplay.Damage;
 using Gameplay.Survival;
+using SpaceRogue.Enums;
+using System;
 using UnityEngine;
 
-namespace Gameplay.Abstracts
+
+namespace SpaceRogue.Abstraction
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class EntityView : MonoBehaviour, IDamageableView

@@ -1,6 +1,8 @@
-using Services;
-using Services.SceneLoader;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Services;
+using SpaceRogue.Services.SceneLoader;
 using Zenject;
+
 
 namespace Installers
 {

@@ -2,12 +2,13 @@ using Abstracts;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Player;
 using Scriptables.GameEvent;
-using Services;
+using SpaceRogue.Services;
 using UI.Game;
 using UnityEngine;
 using Utilities.Mathematics;
 using Utilities.ResourceManagement;
 using Random = System.Random;
+
 
 namespace Gameplay.GameEvent
 {

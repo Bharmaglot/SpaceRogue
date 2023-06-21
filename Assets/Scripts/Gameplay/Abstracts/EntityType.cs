@@ -1,4 +1,4 @@
-namespace Gameplay.Abstracts
+namespace SpaceRogue.Enums
 {
     public enum EntityType
     {

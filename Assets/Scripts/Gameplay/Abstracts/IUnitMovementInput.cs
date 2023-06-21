@@ -1,9 +1,10 @@
 using System;
 
-namespace Gameplay.Abstracts
+
+namespace SpaceRogue.Abstraction
 {
     public interface IUnitMovementInput
     {
-        public event Action<float> VerticalAxisInput;
+        event Action<float> VerticalAxisInput;
     }
 }

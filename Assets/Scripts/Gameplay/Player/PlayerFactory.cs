@@ -1,8 +1,8 @@
 using System;
 using Gameplay.Events;
-using Gameplay.Input;
 using Gameplay.Movement;
 using Gameplay.Player.Weapon;
+using SpaceRogue.InputSystem;
 using UnityEngine;
 using Zenject;
 

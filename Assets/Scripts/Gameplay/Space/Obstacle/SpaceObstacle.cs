@@ -1,10 +1,10 @@
-﻿using Abstracts;
-using Services;
+﻿using SpaceRogue.Abstraction;
+using SpaceRogue.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Abstracts;
 using UnityEngine;
+
 
 namespace Gameplay.Space.Obstacle
 {

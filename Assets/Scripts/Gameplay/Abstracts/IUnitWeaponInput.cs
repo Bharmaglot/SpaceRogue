@@ -1,10 +1,11 @@
 using System;
 
-namespace Gameplay.Abstracts
+
+namespace SpaceRogue.Abstraction
 {
     public interface IUnitWeaponInput
     {
-        public event Action<bool> PrimaryFireInput;
-        public event Action<bool> ChangeWeaponInput;
+        event Action<bool> PrimaryFireInput;
+        event Action<bool> ChangeWeaponInput;
     }
 }

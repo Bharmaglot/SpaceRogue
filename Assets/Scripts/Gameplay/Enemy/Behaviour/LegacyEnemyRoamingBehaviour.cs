@@ -1,13 +1,12 @@
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Enemy.Movement;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Movement;
 using Gameplay.Player;
-using Services;
+using SpaceRogue.Abstraction;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.Unity;
+
 
 namespace Gameplay.Enemy.Behaviour
 {
@@ -18,7 +17,7 @@ namespace Gameplay.Enemy.Behaviour
         private readonly UnitMovementModel _unitMovementModel;
         private readonly EnemyInput _inputController;
         private readonly Timer _timer;
-        
+
         private Vector3 _targetDirection;
         private bool _frontObstacle;
         private bool _rightObstacle;
@@ -26,18 +25,16 @@ namespace Gameplay.Enemy.Behaviour
 
         public LegacyEnemyRoamingBehaviour(
             SubscribedProperty<EnemyState> enemyState, EnemyView view, PlayerController playerController,
-            UnitMovementModel unitMovementModel, EnemyInput inputController, EnemyBehaviourConfig config) 
+            UnitMovementModel unitMovementModel, EnemyInput inputController, EnemyBehaviourConfig config)
             : base(enemyState, view, playerController, config)
         {
             _unitMovementModel = unitMovementModel;
             _inputController = inputController;
-            //_timer = new(Config.TimeToPickNewAngle, new Updater());
             PickRandomDirection();
         }
-        
+
         protected override void OnUpdate()
         {
-            //CheckTimer();
             CheckObstacles();
             MoveAtLowSpeed(_frontObstacle);
             TurnToDirection(_rightObstacle, _leftObstacle);
@@ -66,7 +63,7 @@ namespace Gameplay.Enemy.Behaviour
             var rayRightPosition = position + View.transform.TransformDirection(Vector3.right * scaleX);
             var rayLeftPosition = position + View.transform.TransformDirection(Vector3.left * scaleX);
 
-            var hitUp = Physics2D.Raycast(rayUpPosition, View.transform.TransformDirection(Vector3.up), 
+            var hitUp = Physics2D.Raycast(rayUpPosition, View.transform.TransformDirection(Vector3.up),
                 Config.FrontCheckDistance);
             var hitRight = Physics2D.Raycast(rayRightPosition, View.transform.TransformDirection(Vector3.right),
                 Config.SideCheckDistance);
@@ -143,7 +140,7 @@ namespace Gameplay.Enemy.Behaviour
             {
                 HandleTurn(UnityHelper.VectorAngleLessThanAngle(_targetDirection, currentDirection, 0));
             }
-            
+
         }
 
         private void HandleTurn(bool turningLeft)

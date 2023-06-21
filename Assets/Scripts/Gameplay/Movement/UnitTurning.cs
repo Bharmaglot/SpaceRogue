@@ -1,7 +1,7 @@
-using Abstracts;
+using SpaceRogue.Abstraction;
 using System;
-using Gameplay.Abstracts;
 using UnityEngine;
+
 
 namespace Gameplay.Movement
 {

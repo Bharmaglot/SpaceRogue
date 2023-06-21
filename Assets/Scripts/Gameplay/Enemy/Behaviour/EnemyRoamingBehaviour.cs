@@ -1,11 +1,12 @@
 using System;
-using Gameplay.Abstracts;
 using Gameplay.Enemy.Movement;
 using Gameplay.Movement;
 using Gameplay.Services;
-using Services;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Services;
 using UnityEngine;
 using Utilities.Unity;
+
 
 namespace Gameplay.Enemy.Behaviour
 {

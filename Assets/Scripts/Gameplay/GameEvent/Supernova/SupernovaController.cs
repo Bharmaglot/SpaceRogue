@@ -3,9 +3,10 @@ using Abstracts;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Space.SpaceObjects;
 using Scriptables.GameEvent;
-using Services;
+using SpaceRogue.Services;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
+
 
 namespace Gameplay.GameEvent.Supernova
 {

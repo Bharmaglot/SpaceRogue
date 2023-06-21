@@ -1,6 +1,6 @@
-using Abstracts;
+using SpaceRogue.Abstraction;
 using System;
-using Gameplay.Abstracts;
+
 
 namespace Gameplay.Enemy.Movement
 {

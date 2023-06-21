@@ -1,7 +1,8 @@
 using System;
-using Gameplay.Abstracts;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Abstraction;
 using Zenject;
+
 
 namespace Gameplay.Shooting.Factories
 {

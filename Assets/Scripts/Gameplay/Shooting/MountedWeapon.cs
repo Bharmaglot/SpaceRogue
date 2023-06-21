@@ -1,6 +1,6 @@
-using Abstracts;
-using Gameplay.Abstracts;
+using SpaceRogue.Abstraction;
 using UnityEngine;
+
 
 namespace Gameplay.Shooting
 {

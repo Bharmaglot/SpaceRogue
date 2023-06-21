@@ -1,7 +1,7 @@
 using System;
-using Gameplay.Input;
 using Gameplay.Shooting;
-using UnityEngine;
+using SpaceRogue.InputSystem;
+
 
 namespace Gameplay.Player.Weapon
 {
@@ -17,7 +17,7 @@ namespace Gameplay.Player.Weapon
 
             _playerInput.PrimaryFireInput += HandleFiringInput;
         }
-        
+
         public void Dispose()
         {
             _playerInput.PrimaryFireInput -= HandleFiringInput;

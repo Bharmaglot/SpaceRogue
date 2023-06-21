@@ -1,6 +1,8 @@
+using SpaceRogue.Abstraction;
 using UnityEngine.SceneManagement;
 
-namespace Services.SceneLoader
+
+namespace SpaceRogue.Services.SceneLoader
 {
     public sealed class SceneLoader : ISceneLoader
     {

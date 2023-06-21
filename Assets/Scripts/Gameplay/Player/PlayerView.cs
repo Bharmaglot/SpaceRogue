@@ -1,5 +1,6 @@
-using Abstracts;
-using Gameplay.Abstracts;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
+
 
 namespace Gameplay.Player
 {

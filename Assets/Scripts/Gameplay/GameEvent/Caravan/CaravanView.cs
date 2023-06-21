@@ -1,8 +1,9 @@
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Damage;
 using Gameplay.Survival;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
 using UnityEngine;
+
 
 namespace Gameplay.GameEvent.Caravan
 {

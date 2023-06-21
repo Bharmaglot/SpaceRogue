@@ -1,7 +1,7 @@
-using Abstracts;
 using System;
-using Gameplay.Abstracts;
 using UnityEngine;
+using SpaceRogue.Abstraction;
+
 
 namespace Gameplay.Movement
 {
@@ -41,13 +41,13 @@ namespace Gameplay.Movement
             {
                 _model.Accelerate(newInputValue > 0);
             }
-            
+
             if (!Mathf.Approximately(CurrentSpeed, 0))
             {
                 var forwardDirection = _transform.TransformDirection(Vector3.up);
                 _rigidbody.AddForce(forwardDirection.normalized * CurrentSpeed, ForceMode2D.Force);
             }
-            
+
             if (_rigidbody.velocity.sqrMagnitude > MaxSpeed * MaxSpeed)
             {
                 Vector3 velocity = _rigidbody.velocity.normalized * MaxSpeed;

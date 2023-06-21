@@ -1,14 +1,14 @@
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Shooting.Factories;
+using SpaceRogue.Abstraction;
 using UnityEngine;
+
 
 namespace Gameplay.Shooting
 {
     public sealed class FrontalMountedWeapon : MountedWeapon
     {
         private readonly Transform _gunPointViewTransform;
-        
+
         public FrontalMountedWeapon(Weapon weapon, EntityView entityView, GunPointViewFactory gunPointViewFactory) : base(weapon, entityView)
         {
             var unitScale = UnitViewTransform.localScale;

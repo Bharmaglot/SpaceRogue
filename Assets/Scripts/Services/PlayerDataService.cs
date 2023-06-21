@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-namespace Services
+
+namespace SpaceRogue.Services
 {
     public sealed class PlayerDataService : IDisposable
     {

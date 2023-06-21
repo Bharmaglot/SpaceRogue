@@ -1,7 +1,7 @@
-using Abstracts;
 using System;
-using Gameplay.Abstracts;
 using UnityEngine;
+using SpaceRogue.Abstraction;
+
 
 namespace Gameplay.Space.Obstacle
 {
