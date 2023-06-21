@@ -70,9 +70,9 @@ namespace Gameplay.Enemy.Behaviour
             var hitLeft = Physics2D.Raycast(rayLeftPosition, View.transform.TransformDirection(Vector3.left),
                 Config.SideCheckDistance);
 
-            _frontObstacle = hitUp.collider != null && !hitUp.collider.TryGetComponent<EntityView>(out _);
-            _rightObstacle = hitRight.collider != null && !hitRight.collider.TryGetComponent<EntityView>(out _);
-            _leftObstacle = hitLeft.collider != null && !hitLeft.collider.TryGetComponent<EntityView>(out _);
+            _frontObstacle = hitUp.collider != null && !hitUp.collider.TryGetComponent<EntityViewBase>(out _);
+            _rightObstacle = hitRight.collider != null && !hitRight.collider.TryGetComponent<EntityViewBase>(out _);
+            _leftObstacle = hitLeft.collider != null && !hitLeft.collider.TryGetComponent<EntityViewBase>(out _);
         }
 
         private void CheckTimer()

@@ -8,13 +8,13 @@ namespace Gameplay.Shooting
     [RequireComponent(typeof(CircleCollider2D))]
     public class TurretView : MonoBehaviour
     {
-        public event Action<EntityView> TargetEntersTrigger = (_) => { };
-        public event Action<EntityView> TargetExitsTrigger = (_) => { };
+        public event Action<EntityViewBase> TargetEntersTrigger = (_) => { };
+        public event Action<EntityViewBase> TargetExitsTrigger = (_) => { };
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
 
-            if (collision.TryGetComponent(out EntityView target))
+            if (collision.TryGetComponent(out EntityViewBase target))
             {
                 TargetEntersTrigger(target);
             }
@@ -22,7 +22,7 @@ namespace Gameplay.Shooting
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.TryGetComponent(out EntityView target))
+            if (collision.TryGetComponent(out EntityViewBase target))
             {
                 TargetExitsTrigger(target);
             }

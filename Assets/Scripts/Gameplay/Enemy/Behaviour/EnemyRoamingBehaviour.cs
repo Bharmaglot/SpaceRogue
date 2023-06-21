@@ -80,11 +80,11 @@ namespace Gameplay.Enemy.Behaviour
                 Config.SideCheckDistance);
 
             _frontObstacle = hitUp.collider != null 
-                && !hitUp.collider.TryGetComponent<EntityView>(out _);
+                && !hitUp.collider.TryGetComponent<EntityViewBase>(out _);
             _rightObstacle = hitRight.collider != null 
-                && !hitRight.collider.TryGetComponent<EntityView>(out _);
+                && !hitRight.collider.TryGetComponent<EntityViewBase>(out _);
             _leftObstacle = hitLeft.collider != null 
-                && !hitLeft.collider.TryGetComponent<EntityView>(out _);
+                && !hitLeft.collider.TryGetComponent<EntityViewBase>(out _);
         }
 
         private void MoveAtLowSpeed(bool frontObstacle)

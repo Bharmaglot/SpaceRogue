@@ -16,7 +16,7 @@ namespace Gameplay.Movement
         public float MaxSpeed => _model.MaxSpeed;
 
         public UnitMovement(
-            EntityView entityView,
+            EntityViewBase entityView,
             IUnitMovementInput movementInput,
             UnitMovementModel model)
         {

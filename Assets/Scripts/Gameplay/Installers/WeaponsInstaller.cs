@@ -53,7 +53,7 @@ namespace Gameplay.Installers
                 .WhenInjectedInto<TurretViewFactory>();
 
             Container
-                .BindFactory<Weapon, EntityView, TurretViewFactory, GunPointViewFactory, TurretConfig, TurretMountedWeapon, TurretMountedWeaponFactory>()
+                .BindFactory<Weapon, EntityViewBase, TurretViewFactory, GunPointViewFactory, TurretConfig, TurretMountedWeapon, TurretMountedWeaponFactory>()
                 .AsSingle();
 
             Container
@@ -84,7 +84,7 @@ namespace Gameplay.Installers
                 .AsCached();
 
             Container
-                .BindIFactory<MountedWeaponConfig, EntityView, MountedWeapon>()
+                .BindIFactory<MountedWeaponConfig, EntityViewBase, MountedWeapon>()
                 .FromFactory<MountedWeaponFactory>();
 
             Container
@@ -95,7 +95,7 @@ namespace Gameplay.Installers
         private void InstallUnitWeaponFactory()
         {
             Container
-                .BindFactory<EntityView, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
+                .BindFactory<EntityViewBase, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
                 .AsSingle();
         }
     }

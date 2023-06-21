@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 using UnityDebug = UnityEngine.Debug;
 
 
-namespace Abstracts
+namespace SpaceRogue.Abstraction
 {
     public abstract class BaseController : IDisposable
     {

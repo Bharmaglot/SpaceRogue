@@ -11,14 +11,14 @@ namespace Gameplay.Survival
 {
     public sealed class EntitySurvival : IDisposable
     {
-        private readonly EntityView _entityView;
+        private readonly EntityViewBase _entityView;
         private readonly EntityDamageImmunityFrame _entityDamageImmunityFrame;
 
         public EntityHealth EntityHealth { get; }
         public EntityShield EntityShield { get; }
         public event Action UnitDestroyed = () => { };
 
-        public EntitySurvival(EntityView entityView, EntityHealth entityHealth, EntityShield entityShield, EntityDamageImmunityFrame entityDamageImmunityFrame)
+        public EntitySurvival(EntityViewBase entityView, EntityHealth entityHealth, EntityShield entityShield, EntityDamageImmunityFrame entityDamageImmunityFrame)
         {
             EntityHealth = entityHealth;
             EntityShield = entityShield;

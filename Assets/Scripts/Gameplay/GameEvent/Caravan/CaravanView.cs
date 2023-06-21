@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Gameplay.GameEvent.Caravan
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public sealed class CaravanView : EntityView, IDamagingView
+    public sealed class CaravanView : EntityViewBase, IDamagingView
     {
         public override EntityType EntityType => EntityType.EnemyAssistant;
         public bool IsLastDamageFromPlayer { get; private set; }

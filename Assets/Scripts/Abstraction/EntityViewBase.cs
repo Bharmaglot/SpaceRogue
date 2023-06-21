@@ -8,7 +8,7 @@ using UnityEngine;
 namespace SpaceRogue.Abstraction
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public abstract class EntityView : MonoBehaviour, IDamageableView
+    public abstract class EntityViewBase : MonoBehaviour, IDamageableView
     {
         public abstract EntityType EntityType { get; }
         public event Action<DamageModel> DamageTaken = _ => { };

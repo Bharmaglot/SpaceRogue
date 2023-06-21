@@ -1,4 +1,3 @@
-using Abstracts;
 using Gameplay.Player;
 using System.Collections.Generic;
 using Gameplay.Enemy.Scriptables;
@@ -6,6 +5,8 @@ using UnityEngine;
 using Utilities.Mathematics;
 using Utilities.ResourceManagement;
 using Utilities.Unity;
+using SpaceRogue.Abstraction;
+
 
 namespace Gameplay.Enemy
 {

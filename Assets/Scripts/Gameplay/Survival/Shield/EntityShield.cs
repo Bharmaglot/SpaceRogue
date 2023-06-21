@@ -1,5 +1,7 @@
 using System;
 using Gameplay.Mechanics.Timer;
+using SpaceRogue.Abstraction;
+
 
 namespace Gameplay.Survival.Shield
 {

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Gameplay.Enemy
 {
-    public sealed class EnemyView : EntityView
+    public sealed class EnemyView : EntityViewBase
     {
         public override EntityType EntityType => EntityType.Enemy;
 

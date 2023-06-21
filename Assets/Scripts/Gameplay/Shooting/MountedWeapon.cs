@@ -9,7 +9,7 @@ namespace Gameplay.Shooting
         protected Weapon Weapon { get; set; }
         protected Transform UnitViewTransform { get; set; }
         
-        public MountedWeapon(Weapon weapon, EntityView entityView)
+        public MountedWeapon(Weapon weapon, EntityViewBase entityView)
         {
             Weapon = weapon;
             UnitViewTransform = entityView.transform;

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Gameplay.Shooting.Factories
 {
-    public class TurretMountedWeaponFactory : PlaceholderFactory<Weapon, EntityView, TurretViewFactory, GunPointViewFactory, TurretConfig, TurretMountedWeapon>
+    public class TurretMountedWeaponFactory : PlaceholderFactory<Weapon, EntityViewBase, TurretViewFactory, GunPointViewFactory, TurretConfig, TurretMountedWeapon>
     {
     }
 }

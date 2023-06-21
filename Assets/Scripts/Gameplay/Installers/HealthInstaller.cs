@@ -25,7 +25,7 @@ namespace Gameplay.Installers
                 .AsSingle();
             
             Container
-                .BindFactory<EntityView, EntitySurvivalConfig, EntitySurvival, EntitySurvivalFactory>()
+                .BindFactory<EntityViewBase, EntitySurvivalConfig, EntitySurvival, EntitySurvivalFactory>()
                 .AsSingle();
         }
     }

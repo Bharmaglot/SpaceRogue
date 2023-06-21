@@ -19,7 +19,7 @@ namespace Gameplay.Movement
 
         public UnitTurningMouse(
             CameraView cameraView,
-            EntityView entityView,
+            EntityViewBase entityView,
             IUnitTurningMouseInput turningMouseInput,
             UnitMovementModel model)
         {

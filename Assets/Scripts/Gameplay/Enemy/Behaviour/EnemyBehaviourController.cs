@@ -1,10 +1,11 @@
-using Abstracts;
 using Gameplay.Enemy.Movement;
 using Gameplay.Movement;
 using Gameplay.Player;
 using Gameplay.Shooting;
+using SpaceRogue.Abstraction;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
+
 
 namespace Gameplay.Enemy.Behaviour
 {

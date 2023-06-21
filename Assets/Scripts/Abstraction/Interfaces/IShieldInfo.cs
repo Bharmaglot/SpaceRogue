@@ -1,4 +1,4 @@
-namespace Gameplay.Survival.Shield
+namespace SpaceRogue.Abstraction
 {
     public interface IShieldInfo
     {

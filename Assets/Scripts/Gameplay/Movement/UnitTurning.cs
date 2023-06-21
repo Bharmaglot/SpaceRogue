@@ -13,7 +13,7 @@ namespace Gameplay.Movement
         private readonly UnitMovementModel _model;
 
         public UnitTurning(
-            EntityView entityView,
+            EntityViewBase entityView,
             IUnitTurningInput turningInput,
             UnitMovementModel model)
         {

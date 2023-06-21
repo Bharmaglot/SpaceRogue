@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Gameplay.Asteroids
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
-    public class AsteroidView : EntityView, IDamagingView
+    public class AsteroidView : EntityViewBase, IDamagingView
     {
         public DamageModel DamageModel { get; private set; }
 
