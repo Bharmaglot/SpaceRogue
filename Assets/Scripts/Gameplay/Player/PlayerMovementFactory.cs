@@ -11,7 +11,7 @@ namespace Gameplay.Player
     {
         private readonly UnitMovementFactory _unitMovementFactory;
 
-        public event Action<UnitMovement> PlayerMovementCreated = _ => { };
+        public event Action<UnitMovement> PlayerMovementCreated;
 
         private PlayerMovementFactory(UnitMovementFactory unitMovementFactory)
         {

@@ -1,3 +1,4 @@
+using Gameplay.Mechanics.Timer;
 using Gameplay.Movement;
 using SpaceRogue.Abstraction;
 using System;
@@ -16,6 +17,8 @@ namespace SpaceRogue.Player.Movement
         private readonly IUnitMovementInput _movementInput;
         private readonly UnitMovementModel _model;
 
+        private Timer _dashTimer;
+
         #endregion
 
 
@@ -32,21 +35,26 @@ namespace SpaceRogue.Player.Movement
         public UnitMovement(
             EntityViewBase entityView,
             IUnitMovementInput movementInput,
-            UnitMovementModel model)
+            UnitMovementModel model,
+            TimerFactory timerFactory)
         {
             _rigidbody = entityView.GetComponent<Rigidbody2D>();
             _transform = entityView.transform;
             _movementInput = movementInput;
             _model = model;
 
+            _dashTimer = timerFactory.Create(_model.UnitMovementConfig.DashCooldown);
+
             _movementInput.VerticalAxisInput += HandleVerticalInput;
-            //_movementInput.HorizontalAxisInput += HorizontalAxisInputHandler;
+            _movementInput.HorizontalAxisInput += HorizontalAxisInputHandler;
         }
 
         public void Dispose()
         {
             _movementInput.VerticalAxisInput -= HandleVerticalInput;
-            //_movementInput.HorizontalAxisInput -= HorizontalAxisInputHandler;
+            _movementInput.HorizontalAxisInput -= HorizontalAxisInputHandler;
+
+            _dashTimer.Dispose();
         }
 
         #endregion
@@ -61,8 +69,17 @@ namespace SpaceRogue.Player.Movement
                 return;
             }
 
-            Debug.LogError(_rigidbody);
-            Debug.LogError("val = " + axisValue);
+            if (!_dashTimer.IsExpired)
+            {
+                return;
+            }
+
+            _dashTimer.Start();
+
+            var direction = axisValue < 0.0f ? Vector2.left : Vector2.right;
+            var force = _rigidbody.mass * Mathf.Sqrt(_model.UnitMovementConfig.DashLength * Physics.gravity.magnitude) * direction;
+
+            _rigidbody.AddForce(force, ForceMode2D.Impulse);
         }
 
         private void HandleVerticalInput(float newInputValue)

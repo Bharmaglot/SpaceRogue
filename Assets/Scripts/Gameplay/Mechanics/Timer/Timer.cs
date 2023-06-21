@@ -17,19 +17,19 @@ namespace Gameplay.Mechanics.Timer
 
         private float _maxValue;
         private float _currentValue;
-        
+
         public Timer(float value, Updater updater)
         {
             if (value <= 0.0f) throw new ArgumentException("Timer cannot be initialized with zero!", nameof(value));
-            
+
             _updater = updater;
-            
+
             _maxValue = value;
             _currentValue = 0.0f;
 
             _updater.SubscribeToUpdate(Tick);
         }
-        
+
         public void Dispose()
         {
             _updater.UnsubscribeFromUpdate(Tick);
@@ -44,7 +44,7 @@ namespace Gameplay.Mechanics.Timer
         public void SetMaxValue(float newMaxValue)
         {
             if (newMaxValue == 0.0f) throw new ArgumentException("Timer cannot be initialized with zero!", nameof(newMaxValue));
-            
+
             float currentPercentage = _currentValue / _maxValue;
             float newCurrentValue = newMaxValue * currentPercentage;
             _maxValue = newMaxValue;
