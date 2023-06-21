@@ -22,15 +22,15 @@ namespace Gameplay.Movement
             _turningInput = turningInput;
             _model = model;
 
-            _turningInput.HorizontalAxisInput += HandleHorizontalInput;
+            _turningInput.TurnAxisInput += TurnHandler;
         }
 
         public void Dispose()
         {
-            _turningInput.HorizontalAxisInput -= HandleHorizontalInput;
+            _turningInput.TurnAxisInput -= TurnHandler;
         }
 
-        private void HandleHorizontalInput(float newInputValue)
+        private void TurnHandler(float newInputValue)
         {
             Quaternion newRotation = Quaternion.identity;
             switch (newInputValue)

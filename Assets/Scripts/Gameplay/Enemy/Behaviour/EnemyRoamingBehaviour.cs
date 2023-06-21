@@ -1,8 +1,8 @@
 using System;
-using Gameplay.Enemy.Movement;
 using Gameplay.Movement;
 using Gameplay.Services;
 using SpaceRogue.Abstraction;
+using SpaceRogue.Enemy.Movement;
 using SpaceRogue.Services;
 using UnityEngine;
 using Utilities.Unity;

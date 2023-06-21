@@ -1,5 +1,5 @@
-using Gameplay.Movement;
 using Gameplay.Player;
+using SpaceRogue.Player.Movement;
 using SpaceRogue.Services;
 using System;
 using UI.Game;

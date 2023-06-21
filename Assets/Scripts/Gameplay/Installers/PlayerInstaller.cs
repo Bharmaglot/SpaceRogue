@@ -6,6 +6,7 @@ using Gameplay.Shooting.Scriptables;
 using Gameplay.Survival;
 using Scriptables;
 using SpaceRogue.Abstraction;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
 

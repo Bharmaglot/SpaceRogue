@@ -2,6 +2,8 @@ using System;
 using Gameplay.Movement;
 using Gameplay.Shooting;
 using Gameplay.Survival;
+using SpaceRogue.Player.Movement;
+
 
 namespace Gameplay.Player
 {

@@ -1,5 +1,6 @@
 using Gameplay.Movement;
 using SpaceRogue.Abstraction;
+using SpaceRogue.Player.Movement;
 using System;
 using Zenject;
 
@@ -20,7 +21,7 @@ namespace Gameplay.Player
         public override UnitMovement Create(PlayerView playerView, IUnitMovementInput movementInput, UnitMovementModel model)
         {
             var playerMovement = _unitMovementFactory.Create(playerView, movementInput, model);
-            PlayerMovementCreated.Invoke(playerMovement);
+            PlayerMovementCreated?.Invoke(playerMovement);
             return playerMovement;
         }
     }

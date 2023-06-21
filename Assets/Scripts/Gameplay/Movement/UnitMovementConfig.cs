@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+
 
 namespace Gameplay.Movement
 {
@@ -23,5 +23,9 @@ namespace Gameplay.Movement
         [SerializeField] public float maximumTurnSpeed = 0.1f;
         [Min(0.1f)]
         [SerializeField] public float turnAccelerationTime = 0.1f;
+
+        [field: Header("Dash")]
+        [field: SerializeField] public float DashLength { get; private set; } = 0.1f;
+        [field: SerializeField] public float DashCooldown { get; private set; } = 0.1f;
     }
 }

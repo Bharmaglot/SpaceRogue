@@ -1,9 +1,10 @@
-using Gameplay.Enemy.Movement;
 using Gameplay.Player;
 using Gameplay.Shooting;
+using SpaceRogue.Enemy.Movement;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.Unity;
+
 
 namespace Gameplay.Enemy.Behaviour
 {

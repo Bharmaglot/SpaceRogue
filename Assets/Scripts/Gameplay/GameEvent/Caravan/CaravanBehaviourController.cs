@@ -1,6 +1,6 @@
-using Gameplay.Enemy.Movement;
 using Gameplay.Movement;
 using SpaceRogue.Abstraction;
+using SpaceRogue.Enemy.Movement;
 using UnityEngine;
 using Utilities.Mathematics;
 using Utilities.Unity;

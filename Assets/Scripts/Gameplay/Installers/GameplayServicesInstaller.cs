@@ -6,7 +6,9 @@ using Gameplay.Movement;
 using Gameplay.Services;
 using Scriptables;
 using SpaceRogue.Abstraction;
+using SpaceRogue.Enemy.Movement;
 using SpaceRogue.InputSystem;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
 

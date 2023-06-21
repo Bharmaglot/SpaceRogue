@@ -1,8 +1,9 @@
-using Gameplay.Enemy.Movement;
 using Gameplay.Movement;
 using Gameplay.Player;
 using Gameplay.Shooting;
 using SpaceRogue.Abstraction;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 

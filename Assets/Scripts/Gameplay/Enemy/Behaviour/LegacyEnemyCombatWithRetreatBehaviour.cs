@@ -1,7 +1,8 @@
-using Gameplay.Enemy.Movement;
 using Gameplay.Player;
 using Gameplay.Shooting;
+using SpaceRogue.Enemy.Movement;
 using Utilities.Reactive.SubscriptionProperty;
+
 
 namespace Gameplay.Enemy.Behaviour
 {
@@ -12,7 +13,7 @@ namespace Gameplay.Enemy.Behaviour
         public LegacyEnemyCombatWithRetreatBehaviour(
             SubscribedProperty<EnemyState> enemyState, EnemyView view, PlayerController playerController,
             EnemyInput inputController, Weapon frontalTurret, EnemyBehaviourConfig config,
-            EnemyState lastEnemyState) 
+            EnemyState lastEnemyState)
             : base(enemyState, view, playerController, inputController, frontalTurret, config)
         {
             _lastEnemyState = lastEnemyState;

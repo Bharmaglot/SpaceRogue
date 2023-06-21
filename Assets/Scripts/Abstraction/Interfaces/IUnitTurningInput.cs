@@ -5,6 +5,6 @@ namespace SpaceRogue.Abstraction
 {
     public interface IUnitTurningInput
     {
-        event Action<float> HorizontalAxisInput;
+        event Action<float> TurnAxisInput;
     }
 }

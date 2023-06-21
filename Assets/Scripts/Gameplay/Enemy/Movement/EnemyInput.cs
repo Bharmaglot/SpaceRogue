@@ -2,16 +2,26 @@ using SpaceRogue.Abstraction;
 using System;
 
 
-namespace Gameplay.Enemy.Movement
+namespace SpaceRogue.Enemy.Movement
 {
     public sealed class EnemyInput : IUnitMovementInput, IUnitTurningInput, IUnitWeaponInput
     {
-        public event Action<float> VerticalAxisInput = _ => { };
-        public event Action<float> HorizontalAxisInput = _ => { };
 
-        public event Action<bool> PrimaryFireInput = _ => { };
-        public event Action<bool> ChangeWeaponInput = _ => { };
+        #region Events
 
+        public event Action<float> VerticalAxisInput;
+        public event Action<float> HorizontalAxisInput;
+
+        public event Action<float> TurnAxisInput;
+
+        public event Action<bool> PrimaryFireInput;
+        public event Action<bool> ChangeWeaponInput;
+
+        #endregion
+
+
+        #region Metods
+                
         public void Accelerate()
         {
             VerticalAxisInput(1);
@@ -29,22 +39,28 @@ namespace Gameplay.Enemy.Movement
         
         public void TurnRight(float value = 1.0f)
         {
-            HorizontalAxisInput(Math.Abs(value));
+            TurnAxisInput?.Invoke(Math.Abs(value));
+            //HorizontalAxisInput(Math.Abs(value));
         }
         
         public void TurnLeft(float value = 1.0f)
         {
-            HorizontalAxisInput(-Math.Abs(value));
+            TurnAxisInput?.Invoke(-Math.Abs(value));
+            //HorizontalAxisInput(-Math.Abs(value));
         }
         
         public void StopTurning()
         {
-            HorizontalAxisInput(0);
+            TurnAxisInput?.Invoke(0);
+            //HorizontalAxisInput(0);
         }
 
         public void Fire()
         {
             PrimaryFireInput.Invoke(true);
         }
+
+        #endregion
+
     }
 }
