@@ -77,9 +77,15 @@ namespace SpaceRogue.Player.Movement
             _dashTimer.Start();
 
             var direction = axisValue < 0.0f ? Vector2.left : Vector2.right;
+
+            if (_transform.up.y < 0.0f)
+            {
+                direction = -direction;
+            }
+
             var force = _rigidbody.mass * Mathf.Sqrt(_model.UnitMovementConfig.DashLength * Physics.gravity.magnitude) * direction;
 
-            _rigidbody.AddForce(force, ForceMode2D.Impulse);
+            _rigidbody.AddRelativeForce(force, ForceMode2D.Impulse);
         }
 
         private void HandleVerticalInput(float newInputValue)
