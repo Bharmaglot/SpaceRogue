@@ -10,12 +10,18 @@ namespace SpaceRogue.Enemy.Movement
         #region Events
 
         public event Action<float> VerticalAxisInput;
+
+#pragma warning disable 67
         public event Action<float> HorizontalAxisInput;
+#pragma warning restore 67
 
         public event Action<float> TurnAxisInput;
 
         public event Action<bool> PrimaryFireInput;
+
+#pragma warning disable 67
         public event Action<bool> ChangeWeaponInput;
+#pragma warning restore 67
 
         #endregion
 
