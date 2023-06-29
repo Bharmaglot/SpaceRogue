@@ -19,5 +19,6 @@ MonoBehaviour:
   startingTurnSpeed: 3
   maximumTurnSpeed: 10
   turnAccelerationTime: 0.2
-  <DashLength>k__BackingField: 10
+  <DashLength>k__BackingField: 40
   <DashCooldown>k__BackingField: 5
+  <DashCompleteTime>k__BackingField: 2

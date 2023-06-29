@@ -17,7 +17,13 @@ namespace SpaceRogue.Player.Movement
         private readonly IUnitMovementInput _movementInput;
         private readonly UnitMovementModel _model;
 
-        private Timer _dashTimer;
+        private Timer _dashCooldownTimer;
+        private Timer _dashTravelTimer;
+
+        private Vector2 _dashForce;
+        private Vector2 _dashPreviousPosition;
+
+        private float _dashRemainingDistance;
 
         #endregion
 
@@ -43,7 +49,8 @@ namespace SpaceRogue.Player.Movement
             _movementInput = movementInput;
             _model = model;
 
-            _dashTimer = timerFactory.Create(_model.UnitMovementConfig.DashCooldown);
+            _dashCooldownTimer = timerFactory.Create(_model.UnitMovementConfig.DashCooldown);
+            _dashTravelTimer = timerFactory.Create(_model.UnitMovementConfig.DashCompleteTime);
 
             _movementInput.VerticalAxisInput += HandleVerticalInput;
             _movementInput.HorizontalAxisInput += HorizontalAxisInputHandler;
@@ -54,7 +61,7 @@ namespace SpaceRogue.Player.Movement
             _movementInput.VerticalAxisInput -= HandleVerticalInput;
             _movementInput.HorizontalAxisInput -= HorizontalAxisInputHandler;
 
-            _dashTimer.Dispose();
+            _dashCooldownTimer.Dispose();
         }
 
         #endregion
@@ -69,12 +76,12 @@ namespace SpaceRogue.Player.Movement
                 return;
             }
 
-            if (!_dashTimer.IsExpired)
+            if (!_dashCooldownTimer.IsExpired)
             {
                 return;
             }
 
-            _dashTimer.Start();
+            _dashCooldownTimer.Start();
 
             var direction = axisValue < 0.0f ? Vector2.left : Vector2.right;
 
@@ -83,9 +90,48 @@ namespace SpaceRogue.Player.Movement
                 direction = -direction;
             }
 
-            var force = _rigidbody.mass * Mathf.Sqrt(_model.UnitMovementConfig.DashLength * Physics.gravity.magnitude) * direction;
+            // This is correct, but don't work
+            //var force = _rigidbody.mass * Mathf.Sqrt(2 * _model.UnitMovementConfig.DashLength * Physics2D.gravity.magnitude) * direction;
 
-            _rigidbody.AddRelativeForce(force, ForceMode2D.Impulse);
+            // This is correct, but don't work
+            //var travelTime = _model.UnitMovementConfig.DashLength / _model.UnitMovementConfig.maximumSpeed;// Time to stop. Need speed
+            //var force = _rigidbody.mass * _model.UnitMovementConfig.DashLength * direction / travelTime;
+
+            // Correct for distance less 28-30 units
+            //var force = _rigidbody.mass * Mathf.Pow(_model.UnitMovementConfig.DashLength, 3) / Mathf.Pow(Physics2D.gravity.magnitude, 2) * direction;
+
+            //var physicsCorrectionFactor = _model.UnitMovementConfig.DashLength > 50.0f ? 2 : 1;
+            //_dashForce = _rigidbody.mass * _model.UnitMovementConfig.DashLength * direction / Mathf.Pow(_model.UnitMovementConfig.DashCompleteTime * physicsCorrectionFactor, 2.0f);
+
+            _dashForce = _rigidbody.mass * 1000.0f * direction;
+            _dashRemainingDistance = _model.UnitMovementConfig.DashLength;
+
+            _dashTravelTimer.OnTick += OnTickTimerHandler;
+            _dashTravelTimer.OnExpire += DashCompleteHandler;
+            _dashTravelTimer.Start();
+            _dashPreviousPosition = _rigidbody.position;
+        }
+
+        private void DashCompleteHandler()
+        {
+            _dashTravelTimer.OnTick -= OnTickTimerHandler;
+        }
+
+        private void OnTickTimerHandler()
+        {
+            //_dashForce = Vector2.Lerp(_dashForce, Vector2.zero, 1.0f - _dashTravelTimer.CurrentValue / _model.UnitMovementConfig.DashCompleteTime);
+            Debug.Log("t = " + _dashTravelTimer.CurrentValue);
+            //Debug.Log("F = " + _dashForce);
+            _rigidbody.AddRelativeForce(_dashForce);
+            var elapsedDistance = Vector2.Distance(_dashPreviousPosition, _rigidbody.position);
+            _dashPreviousPosition = _rigidbody.position;
+            _dashRemainingDistance -= elapsedDistance;
+            
+            if (_dashRemainingDistance <= 0.0f)
+            {
+                _rigidbody.AddRelativeForce(-_dashForce);
+                DashCompleteHandler();
+            }
         }
 
         private void HandleVerticalInput(float newInputValue)

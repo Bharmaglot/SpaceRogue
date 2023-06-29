@@ -25,7 +25,8 @@ namespace Gameplay.Movement
         [SerializeField] public float turnAccelerationTime = 0.1f;
 
         [field: Header("Dash")]
-        [field: SerializeField, Tooltip("Units")] public float DashLength { get; private set; } = 0.1f;
-        [field: SerializeField, Tooltip("Seconds")] public float DashCooldown { get; private set; } = 0.1f;
+        [field: SerializeField, Tooltip("Units"), Range(0.1f, 100.0f)] public float DashLength { get; private set; } = 0.1f;
+        [field: SerializeField, Tooltip("Seconds"), Range(0.1f, 60.0f)] public float DashCooldown { get; private set; } = 0.1f;
+        [field: SerializeField, Tooltip("Seconds"), Range(0.1f, 10.0f)] public float DashCompleteTime { get; private set; } = 0.1f;
     }
 }
