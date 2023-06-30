@@ -22,6 +22,7 @@ namespace SpaceRogue.Player.Movement
 
         private Vector2 _dashForce;
         private Vector2 _dashPreviousPosition;
+        private Vector2 _dashStartVelocity;
 
         private float _dashRemainingDistance;
 
@@ -50,7 +51,7 @@ namespace SpaceRogue.Player.Movement
             _model = model;
 
             _dashCooldownTimer = timerFactory.Create(_model.UnitMovementConfig.DashCooldown);
-            _dashTravelTimer = timerFactory.Create(_model.UnitMovementConfig.DashCompleteTime);
+            _dashTravelTimer = timerFactory.Create(_model.UnitMovementConfig.DashCooldown);
 
             _movementInput.VerticalAxisInput += HandleVerticalInput;
             _movementInput.HorizontalAxisInput += HorizontalAxisInputHandler;
@@ -103,33 +104,50 @@ namespace SpaceRogue.Player.Movement
             //var physicsCorrectionFactor = _model.UnitMovementConfig.DashLength > 50.0f ? 2 : 1;
             //_dashForce = _rigidbody.mass * _model.UnitMovementConfig.DashLength * direction / Mathf.Pow(_model.UnitMovementConfig.DashCompleteTime * physicsCorrectionFactor, 2.0f);
 
-            _dashForce = _rigidbody.mass * 1000.0f * direction;
-            _dashRemainingDistance = _model.UnitMovementConfig.DashLength;
+            CalculateForce(_model.UnitMovementConfig.DashLength, out var force, out _dashRemainingDistance);
+            _dashForce = _rigidbody.mass * force * direction;
 
             _dashTravelTimer.OnTick += OnTickTimerHandler;
             _dashTravelTimer.OnExpire += DashCompleteHandler;
-            _dashTravelTimer.Start();
             _dashPreviousPosition = _rigidbody.position;
+            _dashStartVelocity = _rigidbody.velocity;
+            _dashTravelTimer.Start();
+        }
+
+        /// <summary>
+        /// This is a cubic regression formula that calculates the applied force to move a given distance
+        /// </summary>
+        /// <param name="dashLength">Distance for dash</param>
+        /// <param name="forceMagnitude">Magnitude of force for using for dash</param>
+        /// <param name="stopDistance">Traveled distance after which the force must stop</param>
+        private void CalculateForce(float dashLength, out float forceMagnitude, out float stopDistance)
+        {
+            var stopFactor = 0.5f;
+
+            var x = stopFactor * dashLength;
+            var y = 0.431f * Mathf.Pow(x, 3) - 9.320f * Mathf.Pow(x, 2) + 102.012f * x - 99.366f;
+
+            forceMagnitude = y;
+            stopDistance = stopFactor * dashLength;
         }
 
         private void DashCompleteHandler()
         {
+            _rigidbody.velocity = _dashStartVelocity;
             _dashTravelTimer.OnTick -= OnTickTimerHandler;
+            _dashTravelTimer.OnExpire -= DashCompleteHandler;
         }
 
         private void OnTickTimerHandler()
         {
-            //_dashForce = Vector2.Lerp(_dashForce, Vector2.zero, 1.0f - _dashTravelTimer.CurrentValue / _model.UnitMovementConfig.DashCompleteTime);
-            Debug.Log("t = " + _dashTravelTimer.CurrentValue);
-            //Debug.Log("F = " + _dashForce);
             _rigidbody.AddRelativeForce(_dashForce);
+
             var elapsedDistance = Vector2.Distance(_dashPreviousPosition, _rigidbody.position);
             _dashPreviousPosition = _rigidbody.position;
             _dashRemainingDistance -= elapsedDistance;
-            
+
             if (_dashRemainingDistance <= 0.0f)
             {
-                _rigidbody.AddRelativeForce(-_dashForce);
                 DashCompleteHandler();
             }
         }
