@@ -1,5 +1,6 @@
+using SpaceRogue.Abstraction;
 using System;
-using Gameplay.Abstracts;
+
 
 namespace Gameplay.Shooting
 {

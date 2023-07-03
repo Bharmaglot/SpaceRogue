@@ -1,11 +1,12 @@
-using Gameplay.Abstracts;
 using Gameplay.Shooting.Factories;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Abstraction;
 using Zenject;
+
 
 namespace Gameplay.Shooting
 {
-    public sealed class UnitWeaponFactory : PlaceholderFactory<EntityView, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon>
+    public sealed class UnitWeaponFactory : PlaceholderFactory<EntityViewBase, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon>
     {
         private readonly MountedWeaponFactory _mountedWeaponFactory;
 
@@ -14,7 +15,7 @@ namespace Gameplay.Shooting
             _mountedWeaponFactory = mountedWeaponFactory;
         }
 
-        public override UnitWeapon Create(EntityView entityView, MountedWeaponConfig config, IUnitWeaponInput input)
+        public override UnitWeapon Create(EntityViewBase entityView, MountedWeaponConfig config, IUnitWeaponInput input)
         {
             var mountedWeapon = _mountedWeaponFactory.Create(config, entityView);
             return new UnitWeapon(mountedWeapon, input);

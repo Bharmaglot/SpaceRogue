@@ -1,11 +1,12 @@
 using System;
-using Gameplay.Abstracts;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Abstraction;
 using Zenject;
+
 
 namespace Gameplay.Shooting.Factories
 {
-    public class MountedWeaponFactory : IFactory<MountedWeaponConfig, EntityView, MountedWeapon>
+    public class MountedWeaponFactory : IFactory<MountedWeaponConfig, EntityViewBase, MountedWeapon>
     {
         private readonly WeaponFactory _weaponFactory;
         private readonly GunPointViewFactory _gunPointViewFactory;
@@ -20,7 +21,7 @@ namespace Gameplay.Shooting.Factories
             _turretMountedWeaponFactory = turretMountedWeaponFactory;
         }
 
-        public MountedWeapon Create(MountedWeaponConfig config, EntityView entityView)
+        public MountedWeapon Create(MountedWeaponConfig config, EntityViewBase entityView)
         {
             return config.WeaponMountType switch
             {
@@ -32,6 +33,6 @@ namespace Gameplay.Shooting.Factories
             };
         }
         
-        private Weapon CreateWeapon(MountedWeaponConfig config, EntityView entityView) => _weaponFactory.Create(config.MountedWeapon, entityView.EntityType);
+        private Weapon CreateWeapon(MountedWeaponConfig config, EntityViewBase entityView) => _weaponFactory.Create(config.MountedWeapon, entityView.EntityType);
     }
 }

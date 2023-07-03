@@ -1,7 +1,7 @@
-namespace Abstracts
+namespace SpaceRogue.Abstraction
 {
     public interface IIdentityItem<out TType>
     {
-        public TType Id { get; }
+        TType Id { get; }
     }
 }

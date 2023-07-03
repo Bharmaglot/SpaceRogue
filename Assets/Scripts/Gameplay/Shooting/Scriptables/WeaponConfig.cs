@@ -1,6 +1,7 @@
 using System;
-using Abstracts;
+using SpaceRogue.Abstraction;
 using UnityEngine;
+
 
 namespace Gameplay.Shooting.Scriptables
 {

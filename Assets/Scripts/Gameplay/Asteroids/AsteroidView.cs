@@ -1,13 +1,14 @@
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Damage;
 using Gameplay.Survival;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
 using UnityEngine;
+
 
 namespace Gameplay.Asteroids
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
-    public class AsteroidView : EntityView, IDamagingView
+    public class AsteroidView : EntityViewBase, IDamagingView
     {
         public DamageModel DamageModel { get; private set; }
 
@@ -25,7 +26,7 @@ namespace Gameplay.Asteroids
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.TryGetComponent(out IDamageableView victim)) DealDamage(victim); 
+            if (collision.gameObject.TryGetComponent(out IDamageableView victim)) DealDamage(victim);
             //TODO asteroid destroy on collision with heavy objects
         }
     }

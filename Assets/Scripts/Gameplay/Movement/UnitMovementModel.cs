@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace Gameplay.Movement
 {
     public sealed class UnitMovementModel
@@ -13,8 +14,8 @@ namespace Gameplay.Movement
 
         public float CurrentSpeed { get; private set; }
         public float CurrentTurnRate { get; private set; }
-        
-        
+        public UnitMovementConfig UnitMovementConfig => _config;
+
         public UnitMovementModel(UnitMovementConfig config)
         {
             _config = config;

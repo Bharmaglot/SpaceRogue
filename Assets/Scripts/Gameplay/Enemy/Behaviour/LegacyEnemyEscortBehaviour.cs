@@ -1,8 +1,9 @@
-using Gameplay.Enemy.Movement;
 using Gameplay.Player;
+using SpaceRogue.Enemy.Movement;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.Unity;
+
 
 namespace Gameplay.Enemy.Behaviour
 {
@@ -15,7 +16,7 @@ namespace Gameplay.Enemy.Behaviour
         private float _distance;
 
         public LegacyEnemyEscortBehaviour(
-            SubscribedProperty<EnemyState> enemyState, 
+            SubscribedProperty<EnemyState> enemyState,
             EnemyView view,
             PlayerController playerController,
             EnemyInput inputController,
@@ -28,7 +29,7 @@ namespace Gameplay.Enemy.Behaviour
 
         protected override void OnUpdate()
         {
-            if(_target == null)
+            if (_target == null)
             {
                 ChangeState(EnemyState.PassiveRoaming);
                 return;

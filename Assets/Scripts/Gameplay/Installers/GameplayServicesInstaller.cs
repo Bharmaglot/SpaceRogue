@@ -1,14 +1,17 @@
-using Gameplay.Abstracts;
 using Gameplay.Background;
 using Gameplay.Enemy.Movement;
-using Gameplay.Input;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Movement;
 using Gameplay.Services;
 using Scriptables;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.InputSystem;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
+
 
 namespace Gameplay.Installers
 {
@@ -98,15 +101,15 @@ namespace Gameplay.Installers
                 .AsSingle();
 
             Container
-                .BindFactory<EntityView, IUnitMovementInput, UnitMovementModel, UnitMovement, UnitMovementFactory>()
+                .BindFactory<EntityViewBase, IUnitMovementInput, UnitMovementModel, UnitMovement, UnitMovementFactory>()
                 .AsSingle();
 
             Container
-                .BindFactory<EntityView, IUnitTurningInput, UnitMovementModel, UnitTurning, UnitTurningFactory>()
+                .BindFactory<EntityViewBase, IUnitTurningInput, UnitMovementModel, UnitTurning, UnitTurningFactory>()
                 .AsSingle();
             
             Container
-                .BindFactory<EntityView, IUnitTurningMouseInput, UnitMovementModel, UnitTurningMouse, UnitTurningMouseFactory>()
+                .BindFactory<EntityViewBase, IUnitTurningMouseInput, UnitMovementModel, UnitTurningMouse, UnitTurningMouseFactory>()
                 .AsSingle();
         }
         

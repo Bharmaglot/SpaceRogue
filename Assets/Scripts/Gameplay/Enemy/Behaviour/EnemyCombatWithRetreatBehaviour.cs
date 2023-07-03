@@ -1,9 +1,10 @@
-using System;
-using Gameplay.Enemy.Movement;
 using Gameplay.Movement;
 using Gameplay.Services;
-using Services;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.Services;
+using System;
 using UnityEngine;
+
 
 namespace Gameplay.Enemy.Behaviour
 {

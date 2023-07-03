@@ -5,8 +5,9 @@ using UnityEngine;
 using Zenject;
 using Gameplay.Pooling;
 using Gameplay.Movement;
-using Gameplay.Enemy.Movement;
 using Gameplay.Enemy.Behaviour;
+using SpaceRogue.Enemy.Movement;
+
 
 namespace Gameplay.Installers
 {

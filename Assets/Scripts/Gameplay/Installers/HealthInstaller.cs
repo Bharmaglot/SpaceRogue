@@ -1,9 +1,10 @@
-using Gameplay.Abstracts;
 using Gameplay.Survival;
 using Gameplay.Survival.DamageImmunityFrame;
 using Gameplay.Survival.Health;
 using Gameplay.Survival.Shield;
+using SpaceRogue.Abstraction;
 using Zenject;
+
 
 namespace Gameplay.Installers
 {
@@ -24,7 +25,7 @@ namespace Gameplay.Installers
                 .AsSingle();
             
             Container
-                .BindFactory<EntityView, EntitySurvivalConfig, EntitySurvival, EntitySurvivalFactory>()
+                .BindFactory<EntityViewBase, EntitySurvivalConfig, EntitySurvival, EntitySurvivalFactory>()
                 .AsSingle();
         }
     }

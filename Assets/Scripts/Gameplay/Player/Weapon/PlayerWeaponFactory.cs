@@ -1,7 +1,8 @@
-using Gameplay.Input;
 using Gameplay.Shooting;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.InputSystem;
 using Zenject;
+
 
 namespace Gameplay.Player.Weapon
 {

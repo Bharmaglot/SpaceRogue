@@ -3,7 +3,9 @@ using Gameplay.Enemy.Behaviour;
 using Gameplay.Movement;
 using Gameplay.Shooting;
 using Gameplay.Survival;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
+
 
 namespace Gameplay.Enemy
 {

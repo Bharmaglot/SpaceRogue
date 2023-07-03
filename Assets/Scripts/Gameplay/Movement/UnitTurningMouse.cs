@@ -1,9 +1,9 @@
-using Abstracts;
 using Gameplay.Camera;
+using SpaceRogue.Abstraction;
 using System;
-using Gameplay.Abstracts;
 using UnityEngine;
 using Utilities.Unity;
+
 
 namespace Gameplay.Movement
 {
@@ -19,7 +19,7 @@ namespace Gameplay.Movement
 
         public UnitTurningMouse(
             CameraView cameraView,
-            EntityView entityView,
+            EntityViewBase entityView,
             IUnitTurningMouseInput turningMouseInput,
             UnitMovementModel model)
         {

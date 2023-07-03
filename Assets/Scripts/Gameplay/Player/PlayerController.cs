@@ -1,4 +1,3 @@
-using Abstracts;
 using Scriptables;
 using System;
 using Gameplay.Survival.Health;
@@ -6,6 +5,8 @@ using Gameplay.Survival.Shield;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 using Utilities.ResourceManagement;
+using SpaceRogue.Abstraction;
+
 
 namespace Gameplay.Player
 {
@@ -23,31 +24,19 @@ namespace Gameplay.Player
         private readonly SubscribedProperty<Vector3> _mousePositionInput = new();
         private readonly SubscribedProperty<float> _verticalInput = new();
         private readonly SubscribedProperty<bool> _primaryFireInput = new();
-        private readonly SubscribedProperty<bool> _changeWeaponInput = new ();
-
-        //private readonly HealthController _healthController;
+        private readonly SubscribedProperty<bool> _changeWeaponInput = new();
 
         public event Action PlayerDestroyed = () => { };
         public event Action OnControllerDispose = () => { };
-        public SubscribedProperty<bool> NextLevelInput = new ();
-        public SubscribedProperty<bool> MapInput = new ();
+        public SubscribedProperty<bool> NextLevelInput = new();
+        public SubscribedProperty<bool> MapInput = new();
 
         public PlayerController(Vector3 playerPosition, HealthInfo healthInfo, ShieldInfo shieldInfo)
         {
             _config = ResourceLoader.LoadObject<PlayerConfig>(_configPath);
             _view = LoadView<PlayerView>(_viewPath, playerPosition);
-
-            /*var inputController = new InputController(_mousePositionInput, _verticalInput, _primaryFireInput, 
-                _changeWeaponInput, NextLevelInput, MapInput);
-            AddController(inputController);*/
-
-            //var inventoryController = AddInventoryController(_config.Inventory);
-            //var movementController = AddMovementController(_config.Movement, _view);
-            //var frontalGunsController = AddFrontalGunsController(new List<TurretModuleConfig>(), _view);
-            //_healthController = AddHealthController(healthInfo, shieldInfo);
-            //AddCrosshair();
         }
-        
+
 
         public void ControllerDispose()
         {

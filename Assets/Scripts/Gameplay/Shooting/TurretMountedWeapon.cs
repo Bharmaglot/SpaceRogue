@@ -1,11 +1,13 @@
-using Gameplay.Abstracts;
-using System;
 using Gameplay.Shooting.Factories;
 using Gameplay.Shooting.Scriptables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Services;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
+using SpaceRogue.Services;
+
 
 namespace Gameplay.Shooting
 {
@@ -18,11 +20,11 @@ namespace Gameplay.Shooting
 
         private readonly float _rotationSpeed;
 
-        private readonly List<EntityView> _targets;
-        private EntityView _currentTarget;
+        private readonly List<EntityViewBase> _targets;
+        private EntityViewBase _currentTarget;
         private readonly EntityType _entityType;
 
-        public TurretMountedWeapon(Weapon weapon, EntityView entityView, TurretViewFactory turretViewFactory, GunPointViewFactory gunPointViewFactory, TurretConfig config, Updater updater) : base(weapon, entityView)
+        public TurretMountedWeapon(Weapon weapon, EntityViewBase entityView, TurretViewFactory turretViewFactory, GunPointViewFactory gunPointViewFactory, TurretConfig config, Updater updater) : base(weapon, entityView)
         {
             _updater = updater;
 
@@ -35,7 +37,7 @@ namespace Gameplay.Shooting
             _entityType = entityView.EntityType;
             _rotationSpeed = config.TurningSpeed;
 
-            _targets = new List<EntityView>();
+            _targets = new List<EntityViewBase>();
 
             _turretView.TargetEntersTrigger += OnTargetInRange;
             _turretView.TargetExitsTrigger += OnTargetOutOfRange;
@@ -53,14 +55,14 @@ namespace Gameplay.Shooting
             _turretView.Rotate(direction, _rotationSpeed);
         }
 
-        private EntityView PickNewTarget()
+        private EntityViewBase PickNewTarget()
         {
             if (!_targets.Any()) return null;
             if (_targets.Count == 1) return _targets[0];
             return _targets.OrderBy(t => (_turretView.transform.position - t.transform.position).sqrMagnitude).First();
         }
 
-        private void OnTargetInRange(EntityView target)
+        private void OnTargetInRange(EntityViewBase target)
         {
             if (_entityType == EntityType.Player)
             {
@@ -87,7 +89,7 @@ namespace Gameplay.Shooting
             }
         }
 
-        private void OnTargetOutOfRange(EntityView target)
+        private void OnTargetOutOfRange(EntityViewBase target)
         {
             if (_entityType == EntityType.Player)
             {

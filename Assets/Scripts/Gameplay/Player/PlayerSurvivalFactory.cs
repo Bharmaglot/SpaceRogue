@@ -1,11 +1,12 @@
 using System;
-using Gameplay.Abstracts;
 using Gameplay.Survival;
+using SpaceRogue.Abstraction;
 using Zenject;
+
 
 namespace Gameplay.Player
 {
-    public sealed class PlayerSurvivalFactory : PlaceholderFactory<EntityView, EntitySurvival>
+    public sealed class PlayerSurvivalFactory : PlaceholderFactory<EntityViewBase, EntitySurvival>
     {
         private readonly EntitySurvivalFactory _entitySurvivalFactory;
         private readonly EntitySurvivalConfig _playerSurvivalConfig;
@@ -18,7 +19,7 @@ namespace Gameplay.Player
             _playerSurvivalConfig = playerSurvivalConfig;
         }
 
-        public override EntitySurvival Create(EntityView view)
+        public override EntitySurvival Create(EntityViewBase view)
         {
             var playerSurvival = _entitySurvivalFactory.Create(view, _playerSurvivalConfig);
             PlayerSurvivalCreated.Invoke(playerSurvival);

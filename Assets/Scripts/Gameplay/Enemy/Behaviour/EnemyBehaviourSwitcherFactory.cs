@@ -1,6 +1,7 @@
-using Gameplay.Enemy.Movement;
 using Gameplay.Movement;
+using SpaceRogue.Enemy.Movement;
 using Zenject;
+
 
 namespace Gameplay.Enemy.Behaviour
 {

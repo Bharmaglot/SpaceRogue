@@ -1,5 +1,5 @@
-using Abstracts;
-using Gameplay.Abstracts;
+using SpaceRogue.Enums;
+
 
 namespace Gameplay.Damage
 {

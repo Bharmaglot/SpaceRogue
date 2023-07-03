@@ -1,7 +1,7 @@
-using Abstracts;
-using Gameplay.Damage;
+using SpaceRogue.Abstraction;
 using UnityEngine;
 using Utilities.Mathematics;
+
 
 namespace Gameplay.GameEvent.Comet
 {
@@ -28,8 +28,6 @@ namespace Gameplay.GameEvent.Comet
             _speed = RandomPicker.PickRandomBetweenTwoValues(_config.MinSpeed, _config.MaxSpeed);
             _remainingLifeTime = config.LifeTimeInSeconds;
 
-            //var damageModel = new DamageModel(config.Damage);
-            //_view.Init(damageModel);
             _view.CollidedSpaceObject += Dispose;
             _view.CollidedPlanet += Dispose;
 

@@ -1,10 +1,11 @@
 using System;
-using Abstracts;
 using Gameplay.Enemy.Behaviour;
 using Gameplay.Movement;
 using Gameplay.Shooting.Scriptables;
 using Gameplay.Survival;
+using SpaceRogue.Abstraction;
 using UnityEngine;
+
 
 namespace Gameplay.Enemy.Scriptables
 {

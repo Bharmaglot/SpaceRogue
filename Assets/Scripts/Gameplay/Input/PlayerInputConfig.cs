@@ -1,6 +1,7 @@
 using UnityEngine;
 
-namespace Gameplay.Input
+
+namespace SpaceRogue.InputSystem
 {
     [CreateAssetMenu(fileName = nameof(PlayerInputConfig), menuName = "Configs/Input/" + nameof(PlayerInputConfig))]
     public sealed class PlayerInputConfig : ScriptableObject
