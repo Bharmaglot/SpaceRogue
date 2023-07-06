@@ -20,6 +20,7 @@ namespace Gameplay.Installers
         {
             InstallProjectilePool();
             InstallProjectileFactory();
+            InstallMineFactory();
             InstallTurretFactory();
             InstallGunPointFactory();
             InstallWeaponFactories();
@@ -42,6 +43,17 @@ namespace Gameplay.Installers
 
             Container
                 .BindFactory<ProjectileSpawnParams, Projectile, ProjectileFactory>()
+                .AsSingle();
+        }
+
+        private void InstallMineFactory()
+        {
+            Container
+                .BindFactory<Vector2, MineConfig, MineView, MineViewFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<Vector2, MineConfig, Mine, MineFactory>()
                 .AsSingle();
         }
 

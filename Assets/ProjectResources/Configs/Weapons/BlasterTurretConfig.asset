@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BlasterTurretConfig
   m_EditorClassIdentifier: 
   <WeaponMountType>k__BackingField: 2
-  <MountedWeapon>k__BackingField: {fileID: 11400000, guid: f5294e08f8fa7b643b0589a59c6217d5, type: 2}
+  <MountedWeapon>k__BackingField: {fileID: 11400000, guid: 0e49d8694ef04c04d9133d7b98fed8f7, type: 2}
   <TurretConfig>k__BackingField: {fileID: 11400000, guid: 972dcc5878fce7a4397ed5d1f720c0ce, type: 2}

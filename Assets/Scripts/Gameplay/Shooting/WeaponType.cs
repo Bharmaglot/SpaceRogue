@@ -6,6 +6,7 @@ namespace Gameplay.Shooting
         Blaster,
         Shotgun,
         Minigun,
-        Railgun
+        Railgun,
+        Mortar
     }
 }

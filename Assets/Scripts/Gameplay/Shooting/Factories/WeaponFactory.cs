@@ -12,14 +12,22 @@ namespace Gameplay.Shooting.Factories
     {
         private readonly ProjectileFactory _projectileFactory;
         private readonly TimerFactory _timerFactory;
+        private readonly MineFactory _mineFactory;
 
         public WeaponFactory(ProjectileFactory projectileFactory, TimerFactory timerFactory)
         {
             _projectileFactory = projectileFactory;
             _timerFactory = timerFactory;
         }
-        
-        public Weapon Create(WeaponConfig weaponConfig, EntityType entityType)
+
+            public WeaponFactory(MineFactory mineFactory, TimerFactory timerFactory)
+            {
+                _mineFactory = mineFactory;
+                _timerFactory = timerFactory;
+            }
+
+
+            public Weapon Create(WeaponConfig weaponConfig, EntityType entityType)
         {
             return weaponConfig.Type switch
             {
@@ -28,6 +36,7 @@ namespace Gameplay.Shooting.Factories
                 WeaponType.Shotgun => new Shotgun(weaponConfig as ShotgunConfig, entityType, _projectileFactory, _timerFactory),
                 WeaponType.Minigun => new Minigun(weaponConfig as MinigunConfig, entityType, _projectileFactory, _timerFactory),
                 WeaponType.Railgun => new Railgun(weaponConfig as RailgunConfig, entityType, _projectileFactory, _timerFactory),
+                WeaponType.Mortar => new Mortar(weaponConfig as MortarConfig, entityType, _mineFactory, _timerFactory),
                 _ => throw new ArgumentOutOfRangeException(nameof(weaponConfig.Type), weaponConfig.Type,
                     "A not-existent weapon type is provided")
             };
