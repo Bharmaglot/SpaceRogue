@@ -1,17 +1,37 @@
-using SpaceRogue.Abstraction;
-using System;
+using Gameplay.Damage;
+using Gameplay.Survival;
 using UnityEngine;
 
-public class MineExploseView : MonoBehaviour
+public sealed class MineExploseView : MonoBehaviour, IDamagingView
 {
-    public event Action<EntityViewBase> TargetEnterExploseZone = (_) => { };
+    public DamageModel DamageModel { get; private set; }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Init(DamageModel damageModel)
     {
+        DamageModel = damageModel;
+    }
 
-        if (collision.TryGetComponent(out EntityViewBase target))
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        CollisionEnter(other.gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        CollisionEnter(collision.gameObject);
+    }
+
+    public void DealDamage(IDamageableView damageable)
+    {
+        damageable.TakeDamage(DamageModel);
+    }
+
+    private void CollisionEnter(GameObject go)
+    {
+        var damageable = go.GetComponent<IDamageableView>();
+        if (damageable is not null)
         {
-            TargetEnterExploseZone(target);
+            DealDamage(damageable);
         }
     }
 }

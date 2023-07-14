@@ -19,4 +19,4 @@ MonoBehaviour:
   <TimeToExplosion>k__BackingField: 3
   <DamageFromExplosion>k__BackingField: 10
   <SpeedWaveExplosion>k__BackingField: 10
-  <TargetUnitType>k__BackingField: 1
+  <TargetUnitType>k__BackingField: 4

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5663136699875195057}
   - component: {fileID: 3064823861939240029}
   - component: {fileID: 316645463800012562}
+  - component: {fileID: 8301560022569256160}
   m_Layer: 0
   m_Name: MineExplose
   m_TagString: Untagged
@@ -97,6 +98,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27dff4a98f9b59c4e95748b00f97752a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &8301560022569256160
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182635072900952919}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1083878281321781895
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +293,7 @@ GameObject:
   - component: {fileID: 1851306592075655012}
   - component: {fileID: 297018776891342490}
   - component: {fileID: 1177447717481221660}
+  - component: {fileID: 3217002784150682215}
   m_Layer: 0
   m_Name: MineAlertZone
   m_TagString: Untagged
@@ -362,6 +380,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f498ac58f02734f802e99e169fb930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &3217002784150682215
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2331006297682761406}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &4463689618477294500
 GameObject:
   m_ObjectHideFlags: 0

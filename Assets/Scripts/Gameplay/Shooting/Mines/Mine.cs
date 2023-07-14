@@ -4,6 +4,8 @@ using SpaceRogue.Services;
 using SpaceRogue.Abstraction;
 using System;
 using UnityEngine;
+using Gameplay.Damage;
+using Gameplay.Mechanics.Timer;
 
 namespace Gameplay.Shooting
 {
@@ -20,62 +22,66 @@ namespace Gameplay.Shooting
         private Transform _mineTimerVisualTransform;
         private Transform _explozionTransform;
 
-        private float _timeToActiveAlarmSystem;
         private float _timeToExplosion;
-        private float _damageFromExplosion;
+        private float _alertAndDamageAuraSize;
         private float _speedWaveExplosion;
         private EntityType _targetUnitType;
 
         private float _stepTimerVisualTransform;
 
-        internal Mine(Updater updater, MineView mineView, MineConfig mineConfig)
+        private readonly Timer _timerToActivateAlarmSystem;
+
+        internal Mine(Updater updater, MineView mineView, TimerFactory timerFactory, MineConfig mineConfig)
         {
             _updater = updater;
 
             _mineBodyTransform = mineView.MineBodyTransform;
             _mineAlertZoneTansform = mineView.MineAlertZoneTansform;
-            _mineTimerVisualTransform = mineView.MineAlertZoneTansform;
+            _mineTimerVisualTransform = mineView.MineTimerVisualTransform;
             _explozionTransform = mineView.ExplozionTransform;
+            _mineView = mineView;
 
-
-            _timeToActiveAlarmSystem = mineConfig.TimeToActiveAlarmSystem;
             _timeToExplosion = mineConfig.TimeToExplosion;
             _speedWaveExplosion = mineConfig.SpeedWaveExplosion;
 
-            _damageFromExplosion = mineConfig.DamageFromExplosion;
-     
+            _alertAndDamageAuraSize = _mineAlertZoneTansform.localScale.x;
+
             _targetUnitType = mineConfig.TargetUnitType;
 
             _mineAlertZoneView = mineView.MineAlertZoneView;
             _mineExploseView = mineView.MineExploseView;
+            _mineExploseView.Init(new DamageModel(mineConfig.DamageFromExplosion));
 
             _stepTimerVisualTransform = (_mineAlertZoneTansform.localScale.x - _mineTimerVisualTransform.localScale.x) / _timeToExplosion * Time.deltaTime;
 
-            _updater.SubscribeToUpdate(TimerToActiveAlarmZone);
+            _timerToActivateAlarmSystem = timerFactory.Create(mineConfig.TimeToActiveAlarmSystem);
+            _timerToActivateAlarmSystem.OnExpire += TimerToActiveAlarmZone;
+
+            _timerToActivateAlarmSystem.Start();
         }
 
         private void TimerToActiveAlarmZone()
         {
-            _timeToActiveAlarmSystem = _timeToActiveAlarmSystem - Time.deltaTime;
-            if (_timeToActiveAlarmSystem <= 0)
-            {
-                _updater.UnsubscribeFromUpdate(TimerToActiveAlarmZone);
-                _mineAlertZoneView.TargetEnterAlarmZone += StartExplosionTimer;
-            }
+            _timerToActivateAlarmSystem.OnExpire -= TimerToActiveAlarmZone;
+            _timerToActivateAlarmSystem.Dispose();
+            _mineAlertZoneTansform.gameObject.SetActive(true);
+            _mineAlertZoneView.TargetEnterAlarmZone += StartExplosionTimer;
         }
+
         private void StartExplosionTimer(EntityViewBase target)
         {
-
-            if(target.EntityType == _targetUnitType)
-            _mineAlertZoneTansform.gameObject.SetActive(true);
-            _updater.SubscribeToUpdate(ActiveExplosionTimer);
+            if (_targetUnitType.HasFlag(target.EntityType))
+            {
+                _mineAlertZoneView.TargetEnterAlarmZone -= StartExplosionTimer;
+                _mineAlertZoneTansform.gameObject.SetActive(true);
+                _mineTimerVisualTransform.gameObject.SetActive(true);
+                _updater.SubscribeToUpdate(ActiveExplosionTimer);
+            }
         }
-
-        
 
         private void ActiveExplosionTimer()
         {
-            if (_mineTimerVisualTransform.localScale.x < _mineAlertZoneTansform.localScale.x)
+            if (_mineTimerVisualTransform.localScale.x < _alertAndDamageAuraSize)
             {
                 _mineTimerVisualTransform.localScale = new Vector2(_mineTimerVisualTransform.localScale.x + _stepTimerVisualTransform, _mineTimerVisualTransform.localScale.y + _stepTimerVisualTransform);
             }
@@ -83,20 +89,19 @@ namespace Gameplay.Shooting
             {
                 _updater.UnsubscribeFromUpdate(ActiveExplosionTimer);
                 _mineAlertZoneView.TargetEnterAlarmZone -= StartExplosionTimer;
-                _mineExploseView.TargetEnterExploseZone += ExplosionDamage;
-                
+
                 _mineTimerVisualTransform.gameObject.SetActive(false);
                 _mineAlertZoneTansform.gameObject.SetActive(false);
                 _mineBodyTransform.gameObject.SetActive(false);
                 _explozionTransform.gameObject.SetActive(true);
-                
+
                 _updater.SubscribeToUpdate(ExplosionEffect);
             }
         }
 
         private void ExplosionEffect()
         {
-            if (_explozionTransform.localScale.x < _mineTimerVisualTransform.localScale.x)
+            if (_explozionTransform.localScale.x < _alertAndDamageAuraSize)
             {
                 _explozionTransform.localScale = new Vector2(_explozionTransform.localScale.x + _speedWaveExplosion * Time.deltaTime, _explozionTransform.localScale.y + _speedWaveExplosion * Time.deltaTime);
             }
@@ -106,17 +111,11 @@ namespace Gameplay.Shooting
             }
         }
 
-        private void ExplosionDamage(EntityViewBase target)
-        {
-            
-        }
-
         public void Dispose()
         {
-            _mineAlertZoneView.TargetEnterAlarmZone -= StartExplosionTimer;
-            _mineExploseView.TargetEnterExploseZone -= ExplosionDamage;
             _updater.UnsubscribeFromUpdate(ExplosionEffect);
             _updater.UnsubscribeFromUpdate(ActiveExplosionTimer);
+            GameObject.Destroy(_mineView.gameObject);
         }
     }
 }
