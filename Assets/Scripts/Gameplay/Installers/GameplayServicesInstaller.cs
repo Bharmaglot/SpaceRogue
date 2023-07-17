@@ -33,6 +33,7 @@ namespace Gameplay.Installers
             InstallUnitMovement();
             InstallPlayerLocator();
             InstallEnemiesAlarm();
+            InstallEnemyDeathObserver();
         }
 
         private void InstallGameplayMechanics()
@@ -126,6 +127,14 @@ namespace Gameplay.Installers
         {
             Container
                 .Bind<EnemiesAlarm>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void InstallEnemyDeathObserver()
+        {
+            Container
+                .BindInterfacesAndSelfTo<EnemyDeathObserver>()
                 .AsSingle()
                 .NonLazy();
         }
