@@ -1,7 +1,6 @@
 using Gameplay.Background;
 using Gameplay.Enemy.Movement;
 using Gameplay.GameProgress;
-using Gameplay.Input;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Movement;

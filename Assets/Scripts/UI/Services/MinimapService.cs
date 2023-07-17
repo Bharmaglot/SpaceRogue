@@ -1,12 +1,10 @@
 using Gameplay.Events;
 using Gameplay.Minimap;
-using Gameplay.Services;
 using Scriptables;
 using SpaceRogue.InputSystem;
 using SpaceRogue.Services;
 using System;
 using Gameplay.GameProgress;
-using Gameplay.Input;
 using UI.Game;
 using UnityEngine;
 
