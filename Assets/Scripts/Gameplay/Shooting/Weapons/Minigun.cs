@@ -1,12 +1,12 @@
 using System;
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Shooting.Factories;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Enums;
 using UnityEngine;
 using Utilities.Mathematics;
+
 
 namespace Gameplay.Shooting.Weapons
 {

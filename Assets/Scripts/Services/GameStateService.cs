@@ -1,7 +1,8 @@
 using Gameplay.GameState;
-using Services.SceneLoader;
+using SpaceRogue.Abstraction;
 
-namespace Services
+
+namespace SpaceRogue.Services
 {
     public sealed class GameStateService
     {

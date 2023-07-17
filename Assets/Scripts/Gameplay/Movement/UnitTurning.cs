@@ -1,7 +1,7 @@
-using Abstracts;
+using SpaceRogue.Abstraction;
 using System;
-using Gameplay.Abstracts;
 using UnityEngine;
+
 
 namespace Gameplay.Movement
 {
@@ -13,7 +13,7 @@ namespace Gameplay.Movement
         private readonly UnitMovementModel _model;
 
         public UnitTurning(
-            EntityView entityView,
+            EntityViewBase entityView,
             IUnitTurningInput turningInput,
             UnitMovementModel model)
         {
@@ -22,15 +22,15 @@ namespace Gameplay.Movement
             _turningInput = turningInput;
             _model = model;
 
-            _turningInput.HorizontalAxisInput += HandleHorizontalInput;
+            _turningInput.TurnAxisInput += TurnHandler;
         }
 
         public void Dispose()
         {
-            _turningInput.HorizontalAxisInput -= HandleHorizontalInput;
+            _turningInput.TurnAxisInput -= TurnHandler;
         }
 
-        private void HandleHorizontalInput(float newInputValue)
+        private void TurnHandler(float newInputValue)
         {
             Quaternion newRotation = Quaternion.identity;
             switch (newInputValue)

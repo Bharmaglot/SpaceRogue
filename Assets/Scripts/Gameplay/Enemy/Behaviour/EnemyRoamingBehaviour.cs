@@ -1,59 +1,56 @@
-using Abstracts;
-using Gameplay.Abstracts;
-using Gameplay.Enemy.Movement;
-using Gameplay.Mechanics.Timer;
+using System;
 using Gameplay.Movement;
-using Gameplay.Player;
-using Services;
+using Gameplay.Services;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.Services;
 using UnityEngine;
-using Utilities.Reactive.SubscriptionProperty;
 using Utilities.Unity;
+
 
 namespace Gameplay.Enemy.Behaviour
 {
     public sealed class EnemyRoamingBehaviour : EnemyBehaviour
     {
         private const float TurnValueAtObstacle = 0.1f;
-
-        private readonly UnitMovementModel _unitMovementModel;
-        private readonly EnemyInput _inputController;
-        private readonly Timer _timer;
         
-        private Vector3 _targetDirection;
         private bool _frontObstacle;
         private bool _rightObstacle;
         private bool _leftObstacle;
 
         public EnemyRoamingBehaviour(
-            SubscribedProperty<EnemyState> enemyState, EnemyView view, PlayerController playerController,
-            UnitMovementModel unitMovementModel, EnemyInput inputController, EnemyBehaviourConfig config) 
-            : base(enemyState, view, playerController, config)
+            Updater updater,
+            PlayerLocator playerLocator,
+            EnemiesAlarm enemiesAlarm,
+            EnemyState state,
+            Action<EnemyState> enemyStateChanged,
+            EnemyView view,
+            EnemyInput input,
+            UnitMovementModel model,
+            EnemyBehaviourConfig config) 
+            : base(
+                  updater,
+                  playerLocator,
+                  enemiesAlarm,
+                  state,
+                  enemyStateChanged,
+                  view,
+                  input,
+                  model,
+                  config)
         {
-            _unitMovementModel = unitMovementModel;
-            _inputController = inputController;
-            _timer = new(Config.TimeToPickNewAngle, new Updater());
-            PickRandomDirection();
         }
-        
+
+        public override void SetMovementDirection(Vector3 direction)
+        {
+            MovementDirection = View.transform.TransformDirection(direction).normalized;
+        }
+
         protected override void OnUpdate()
         {
-            CheckTimer();
             CheckObstacles();
             MoveAtLowSpeed(_frontObstacle);
             TurnToDirection(_rightObstacle, _leftObstacle);
-        }
-
-        protected override void DetectPlayer()
-        {
-            if (PlayerView == null)
-            {
-                return;
-            }
-
-            if (Vector3.Distance(View.transform.position, PlayerView.transform.position) < Config.PlayerDetectionRadius)
-            {
-                EnterCombat();
-            }
         }
 
         private void CheckObstacles()
@@ -62,50 +59,48 @@ namespace Gameplay.Enemy.Behaviour
             var scaleY = View.transform.localScale.y;
             var scaleX = View.transform.localScale.x;
 
-            var rayUpPosition = position + View.transform.TransformDirection(Vector3.up * scaleY);
-            var rayRightPosition = position + View.transform.TransformDirection(Vector3.right * scaleX);
-            var rayLeftPosition = position + View.transform.TransformDirection(Vector3.left * scaleX);
+            var rayUpPosition = 
+                position + View.transform.TransformDirection(Vector3.up * scaleY);
+            var rayRightPosition = 
+                position + View.transform.TransformDirection(Vector3.right * scaleX);
+            var rayLeftPosition = 
+                position + View.transform.TransformDirection(Vector3.left * scaleX);
 
-            var hitUp = Physics2D.Raycast(rayUpPosition, View.transform.TransformDirection(Vector3.up), 
+            var hitUp = Physics2D.Raycast(
+                rayUpPosition,
+                View.transform.TransformDirection(Vector3.up),
                 Config.FrontCheckDistance);
-            var hitRight = Physics2D.Raycast(rayRightPosition, View.transform.TransformDirection(Vector3.right),
+            var hitRight = Physics2D.Raycast(
+                rayRightPosition,
+                View.transform.TransformDirection(Vector3.right),
                 Config.SideCheckDistance);
-            var hitLeft = Physics2D.Raycast(rayLeftPosition, View.transform.TransformDirection(Vector3.left),
+            var hitLeft = Physics2D.Raycast(
+                rayLeftPosition,
+                View.transform.TransformDirection(Vector3.left),
                 Config.SideCheckDistance);
 
-            _frontObstacle = hitUp.collider != null && !hitUp.collider.TryGetComponent<EntityView>(out _);
-            _rightObstacle = hitRight.collider != null && !hitRight.collider.TryGetComponent<EntityView>(out _);
-            _leftObstacle = hitLeft.collider != null && !hitLeft.collider.TryGetComponent<EntityView>(out _);
-        }
-
-        private void CheckTimer()
-        {
-            if (_timer.IsExpired)
-            {
-                _timer.Start();
-                PickRandomDirection();
-            }
-        }
-
-        private void PickRandomDirection()
-        {
-            _targetDirection = View.transform.TransformDirection(Random.insideUnitCircle).normalized;
+            _frontObstacle = hitUp.collider != null 
+                && !hitUp.collider.TryGetComponent<EntityViewBase>(out _);
+            _rightObstacle = hitRight.collider != null 
+                && !hitRight.collider.TryGetComponent<EntityViewBase>(out _);
+            _leftObstacle = hitLeft.collider != null 
+                && !hitLeft.collider.TryGetComponent<EntityViewBase>(out _);
         }
 
         private void MoveAtLowSpeed(bool frontObstacle)
         {
             if (frontObstacle)
             {
-                _inputController.Decelerate();
+                Input.Decelerate();
                 return;
             }
 
-            var quarterMaxSpeed = _unitMovementModel.MaxSpeed / 4;
-            switch (CompareSpeeds(_unitMovementModel.CurrentSpeed, quarterMaxSpeed))
+            var quarterMaxSpeed = Model.MaxSpeed / 4;
+            switch (CompareSpeeds(Model.CurrentSpeed, quarterMaxSpeed))
             {
-                case -1: { _inputController.Accelerate(); return; }
-                case 0: { _inputController.HoldSpeed(); return; }
-                case 1: { _inputController.Decelerate(); return; }
+                case -1: { Input.Accelerate(); return; }
+                case 0: { Input.HoldSpeed(); return; }
+                case 1: { Input.Decelerate(); return; }
             }
         }
 
@@ -120,12 +115,12 @@ namespace Gameplay.Enemy.Behaviour
         {
             if (rightObstacle)
             {
-                _inputController.TurnLeft(TurnValueAtObstacle);
+                Input.TurnLeft(TurnValueAtObstacle);
             }
 
             if (leftObstacle)
             {
-                _inputController.TurnRight(TurnValueAtObstacle);
+                Input.TurnRight(TurnValueAtObstacle);
             }
 
             if (rightObstacle || leftObstacle)
@@ -135,32 +130,36 @@ namespace Gameplay.Enemy.Behaviour
 
             var currentDirection = View.transform.TransformDirection(Vector3.up);
 
-            if (UnityHelper.Approximately(_targetDirection, currentDirection, 0.1f))
+            var turnOrNot = UnityHelper.Approximately(
+                MovementDirection,
+                currentDirection,
+                0.1f);
+
+            if (turnOrNot)
             {
-                _inputController.StopTurning();
+                Input.StopTurning();
             }
             else
             {
-                HandleTurn(UnityHelper.VectorAngleLessThanAngle(_targetDirection, currentDirection, 0));
+                var turningLeft = UnityHelper.VectorAngleLessThanAngle(
+                    MovementDirection,
+                    currentDirection,
+                    0);
+
+                HandleTurn(turningLeft);
             }
-            
         }
 
         private void HandleTurn(bool turningLeft)
         {
             if (turningLeft)
             {
-                _inputController.TurnLeft();
+                Input.TurnLeft();
             }
             else
             {
-                _inputController.TurnRight();
+                Input.TurnRight();
             }
-        }
-
-        private void EnterCombat()
-        {
-            ChangeState(EnemyState.InCombat);
         }
     }
 }

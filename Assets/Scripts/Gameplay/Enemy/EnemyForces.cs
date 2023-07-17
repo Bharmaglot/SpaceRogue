@@ -5,47 +5,59 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Utilities.Mathematics;
-using Utilities.Unity;
 
 namespace Gameplay.Enemy
 {
     public sealed class EnemyForces : IDisposable
     {
-        public List<Enemy> Enemies { get; private set; } = new();
+        public List<EnemiesGroup> EnemiesGroups { get; private set; } = new();
 
-        public EnemyForces(int enemyGroupCount, EnemySpawnConfig enemySpawnConfig, SpawnPointsFinder spawnPointsFinder, EnemyFactory enemyFactory)
+        public EnemyForces(
+            int enemyGroupCount,
+            EnemySpawnConfig enemySpawnConfig,
+            SpawnPointsFinder spawnPointsFinder,
+            EnemiesGroupFactory enemiesGroupFactory)
         {
             for (int i = 0; i < enemyGroupCount; i++)
             {
-                var group = RandomPicker.PickOneElementByWeights(enemySpawnConfig.Groups);
-                var enemyCount = group.Squads.Sum(x => x.EnemyCount);
+                var groupConfig = RandomPicker.PickOneElementByWeights(enemySpawnConfig.Groups);
+                var enemyCount = groupConfig.Squads.Sum(x => x.EnemyCount);
 
                 if (!spawnPointsFinder.TryGetEnemySpawnPoint(enemyCount, out var spawnPoint))
                 {
-                    Debug.Log("Enemy spawn point not found");
+                    Debug.Log("EnemiesGroup spawn point not found");
                     continue;
                 }
 
-                foreach (var squadConfig in group.Squads)
-                {
-                    for (int j = 0; j < squadConfig.EnemyCount; j++)
-                    {
-                        var enemyConfig = RandomPicker.PickOneElementByWeights(squadConfig.EnemyTypes);
-                        var unitSize = enemyConfig.Prefab.transform.localScale;
-                        var spawnCircleRadius = squadConfig.EnemyCount * 2;
-
-                        var unitSpawnPoint = UnityHelper.GetEmptySpawnPoint(spawnPoint, unitSize, spawnCircleRadius);
-
-                        var enemy = enemyFactory.Create(unitSpawnPoint, enemyConfig);
-                        Enemies.Add(enemy);
-                    }
-                }
+                var enemiesGroup = enemiesGroupFactory.Create(groupConfig, spawnPoint);
+                enemiesGroup.EnemiesGroupDestroyed += OnGroupDestroyed;
+                EnemiesGroups.Add(enemiesGroup);
             }
         }
 
         public void Dispose()
         {
-            Enemies.Clear();
+            EnemiesGroups.Clear();
+        }
+
+        public int GetEnemiesCount()
+        {
+            var count = 0;
+
+            foreach (var enemiesGroup in EnemiesGroups)
+            {
+                count += enemiesGroup.Enemies.Count; 
+            }
+
+            return count;
+        }
+
+        private void OnGroupDestroyed(EnemiesGroup enemiesGroup)
+        {
+            enemiesGroup.EnemiesGroupDestroyed -= OnGroupDestroyed;
+            EnemiesGroups.Remove(enemiesGroup);
+
+            if (EnemiesGroups.Count == 0) Dispose();
         }
     }
 }

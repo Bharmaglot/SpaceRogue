@@ -1,73 +1,183 @@
+using Gameplay.Movement;
+using Gameplay.Services;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.Services;
 using System;
-using Gameplay.Player;
-using Utilities.Reactive.SubscriptionProperty;
+using UnityEngine;
+using Utilities.Unity;
+
 
 namespace Gameplay.Enemy.Behaviour
 {
     public abstract class EnemyBehaviour : IDisposable
     {
+        private readonly Updater _updater;
+        private readonly PlayerLocator _playerLocator;
+        private readonly EnemiesAlarm _enemiesAlarm;
+
         protected readonly EnemyView View;
-        protected readonly PlayerView PlayerView;
+        protected readonly EnemyInput Input;
+        protected readonly UnitMovementModel Model;
         protected readonly EnemyBehaviourConfig Config;
 
-        private readonly PlayerController _playerController;
+        protected Vector3 MovementDirection;
 
-        private readonly SubscribedProperty<EnemyState> _enemyState;
-        private bool _isDisposed;
-        private EnemyState _lastEnemyState;
+        public EnemyState CurrentState { get; private set; }
+        public Transform TargetTransform { get; private set; }
+
+        public event Action<EnemyState> EnemyStateChanged = _ => { };
+
+        protected EnemyBehaviour(
+            Updater updater,
+            PlayerLocator playerLocator,
+            EnemiesAlarm enemiesAlarm,
+            EnemyState state,
+            Action<EnemyState> enemyStateChanged,
+            EnemyView view,
+            EnemyInput input,
+            UnitMovementModel model,
+            EnemyBehaviourConfig config,
+            Transform targetTransform = null)
+        {
+            _updater = updater;
+            _playerLocator = playerLocator;
+            _enemiesAlarm = enemiesAlarm;
+            View = view;
+            Input = input;
+            Model = model;
+            CurrentState = state;
+            EnemyStateChanged = enemyStateChanged;
+            Config = config;
+
+            if (targetTransform == null)
+            {
+                ActivateTargetSearch();
+            }
+            else
+            {
+                TargetDetected(targetTransform);
+            }
+
+            _updater.SubscribeToUpdate(Update);
+        }
 
         public void Dispose()
         {
-            if (_isDisposed)
-                return;
-            _isDisposed = true;
             OnDispose();
-            _playerController.PlayerDestroyed -= OnPlayerDestroyed;
-            _playerController.OnControllerDispose -= OnPlayerDestroyed;
-            EntryPoint.UnsubscribeFromUpdate(DetectPlayer);
-            EntryPoint.UnsubscribeFromUpdate(OnUpdate);
+
+            _playerLocator.PlayerTransform -= CheckLocator;
+            _enemiesAlarm.Alarm -= OnAlarm;
+
+            _updater.UnsubscribeFromUpdate(ContinuouslyCheckDistance);
+            _updater.UnsubscribeFromUpdate(Update);
         }
 
-        protected EnemyBehaviour(SubscribedProperty<EnemyState> enemyState, EnemyView view, PlayerController playerController, EnemyBehaviourConfig config)
+        public virtual void SetMovementDirection(Vector3 direction) { }
+
+        protected abstract void OnUpdate();
+
+        protected virtual void OnDispose() { }
+
+        protected virtual void OnTargetInZone()
         {
-            _enemyState = enemyState;
-            View = view;
-            _playerController = playerController;
-            _playerController.PlayerDestroyed += OnPlayerDestroyed;
-            _playerController.OnControllerDispose += OnPlayerDestroyed;
-            PlayerView = _playerController.View;
-            Config = config;
-            EntryPoint.SubscribeToUpdate(DetectPlayer);
-            EntryPoint.SubscribeToUpdate(OnUpdate);
-            _lastEnemyState = _enemyState.Value;
+            ChangeState(EnemyState.InCombat);
+        }
+        
+        protected virtual void OnAcceptAlarm()
+        {
+            ChangeState(EnemyState.InCombat);
+        }
+        
+        protected virtual void OnLosingTarget()
+        {
+            ChangeState(EnemyState.PassiveRoaming);
         }
 
         protected void ChangeState(EnemyState newState)
         {
-            if (newState != _enemyState.Value)
+            if (newState != CurrentState)
             {
-                _lastEnemyState = _enemyState.Value;
-                _enemyState.Value = newState;
+                CurrentState = newState;
+                EnemyStateChanged.Invoke(CurrentState);
             }
         }
 
-        protected abstract void OnUpdate();
-        protected virtual void OnDispose() { }
-
-        protected abstract void DetectPlayer();
-
-        public EnemyState CurrentState()
+        private void Update()
         {
-            return _lastEnemyState;
+            if (View == null) return;
+            OnUpdate();
         }
 
-        private void OnPlayerDestroyed()
+        private void ActivateTargetSearch()
         {
-            EntryPoint.UnsubscribeFromUpdate(DetectPlayer);
-            
-            if(_enemyState.Value == EnemyState.InCombat || _enemyState.Value == EnemyState.InCombatWithRetreat)
+            _updater.UnsubscribeFromUpdate(ContinuouslyCheckDistance);
+            _playerLocator.PlayerTransform += CheckLocator;
+            _enemiesAlarm.Alarm += OnAlarm;
+        }
+
+        private void TargetDetected(Transform targetTransform)
+        {
+            TargetTransform = targetTransform;
+            _playerLocator.PlayerTransform -= CheckLocator;
+            _enemiesAlarm.Alarm -= OnAlarm;
+            _updater.SubscribeToUpdate(ContinuouslyCheckDistance);
+        }
+
+        private void ContinuouslyCheckDistance()
+        {
+            if (TargetTransform == null)
             {
-                ChangeState(EnemyState.PassiveRoaming);
+                ActivateTargetSearch();
+                return;
+            }
+
+            if (View == null) return;
+
+            var inDetectionRadius = UnityHelper.InDetectionRadius(
+                View.transform.position,
+                TargetTransform.position,
+                Config.PlayerDetectionRadius);
+
+            if (inDetectionRadius)
+            {
+                OnTargetInZone();
+            }
+            else
+            {
+                OnLosingTarget();
+            }
+        }
+
+        private void CheckLocator(Transform targetTransform)
+        {
+            if (TargetTransform == targetTransform) return;
+
+            var inDetectionRadius = UnityHelper.InDetectionRadius(
+                View.transform.position,
+                targetTransform.position,
+                Config.PlayerDetectionRadius);
+
+            if (inDetectionRadius)
+            {
+                _enemiesAlarm.AlarmSignal(View, targetTransform, Config.CallToArmsRadius);
+                TargetDetected(targetTransform);
+            }
+        }
+
+        private void OnAlarm(EnemyView signalingEnemy, Transform targetTransform, float alarmRadius)
+        {
+            if (View == signalingEnemy) return;
+            if (TargetTransform == targetTransform) return;
+
+            var inDetectionRadius = UnityHelper.InDetectionRadius(
+                View.transform.position,
+                signalingEnemy.transform.position,
+                alarmRadius);
+
+            if (inDetectionRadius)
+            {
+                TargetDetected(targetTransform);
+                OnAcceptAlarm();
             }
         }
     }

@@ -1,10 +1,11 @@
-using Abstracts;
 using Gameplay.Enemy.Behaviour;
 using Gameplay.Movement;
 using Gameplay.Player;
 using Gameplay.Shooting;
 using Gameplay.Enemy.Scriptables;
 using UnityEngine;
+using SpaceRogue.Abstraction;
+
 
 namespace Gameplay.Enemy
 {
@@ -24,8 +25,6 @@ namespace Gameplay.Enemy
             _config = config;
             _view = view;
             AddGameObject(_view.gameObject);
-            //_turret = WeaponFactory.CreateFrontalTurret(PickTurret(_config.TurretConfigs, _random), _view.transform, UnitType.Enemy);
-            //AddController(_turret);
             
             var movementModel = new UnitMovementModel(_config.UnitMovement);
             _behaviourController = new(movementModel, _view, _turret, _playerController, _config.Behaviour, target);

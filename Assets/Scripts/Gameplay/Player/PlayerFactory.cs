@@ -1,8 +1,8 @@
 using System;
 using Gameplay.Events;
-using Gameplay.Input;
 using Gameplay.Movement;
 using Gameplay.Player.Weapon;
+using SpaceRogue.InputSystem;
 using UnityEngine;
 using Zenject;
 
@@ -46,7 +46,7 @@ namespace Gameplay.Player
             var model = _unitMovementModelFactory.Create(_unitMovementConfig);
             var unitMovement = _playerMovementFactory.Create(playerView, _playerInput, model);
             var unitTurningMouse = _unitTurningMouseFactory.Create(playerView, _playerInput, model);
-            var playerWeapon = _playerWeaponFactory.Create(playerView);
+            var unitWeapon = _playerWeaponFactory.Create(playerView);
             var playerSurvival = _playerSurvivalFactory.Create(playerView);
             
             PlayerSpawned.Invoke(new PlayerSpawnedEventArgs
@@ -54,7 +54,7 @@ namespace Gameplay.Player
                 Transform = playerView.transform
             });
             
-            return new Player(playerView, unitMovement, unitTurningMouse, playerSurvival, playerWeapon);
+            return new Player(playerView, unitMovement, unitTurningMouse, playerSurvival, unitWeapon);
         }
     }
 }

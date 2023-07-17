@@ -48,5 +48,13 @@ namespace Utilities.Unity
 
             return unitSpawnPoint;
         }
+
+        public static bool InDetectionRadius(Vector3 ownPosition, Vector3 targetPosition, float detectionRadius)
+        {
+            var sqrMagnitude = (ownPosition - targetPosition).sqrMagnitude;
+            var sqrDetectionRadius = detectionRadius * detectionRadius;
+
+            return sqrMagnitude <= sqrDetectionRadius;
+        }
     }
 }

@@ -1,23 +1,24 @@
 using System;
-using Gameplay.Abstracts;
 using Gameplay.Damage;
 using Gameplay.Survival.DamageImmunityFrame;
 using Gameplay.Survival.Health;
 using Gameplay.Survival.Shield;
+using SpaceRogue.Abstraction;
 using Utilities.Mathematics;
+
 
 namespace Gameplay.Survival
 {
     public sealed class EntitySurvival : IDisposable
     {
-        private readonly EntityView _entityView;
+        private readonly EntityViewBase _entityView;
         private readonly EntityDamageImmunityFrame _entityDamageImmunityFrame;
 
         public EntityHealth EntityHealth { get; }
         public EntityShield EntityShield { get; }
         public event Action UnitDestroyed = () => { };
 
-        public EntitySurvival(EntityView entityView, EntityHealth entityHealth, EntityShield entityShield, EntityDamageImmunityFrame entityDamageImmunityFrame)
+        public EntitySurvival(EntityViewBase entityView, EntityHealth entityHealth, EntityShield entityShield, EntityDamageImmunityFrame entityDamageImmunityFrame)
         {
             EntityHealth = entityHealth;
             EntityShield = entityShield;
@@ -40,6 +41,7 @@ namespace Gameplay.Survival
 
         internal void ReceiveDamage(DamageModel damageModel)
         {
+            if (damageModel.EntityType == _entityView.EntityType) return;
             var damage = RandomPicker.PickRandomBetweenTwoValues(damageModel.MinDamage, damageModel.MaxDamage);
             TakeDamage(damage);
         }

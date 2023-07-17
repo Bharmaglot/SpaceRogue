@@ -1,4 +1,3 @@
-using Abstracts;
 using Gameplay.Player;
 using Scriptables.GameEvent;
 using System;
@@ -6,6 +5,8 @@ using Gameplay.GameEvent.Caravan;
 using Gameplay.GameEvent.Comet;
 using Gameplay.GameEvent.Supernova;
 using Utilities.ResourceManagement;
+using SpaceRogue.Abstraction;
+
 
 namespace Gameplay.GameEvent
 {

@@ -15,7 +15,7 @@ namespace Gameplay.Services
 
         private Transform _playerTransform;
 
-        public event Action<Vector3> PlayerPosition = _ => { };
+        public event Action<Transform> PlayerTransform = _ => { };
 
         public PlayerLocator(TimerFactory timerFactory, PlayerFactory playerFactory)
         {
@@ -40,7 +40,7 @@ namespace Gameplay.Services
             }
 
             _timer.Start();
-            PlayerPosition.Invoke(_playerTransform.position);
+            PlayerTransform.Invoke(_playerTransform);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEventArgs args)

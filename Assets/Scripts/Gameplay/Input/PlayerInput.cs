@@ -1,40 +1,51 @@
+using SpaceRogue.Abstraction;
+using SpaceRogue.Services;
 using System;
-using Abstracts;
-using Gameplay.Abstracts;
-using Services;
 using UnityEngine;
 
-namespace Gameplay.Input
+
+namespace SpaceRogue.InputSystem
 {
-    public sealed class PlayerInput : IDisposable, IUnitMovementInput, IUnitTurningMouseInput
+    public sealed class PlayerInput : IDisposable, IUnitMovementInput, IUnitTurningMouseInput, IUnitWeaponInput
     {
+
+        #region Events
+
+        public event Action<Vector3> MousePositionInput;
+
+        public event Action<float> VerticalAxisInput;
+        public event Action<float> HorizontalAxisInput;
+
+        public event Action<bool> PrimaryFireInput;
+        public event Action<bool> ChangeWeaponInput;
+        public event Action<bool> NextLevelInput;
+        public event Action<bool> MapInput;
+
+        #endregion
+
+
+        #region Fields
+
+        private const string VERTICAL = "Vertical";
+        private const string HORIZONTAL = "Horizontal";
+        private const KeyCode PRIMARY_FIRE = KeyCode.Mouse0;
+        private const KeyCode CHANGE_WEAPON = KeyCode.Q;
+        private const KeyCode NEXT_LEVEL = KeyCode.Return;
+        private const KeyCode MAP = KeyCode.Tab;
+
         private readonly Updater _updater;
         private readonly PlayerInputConfig _playerInputConfig;
 
-        public event Action<Vector3> MousePositionInput = _ => { };
-        
-        public event Action<float> VerticalAxisInput = _ => { };
-        public event Action<float> HorizontalAxisInput = _ => { };
+        #endregion
 
-        public event Action<bool> PrimaryFireInput = _ => { };
-        public event Action<bool> ChangeWeaponInput = _ => { };
-        public event Action<bool> NextLevelInput = _ => { };
-        public event Action<bool> MapInput = _ => { };
-        
-        private const string Vertical = "Vertical";
-        private const string Horizontal = "Horizontal";
-        private const KeyCode PrimaryFire = KeyCode.Mouse0;
-        private const KeyCode ChangeWeapon = KeyCode.Q;
-        private const KeyCode NextLevel = KeyCode.Return;
-        private const KeyCode Map = KeyCode.Tab;
-        
-        
+
+        #region CodeLife
 
         public PlayerInput(Updater updater, PlayerInputConfig playerInputConfig)
         {
             _updater = updater;
             _playerInputConfig = playerInputConfig;
-            
+
             _updater.SubscribeToUpdate(CheckVerticalInput);
             _updater.SubscribeToUpdate(CheckHorizontalInput);
             _updater.SubscribeToUpdate(CheckFiringInput);
@@ -54,52 +65,59 @@ namespace Gameplay.Input
             _updater.UnsubscribeFromUpdate(CheckNextLevelInput);
             _updater.UnsubscribeFromUpdate(CheckMapInput);
         }
-        
+
+        #endregion
+
+
+        #region Methods
+
         private void CheckVerticalInput()
         {
-            float verticalOffset = UnityEngine.Input.GetAxis(Vertical);
+            float verticalOffset = Input.GetAxis(VERTICAL);
             float inputValue = CalculateInputValue(verticalOffset, _playerInputConfig.VerticalInputMultiplier);
-            VerticalAxisInput(inputValue);
+            VerticalAxisInput?.Invoke(inputValue);
         }
-        
+
         private void CheckHorizontalInput()
         {
-            float horizontalOffset = UnityEngine.Input.GetAxis(Horizontal);
+            float horizontalOffset = Input.GetAxis(HORIZONTAL);
             float inputValue = CalculateInputValue(horizontalOffset, _playerInputConfig.HorizontalInputMultiplier);
-            HorizontalAxisInput(inputValue);
+            HorizontalAxisInput?.Invoke(inputValue);
         }
 
         private void CheckFiringInput()
         {
-            bool value = UnityEngine.Input.GetKey(PrimaryFire);
-            PrimaryFireInput(value);
+            bool value = Input.GetKey(PRIMARY_FIRE);
+            PrimaryFireInput?.Invoke(value);
         }
 
         private void CheckMousePositionInput()
         {
-            Vector3 value = UnityEngine.Input.mousePosition;
-            MousePositionInput(value);
+            Vector3 value = Input.mousePosition;
+            MousePositionInput?.Invoke(value);
         }
 
         private void CheckChangeWeaponInput()
         {
-            bool value = UnityEngine.Input.GetKeyDown(ChangeWeapon);
-            ChangeWeaponInput(value);
+            bool value = Input.GetKeyDown(CHANGE_WEAPON);
+            ChangeWeaponInput?.Invoke(value);
         }
 
         private void CheckNextLevelInput()
         {
-            bool value = UnityEngine.Input.GetKeyDown(NextLevel);
-            NextLevelInput(value);
-        }
-        
-        private void CheckMapInput()
-        {
-            bool value = UnityEngine.Input.GetKey(Map);
-            MapInput(value);
+            bool value = Input.GetKeyDown(NEXT_LEVEL);
+            NextLevelInput?.Invoke(value);
         }
 
-        private static float CalculateInputValue(float axisOffset, float inputMultiplier)
-            => axisOffset * inputMultiplier;
+        private void CheckMapInput()
+        {
+            bool value = Input.GetKey(MAP);
+            MapInput?.Invoke(value);
+        }
+
+        private static float CalculateInputValue(float axisOffset, float inputMultiplier) => axisOffset * inputMultiplier;
+
+        #endregion
+
     }
 }

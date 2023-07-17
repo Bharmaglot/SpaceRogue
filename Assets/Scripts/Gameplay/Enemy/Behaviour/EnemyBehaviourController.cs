@@ -1,10 +1,12 @@
-using Abstracts;
-using Gameplay.Enemy.Movement;
 using Gameplay.Movement;
 using Gameplay.Player;
 using Gameplay.Shooting;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
+
 
 namespace Gameplay.Enemy.Behaviour
 {
@@ -21,7 +23,7 @@ namespace Gameplay.Enemy.Behaviour
         private readonly SubscribedProperty<EnemyState> _enemyCurrentState;
         
         
-        private EnemyBehaviour _currentBehaviour;
+        private LegacyEnemyBehaviour _currentBehaviour;
 
         public EnemyBehaviourController(UnitMovementModel unitMovementModel, EnemyView view, Weapon turretController,
             PlayerController playerController, EnemyBehaviourConfig config, Transform target)
@@ -53,19 +55,19 @@ namespace Gameplay.Enemy.Behaviour
             switch (newState)
             {
                 case EnemyState.Idle:
-                    _currentBehaviour = new EnemyIdleBehaviour(_enemyCurrentState, _view, _playerController, _enemyConfig);
+                    _currentBehaviour = new LegacyEnemyIdleBehaviour(_enemyCurrentState, _view, _playerController, _enemyConfig);
                     break;
                 case EnemyState.PassiveRoaming:
-                    _currentBehaviour = new EnemyRoamingBehaviour(_enemyCurrentState, _view, _playerController, _unitMovementModel, _inputController, _enemyConfig);
+                    _currentBehaviour = new LegacyEnemyRoamingBehaviour(_enemyCurrentState, _view, _playerController, _unitMovementModel, _inputController, _enemyConfig);
                     break;
                 case EnemyState.InCombat:
-                    _currentBehaviour = new EnemyCombatBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _turretController, _enemyConfig);
+                    _currentBehaviour = new LegacyEnemyCombatBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _turretController, _enemyConfig);
                     break;
                 case EnemyState.InCombatWithRetreat:
-                    _currentBehaviour = new EnemyCombatWithRetreatBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _turretController, _enemyConfig, lastEnemyState);
+                    _currentBehaviour = new LegacyEnemyCombatWithRetreatBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _turretController, _enemyConfig, lastEnemyState);
                     break;
                 case EnemyState.Escort:
-                    _currentBehaviour = new EnemyEscortBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _enemyConfig, _target);
+                    _currentBehaviour = new LegacyEnemyEscortBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _enemyConfig, _target);
                     break;
                 default: return;
             }

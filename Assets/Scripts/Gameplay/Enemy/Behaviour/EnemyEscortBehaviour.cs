@@ -1,109 +1,124 @@
-using Gameplay.Enemy.Movement;
-using Gameplay.Player;
+using Gameplay.Movement;
+using Gameplay.Services;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.Services;
+using System;
 using UnityEngine;
-using Utilities.Reactive.SubscriptionProperty;
 using Utilities.Unity;
+
 
 namespace Gameplay.Enemy.Behaviour
 {
     public sealed class EnemyEscortBehaviour : EnemyBehaviour
     {
-        private readonly EnemyInput _inputController;
-        private readonly Transform _target;
-        private Vector3 _targetDirection;
+        private readonly Transform _escortTarget;
+
         private Vector3 _currentDirection;
-        private float _distance;
 
         public EnemyEscortBehaviour(
-            SubscribedProperty<EnemyState> enemyState, 
+            Updater updater,
+            PlayerLocator playerLocator,
+            EnemiesAlarm enemiesAlarm,
+            EnemyState state,
+            Action<EnemyState> enemyStateChanged,
             EnemyView view,
-            PlayerController playerController,
-            EnemyInput inputController,
+            EnemyInput input,
+            UnitMovementModel model,
             EnemyBehaviourConfig config,
-            Transform target) : base(enemyState, view, playerController, config)
+            Transform escortTarget)
+            : base(
+                  updater,
+                  playerLocator,
+                  enemiesAlarm,
+                  state,
+                  enemyStateChanged,
+                  view,
+                  input,
+                  model,
+                  config)
         {
-            _inputController = inputController;
-            _target = target;
+            _escortTarget = escortTarget;
+        }
+
+        protected override void OnTargetInZone()
+        {
+            ChangeState(EnemyState.InCombatWithRetreat);
+        }
+
+        protected override void OnAcceptAlarm()
+        {
+            ChangeState(EnemyState.InCombatWithRetreat);
         }
 
         protected override void OnUpdate()
         {
-            if(_target == null)
+            if (_escortTarget == null)
             {
                 ChangeState(EnemyState.PassiveRoaming);
                 return;
             }
 
             GetDirectionsAndDistance();
-            RotateTowardsTarget();
+            RotateTowardsPlayer();
             Move();
-        }
-
-        protected override void DetectPlayer()
-        {
-            if (PlayerView == null)
-            {
-                return;
-            }
-
-            if (Vector3.Distance(View.transform.position, PlayerView.transform.position) < Config.PlayerDetectionRadius)
-            {
-                EnterCombat();
-            }
         }
 
         private void GetDirectionsAndDistance()
         {
             _currentDirection = View.transform.TransformDirection(Vector3.up);
-            var direction = _target.transform.position - View.transform.position;
-            _targetDirection = direction.normalized;
-            _distance = direction.magnitude;
+            MovementDirection = 
+                (_escortTarget.position - View.transform.position).normalized;
         }
 
-        private void RotateTowardsTarget()
+        private void RotateTowardsPlayer()
         {
-            if (_targetDirection == _currentDirection)
+            var turnOrNot = UnityHelper.Approximately(
+                MovementDirection,
+                _currentDirection,
+                0.1f);
+
+            if (turnOrNot)
             {
-                _inputController.StopTurning();
+                Input.StopTurning();
             }
             else
             {
-                HandleTurn();
+                var turningLeft = UnityHelper.VectorAngleLessThanAngle(
+                    MovementDirection,
+                    _currentDirection,
+                    0);
+
+                HandleTurn(turningLeft);
             }
         }
 
-        private void HandleTurn()
+        private void HandleTurn(bool turningLeft)
         {
-            if (UnityHelper.VectorAngleLessThanAngle(_targetDirection, _currentDirection, 0))
+            if (turningLeft)
             {
-                _inputController.TurnLeft();
+                Input.TurnLeft();
             }
             else
             {
-                _inputController.TurnRight();
+                Input.TurnRight();
             }
         }
 
         private void Move()
         {
-            if (UnityHelper.Approximately(_distance, Config.ApproachDistance, 0.05f))
-            {
-                return;
-            }
+            var inDetectionRadius = UnityHelper.InDetectionRadius(
+                View.transform.position,
+                _escortTarget.position,
+                Config.ApproachDistance);
 
-            if (_distance < Config.ApproachDistance)
+            if (inDetectionRadius)
             {
-                _inputController.Decelerate();
+                Input.Decelerate();
             }
             else
             {
-                _inputController.Accelerate();
+                Input.Accelerate();
             }
-        }
-
-        private void EnterCombat()
-        {
-            ChangeState(EnemyState.InCombatWithRetreat);
         }
     }
 }

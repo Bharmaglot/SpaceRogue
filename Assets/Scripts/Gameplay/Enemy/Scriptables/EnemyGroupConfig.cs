@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Scriptables;
 using UnityEngine;
 
 namespace Gameplay.Enemy.Scriptables
@@ -8,5 +7,6 @@ namespace Gameplay.Enemy.Scriptables
     public sealed class EnemyGroupConfig : ScriptableObject
     {
         [field: SerializeField] public List<EnemySquadConfig> Squads { get; private set; }
+        [field: SerializeField] public float TimeToPickNewDirectionInSeconds { get; private set; } = 3;
     }
 }

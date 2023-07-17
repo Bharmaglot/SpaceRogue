@@ -1,7 +1,4 @@
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Background;
-using Gameplay.Enemy;
 using Gameplay.Enemy.Movement;
 using Gameplay.GameProgress;
 using Gameplay.Input;
@@ -10,8 +7,13 @@ using Gameplay.Mechanics.Timer;
 using Gameplay.Movement;
 using Gameplay.Services;
 using Scriptables;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.InputSystem;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
+
 
 namespace Gameplay.Installers
 {
@@ -31,6 +33,7 @@ namespace Gameplay.Installers
             InstallEnemyInput();
             InstallUnitMovement();
             InstallPlayerLocator();
+            InstallEnemiesAlarm();
         }
 
         private void InstallGameplayMechanics()
@@ -100,15 +103,15 @@ namespace Gameplay.Installers
                 .AsSingle();
 
             Container
-                .BindFactory<EntityView, IUnitMovementInput, UnitMovementModel, UnitMovement, UnitMovementFactory>()
+                .BindFactory<EntityViewBase, IUnitMovementInput, UnitMovementModel, UnitMovement, UnitMovementFactory>()
                 .AsSingle();
 
             Container
-                .BindFactory<EntityView, IUnitTurningInput, UnitMovementModel, UnitTurning, UnitTurningFactory>()
+                .BindFactory<EntityViewBase, IUnitTurningInput, UnitMovementModel, UnitTurning, UnitTurningFactory>()
                 .AsSingle();
             
             Container
-                .BindFactory<EntityView, IUnitTurningMouseInput, UnitMovementModel, UnitTurningMouse, UnitTurningMouseFactory>()
+                .BindFactory<EntityViewBase, IUnitTurningMouseInput, UnitMovementModel, UnitTurningMouse, UnitTurningMouseFactory>()
                 .AsSingle();
         }
         
@@ -116,6 +119,14 @@ namespace Gameplay.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<PlayerLocator>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void InstallEnemiesAlarm()
+        {
+            Container
+                .Bind<EnemiesAlarm>()
                 .AsSingle()
                 .NonLazy();
         }

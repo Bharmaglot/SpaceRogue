@@ -1,10 +1,10 @@
-﻿using Abstracts;
-using Services;
+﻿using SpaceRogue.Abstraction;
+using SpaceRogue.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Abstracts;
 using UnityEngine;
+
 
 namespace Gameplay.Space.Obstacle
 {
@@ -17,7 +17,7 @@ namespace Gameplay.Space.Obstacle
         private readonly Collider2D _obstacleCollider;
         private readonly float _obstacleForce;
 
-        private readonly Dictionary<EntityView, Vector3> _unitCollection = new();
+        private readonly Dictionary<EntityViewBase, Vector3> _unitCollection = new();
 
         public SpaceObstacle(Updater updater, SpaceObstacleView obstacleView, float obstacleForce)
         {
@@ -75,7 +75,7 @@ namespace Gameplay.Space.Obstacle
             }
         }
 
-        private void OnObstacleEnter(EntityView entityView)
+        private void OnObstacleEnter(EntityViewBase entityView)
         {
             if (_unitCollection.ContainsKey(entityView))
             {
@@ -93,7 +93,7 @@ namespace Gameplay.Space.Obstacle
             _unitCollection.Add(entityView, closestPoint);
         }
 
-        private void OnObstacleExit(EntityView entityView)
+        private void OnObstacleExit(EntityViewBase entityView)
         {
             if (!_unitCollection.ContainsKey(entityView))
             {

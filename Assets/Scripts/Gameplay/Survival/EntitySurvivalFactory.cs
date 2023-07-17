@@ -1,13 +1,14 @@
-using System;
-using Gameplay.Abstracts;
 using Gameplay.Survival.DamageImmunityFrame;
 using Gameplay.Survival.Health;
 using Gameplay.Survival.Shield;
+using SpaceRogue.Abstraction;
+using System;
 using Zenject;
+
 
 namespace Gameplay.Survival
 {
-    public sealed class EntitySurvivalFactory : PlaceholderFactory<EntityView, EntitySurvivalConfig, EntitySurvival>
+    public sealed class EntitySurvivalFactory : PlaceholderFactory<EntityViewBase, EntitySurvivalConfig, EntitySurvival>
     {
         private readonly EntityHealthFactory _entityHealthFactory;
         private readonly EntityShieldFactory _entityShieldFactory;
@@ -23,7 +24,7 @@ namespace Gameplay.Survival
             _entityDamageImmunityFrameFactory = entityDamageImmunityFrameFactory;
         }
 
-        public override EntitySurvival Create(EntityView view, EntitySurvivalConfig config)
+        public override EntitySurvival Create(EntityViewBase view, EntitySurvivalConfig config)
         {
             if (config.Health is null) throw new ArgumentNullException(nameof(config.Health));
             var entityHealth = _entityHealthFactory.Create(config.Health);

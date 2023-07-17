@@ -1,106 +1,125 @@
-using Gameplay.Enemy.Movement;
-using Gameplay.Player;
-using Gameplay.Shooting;
+using System;
+using Gameplay.Movement;
+using Gameplay.Services;
+using SpaceRogue.Enemy.Movement;
+using SpaceRogue.Services;
 using UnityEngine;
-using Utilities.Reactive.SubscriptionProperty;
 using Utilities.Unity;
+
 
 namespace Gameplay.Enemy.Behaviour
 {
     public class EnemyCombatBehaviour : EnemyBehaviour
     {
-        private readonly EnemyInput _inputController;
-        private readonly Weapon _frontalTurret;
-        private readonly float _firingAngle;
-
-        private Vector3 _targetDirection;
         private Vector3 _currentDirection;
-        
-        
-        protected float _distance;
-        protected bool _inZone = true;
 
         public EnemyCombatBehaviour(
-            SubscribedProperty<EnemyState> enemyState, EnemyView view, PlayerController playerController,
-            EnemyInput inputController, Weapon frontalTurret, EnemyBehaviourConfig config) 
-            : base(enemyState, view, playerController, config)
+            Updater updater,
+            PlayerLocator playerLocator,
+            EnemiesAlarm enemiesAlarm,
+            EnemyState state,
+            Action<EnemyState> enemyStateChanged,
+            EnemyView view,
+            EnemyInput input,
+            UnitMovementModel model,
+            EnemyBehaviourConfig config,
+            Transform targetTransform)
+            : base(
+                  updater,
+                  playerLocator,
+                  enemiesAlarm,
+                  state,
+                  enemyStateChanged,
+                  view,
+                  input,
+                  model,
+                  config,
+                  targetTransform)
         {
-            _inputController = inputController;
-            _frontalTurret = frontalTurret;
-            _firingAngle = config.FiringAngle;
+        }
+
+        protected override void OnLosingTarget() { }
+
+        protected override void OnTargetInZone()
+        {
+            var directionInsideAngle = UnityHelper.DirectionInsideAngle(
+                MovementDirection,
+                _currentDirection,
+                Config.FiringAngle);
+
+            if (directionInsideAngle)
+            {
+                Input.Fire();
+            }
         }
 
         protected override void OnUpdate()
         {
+            if (TargetTransform == null)
+            {
+                return;
+            }
+
             GetDirectionsAndDistance();
             RotateTowardsPlayer();
             Move();
-            Shooting();
-        }
-
-        protected override void DetectPlayer()
-        {
         }
 
         private void GetDirectionsAndDistance()
         {
             _currentDirection = View.transform.TransformDirection(Vector3.up);
-            var direction = PlayerView.transform.position - View.transform.position;
-            _targetDirection = direction.normalized;
-            _distance = direction.magnitude;
+            MovementDirection = 
+                (TargetTransform.position - View.transform.position).normalized;
         }
 
-        private void Shooting()
+        private void RotateTowardsPlayer()
         {
-            if (!_inZone)
-            {
-                return;
-            }
+            var turnOrNot = UnityHelper.Approximately(
+                MovementDirection,
+                _currentDirection,
+                0.1f);
 
-            if (UnityHelper.DirectionInsideAngle(_targetDirection, _currentDirection, _firingAngle))
+            if (turnOrNot)
             {
-                //_frontalTurret.CommenceFiring();
+                Input.StopTurning();
+            }
+            else
+            {
+                var turningLeft = UnityHelper.VectorAngleLessThanAngle(
+                    MovementDirection,
+                    _currentDirection,
+                    0);
+
+                HandleTurn(turningLeft);
+            }
+        }
+
+        private void HandleTurn(bool turningLeft)
+        {
+            if (turningLeft)
+            {
+                Input.TurnLeft();
+            }
+            else
+            {
+                Input.TurnRight();
             }
         }
 
         private void Move()
         {
-            if (UnityHelper.Approximately(_distance, Config.ApproachDistance, 0.05f))
-            {
-                return;
-            }
+            var inDetectionRadius = UnityHelper.InDetectionRadius(
+                View.transform.position,
+                TargetTransform.position,
+                Config.ApproachDistance);
 
-            if (_distance < Config.ApproachDistance)
+            if (inDetectionRadius)
             {
-                _inputController.Decelerate();
+                Input.Decelerate();
             }
             else
             {
-                _inputController.Accelerate();
-            }
-        }
-
-        private void RotateTowardsPlayer()
-        {
-            if (_targetDirection == _currentDirection)
-            {
-                _inputController.StopTurning();
-            }
-            else
-            {
-                HandleTurn();
-            }
-        }
-
-        private void HandleTurn()
-        {
-            if (UnityHelper.VectorAngleLessThanAngle(_targetDirection, _currentDirection, 0))
-            {
-                _inputController.TurnLeft();
-            }
-            else
-            {
-                _inputController.TurnRight();
+                Input.Accelerate();
             }
         }
     }

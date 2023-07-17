@@ -1,12 +1,13 @@
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Damage;
 using Gameplay.Space.SpaceObjects;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
 using UnityEngine;
+
 
 namespace Gameplay.Enemy
 {
-    public sealed class EnemyView : EntityView
+    public sealed class EnemyView : EntityViewBase
     {
         public override EntityType EntityType => EntityType.Enemy;
 

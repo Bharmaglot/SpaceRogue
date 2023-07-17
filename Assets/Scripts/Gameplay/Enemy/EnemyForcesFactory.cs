@@ -7,17 +7,17 @@ namespace Gameplay.Enemy
     public sealed class EnemyForcesFactory : PlaceholderFactory<int, SpawnPointsFinder, EnemyForces>
     {
         private readonly EnemySpawnConfig _enemySpawnConfig;
-        private readonly EnemyFactory _enemyFactory;
+        private readonly EnemiesGroupFactory _enemiesGroupFactory;
 
-        public EnemyForcesFactory(EnemySpawnConfig enemySpawnConfig, EnemyFactory enemyFactory)
+        public EnemyForcesFactory(EnemySpawnConfig enemySpawnConfig, EnemiesGroupFactory enemiesGroupFactory)
         {
             _enemySpawnConfig = enemySpawnConfig;
-            _enemyFactory = enemyFactory;
+            _enemiesGroupFactory = enemiesGroupFactory;
         }
 
         public override EnemyForces Create(int enemyGroupCount, SpawnPointsFinder spawnPointsFinder)
         {
-            return new(enemyGroupCount, _enemySpawnConfig, spawnPointsFinder, _enemyFactory);
+            return new(enemyGroupCount, _enemySpawnConfig, spawnPointsFinder, _enemiesGroupFactory);
         }
     }
 }

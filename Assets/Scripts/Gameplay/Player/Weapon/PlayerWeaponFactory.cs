@@ -1,29 +1,28 @@
-using Abstracts;
-using Gameplay.Abstracts;
-using Gameplay.Input;
 using Gameplay.Shooting;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.InputSystem;
 using Zenject;
+
 
 namespace Gameplay.Player.Weapon
 {
-    public sealed class PlayerWeaponFactory : PlaceholderFactory<PlayerView, PlayerWeapon>
+    public sealed class PlayerWeaponFactory : PlaceholderFactory<PlayerView, UnitWeapon>
     {
-        private readonly IFactory<MountedWeaponConfig, EntityView, MountedWeapon> _mountedWeaponFactory;
+        private readonly UnitWeaponFactory _unitWeaponFactory;
         private readonly MountedWeaponConfig _config;
         private readonly DiContainer _diContainer;
 
-        public PlayerWeaponFactory(IFactory<MountedWeaponConfig, EntityView, MountedWeapon> mountedWeaponFactory, MountedWeaponConfig config, DiContainer diContainer)
+        public PlayerWeaponFactory(UnitWeaponFactory unitWeaponFactory, MountedWeaponConfig config, DiContainer diContainer)
         {
-            _mountedWeaponFactory = mountedWeaponFactory;
+            _unitWeaponFactory = unitWeaponFactory;
             _config = config;
             _diContainer = diContainer;
         }
 
-        public override PlayerWeapon Create(PlayerView playerView)
+        public override UnitWeapon Create(PlayerView playerView)
         {
             var playerInput = _diContainer.Resolve<PlayerInput>();
-            return new PlayerWeapon(_mountedWeaponFactory.Create(_config, playerView), playerInput);
+            return _unitWeaponFactory.Create(playerView, _config, playerInput);
         }
     }
 }

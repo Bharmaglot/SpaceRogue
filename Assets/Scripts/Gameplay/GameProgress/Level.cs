@@ -31,7 +31,7 @@ namespace Gameplay.GameProgress
             _player = player;
             _enemyForces = enemyForces;
             _space = space;
-            EnemiesCreatedCount = _enemyForces.Enemies.Count;
+            EnemiesCreatedCount = _enemyForces.GetEnemiesCount();
             _asteroids = asteroids;
         }
 

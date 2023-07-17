@@ -1,11 +1,12 @@
-using Abstracts;
-using Gameplay.Abstracts;
 using Gameplay.Pooling;
 using Gameplay.Shooting;
 using Gameplay.Shooting.Factories;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
 using UnityEngine;
 using Zenject;
+
 
 namespace Gameplay.Installers
 {
@@ -22,6 +23,7 @@ namespace Gameplay.Installers
             InstallTurretFactory();
             InstallGunPointFactory();
             InstallWeaponFactories();
+            InstallUnitWeaponFactory();
         }
 
         private void InstallProjectilePool()
@@ -49,9 +51,13 @@ namespace Gameplay.Installers
                 .Bind<TurretView>()
                 .FromInstance(TurretView)
                 .WhenInjectedInto<TurretViewFactory>();
-            
+
             Container
-                .BindFactory<Transform, TurretView, TurretViewFactory>()
+                .BindFactory<Weapon, EntityViewBase, TurretViewFactory, GunPointViewFactory, TurretConfig, TurretMountedWeapon, TurretMountedWeaponFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<Transform, TurretConfig, TurretView, TurretViewFactory>()
                 .AsSingle();
         }
         
@@ -74,8 +80,23 @@ namespace Gameplay.Installers
                 .FromFactory<WeaponFactory>();
 
             Container
-                .BindIFactory<MountedWeaponConfig, EntityView, MountedWeapon>()
+                .Bind<WeaponFactory>()
+                .AsCached();
+
+            Container
+                .BindIFactory<MountedWeaponConfig, EntityViewBase, MountedWeapon>()
                 .FromFactory<MountedWeaponFactory>();
+
+            Container
+                .Bind<MountedWeaponFactory>()
+                .AsCached();
+        }
+        
+        private void InstallUnitWeaponFactory()
+        {
+            Container
+                .BindFactory<EntityViewBase, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
+                .AsSingle();
         }
     }
 }
