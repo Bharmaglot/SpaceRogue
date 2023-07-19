@@ -9,6 +9,7 @@ namespace Gameplay.Missions
         private readonly EnemyDeathObserver _enemyDeathObserver;
         private bool _completed;
         
+        public event Action<int> KillCountChanged;
         public override event Action Completed;
         
         public int EnemiesKilled { get; private set; }
@@ -31,6 +32,16 @@ namespace Gameplay.Missions
             _enemyDeathObserver.EnemyDestroyed -= OnEnemyDestroyed;
         }
 
+        //TODO: Hard-code: Remove when unneeded
+        public void CompleteInstantly()
+        {
+            EnemiesKilled = EnemiesToKill;
+            KillCountChanged?.Invoke(EnemiesKilled);
+            
+            _completed = true;
+            Completed?.Invoke();
+        }
+
         private void OnEnemyDestroyed(Enemy.Enemy _)
         {
             IncreaseKillCount();
@@ -41,6 +52,7 @@ namespace Gameplay.Missions
             if (_completed) return;
             
             EnemiesKilled += 1;
+            KillCountChanged?.Invoke(EnemiesKilled);
             
             if (EnemiesKilled >= EnemiesToKill)
             {

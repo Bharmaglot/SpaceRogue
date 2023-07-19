@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Gameplay.Missions.Factories
 {
-    public class MissionFactory : IFactory<BaseMissionConfig, BaseMission>
+    public sealed class MissionFactory : IFactory<BaseMissionConfig, BaseMission>
     {
         private readonly EnemyDeathObserver _enemyDeathObserver;
 

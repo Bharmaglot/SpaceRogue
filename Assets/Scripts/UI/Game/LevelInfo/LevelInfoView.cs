@@ -6,13 +6,11 @@ namespace UI.Game.LevelInfo
     {
         [field: SerializeField] public LevelNumberView LevelNumberView { get; private set; }
         [field: SerializeField] public EnemiesCountView EnemiesCountView { get; private set; }
-        
-        private const int Zero = 0;
-        
-        public void Init(int currentLevelNumber, int enemiesToWin)
+
+        public void Init(string currentLevelNumber, string enemiesKilled, string enemiesToWin)
         {
-            LevelNumberView.InitNumber(currentLevelNumber.ToString());
-            EnemiesCountView.Init(Zero, enemiesToWin);
+            LevelNumberView.InitNumber(currentLevelNumber);
+            EnemiesCountView.Init(enemiesKilled, enemiesToWin);
         }
 
         public void Show()
@@ -27,9 +25,14 @@ namespace UI.Game.LevelInfo
             EnemiesCountView.Hide();
         }
 
-        public void UpdateKillCounter(int defeatedEnemiesCount)
+        public void UpdateLevelNumber(string levelNumber)
         {
-            EnemiesCountView.EnemiesDestroyedCount.UpdateText(defeatedEnemiesCount.ToString());
+            LevelNumberView.UpdateNumber(levelNumber);
+        }
+
+        public void UpdateKillCounter(string defeatedEnemiesCount)
+        {
+            EnemiesCountView.EnemiesDestroyedCount.UpdateText(defeatedEnemiesCount);
         }
     }
 }

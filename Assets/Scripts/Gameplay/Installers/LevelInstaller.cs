@@ -1,4 +1,7 @@
 using Gameplay.GameProgress;
+using Gameplay.Missions;
+using Gameplay.Missions.Factories;
+using Gameplay.Missions.Scriptables;
 using Gameplay.Services;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
@@ -23,6 +26,8 @@ namespace Gameplay.Installers
             InstallLevelGenerator();
             InstallSpaceObstacle();
             InstallLevelProgressService();
+            InstallMissionFactory();
+            InstallMissionCompleteCheat();
         }
 
         private void InstallSpaceView()
@@ -77,6 +82,24 @@ namespace Gameplay.Installers
                 .BindInterfacesAndSelfTo<LevelProgress>()
                 .AsSingle()
                 .NonLazy();
+        }
+        
+        private void InstallMissionFactory()
+        {
+            Container
+                .BindIFactory<BaseMissionConfig, BaseMission>()
+                .FromFactory<MissionFactory>();
+
+            Container
+                .BindFactory<int, KillEnemiesMissionConfig, KillEnemiesMission, KillMissionFactory>()
+                .AsSingle();
+        }
+        
+        private void InstallMissionCompleteCheat()
+        {
+            Container
+                .BindInterfacesAndSelfTo<InstantMissionCompletionController>()
+                .AsSingle();
         }
     }
 }

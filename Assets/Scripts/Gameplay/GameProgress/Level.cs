@@ -1,6 +1,7 @@
 using System;
 using Gameplay.Asteroids;
 using Gameplay.Enemy;
+using Gameplay.Missions;
 
 namespace Gameplay.GameProgress
 {
@@ -12,13 +13,12 @@ namespace Gameplay.GameProgress
         private readonly AsteroidsInSpace _asteroids;
 
         public int CurrentLevelNumber { get; private set; }
-        public int EnemiesCountToWin { get; private set; }
-        public int EnemiesCreatedCount { get; private set; }
+        public KillEnemiesMission LevelMission { get; private set; }
         public float MapCameraSize { get; private set; }
 
         public Level(
             int currentLevelNumber,
-            int enemiesCountToWin,
+            KillEnemiesMission levelMission,
             float mapCameraSize,
             Player.Player player,
             EnemyForces enemyForces,
@@ -26,12 +26,12 @@ namespace Gameplay.GameProgress
             AsteroidsInSpace asteroids)
         {
             CurrentLevelNumber = currentLevelNumber;
-            EnemiesCountToWin = enemiesCountToWin;
+            LevelMission = levelMission;
             MapCameraSize = mapCameraSize;
+            
             _player = player;
             _enemyForces = enemyForces;
             _space = space;
-            EnemiesCreatedCount = _enemyForces.GetEnemiesCount();
             _asteroids = asteroids;
         }
 

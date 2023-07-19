@@ -1,6 +1,8 @@
 using System;
 using Gameplay.Asteroids.Factories;
 using Gameplay.Enemy;
+using Gameplay.Missions;
+using Gameplay.Missions.Factories;
 using Gameplay.Player;
 using Gameplay.Services;
 using Gameplay.Space.Factories;
@@ -23,10 +25,11 @@ namespace Gameplay.GameProgress
         private readonly SpaceFactory _spaceFactory;
         private readonly EnemyForcesFactory _enemyForcesFactory;
         private readonly AsteroidsInSpaceFactory _asteroidsInSpaceFactory;
-        
+        private readonly KillMissionFactory _missionFactory;
+
         private LevelPreset _currentLevelPreset;
 
-        public event Action<Level> LevelCreated = (_) => { };
+        public event Action<Level> LevelCreated;
 
         public LevelFactory(
             LevelPresetsConfig levelPresetsConfig,
@@ -38,7 +41,8 @@ namespace Gameplay.GameProgress
             PlayerFactory playerFactory,
             SpaceFactory spaceFactory,
             EnemyForcesFactory enemyForcesFactory,
-            AsteroidsInSpaceFactory asteroidsInSpaceFactory)
+            AsteroidsInSpaceFactory asteroidsInSpaceFactory,
+            KillMissionFactory missionFactory)
         {
             _levelPresetsConfig = levelPresetsConfig;
             _spaceViewFactory = spaceViewFactory;
@@ -50,6 +54,7 @@ namespace Gameplay.GameProgress
             _spaceFactory = spaceFactory;
             _enemyForcesFactory = enemyForcesFactory;
             _asteroidsInSpaceFactory = asteroidsInSpaceFactory;
+            _missionFactory = missionFactory;
         }
 
         public override Level Create(int levelNumber)
@@ -77,8 +82,11 @@ namespace Gameplay.GameProgress
             var asteroids = _asteroidsInSpaceFactory.Create(_currentLevelPreset.SpaceConfig.AsteroidsOnStartCount, spawnPointsFinder);
             asteroids.SpawnStartAsteroids();
 
-            var level = new Level(levelNumber, _currentLevelPreset.EnemiesCountToWin, mapCameraSize, player, enemyForces, space, asteroids);
-            LevelCreated.Invoke(level);
+            var enemiesSpawned = enemyForces.GetEnemiesCount();
+            var mission = _missionFactory.Create(enemiesSpawned, _currentLevelPreset.LevelMission);
+
+            var level = new Level(levelNumber, mission, mapCameraSize, player, enemyForces, space, asteroids);
+            LevelCreated?.Invoke(level);
             return level;
         }
 

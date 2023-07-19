@@ -33,8 +33,15 @@ namespace UI.Services
         private Transform _playerTransform;
         private bool _isButtonPressed;
 
-        public MinimapService(Updater updater, LevelProgress levelProgress, PlayerInput playerInput,
-            MainCanvas mainCanvas, MinimapCamera minimapCamera, MinimapView minimapView, MinimapConfig minimapConfig)
+        public MinimapService(
+            Updater updater, 
+            LevelProgress levelProgress, 
+            PlayerInput playerInput,
+            MainCanvas mainCanvas, 
+            MinimapCamera minimapCamera,
+            MinimapView minimapView, 
+            MinimapConfig minimapConfig
+            )
         {
             _updater = updater;
             _levelProgress = levelProgress;
@@ -65,7 +72,7 @@ namespace UI.Services
             _updater.UnsubscribeFromUpdate(FollowPlayer);
         }
 
-        private void OnLevelStarted(Level level)
+        private void OnLevelStarted(LevelStartedEventArgs level)
         {
             _mapCameraSize = level.MapCameraSize;
         }

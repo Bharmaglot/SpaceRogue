@@ -11,15 +11,15 @@ namespace UI.Game
         public void Show() => gameObject.SetActive(true);
         public void Hide() => gameObject.SetActive(false);
 
-        public void Init(int enemiesDestroyedCount, int enemiesCount)
+        public void Init(string enemiesDestroyedCount, string enemiesCount)
         {
-            EnemiesDestroyedCount.Init(enemiesDestroyedCount.ToString());
-            EnemiesCount.Init(enemiesCount.ToString());
+            EnemiesDestroyedCount.Init(enemiesDestroyedCount);
+            EnemiesCount.Init(enemiesCount);
         }
 
-        public void UpdateCounter(float enemiesDestroyedCount)
+        public void UpdateCounter(string enemiesDestroyedCount)
         {
-            EnemiesDestroyedCount.UpdateText(enemiesDestroyedCount.ToString());
+            EnemiesDestroyedCount.UpdateText(enemiesDestroyedCount);
         }
     }
 }

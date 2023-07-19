@@ -1,37 +1,67 @@
 using System;
 using Gameplay.Events;
 using Gameplay.Player;
+using Zenject;
 
 namespace Gameplay.GameProgress
 {
-    public sealed class LevelProgress : IDisposable
+    public sealed class LevelProgress : IInitializable, IDisposable
     {
-        //private readonly Level _level;
+        private readonly LevelFactory _levelFactory;
         private readonly PlayerFactory _playerFactory;
         
-        public event Action<Level> LevelStarted = _ => { };
-        public event Action<int> DefeatedEnemiesCountChange = _ => { };
-        public event Action<PlayerSpawnedEventArgs> PlayerSpawned = _ => { };
-        public event Action PlayerDestroyed = () => { };
+        public event Action<LevelStartedEventArgs> LevelStarted;
+        public event Action<Level> LevelCompleted;
+        public event Action LevelFinished;
+        public event Action<PlayerSpawnedEventArgs> PlayerSpawned;
+        public event Action PlayerDestroyed;
 
+        private Level _level;
         private Player.Player _player;
 
-        public LevelProgress(/*Level level,*/ PlayerFactory playerFactory)
+        public LevelProgress(LevelFactory levelFactory, PlayerFactory playerFactory)
         {
-            //_level = level;
+            _levelFactory = levelFactory;
             _playerFactory = playerFactory;
-
+        }
+        
+        public void Initialize()
+        {
+            _levelFactory.LevelCreated += OnLevelCreated;
             _playerFactory.PlayerSpawned += OnPlayerSpawned;
         }
-
+        
         public void Dispose()
         {
+            _levelFactory.LevelCreated -= OnLevelCreated;
             _playerFactory.PlayerSpawned -= OnPlayerSpawned;
+        }
+
+        private void OnLevelCreated(Level level)
+        {
+            _level = level;
+            _level.LevelMission.Completed += OnLevelMissionCompleted;
+            
+            LevelStarted?.Invoke(
+                new LevelStartedEventArgs(
+                    _level.CurrentLevelNumber, 
+                    _level.LevelMission, 
+                    _level.MapCameraSize
+                    )
+                );
+        }
+
+        private void OnLevelMissionCompleted()
+        {
+            LevelCompleted?.Invoke(_level);
+            LevelFinished?.Invoke();
+            
+            _level.LevelMission.Completed -= OnLevelMissionCompleted;
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEventArgs args)
         {
-            PlayerSpawned.Invoke(args);
+            PlayerSpawned?.Invoke(args);
 
             _player = args.Player;
             _player.PlayerDestroyed += OnPlayerDestroyed;
@@ -39,7 +69,9 @@ namespace Gameplay.GameProgress
 
         private void OnPlayerDestroyed()
         {
-            PlayerDestroyed.Invoke();
+            PlayerDestroyed?.Invoke();
+            LevelFinished?.Invoke();
+            
             _player.PlayerDestroyed -= OnPlayerDestroyed;
             _player = null;
         }

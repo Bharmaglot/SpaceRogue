@@ -3,9 +3,6 @@ using Gameplay.Enemy.Movement;
 using Gameplay.GameProgress;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
-using Gameplay.Missions;
-using Gameplay.Missions.Factories;
-using Gameplay.Missions.Scriptables;
 using Gameplay.Movement;
 using Gameplay.Services;
 using Scriptables;
@@ -37,7 +34,6 @@ namespace Gameplay.Installers
             InstallPlayerLocator();
             InstallEnemiesAlarm();
             InstallEnemyDeathObserver();
-            InstallMissionFactory();
         }
 
         private void InstallGameplayMechanics()
@@ -141,13 +137,6 @@ namespace Gameplay.Installers
                 .BindInterfacesAndSelfTo<EnemyDeathObserver>()
                 .AsSingle()
                 .NonLazy();
-        }
-        
-        private void InstallMissionFactory()
-        {
-            Container
-                .BindIFactory<BaseMissionConfig, BaseMission>()
-                .FromFactory<MissionFactory>();
         }
     }
 }
