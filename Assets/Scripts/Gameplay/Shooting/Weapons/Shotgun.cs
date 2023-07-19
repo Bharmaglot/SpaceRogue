@@ -44,10 +44,9 @@ namespace Gameplay.Shooting.Weapons
                 var maximumPelletAngle = minimumAngle + (i + 1) * singlePelletAngle;
 
                 var pelletAngle = RandomPicker.PickRandomBetweenTwoValues(minimumPelletAngle, maximumPelletAngle);
-                Vector3 pelletVector = (pelletAngle + 90).ToVector3();
-                Quaternion pelletDirection = turretDirection * Quaternion.Euler(pelletVector.x, pelletVector.y, pelletVector.z);
-                
-                _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, pelletDirection, _entityType, _config.ShotgunProjectile));
+                var pelletRotation = turretDirection * Quaternion.AngleAxis(pelletAngle, Vector3.forward);
+
+                _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, pelletRotation, _entityType, _config.ShotgunProjectile));
             }
         }
     }
