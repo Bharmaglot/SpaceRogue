@@ -14,7 +14,7 @@ namespace Gameplay.Missions
         public int EnemiesKilled { get; private set; }
         public int EnemiesToKill { get; private set; }
 
-        public KillEnemiesMission(EnemyDeathObserver enemyDeathObserver, int enemiesToKill)
+        public KillEnemiesMission(int enemiesToKill, EnemyDeathObserver enemyDeathObserver)
         {
             _enemyDeathObserver = enemyDeathObserver;
             EnemiesToKill = enemiesToKill;

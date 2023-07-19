@@ -14,6 +14,8 @@ namespace Gameplay.GameProgress
         public event Action<PlayerSpawnedEventArgs> PlayerSpawned = _ => { };
         public event Action PlayerDestroyed = () => { };
 
+        private Player.Player _player;
+
         public LevelProgress(/*Level level,*/ PlayerFactory playerFactory)
         {
             //_level = level;
@@ -30,6 +32,16 @@ namespace Gameplay.GameProgress
         private void OnPlayerSpawned(PlayerSpawnedEventArgs args)
         {
             PlayerSpawned.Invoke(args);
+
+            _player = args.Player;
+            _player.PlayerDestroyed += OnPlayerDestroyed;
+        }
+
+        private void OnPlayerDestroyed()
+        {
+            PlayerDestroyed.Invoke();
+            _player.PlayerDestroyed -= OnPlayerDestroyed;
+            _player = null;
         }
     }
 }

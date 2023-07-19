@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using SpaceRogue.Abstraction;
+using UnityEngine;
 
 namespace Gameplay.Missions.Scriptables
 {
-    public class BaseMissionConfig : ScriptableObject
+    public abstract class BaseMissionConfig : ScriptableObject, IIdentityItem<string>
     {
-        
+        [field: SerializeField] public string Id { get; private set; } = Guid.NewGuid().ToString();
+        [field: HideInInspector] public MissionType Type { get; protected set; } = MissionType.None;
     }
 }
