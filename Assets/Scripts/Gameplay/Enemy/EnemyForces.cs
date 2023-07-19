@@ -25,7 +25,7 @@ namespace Gameplay.Enemy
 
                 if (!spawnPointsFinder.TryGetEnemySpawnPoint(enemyCount, out var spawnPoint))
                 {
-                    Debug.Log("EnemiesGroup spawn point not found");
+                    //Debug.Log("EnemiesGroup spawn point not found");
                     continue;
                 }
 
