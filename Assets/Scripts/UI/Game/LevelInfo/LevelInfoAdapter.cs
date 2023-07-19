@@ -6,7 +6,7 @@ using Zenject;
 
 namespace UI.Game.LevelInfo
 {
-    public sealed class LevelInfoAdapter : IInitializable, IDisposable
+    public sealed class LevelInfoAdapter : IDisposable
     {
         private readonly LevelInfoView _view;
         private readonly LevelProgress _levelProgress;
@@ -19,10 +19,6 @@ namespace UI.Game.LevelInfo
             _levelProgress = levelProgress;
             
             _view.Hide();
-        }
-        
-        public void Initialize()
-        {
             _levelProgress.LevelStarted += InitView;
         }
 

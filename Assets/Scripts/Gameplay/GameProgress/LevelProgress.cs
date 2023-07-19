@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Gameplay.GameProgress
 {
-    public sealed class LevelProgress : IInitializable, IDisposable
+    public sealed class LevelProgress : IDisposable
     {
         private readonly LevelFactory _levelFactory;
         private readonly PlayerFactory _playerFactory;
@@ -23,14 +23,11 @@ namespace Gameplay.GameProgress
         {
             _levelFactory = levelFactory;
             _playerFactory = playerFactory;
-        }
-        
-        public void Initialize()
-        {
+            
             _levelFactory.LevelCreated += OnLevelCreated;
             _playerFactory.PlayerSpawned += OnPlayerSpawned;
         }
-        
+
         public void Dispose()
         {
             _levelFactory.LevelCreated -= OnLevelCreated;

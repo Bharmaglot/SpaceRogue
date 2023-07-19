@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Gameplay.GameProgress
 {
-    public class EnemyDeathObserver : IInitializable, IDisposable
+    public class EnemyDeathObserver : IDisposable
     {
         private readonly EnemyFactory _enemyFactory;
         private readonly List<Enemy.Enemy> _enemies;
@@ -16,10 +16,7 @@ namespace Gameplay.GameProgress
         {
             _enemyFactory = enemyFactory;
             _enemies = new List<Enemy.Enemy>();
-        }
-        
-        public void Initialize()
-        {
+            
             _enemyFactory.EnemyCreated += OnEnemyCreated;
         }
 

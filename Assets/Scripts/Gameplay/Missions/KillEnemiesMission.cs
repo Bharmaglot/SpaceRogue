@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Gameplay.Missions
 {
-    public sealed class KillEnemiesMission : BaseMission, IInitializable, IDisposable
+    public sealed class KillEnemiesMission : BaseMission, IDisposable
     {
         private readonly EnemyDeathObserver _enemyDeathObserver;
         private bool _completed;
@@ -20,10 +20,7 @@ namespace Gameplay.Missions
             _enemyDeathObserver = enemyDeathObserver;
             EnemiesToKill = enemiesToKill;
             EnemiesKilled = 0;
-        }
-        
-        public void Initialize()
-        {
+            
             _enemyDeathObserver.EnemyDestroyed += OnEnemyDestroyed;
         }
 

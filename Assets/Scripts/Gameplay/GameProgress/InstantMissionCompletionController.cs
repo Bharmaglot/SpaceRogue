@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Gameplay.GameProgress
 {
-    public sealed class InstantMissionCompletionController : IInitializable, IDisposable
+    public sealed class InstantMissionCompletionController : IDisposable
     {
         private readonly PlayerInput _playerInput;
         private readonly LevelProgress _levelProgress;
@@ -17,10 +17,7 @@ namespace Gameplay.GameProgress
         {
             _playerInput = playerInput;
             _levelProgress = levelProgress;
-        }
-
-        public void Initialize()
-        {
+            
             _levelProgress.LevelStarted += OnLevelCreated;
             _levelProgress.LevelFinished += OnLevelFinished;
             _playerInput.NextLevelInput += OnNextLevelPressed;
