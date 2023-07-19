@@ -11,7 +11,7 @@ namespace Gameplay.GameProgress
         private readonly PlayerFactory _playerFactory;
         
         public event Action<LevelStartedEventArgs> LevelStarted;
-        public event Action<Level> LevelCompleted;
+        public event Action LevelCompleted;
         public event Action LevelFinished;
         public event Action<PlayerSpawnedEventArgs> PlayerSpawned;
         public event Action PlayerDestroyed;
@@ -50,7 +50,7 @@ namespace Gameplay.GameProgress
 
         private void OnLevelMissionCompleted()
         {
-            LevelCompleted?.Invoke(_level);
+            LevelCompleted?.Invoke();
             LevelFinished?.Invoke();
             
             _level.LevelMission.Completed -= OnLevelMissionCompleted;
