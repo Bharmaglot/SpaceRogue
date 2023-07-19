@@ -1,15 +1,22 @@
-using System;
 using Gameplay.Mechanics.Timer;
-using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
+using System;
 using Object = UnityEngine.Object;
 
-namespace Gameplay.Shooting
+
+namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class Projectile : IDisposable
     {
+        #region Fields
+
         private readonly ProjectileView _projectileView;
         private readonly Timer _lifeTime;
-        
+
+        #endregion
+
+        #region CodeLife
+
         public Projectile(ProjectileConfig config, ProjectileView projectileView, TimerFactory timerFactory)
         {
             _projectileView = projectileView;
@@ -17,7 +24,7 @@ namespace Gameplay.Shooting
             _lifeTime = timerFactory.Create(config.LifeTime);
             _lifeTime.OnExpire += Dispose;
             if (config.IsDestroyedOnHit) _projectileView.CollidedObject += Dispose;
-            
+
             _lifeTime.Start();
         }
 
@@ -28,5 +35,7 @@ namespace Gameplay.Shooting
             _lifeTime.Dispose();
             Object.Destroy(_projectileView.gameObject);
         }
+
+        #endregion
     }
 }

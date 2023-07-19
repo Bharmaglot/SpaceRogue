@@ -1,6 +1,8 @@
+using SpaceRogue.Enums;
 using UnityEngine;
 
-namespace Gameplay.Shooting.Scriptables
+
+namespace SpaceRogue.Gameplay.Shooting.Scriptables
 {
     [CreateAssetMenu(fileName = nameof(MinigunConfig), menuName = "Configs/Weapons/" + nameof(MinigunConfig))]
     public sealed class MinigunConfig : WeaponConfig
@@ -10,6 +12,10 @@ namespace Gameplay.Shooting.Scriptables
         [field: SerializeField, Range(0, 180)] public float MaxSprayAngle { get; private set; } = 20.0f;
         [field: SerializeField, Min(0.1f)] public float OverheatCoolDown { get; private set; } = 2.0f;
         [field: SerializeField, Min(1)] public int TimeToOverheat { get; private set; } = 5;
-        public MinigunConfig() => Type = WeaponType.Minigun;
+
+        public MinigunConfig()
+        {
+            Type = WeaponType.Minigun;
+        }
     }
 }

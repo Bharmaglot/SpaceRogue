@@ -1,7 +1,7 @@
 using Gameplay.Pooling;
-using Gameplay.Shooting;
-using Gameplay.Shooting.Factories;
-using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting.Factories;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
 using UnityEngine;

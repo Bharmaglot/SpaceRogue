@@ -1,16 +1,22 @@
-using Gameplay.Shooting.Scriptables;
 using SpaceRogue.Enums;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using UnityEngine;
 
 
-namespace Gameplay.Shooting
+namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class ProjectileSpawnParams
     {
+        #region Properties
+
         public Vector2 Position { get; }
         public Quaternion Rotation { get; }
         public EntityType EntityType { get; }
         public ProjectileConfig Config { get; }
+
+        #endregion
+
+        #region CodeLife
 
         public ProjectileSpawnParams(Vector2 position, Quaternion rotation, EntityType entityType, ProjectileConfig config)
         {
@@ -27,5 +33,7 @@ namespace Gameplay.Shooting
             config = Config;
             entityType = EntityType;
         }
+
+        #endregion
     }
 }

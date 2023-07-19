@@ -1,9 +1,10 @@
-using System;
 using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
+using System;
 using UnityEngine;
 
 
-namespace Gameplay.Shooting.Scriptables
+namespace SpaceRogue.Gameplay.Shooting.Scriptables
 {
     public abstract class WeaponConfig : ScriptableObject, IIdentityItem<string>
     {

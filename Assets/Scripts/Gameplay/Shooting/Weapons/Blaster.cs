@@ -1,17 +1,23 @@
 using Gameplay.Mechanics.Timer;
-using Gameplay.Shooting.Factories;
-using Gameplay.Shooting.Scriptables;
 using SpaceRogue.Enums;
+using SpaceRogue.Gameplay.Shooting.Factories;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using UnityEngine;
 
 
-namespace Gameplay.Shooting.Weapons
+namespace SpaceRogue.Gameplay.Shooting.Weapons
 {
-    public class Blaster : Weapon
+    public sealed class Blaster : Weapon
     {
+        #region Fields
+
         private readonly BlasterConfig _blasterConfig;
         private readonly EntityType _entityType;
         private readonly ProjectileFactory _projectileFactory;
+
+        #endregion
+
+        #region CodeLife
 
         public Blaster(BlasterConfig blasterConfig, EntityType entityType, ProjectileFactory projectileFactory, TimerFactory timerFactory)
         {
@@ -20,14 +26,20 @@ namespace Gameplay.Shooting.Weapons
             _projectileFactory = projectileFactory;
             CooldownTimer = timerFactory.Create(blasterConfig.Cooldown);
         }
-        
-        public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretDirection)
+
+        #endregion
+
+        #region Methods
+
+        public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretRotation)
         {
             if (IsOnCooldown) return;
 
-            _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, turretDirection, _entityType, _blasterConfig.BlasterProjectile));
-            
+            _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, turretRotation, _entityType, _blasterConfig.BlasterProjectile));
+
             CooldownTimer.Start();
         }
+
+        #endregion
     }
 }

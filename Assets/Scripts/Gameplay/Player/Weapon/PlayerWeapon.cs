@@ -1,5 +1,5 @@
 using System;
-using Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.InputSystem;
 
 

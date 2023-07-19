@@ -1,6 +1,8 @@
+using SpaceRogue.Enums;
 using UnityEngine;
 
-namespace Gameplay.Shooting.Scriptables
+
+namespace SpaceRogue.Gameplay.Shooting.Scriptables
 {
     [CreateAssetMenu(fileName = nameof(MountedWeaponConfig), menuName = "Configs/Weapons/" + nameof(MountedWeaponConfig))]
     public class MountedWeaponConfig : ScriptableObject

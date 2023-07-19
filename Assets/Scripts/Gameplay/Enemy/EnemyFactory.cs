@@ -2,7 +2,7 @@ using Gameplay.Enemy.Behaviour;
 using Gameplay.Enemy.Movement;
 using Gameplay.Enemy.Scriptables;
 using Gameplay.Movement;
-using Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting;
 using Gameplay.Survival;
 using System;
 using UnityEngine;

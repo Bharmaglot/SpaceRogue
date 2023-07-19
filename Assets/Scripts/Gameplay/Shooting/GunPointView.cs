@@ -1,6 +1,7 @@
 using UnityEngine;
 
-namespace Gameplay.Shooting
+
+namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class GunPointView : MonoBehaviour
     {

@@ -1,5 +1,5 @@
-using Gameplay.Shooting;
-using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.InputSystem;
 using Zenject;
 
