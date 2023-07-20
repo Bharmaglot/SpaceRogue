@@ -16,7 +16,8 @@ namespace Gameplay.Enemy
         private readonly UnitWeapon _unitWeapon;
         private readonly EnemyBehaviourSwitcher _behaviourSwitcher;
 
-        public event Action<Enemy> EnemyDestroyed = _ => { };
+        public event Action<Enemy> EnemyDestroyed;
+        public event Action<Enemy> EnemyDisposed;
 
         public EnemyView EnemyView { get; }
         public EntitySurvival Survival { get; }
@@ -42,8 +43,7 @@ namespace Gameplay.Enemy
         public void Dispose()
         {
             Survival.EntityHealth.HealthReachedZero -= OnDeath;
-
-            EnemyDestroyed.Invoke(this);
+            EnemyDisposed?.Invoke(this);
 
             Survival.Dispose();
             _unitMovement.Dispose();
@@ -61,6 +61,7 @@ namespace Gameplay.Enemy
 
         private void OnDeath()
         {
+            EnemyDestroyed?.Invoke(this);
             Dispose();
         }
     }

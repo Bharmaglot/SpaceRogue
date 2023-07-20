@@ -2,6 +2,7 @@ using System;
 using Gameplay.Asteroids;
 using Gameplay.Enemy;
 using Gameplay.Missions;
+using Gameplay.Space.Obstacle;
 
 namespace Gameplay.GameProgress
 {
@@ -10,6 +11,7 @@ namespace Gameplay.GameProgress
         private readonly Player.Player _player;
         private readonly EnemyForces _enemyForces;
         private readonly Space.Space _space;
+        private readonly SpaceObstacle _spaceObstacle;
         private readonly AsteroidsInSpace _asteroids;
 
         public int CurrentLevelNumber { get; private set; }
@@ -23,7 +25,9 @@ namespace Gameplay.GameProgress
             Player.Player player,
             EnemyForces enemyForces,
             Space.Space space,
-            AsteroidsInSpace asteroids)
+            SpaceObstacle spaceObstacle,
+            AsteroidsInSpace asteroids
+            )
         {
             CurrentLevelNumber = currentLevelNumber;
             LevelMission = levelMission;
@@ -32,15 +36,17 @@ namespace Gameplay.GameProgress
             _player = player;
             _enemyForces = enemyForces;
             _space = space;
+            _spaceObstacle = spaceObstacle;
             _asteroids = asteroids;
         }
 
         public void Dispose()
         {
-            _player.Dispose();
-            _enemyForces.Dispose();
+            _spaceObstacle.Dispose();
             _space.Dispose();
+            _enemyForces.Dispose();
             _asteroids.Dispose();
+            _player.Dispose();
         }
     }
 }

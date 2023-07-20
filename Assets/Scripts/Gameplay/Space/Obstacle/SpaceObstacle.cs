@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 
 namespace Gameplay.Space.Obstacle
@@ -49,6 +50,8 @@ namespace Gameplay.Space.Obstacle
             _unitCollection.Clear();
 
             _updater.UnsubscribeFromFixedUpdate(Repulsion);
+
+            Object.Destroy(_obstacleView.gameObject);
         }
 
         private void Repulsion()

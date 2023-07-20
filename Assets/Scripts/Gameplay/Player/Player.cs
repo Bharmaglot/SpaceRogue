@@ -13,7 +13,8 @@ namespace Gameplay.Player
         private readonly UnitTurningMouse _unitTurningMouse;
         private readonly UnitWeapon _unitWeapon;
 
-        public event Action PlayerDestroyed = () => { };
+        public event Action PlayerDestroyed;
+        public event Action PlayerDisposed;
 
         public PlayerView PlayerView { get; }
         public EntitySurvival Survival { get; }
@@ -38,8 +39,8 @@ namespace Gameplay.Player
         {
             Survival.EntityHealth.HealthReachedZero -= OnDeath;
             
-            PlayerDestroyed.Invoke();
-            
+            PlayerDisposed?.Invoke();
+
             Survival.Dispose();
             _unitMovement.Dispose();
             _unitTurningMouse.Dispose();
@@ -50,6 +51,7 @@ namespace Gameplay.Player
 
         private void OnDeath()
         {
+            PlayerDestroyed?.Invoke();
             Dispose();
         }
     }

@@ -1,25 +1,24 @@
 ﻿using System;
 using Gameplay.Events;
 using Gameplay.GameProgress;
-using SpaceRogue.Services;
 
 namespace UI.Game.PlayerDestroyedPopup
 {
     public class PlayerDestroyedPopupPresenter : IDisposable
     {
         private readonly DestroyPlayerMessageView _view;
-        private readonly GameStateService _gameStateService;
+        private readonly GameProgressState _gameProgress;
         private readonly LevelProgress _levelProgress;
 
         public PlayerDestroyedPopupPresenter(
             LevelProgress levelProgress, 
             DestroyPlayerMessageView view,
-            GameStateService gameStateService
+            GameProgressState gameProgress
             )
         {
             _levelProgress = levelProgress;
             _view = view;
-            _gameStateService = gameStateService;
+            _gameProgress = gameProgress;
 
             _levelProgress.PlayerDestroyed += OnPlayerDestroyed;
         }
@@ -31,7 +30,7 @@ namespace UI.Game.PlayerDestroyedPopup
 
         private void OnPlayerDestroyed(PlayerDestroyedEventArgs args)
         {
-            _view.Init(args.CurrentLevel.ToString(), OnBackToMenuButtonClicked);
+            _view.Init((args.CurrentLevel -1).ToString(), OnBackToMenuButtonClicked);
             
             _view.Show();
         }
@@ -39,7 +38,7 @@ namespace UI.Game.PlayerDestroyedPopup
         private void OnBackToMenuButtonClicked()
         {
             _view.Hide();
-            _gameStateService.GoToMenu();
+            _gameProgress.BackToMenu();
         }
     }
 }

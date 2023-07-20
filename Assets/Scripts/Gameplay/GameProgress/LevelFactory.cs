@@ -71,7 +71,7 @@ namespace Gameplay.GameProgress
 
             var spawnPointsFinder = _spawnPointsFinderFactory.Create(map.NebulaMap, spaceView.NebulaTilemap);
 
-            _spaceObstacleFactory.Create(spaceView.SpaceObstacleView, _currentLevelPreset.SpaceConfig.ObstacleForce);
+            var obstacle = _spaceObstacleFactory.Create(spaceView.SpaceObstacleView, _currentLevelPreset.SpaceConfig.ObstacleForce);
 
             var player = _playerFactory.Create(spawnPointsFinder.GetPlayerSpawnPoint());
 
@@ -85,7 +85,7 @@ namespace Gameplay.GameProgress
             var enemiesSpawned = enemyForces.GetEnemiesCount();
             var mission = _missionFactory.Create(enemiesSpawned, _currentLevelPreset.LevelMission);
 
-            var level = new Level(levelNumber, mission, mapCameraSize, player, enemyForces, space, asteroids);
+            var level = new Level(levelNumber, mission, mapCameraSize, player, enemyForces, space, obstacle, asteroids);
             LevelCreated?.Invoke(level);
             return level;
         }

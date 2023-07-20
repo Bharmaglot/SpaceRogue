@@ -43,7 +43,7 @@ namespace Gameplay.Enemy
                     var unitSpawnPoint = UnityHelper.GetEmptySpawnPoint(spawnPoint, unitSize, spawnCircleRadius);
 
                     var enemy = enemyFactory.Create(unitSpawnPoint, enemyConfig);
-                    enemy.EnemyDestroyed += OnDeath;
+                    enemy.EnemyDisposed += OnDeath;
                     Enemies.Add(enemy);
                 }
             }
@@ -62,7 +62,7 @@ namespace Gameplay.Enemy
         
         private void OnDeath(Enemy enemy)
         {
-            enemy.EnemyDestroyed -= OnDeath;
+            enemy.EnemyDisposed -= OnDeath;
             Enemies.Remove(enemy);
 
             if (Enemies.Count == 0) Dispose();
