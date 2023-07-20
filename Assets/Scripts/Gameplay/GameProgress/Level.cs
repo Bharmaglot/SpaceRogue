@@ -51,9 +51,10 @@ namespace Gameplay.GameProgress
             {
                 _player.Dispose();
             }
-            
-            _spaceObstacle.Dispose();
+
             _asteroids.Dispose();
+            _spaceObstacle.Dispose();
+            
             
             
             _space.Dispose(); //Important to be last!

@@ -19,6 +19,8 @@ namespace Gameplay.Player
         public PlayerView PlayerView { get; }
         public EntitySurvival Survival { get; }
 
+        private bool _disposing;
+
         public Player(
             PlayerView playerView, 
             UnitMovement unitMovement, 
@@ -32,12 +34,14 @@ namespace Gameplay.Player
             _unitWeapon = unitWeapon;
             Survival = playerSurvival;
 
-            Survival.EntityHealth.HealthReachedZero += OnDeath;
+            Survival.UnitDestroyed += OnDeath;
         }
 
         public void Dispose()
         {
-            Survival.EntityHealth.HealthReachedZero -= OnDeath;
+            if (_disposing) return;
+            _disposing = true;
+            Survival.UnitDestroyed -= OnDeath;
             
             PlayerDisposed?.Invoke();
 

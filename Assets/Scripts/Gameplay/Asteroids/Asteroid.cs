@@ -11,7 +11,8 @@ namespace Gameplay.Asteroids
         private readonly EntitySurvival _survival;
         private readonly AsteroidView _view;
 
-
+        private bool _disposing;
+        
         public Asteroid(AsteroidView view, IAsteroidMovementBehaviour asteroidMovement, EntitySurvival survival)
         {
             _asteroidMovement = asteroidMovement;
@@ -23,6 +24,9 @@ namespace Gameplay.Asteroids
 
         public void Dispose()
         {
+            if (_disposing) return;
+            _disposing = true;
+            
             _survival.UnitDestroyed -= Dispose;
             _survival.Dispose();
 
