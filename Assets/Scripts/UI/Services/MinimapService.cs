@@ -84,7 +84,7 @@ namespace UI.Services
             _updater.SubscribeToUpdate(FollowPlayer);
         }
 
-        private void OnPlayerDestroyed()
+        private void OnPlayerDestroyed(PlayerDestroyedEventArgs _)
         {
             _playerInput.MapInput -= MapInput;
             ReturnToMinimap();

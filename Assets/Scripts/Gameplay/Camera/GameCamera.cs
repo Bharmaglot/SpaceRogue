@@ -41,7 +41,7 @@ namespace Gameplay.Camera
             _updater.SubscribeToUpdate(FollowPlayer);
         }
 
-        private void OnPlayerDestroyed()
+        private void OnPlayerDestroyed(PlayerDestroyedEventArgs _)
         {
             _updater.UnsubscribeFromUpdate(FollowPlayer);
             _playerTransform = null;

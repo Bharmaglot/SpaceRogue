@@ -74,7 +74,7 @@ namespace Gameplay.GameEvent
 
         protected void AddGameEventObjectToUIController(GameObject gameObject, bool showUntilItIsVisibleOnce = false)
         {
-            if (gameObject.TryGetComponent(out Collider2D collider))
+            /*if (gameObject.TryGetComponent(out Collider2D collider))
             {
                 var gameEventUIController = new GameEventUIController(
                     AddGameEventIndicatorView(GameUIController.GameEventIndicators), 
@@ -83,7 +83,7 @@ namespace Gameplay.GameEvent
                     _config.IndicatorDiameter,
                     showUntilItIsVisibleOnce);
                 AddController(gameEventUIController);
-            }
+            }*/
         }
 
         private GameEventIndicatorView AddGameEventIndicatorView(Transform transform)
