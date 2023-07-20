@@ -51,16 +51,18 @@ namespace UI.Game
         {
             _updater.UnsubscribeFromUpdate(FollowEnemy);
 
-            if (_entitySurvival != null)
-            {
-                _entitySurvival.EntityHealth.HealthChanged -= UpdateHealthBar;
-                UnityEngine.Object.Destroy(_statusBarView.gameObject);
+            if (_entitySurvival == null) return;
+            
+            _entitySurvival.EntityHealth.HealthChanged -= UpdateHealthBar;
 
-                if (_shieldStatusBarView != null)
-                {
-                    _entitySurvival.EntityShield.ShieldChanged -= UpdateShieldBar;
-                    UnityEngine.Object.Destroy(_shieldStatusBarView.gameObject);
-                }
+            if (_shieldStatusBarView != null)
+            {
+                _entitySurvival.EntityShield.ShieldChanged -= UpdateShieldBar;
+                UnityEngine.Object.Destroy(_shieldStatusBarView.gameObject);
+            }
+            else
+            {
+                UnityEngine.Object.Destroy(_statusBarView.gameObject);
             }
         }
 
@@ -92,7 +94,7 @@ namespace UI.Game
 
         private void FollowEnemy()
         {
-            if (_unitCollider == null)
+            if (_unitCollider == null || _entitySurvival == null)
             {
                 Dispose();
                 return;

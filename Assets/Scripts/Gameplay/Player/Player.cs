@@ -45,8 +45,11 @@ namespace Gameplay.Player
             _unitMovement.Dispose();
             _unitTurningMouse.Dispose();
             _unitWeapon.Dispose();
-            
-            UnityEngine.Object.Destroy(PlayerView.gameObject);
+
+            if (PlayerView is not null)
+            {
+                UnityEngine.Object.Destroy(PlayerView.gameObject);
+            }
         }
 
         private void OnDeath()

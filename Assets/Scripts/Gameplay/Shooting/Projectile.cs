@@ -26,7 +26,12 @@ namespace Gameplay.Shooting
             _lifeTime.OnExpire -= Dispose;
             _projectileView.CollidedObject -= Dispose;
             _lifeTime.Dispose();
-            Object.Destroy(_projectileView.gameObject);
+            
+            if (_projectileView is not null)
+            {
+                Object.Destroy(_projectileView.gameObject);
+            }
+            
         }
     }
 }

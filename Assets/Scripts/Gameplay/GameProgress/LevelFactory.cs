@@ -75,7 +75,7 @@ namespace Gameplay.GameProgress
 
             var player = _playerFactory.Create(spawnPointsFinder.GetPlayerSpawnPoint());
 
-            var space = _spaceFactory.Create(_currentLevelPreset.SpaceConfig.SpaceObjectCount, spawnPointsFinder);
+            var space = _spaceFactory.Create(_currentLevelPreset.SpaceConfig.SpaceObjectCount, spaceView, spawnPointsFinder);
 
             var enemyForces = _enemyForcesFactory.Create(_currentLevelPreset.SpaceConfig.EnemyGroupCount, spawnPointsFinder);
 

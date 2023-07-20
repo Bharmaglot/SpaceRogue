@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UI.Game;
 using Gameplay.Enemy;
 using UnityEngine;
@@ -12,6 +14,8 @@ namespace UI.Services
         private readonly EnemyStatusBarViewFactory _statusBarViewFactory;
         private readonly FloatStatusBarFactory _floatStatusBarFactory;
 
+        private Dictionary<Enemy, FloatStatusBar> _viewDictionary = new();
+
         public EnemyStatusBarService(
             EnemyHealthBarsView barsView, 
             EnemyFactory enemyFactory, 
@@ -22,12 +26,22 @@ namespace UI.Services
             _enemyFactory = enemyFactory;
             _statusBarViewFactory = statusBarViewFactory;
             _floatStatusBarFactory = floatStatusBarFactory;
+            
             _enemyFactory.EnemyCreated += OnEnemyCreated;
         }
 
         public void Dispose()
         {
             _enemyFactory.EnemyCreated -= OnEnemyCreated;
+            var statusBars = _viewDictionary.Values.ToArray();
+            foreach (var statusBar in statusBars)
+            {
+                if (statusBar is not null)
+                {
+                    statusBar.Dispose();
+                }
+            }
+            _viewDictionary.Clear();
         }
 
         private void OnEnemyCreated(Enemy enemy)
@@ -36,8 +50,18 @@ namespace UI.Services
 
             if (enemy.EnemyView.TryGetComponent(out Collider2D collider))
             {
-                _floatStatusBarFactory.Create(statusBarView, collider, enemy.Survival); 
+                var statusBar = _floatStatusBarFactory.Create(statusBarView, collider, enemy.Survival);
+                _viewDictionary[enemy] = statusBar;
+                enemy.EnemyDisposed += OnEnemyDisposed;
             }
+        }
+
+        private void OnEnemyDisposed(Enemy enemy)
+        {
+            enemy.EnemyDisposed -= OnEnemyDisposed;
+            var statusBar = _viewDictionary[enemy];
+            statusBar.Dispose();
+            _viewDictionary.Remove(enemy);
         }
     }
 }

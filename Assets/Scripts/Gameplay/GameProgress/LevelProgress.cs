@@ -1,6 +1,7 @@
 using System;
 using Gameplay.Events;
 using Gameplay.Player;
+using UnityEngine;
 using Zenject;
 
 namespace Gameplay.GameProgress
@@ -46,6 +47,7 @@ namespace Gameplay.GameProgress
                     _level.MapCameraSize
                     )
                 );
+            Debug.Log("Level started");
         }
 
         private void OnLevelMissionCompleted()

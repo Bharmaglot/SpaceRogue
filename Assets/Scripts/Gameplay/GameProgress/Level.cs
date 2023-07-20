@@ -14,9 +14,9 @@ namespace Gameplay.GameProgress
         private readonly SpaceObstacle _spaceObstacle;
         private readonly AsteroidsInSpace _asteroids;
 
-        public int CurrentLevelNumber { get; private set; }
-        public KillEnemiesMission LevelMission { get; private set; }
-        public float MapCameraSize { get; private set; }
+        public int CurrentLevelNumber { get; }
+        public KillEnemiesMission LevelMission { get; }
+        public float MapCameraSize { get; }
 
         public Level(
             int currentLevelNumber,
@@ -42,11 +42,21 @@ namespace Gameplay.GameProgress
 
         public void Dispose()
         {
+            if (_enemyForces is not null)
+            {
+                _enemyForces.Dispose();
+            }
+
+            if (_player is not null)
+            {
+                _player.Dispose();
+            }
+            
             _spaceObstacle.Dispose();
-            _space.Dispose();
-            _enemyForces.Dispose();
             _asteroids.Dispose();
-            _player.Dispose();
+            
+            
+            _space.Dispose(); //Important to be last!
         }
     }
 }

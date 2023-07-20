@@ -3,6 +3,7 @@ using Gameplay.Missions;
 using Gameplay.Missions.Factories;
 using Gameplay.Missions.Scriptables;
 using Gameplay.Services;
+using Gameplay.Space;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
 using Gameplay.Space.Obstacle;

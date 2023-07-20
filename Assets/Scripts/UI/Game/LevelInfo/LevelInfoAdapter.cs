@@ -2,6 +2,7 @@ using System;
 using Gameplay.Events;
 using Gameplay.GameProgress;
 using Gameplay.Missions;
+using UnityEngine;
 using Zenject;
 
 namespace UI.Game.LevelInfo
@@ -18,7 +19,6 @@ namespace UI.Game.LevelInfo
             _view = levelInfoView;
             _levelProgress = levelProgress;
             
-            _view.Hide();
             _levelProgress.LevelStarted += InitView;
         }
 
@@ -44,6 +44,7 @@ namespace UI.Game.LevelInfo
 
         private void UpdateDefeatedEnemiesCount(int defeatedEnemiesCount)
         {
+            Debug.Log(defeatedEnemiesCount);
             _view.UpdateKillCounter(defeatedEnemiesCount.ToString());
         }
     }

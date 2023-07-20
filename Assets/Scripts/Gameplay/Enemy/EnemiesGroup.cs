@@ -15,11 +15,10 @@ namespace Gameplay.Enemy
     {
         private readonly Updater _updater;
         private readonly Timer _timer;
-        private readonly EnemyGroupConfig _groupConfig;
 
-        public List<Enemy> Enemies { get; private set; } = new();
+        public List<Enemy> Enemies { get; } = new();
 
-        public event Action<EnemiesGroup> EnemiesGroupDestroyed = _ => { };
+        public event Action<EnemiesGroup> EnemiesGroupDestroyed;
 
         public EnemiesGroup(
             Updater updater,
@@ -30,9 +29,8 @@ namespace Gameplay.Enemy
         {
             _updater = updater;
             _timer = timer;
-            _groupConfig = groupConfig;
 
-            foreach (var squadConfig in _groupConfig.Squads)
+            foreach (var squadConfig in groupConfig.Squads)
             {
                 for (int j = 0; j < squadConfig.EnemyCount; j++)
                 {
@@ -53,11 +51,17 @@ namespace Gameplay.Enemy
 
         public void Dispose()
         {
-            _timer.Dispose();
+            var enemies = Enemies.ToArray();
+            foreach (var enemy in enemies)
+            {
+                enemy?.Dispose();
+            }
             Enemies.Clear();
+            
+            _timer.Dispose();
             _updater.UnsubscribeFromUpdate(PickRandomDirection);
             
-            EnemiesGroupDestroyed.Invoke(this);
+            EnemiesGroupDestroyed?.Invoke(this);
         }
         
         private void OnDeath(Enemy enemy)
@@ -76,7 +80,7 @@ namespace Gameplay.Enemy
 
             foreach (var enemy in Enemies)
             {
-                enemy.SetGroupDirection(direction);
+                enemy?.SetGroupDirection(direction);
             }
 
             _timer.Start();

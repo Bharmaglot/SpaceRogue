@@ -23,7 +23,7 @@ namespace Gameplay.GameProgress
         public void StartNextLevel()
         {
             _currentLevel.Dispose();
-            CurrentLevelNumber += 1;
+            CurrentLevelNumber++;
             _currentLevel = _levelFactory.Create(CurrentLevelNumber);
         }
 
