@@ -50,7 +50,7 @@ namespace Gameplay.Installers
         private void InstallGameProgressState()
         {
             Container
-                .Bind<GameProgressState>()
+                .BindInterfacesAndSelfTo<GameProgressState>()
                 .AsSingle()
                 .NonLazy();
         }

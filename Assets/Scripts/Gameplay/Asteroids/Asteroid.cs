@@ -26,7 +26,10 @@ namespace Gameplay.Asteroids
             _survival.UnitDestroyed -= Dispose;
             _survival.Dispose();
 
-            Object.Destroy(_view.gameObject);
+            if (_view is not null)
+            {
+                Object.Destroy(_view.gameObject);
+            }
         }
     }
 }

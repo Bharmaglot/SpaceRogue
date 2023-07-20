@@ -44,7 +44,6 @@ namespace UI.Game.LevelInfo
 
         private void UpdateDefeatedEnemiesCount(int defeatedEnemiesCount)
         {
-            Debug.Log(defeatedEnemiesCount);
             _view.UpdateKillCounter(defeatedEnemiesCount.ToString());
         }
     }

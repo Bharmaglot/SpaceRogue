@@ -1,8 +1,10 @@
 using SpaceRogue.Services;
+using UnityEngine;
+using Zenject;
 
 namespace Gameplay.GameProgress
 {
-    public sealed class GameProgressState
+    public sealed class GameProgressState : IInitializable
     {
         private readonly LevelFactory _levelFactory;
         private readonly GameStateService _gameStateService;
@@ -17,12 +19,17 @@ namespace Gameplay.GameProgress
             _gameStateService = gameStateService;
 
             CurrentLevelNumber = 1;
-            _currentLevel = levelFactory.Create(CurrentLevelNumber);
+        }
+        
+        public void Initialize()
+        {
+            _currentLevel = _levelFactory.Create(CurrentLevelNumber);
         }
 
         public void StartNextLevel()
         {
             _currentLevel.Dispose();
+            _currentLevel = null;
             CurrentLevelNumber++;
             _currentLevel = _levelFactory.Create(CurrentLevelNumber);
         }

@@ -47,7 +47,6 @@ namespace Gameplay.GameProgress
                     _level.MapCameraSize
                     )
                 );
-            Debug.Log("Level started");
         }
 
         private void OnLevelMissionCompleted()
