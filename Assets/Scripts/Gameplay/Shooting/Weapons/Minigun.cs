@@ -31,12 +31,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #region CodeLife
 
-        public Minigun(MinigunConfig config, EntityType entityType, ProjectileFactory projectileFactory, TimerFactory timerFactory)
+        public Minigun(
+            MinigunConfig config,
+            EntityType entityType,
+            ProjectileFactory projectileFactory,
+            TimerFactory timerFactory) : base(config, timerFactory)
         {
             _config = config;
             _entityType = entityType;
             _projectileFactory = projectileFactory;
-            CooldownTimer = timerFactory.Create(config.Cooldown);
 
             _overheatMeter = new MeterWithCooldown(0.0f, config.TimeToOverheat, config.OverheatCoolDown, timerFactory);
             _overheatMeter.OnCooldownEnd += ResetSpray;

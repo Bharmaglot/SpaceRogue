@@ -20,12 +20,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #region CodeLife
 
-        public Shotgun(ShotgunConfig config, EntityType entityType, ProjectileFactory projectileFactory, TimerFactory timerFactory)
+        public Shotgun(
+            ShotgunConfig config,
+            EntityType entityType,
+            ProjectileFactory projectileFactory,
+            TimerFactory timerFactory) : base(config, timerFactory)
         {
             _config = config;
             _entityType = entityType;
             _projectileFactory = projectileFactory;
-            CooldownTimer = timerFactory.Create(config.Cooldown);
         }
 
         #endregion

@@ -17,11 +17,13 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #region CodeLife
 
-        public BlasterAbility(BlasterAbilityConfig blasterAbilityConfig, EntityViewBase entityView, TimerFactory timerFactory)
+        public BlasterAbility(
+            BlasterAbilityConfig blasterAbilityConfig,
+            EntityViewBase entityView,
+            TimerFactory timerFactory) : base(blasterAbilityConfig, timerFactory)
         {
             _blasterAbilityConfig = blasterAbilityConfig;
             _entityView = entityView;
-            CooldownTimer = timerFactory.Create(_blasterAbilityConfig.Cooldown);
         }
 
         #endregion

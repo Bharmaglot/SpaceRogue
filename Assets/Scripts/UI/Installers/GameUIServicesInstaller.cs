@@ -1,5 +1,6 @@
 using Gameplay.Minimap;
 using Scriptables;
+using SpaceRogue.UI.Services;
 using UI.Services;
 using UnityEngine;
 using Zenject;

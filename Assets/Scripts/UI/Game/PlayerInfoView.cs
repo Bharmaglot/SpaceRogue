@@ -6,6 +6,7 @@ namespace UI.Game
     {
         [field: SerializeField] public PlayerStatusBarView PlayerStatusBarView { get; private set; }
         [field: SerializeField] public PlayerSpeedometerView PlayerSpeedometerView { get; private set; }
-        [field: SerializeField] public PlayerWeaponView PlayerWeaponView { get; private set; }
+        [field: SerializeField] public PlayerUsedItemView PlayerWeaponView { get; private set; }
+        [field: SerializeField] public PlayerUsedItemView PlayerAbilityView { get; private set; }
     }
 }

@@ -17,11 +17,13 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #region CodeLife
 
-        public RailgunAbility(RailgunAbilityConfig railgunAbilityConfig, EntityViewBase entityView, TimerFactory timerFactory)
+        public RailgunAbility(
+            RailgunAbilityConfig railgunAbilityConfig,
+            EntityViewBase entityView,
+            TimerFactory timerFactory) : base(railgunAbilityConfig, timerFactory)
         {
             _railgunAbilityConfig = railgunAbilityConfig;
             _entityView = entityView;
-            CooldownTimer = timerFactory.Create(_railgunAbilityConfig.Cooldown);
         }
 
         #endregion

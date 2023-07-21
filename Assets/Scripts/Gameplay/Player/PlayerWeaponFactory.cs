@@ -1,16 +1,29 @@
 using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.InputSystem;
+using System;
 using Zenject;
 
 
-namespace Gameplay.Player.Weapon
+namespace Gameplay.Player
 {
     public sealed class PlayerWeaponFactory : PlaceholderFactory<PlayerView, UnitWeapon>
     {
+        #region Events
+
+        public event Action<UnitWeapon> UnitWeaponCreated;
+
+        #endregion
+
+        #region Fields
+
         private readonly UnitWeaponFactory _unitWeaponFactory;
         private readonly MountedWeaponConfig _config;
         private readonly DiContainer _diContainer;
+
+        #endregion
+
+        #region CodeLife
 
         public PlayerWeaponFactory(UnitWeaponFactory unitWeaponFactory, MountedWeaponConfig config, DiContainer diContainer)
         {
@@ -19,10 +32,18 @@ namespace Gameplay.Player.Weapon
             _diContainer = diContainer;
         }
 
+        #endregion
+
+        #region Methods
+
         public override UnitWeapon Create(PlayerView playerView)
         {
             var playerInput = _diContainer.Resolve<PlayerInput>();
-            return _unitWeaponFactory.Create(playerView, _config, playerInput);
+            var unitWeapon = _unitWeaponFactory.Create(playerView, _config, playerInput);
+            UnitWeaponCreated?.Invoke(unitWeapon);
+            return unitWeapon;
         }
+
+        #endregion
     }
 }

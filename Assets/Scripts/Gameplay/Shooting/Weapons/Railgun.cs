@@ -19,12 +19,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #region CodeLife
 
-        public Railgun(RailgunConfig railgunConfig, EntityType entityType, ProjectileFactory projectileFactory, TimerFactory timerFactory)
+        public Railgun(
+            RailgunConfig railgunConfig,
+            EntityType entityType,
+            ProjectileFactory projectileFactory,
+            TimerFactory timerFactory) : base(railgunConfig, timerFactory)
         {
             _railgunConfig = railgunConfig;
             _entityType = entityType;
             _projectileFactory = projectileFactory;
-            CooldownTimer = timerFactory.Create(railgunConfig.Cooldown);
         }
 
         #endregion

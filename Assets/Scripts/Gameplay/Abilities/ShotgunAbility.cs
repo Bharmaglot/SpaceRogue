@@ -17,11 +17,13 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #region CodeLife
 
-        public ShotgunAbility(ShotgunAbilityConfig shotgunAbilityConfig, EntityViewBase entityView, TimerFactory timerFactory)
+        public ShotgunAbility(
+            ShotgunAbilityConfig shotgunAbilityConfig,
+            EntityViewBase entityView,
+            TimerFactory timerFactory) : base(shotgunAbilityConfig, timerFactory)
         {
             _shotgunAbilityConfig = shotgunAbilityConfig;
             _entityView = entityView;
-            CooldownTimer = timerFactory.Create(_shotgunAbilityConfig.Cooldown);
         }
 
         #endregion

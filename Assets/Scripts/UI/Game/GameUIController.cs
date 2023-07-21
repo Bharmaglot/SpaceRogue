@@ -12,7 +12,7 @@ namespace UI.Game
 
         public static PlayerStatusBarView PlayerStatusBarView { get; private set; }
         public static PlayerSpeedometerView PlayerSpeedometerView { get; private set; }
-        public static PlayerWeaponView PlayerWeaponView { get; private set; }
+        public static PlayerUsedItemView PlayerWeaponView { get; private set; }
 
 
         public static LevelNumberView LevelNumberView { get; private set; }

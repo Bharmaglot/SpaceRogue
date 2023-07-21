@@ -7,11 +7,24 @@ namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class UnitWeapon : IDisposable
     {
+        #region Events
+
+        public event Action UnitWeaponChanged; //TODO Change Weapon
+
+        #endregion
+
         #region Fields
 
         private readonly MountedWeapon _mountedWeapon;
         private readonly Ability _ability;
         private readonly IUnitWeaponInput _input;
+
+        #endregion
+
+        #region Properties
+
+        public Weapon CurrentWeapon { get; private set; }
+        public Ability CurrentAbility { get; private set; }
 
         #endregion
 
@@ -22,6 +35,10 @@ namespace SpaceRogue.Gameplay.Shooting
             _mountedWeapon = mountedWeapon;
             _ability = ability;
             _input = input;
+
+            CurrentWeapon = _mountedWeapon.Weapon;
+            CurrentAbility = _ability;
+
             _input.PrimaryFireInput += HandleFiringInput;
             _input.AbilityInput += AbilityInput;
         }

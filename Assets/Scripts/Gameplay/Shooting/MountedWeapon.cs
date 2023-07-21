@@ -8,8 +8,8 @@ namespace SpaceRogue.Gameplay.Shooting
     {
         #region Properties
 
-        protected Weapon Weapon { get; set; }
-        protected Transform UnitViewTransform { get; set; }
+        public Weapon Weapon { get; private set; }
+        protected Transform UnitViewTransform { get; private set; }
 
         #endregion
 

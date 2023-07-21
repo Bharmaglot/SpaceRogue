@@ -19,12 +19,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #region CodeLife
 
-        public Blaster(BlasterConfig blasterConfig, EntityType entityType, ProjectileFactory projectileFactory, TimerFactory timerFactory)
+        public Blaster(
+            BlasterConfig blasterConfig,
+            EntityType entityType,
+            ProjectileFactory projectileFactory,
+            TimerFactory timerFactory) : base (blasterConfig, timerFactory)
         {
             _blasterConfig = blasterConfig;
             _entityType = entityType;
             _projectileFactory = projectileFactory;
-            CooldownTimer = timerFactory.Create(blasterConfig.Cooldown);
         }
 
         #endregion
