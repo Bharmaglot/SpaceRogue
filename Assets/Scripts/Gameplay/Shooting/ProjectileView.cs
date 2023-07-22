@@ -11,7 +11,7 @@ namespace SpaceRogue.Gameplay.Shooting
     {
         #region Events
 
-        public event Action CollidedObject = () => { };
+        public event Action CollidedObject;
 
         #endregion
 
@@ -46,7 +46,7 @@ namespace SpaceRogue.Gameplay.Shooting
                 DealDamage(damageable);
             }
 
-            CollidedObject.Invoke();
+            CollidedObject?.Invoke();
         }
 
         #endregion

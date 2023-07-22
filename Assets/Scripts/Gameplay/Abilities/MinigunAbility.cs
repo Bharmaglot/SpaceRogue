@@ -100,7 +100,9 @@ namespace SpaceRogue.Gameplay.Abilities
         }
 
         private void AccelerationBoost() => _unitMovement.ExtraSpeed = _minigunAbilityConfig.AccelerationBoost;
+
         private void AccelerationBoostStopped() => _unitMovement.ExtraSpeed = 0;
+
         private void DamageAndCollisionIgnore()
         {
             foreach (var layer in _ignoreLayers)

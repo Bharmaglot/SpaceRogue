@@ -14,14 +14,16 @@ namespace SpaceRogue.Gameplay.Abilities
         #region Fields
 
         private readonly TimerFactory _timerFactory;
+        private readonly AbilityViewFactory _abilityViewFactory;
 
         #endregion
 
         #region CodeLife
 
-        public AbilityFactory(TimerFactory timerFactory)
+        public AbilityFactory(TimerFactory timerFactory, AbilityViewFactory abilityViewFactory)
         {
             _timerFactory = timerFactory;
+            _abilityViewFactory = abilityViewFactory;
         }
 
         #endregion
@@ -34,7 +36,7 @@ namespace SpaceRogue.Gameplay.Abilities
             AbilityType.BlasterAbility => new BlasterAbility(abilityConfig as BlasterAbilityConfig, entityView, _timerFactory),
             AbilityType.ShotgunAbility => new ShotgunAbility(abilityConfig as ShotgunAbilityConfig, entityView, _timerFactory),
             AbilityType.MinigunAbility => new MinigunAbility(abilityConfig as MinigunAbilityConfig, entityView, unitMovement, _timerFactory),
-            AbilityType.RailgunAbility => new RailgunAbility(abilityConfig as RailgunAbilityConfig, entityView, _timerFactory),
+            AbilityType.RailgunAbility => new RailgunAbility(abilityConfig as RailgunAbilityConfig, entityView, _timerFactory, _abilityViewFactory),
             _ => throw new ArgumentOutOfRangeException(nameof(abilityConfig.Type), abilityConfig.Type, $"A not-existent ability type is provided")
         };
 
