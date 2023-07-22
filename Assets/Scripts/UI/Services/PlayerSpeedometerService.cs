@@ -38,23 +38,29 @@ namespace UI.Services
             _playerMovement = playerMovement;
 
             _playerSpeedometerView.Show();
-            _playerSpeedometerView.Init(GetSpeedometerTextValue(_playerMovement.CurrentSpeed, _playerMovement.MaxSpeed));
+            _playerSpeedometerView.Init(GetSpeedometerTextValue(_playerMovement.CurrentSpeed, _playerMovement.MaxSpeed, _playerMovement.ExtraSpeed));
 
             _updater.SubscribeToUpdate(UpdateSpeedometer);
         }
 
         private void UpdateSpeedometer()
         {
-            _playerSpeedometerView.UpdateText(GetSpeedometerTextValue(_playerMovement.CurrentSpeed, _playerMovement.MaxSpeed));
+            _playerSpeedometerView.UpdateText(GetSpeedometerTextValue(_playerMovement.CurrentSpeed, _playerMovement.MaxSpeed, _playerMovement.ExtraSpeed));
         }
 
-        private string GetSpeedometerTextValue(float currentSpeed, float maximumSpeed)
+        private string GetSpeedometerTextValue(float currentSpeed, float maximumSpeed, float extraSpeed)
         {
-            return currentSpeed switch
+            var speed = (currentSpeed - extraSpeed) switch
             {
                 < 0 => "R",
-                _ => $"SPD: {Mathf.RoundToInt(currentSpeed / maximumSpeed * 100)}"
+                _ => $"SPD: {Mathf.RoundToInt((currentSpeed - extraSpeed) / (maximumSpeed - extraSpeed) * 100)}"
             };
+
+            if(!Mathf.Approximately(extraSpeed, 0))
+            {
+                speed = $"{speed} <color=#DBD080>+{extraSpeed}</color>";
+            }
+            return speed;
         }
     }
 }

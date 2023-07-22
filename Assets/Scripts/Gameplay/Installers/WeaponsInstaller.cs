@@ -8,6 +8,7 @@ using UnityEngine;
 using Zenject;
 using SpaceRogue.Gameplay.Abilities.Scriptables;
 using SpaceRogue.Gameplay.Abilities;
+using SpaceRogue.Player.Movement;
 
 namespace Gameplay.Installers
 {
@@ -96,7 +97,7 @@ namespace Gameplay.Installers
         private void InstallUnitWeaponFactory()
         {
             Container
-                .BindIFactory<AbilityConfig, EntityViewBase, Ability>()
+                .BindIFactory<AbilityConfig, EntityViewBase, UnitMovement, Ability>()
                 .FromFactory<AbilityFactory>();
 
             Container
@@ -104,7 +105,7 @@ namespace Gameplay.Installers
                 .AsCached();
 
             Container
-                .BindFactory<EntityViewBase, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
+                .BindFactory<EntityViewBase, MountedWeaponConfig, UnitMovement, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
                 .AsSingle();
         }
     }

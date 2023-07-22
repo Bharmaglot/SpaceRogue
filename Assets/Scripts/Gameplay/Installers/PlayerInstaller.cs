@@ -69,7 +69,7 @@ namespace Gameplay.Installers
                 .WhenInjectedInto<PlayerWeaponFactory>();
 
             Container
-                .BindFactory<PlayerView, UnitWeapon, PlayerWeaponFactory>()
+                .BindFactory<PlayerView, UnitMovement, UnitWeapon, PlayerWeaponFactory>()
                 .AsSingle();
         }
 

@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: MinigunAbilityConfig
   m_EditorClassIdentifier: 
   <AbilityPrefab>k__BackingField: {fileID: 0}
-  <Cooldown>k__BackingField: 0
+  <Cooldown>k__BackingField: 5
+  <AccelerationBoost>k__BackingField: 10
+  <AccelerationDuration>k__BackingField: 3
+  <DamageAndCollisionIgnoreDuration>k__BackingField: 3

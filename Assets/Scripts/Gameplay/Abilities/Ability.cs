@@ -38,6 +38,7 @@ namespace SpaceRogue.Gameplay.Abilities
 
         public void Dispose()
         {
+            OnDispose();
             CooldownTimer.OnStart -= OnAbilityUsed;
             CooldownTimer.OnExpire -= OnAbilityAvailable;
 
@@ -49,6 +50,8 @@ namespace SpaceRogue.Gameplay.Abilities
         #region Methods
 
         public abstract void UseAbility();
+
+        protected virtual void OnDispose() { }
 
         private void OnAbilityUsed() => AbilityUsed?.Invoke();
 
