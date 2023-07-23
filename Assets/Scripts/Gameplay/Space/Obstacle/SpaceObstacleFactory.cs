@@ -1,6 +1,7 @@
 using Zenject;
 
-namespace Gameplay.Space.Obstacle
+
+namespace SpaceRogue.Gameplay.Space.Obstacle
 {
     public sealed class SpaceObstacleFactory : PlaceholderFactory<SpaceObstacleView, float, SpaceObstacle>
     {
