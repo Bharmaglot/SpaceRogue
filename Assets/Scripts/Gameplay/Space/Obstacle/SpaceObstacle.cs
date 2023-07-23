@@ -10,6 +10,14 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
 {
     public sealed class SpaceObstacle : IDisposable
     {
+        #region Events
+
+        public event Action PlayerInObstacle;
+
+        public event Action PlayerOutObstacle;
+
+        #endregion
+
         #region Fields
 
         private const int SEARCH_DISTANCE = 10000;
@@ -62,6 +70,7 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
         private void OnObstacleEnter(EntityViewBase entityView)
         {
             if (_unitCollection.ContainsKey(entityView)) return;
+            if (entityView.EntityType == Enums.EntityType.Player) PlayerInObstacle?.Invoke();
 
             var closestPoint = _obstacleCollider.ClosestPoint(entityView.transform.position);
 
@@ -77,6 +86,7 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
         private void OnObstacleExit(EntityViewBase entityView)
         {
             if (!_unitCollection.ContainsKey(entityView)) return;
+            if (entityView.EntityType == Enums.EntityType.Player) PlayerOutObstacle?.Invoke();
 
             _unitCollection.Remove(entityView);
         }

@@ -1,5 +1,6 @@
 using Gameplay.Minimap;
 using Scriptables;
+using SpaceRogue.UI.Services;
 using UI.Services;
 using UnityEngine;
 using Zenject;
@@ -13,6 +14,7 @@ namespace UI.Installers
 
         public override void InstallBindings()
         {
+            InstallObstacleUIEffectService();
             InstallPlayerInfoService();
             InstallPlayerStatusBarService();
             InstallPlayerSpeedometerService();
@@ -27,6 +29,14 @@ namespace UI.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<PlayerInfoService>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void InstallObstacleUIEffectService()
+        {
+            Container
+                .BindInterfacesAndSelfTo<ObstacleUIEffectService>()
                 .AsSingle()
                 .NonLazy();
         }

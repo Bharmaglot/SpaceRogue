@@ -1,7 +1,8 @@
+using Gameplay.Survival;
+using SpaceRogue.UI.Game;
 using UI.Game;
 using UnityEngine;
 using Zenject;
-using Gameplay.Survival;
 
 namespace UI.Installers
 {
@@ -12,6 +13,7 @@ namespace UI.Installers
         [field: SerializeField] public GameCanvasView GameCanvasView{ get; private set; }
 
         [field: Header("Permanent UI")]
+        [field: SerializeField] public ObstacleUIEffectView ObstacleUIEffectView { get; private set; }
         [field: SerializeField] public PlayerInfoView PlayerInfoView{ get; private set; }
         [field: SerializeField] public LevelInfoView LevelInfoView{ get; private set; }
         [field: SerializeField] public MinimapView MinimapView { get; private set; }
@@ -25,6 +27,7 @@ namespace UI.Installers
         public override void InstallBindings()
         {
             BindGameUICanvas();
+            BindObstacleUIEffect();
             BindPlayerInfo();
             BindLevelInfo();
             BindMinimap();
@@ -44,6 +47,15 @@ namespace UI.Installers
             Container
                 .Bind<GameCanvasView>()
                 .FromInstance(GameCanvasView)
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindObstacleUIEffect()
+        {
+            Container
+                .Bind<ObstacleUIEffectView>()
+                .FromInstance(ObstacleUIEffectView)
                 .AsSingle()
                 .NonLazy();
         }
