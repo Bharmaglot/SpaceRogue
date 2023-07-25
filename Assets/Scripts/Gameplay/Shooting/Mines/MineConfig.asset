@@ -17,6 +17,6 @@ MonoBehaviour:
   <AlarmZoneRadius>k__BackingField: 5
   <TimeToActiveAlarmSystem>k__BackingField: 3
   <TimeToExplosion>k__BackingField: 3
-  <DamageFromExplosion>k__BackingField: 10
-  <SpeedWaveExplosion>k__BackingField: 10
-  <TargetUnitType>k__BackingField: 4
+  <DamageFromExplosion>k__BackingField: 50
+  <SpeedWaveExplosion>k__BackingField: 15
+  <TargetUnitType>k__BackingField: 6

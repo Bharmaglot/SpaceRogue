@@ -1,20 +1,35 @@
 using Gameplay.Pooling;
 using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Shooting;
 using UnityEngine;
 using Zenject;
+
 
 namespace Gameplay.Shooting.Factories
 {
     public class MineViewFactory : PlaceholderFactory<Vector2, MineConfig, MineView>
     {
+
+        #region Fields
+
         private readonly DiContainer _diContainer;
         private readonly Transform _projectilePoolTransform;
+
+        #endregion
+
+
+        #region CodeLife
 
         public MineViewFactory(DiContainer diContainer, ProjectilePool projectilePool)
         {
             _projectilePoolTransform = projectilePool.transform;
             _diContainer = diContainer;
         }
+
+        #endregion
+
+
+        #region Methods
 
         public override MineView Create(Vector2 position, MineConfig config)
         {
@@ -33,5 +48,8 @@ namespace Gameplay.Shooting.Factories
 
             return view;
         }
+
+        #endregion
+
     }
 }

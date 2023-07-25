@@ -4,6 +4,7 @@ using Gameplay.Shooting.Factories;
 using Gameplay.Shooting.Scriptables;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
+using SpaceRogue.Shooting;
 using UnityEngine;
 using Zenject;
 
@@ -12,10 +13,18 @@ namespace Gameplay.Installers
 {
     public sealed class WeaponsInstaller : MonoInstaller
     {
+
+        #region Fields
+
         [field: SerializeField] public ProjectilePool ProjectilePool { get; private set; }
         [field: SerializeField] public TurretView TurretView { get; private set; }
         [field: SerializeField] public GunPointView GunPoint { get; private set; }
-        
+
+        #endregion
+
+
+        #region Methods
+
         public override void InstallBindings()
         {
             InstallProjectilePool();
@@ -110,5 +119,8 @@ namespace Gameplay.Installers
                 .BindFactory<EntityViewBase, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
                 .AsSingle();
         }
+
+        #endregion
+
     }
 }

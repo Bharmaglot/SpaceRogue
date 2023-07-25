@@ -444,9 +444,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff878cf6164ea6a4582e01854642dece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MineBodyTransform: {fileID: 6004976868710556857}
-  MineAlertZoneTansform: {fileID: 1851306592075655012}
-  MineTimerVisualTransform: {fileID: 8019927176256295517}
-  ExplozionTransform: {fileID: 5663136699875195057}
-  MineAlertZoneView: {fileID: 1177447717481221660}
-  MineExploseView: {fileID: 316645463800012562}
+  <MineBodyTransform>k__BackingField: {fileID: 6004976868710556857}
+  <MineAlertZoneTansform>k__BackingField: {fileID: 1851306592075655012}
+  <MineTimerVisualTransform>k__BackingField: {fileID: 8019927176256295517}
+  <ExplozionTransform>k__BackingField: {fileID: 5663136699875195057}
+  <MineAlertZoneView>k__BackingField: {fileID: 1177447717481221660}
+  <MineExploseView>k__BackingField: {fileID: 316645463800012562}

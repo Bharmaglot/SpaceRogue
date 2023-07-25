@@ -2,16 +2,29 @@ using SpaceRogue.Abstraction;
 using System;
 using UnityEngine;
 
-public class MineAlertZoneView : MonoBehaviour
+namespace SpaceRogue.Shooting
 {
-    public event Action<EntityViewBase> TargetEnterAlarmZone = (_) => { };
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public sealed class MineAlertZoneView : MonoBehaviour
     {
 
-        if (collision.TryGetComponent(out EntityViewBase target))
+        #region Events
+
+        public event Action<EntityViewBase> TargetEnterAlarmZone;
+
+        #endregion
+
+
+        #region Methods
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            TargetEnterAlarmZone(target);
+            if (collision.TryGetComponent(out EntityViewBase target))
+            {
+                TargetEnterAlarmZone?.Invoke(target);
+            }
         }
+
+        #endregion
+
     }
 }

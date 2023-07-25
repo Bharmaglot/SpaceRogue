@@ -2,36 +2,40 @@ using Gameplay.Damage;
 using Gameplay.Survival;
 using UnityEngine;
 
-public sealed class MineExploseView : MonoBehaviour, IDamagingView
+
+namespace SpaceRogue.Shooting
 {
-    public DamageModel DamageModel { get; private set; }
-
-    public void Init(DamageModel damageModel)
+    public sealed class MineExploseView : MonoBehaviour, IDamagingView
     {
-        DamageModel = damageModel;
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        CollisionEnter(other.gameObject);
-    }
+        #region Fields
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        CollisionEnter(collision.gameObject);
-    }
+        public DamageModel DamageModel { get; private set; }
 
-    public void DealDamage(IDamageableView damageable)
-    {
-        damageable.TakeDamage(DamageModel);
-    }
+        #endregion
 
-    private void CollisionEnter(GameObject go)
-    {
-        var damageable = go.GetComponent<IDamageableView>();
-        if (damageable is not null)
+
+        #region Methods
+
+        public void Init(DamageModel damageModel)
         {
-            DealDamage(damageable);
+            DamageModel = damageModel;
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out IDamageableView damageable))
+            {
+                DealDamage(damageable);
+            }
+        }
+
+        public void DealDamage(IDamageableView damageable)
+        {
+            damageable.TakeDamage(DamageModel);
+        }
+
+        #endregion
+
     }
 }

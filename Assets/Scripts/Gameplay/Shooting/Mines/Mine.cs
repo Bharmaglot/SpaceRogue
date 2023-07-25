@@ -7,11 +7,16 @@ using UnityEngine;
 using Gameplay.Damage;
 using Gameplay.Mechanics.Timer;
 
-namespace Gameplay.Shooting
+
+namespace SpaceRogue.Shooting
 {
-    public class Mine : IDisposable
+    public sealed class Mine : IDisposable
     {
+
+        #region Fields
+
         private readonly Updater _updater;
+        private readonly Timer _timerToActivateAlarmSystem;
 
         private MineView _mineView;
         private MineAlertZoneView _mineAlertZoneView;
@@ -25,13 +30,14 @@ namespace Gameplay.Shooting
         private float _timeToExplosion;
         private float _alertAndDamageAuraSize;
         private float _speedWaveExplosion;
+        private float _stepTimerVisualTransform;
         private EntityType _targetUnitType;
 
-        private float _stepTimerVisualTransform;
+        #endregion
 
-        private readonly Timer _timerToActivateAlarmSystem;
 
-        internal Mine(Updater updater, MineView mineView, TimerFactory timerFactory, MineConfig mineConfig)
+        #region CodeLife
+        public Mine(Updater updater, MineView mineView, TimerFactory timerFactory, MineConfig mineConfig)
         {
             _updater = updater;
 
@@ -59,6 +65,18 @@ namespace Gameplay.Shooting
 
             _timerToActivateAlarmSystem.Start();
         }
+
+        public void Dispose()
+        {
+            _updater.UnsubscribeFromUpdate(ExplosionEffect);
+            _updater.UnsubscribeFromUpdate(ActiveExplosionTimer);
+            GameObject.Destroy(_mineView.gameObject);
+        }
+
+        #endregion
+
+
+        #region Methods
 
         private void TimerToActiveAlarmZone()
         {
@@ -111,11 +129,7 @@ namespace Gameplay.Shooting
             }
         }
 
-        public void Dispose()
-        {
-            _updater.UnsubscribeFromUpdate(ExplosionEffect);
-            _updater.UnsubscribeFromUpdate(ActiveExplosionTimer);
-            GameObject.Destroy(_mineView.gameObject);
-        }
+        #endregion
+
     }
 }

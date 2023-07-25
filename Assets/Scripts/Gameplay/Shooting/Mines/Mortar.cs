@@ -3,12 +3,21 @@ using Gameplay.Shooting.Factories;
 using Gameplay.Shooting.Scriptables;
 using UnityEngine;
 
+
 namespace Gameplay.Shooting.Weapons
 {
     public class Mortar : Weapon
     {
+
+        #region Fields
+
         private readonly MortarConfig _mortarConfig;
         private readonly MineFactory _mineFactory;
+
+        #endregion
+
+
+        #region CodeLife
 
         public Mortar(MortarConfig mortarConfig, MineFactory mineFactory, TimerFactory timerFactory)
         {
@@ -16,6 +25,11 @@ namespace Gameplay.Shooting.Weapons
             _mineFactory = mineFactory;
             CooldownTimer = timerFactory.Create(mortarConfig.Cooldown);
         }
+
+        #endregion
+
+
+        #region Methods
 
         public override void CommenceFiring(Vector2 minePosition, Quaternion turretDirection)
         {
@@ -25,5 +39,8 @@ namespace Gameplay.Shooting.Weapons
 
             CooldownTimer.Start();
         }
+
+        #endregion
+
     }
 }
