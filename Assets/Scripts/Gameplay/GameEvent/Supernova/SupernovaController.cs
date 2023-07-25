@@ -4,6 +4,7 @@ using Scriptables.GameEvent;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Services;
 using System.Collections.Generic;
+using SpaceRogue.Services.SceneLoader;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;
 
@@ -39,7 +40,7 @@ namespace Gameplay.GameEvent.Supernova
             _starViewColor = _spriteRenderer.color;
             _starViewScale = _starView.transform.localScale;
 
-            _explosionTimer = new(_supernovaGameEventConfig.TimeToExplosionInSeconds, new Updater());
+            _explosionTimer = new(_supernovaGameEventConfig.TimeToExplosionInSeconds, new Updater(new GameStateService(new SceneLoader())));
             _explosionTimer.Start();
 
             EntryPoint.SubscribeToUpdate(PrepareSupernova);

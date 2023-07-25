@@ -3,6 +3,7 @@ using Gameplay.Player;
 using Scriptables.GameEvent;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Services;
+using SpaceRogue.Services.SceneLoader;
 using UI.Game;
 using UnityEngine;
 using Utilities.Mathematics;
@@ -29,7 +30,7 @@ namespace Gameplay.GameEvent
             _playerController = playerController;
             _playerController.PlayerDestroyed += OnPlayerDestroyed;
             _playerController.OnControllerDispose += OnPlayerDestroyed;
-            _timer = new(_config.ResponseTimeInSeconds, new Updater());
+            _timer = new(_config.ResponseTimeInSeconds, new Updater(new GameStateService(new SceneLoader())));
             _timer.Start();
 
             EntryPoint.SubscribeToUpdate(CheckEvent);

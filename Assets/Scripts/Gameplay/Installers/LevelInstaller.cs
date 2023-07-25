@@ -83,6 +83,11 @@ namespace Gameplay.Installers
                 .BindInterfacesAndSelfTo<LevelProgress>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<LevelCompleteController>()
+                .AsSingle()
+                .NonLazy();
         }
         
         private void InstallMissionFactory()

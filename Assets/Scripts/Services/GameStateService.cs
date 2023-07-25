@@ -29,6 +29,18 @@ namespace SpaceRogue.Services
             _sceneLoader.LoadMenuScene();
         }
 
+        public void PauseGame()
+        {
+            if (CurrentState != GameState.Game) return;
+            CurrentState = GameState.GamePaused;
+        }
+
+        public void UnpauseGame()
+        {
+            if (CurrentState != GameState.GamePaused) return;
+            CurrentState = GameState.Game;
+        }
+
         public void ExitGame()
         {
 #if UNITY_EDITOR

@@ -4,6 +4,7 @@ namespace Gameplay.GameState
     {
         None,
         Menu,
-        Game
+        Game,
+        GamePaused
     }
 }
