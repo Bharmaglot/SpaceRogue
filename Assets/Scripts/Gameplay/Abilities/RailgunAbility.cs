@@ -70,7 +70,7 @@ namespace SpaceRogue.Gameplay.Abilities
                     if (length > 0)
                     {
                         var force = _railgunAbilityConfig.ShockwaveForce / length;
-                        entityViewBase.GetComponent<Rigidbody2D>().AddForce(distance.normalized *  force, ForceMode2D.Impulse);
+                        entityViewBase.Rigidbody2D.AddForce(distance.normalized *  force, ForceMode2D.Impulse);
                     }
                 }
             }
