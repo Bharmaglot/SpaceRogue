@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Gameplay.Shooting.Weapons
 {
-    public class Mortar : Weapon
+    public sealed class Mortar : Weapon
     {
 
         #region Fields

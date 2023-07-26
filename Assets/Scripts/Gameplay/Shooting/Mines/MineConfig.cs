@@ -8,7 +8,7 @@ namespace Gameplay.Shooting.Scriptables
     [CreateAssetMenu(fileName = nameof(MineConfig), menuName = "Configs/Projectiles/" + nameof(MineConfig))]
     public sealed class MineConfig : ScriptableObject
     {
-        [field: SerializeField] public MineView Prefab { get; private set; }
+        [field: SerializeField] public MineView MinePrefab { get; private set; }
 
         [field: SerializeField, Min(0.1f)] public float MineSize { get; private set; }
         [field: SerializeField, Min(0.1f)] public float AlarmZoneRadius { get; private set; }

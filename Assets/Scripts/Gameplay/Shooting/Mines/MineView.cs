@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace SpaceRogue.Shooting
 {
-    public class MineView : MonoBehaviour
+    public sealed class MineView : MonoBehaviour
     {
 
-        #region Fields
+        #region Properties
 
         [field: SerializeField] public Transform MineBodyTransform { get; private set; }
         [field: SerializeField] public Transform MineAlertZoneTansform { get; private set; }

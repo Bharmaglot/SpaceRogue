@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Gameplay.Shooting.Factories
 {
-    public class MineViewFactory : PlaceholderFactory<Vector2, MineConfig, MineView>
+    public sealed class MineViewFactory : PlaceholderFactory<Vector2, MineConfig, MineView>
     {
 
         #region Fields
@@ -33,7 +33,7 @@ namespace Gameplay.Shooting.Factories
 
         public override MineView Create(Vector2 position, MineConfig config)
         {
-            MineView view = _diContainer.InstantiatePrefabForComponent<MineView>(config.Prefab, position, Quaternion.identity, _projectilePoolTransform);
+            MineView view = _diContainer.InstantiatePrefabForComponent<MineView>(config.MinePrefab, position, Quaternion.identity, _projectilePoolTransform);
             
             view.MineBodyTransform.localScale = new Vector2(config.MineSize, config.MineSize);
             

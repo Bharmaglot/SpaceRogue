@@ -2,6 +2,7 @@ using SpaceRogue.Abstraction;
 using System;
 using UnityEngine;
 
+
 namespace SpaceRogue.Shooting
 {
     public sealed class MineAlertZoneView : MonoBehaviour

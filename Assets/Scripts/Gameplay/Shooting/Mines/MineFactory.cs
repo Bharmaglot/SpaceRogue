@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Gameplay.Shooting.Factories
 {
-    public class MineFactory : PlaceholderFactory<Vector2, MineConfig, Mine>
+    public sealed class MineFactory : PlaceholderFactory<Vector2, MineConfig, Mine>
     {
 
         #region Fields
