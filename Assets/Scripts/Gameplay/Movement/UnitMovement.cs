@@ -45,7 +45,7 @@ namespace SpaceRogue.Player.Movement
             UnitMovementModel model,
             TimerFactory timerFactory)
         {
-            _rigidbody = entityView.GetComponent<Rigidbody2D>();
+            _rigidbody = entityView.Rigidbody2D;
             _transform = entityView.transform;
             _movementInput = movementInput;
             _model = model;

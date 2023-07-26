@@ -124,7 +124,7 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
                     continue;
                 }
 
-                var rigidbody = item.Key.GetComponent<Rigidbody2D>();
+                var rigidbody = item.Key.Rigidbody2D;
                 var position = rigidbody.transform.position;
                 var anchorPoint = (Vector3)_obstacleCollider.ClosestPoint(position);
                 var vectorDirection = anchorPoint == position ? position - item.Value : anchorPoint - position;
