@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87c11b540157488cacefa6bd6e095c6f, type: 3}
-  m_Name: EnemySquadConfig1
+  m_Name: EnemySquadConfig3
   m_EditorClassIdentifier: 
   <EnemyTypes>k__BackingField:
   - <Weight>k__BackingField: 500
-    <Config>k__BackingField: {fileID: 11400000, guid: 556514fff54de3a4a9075cb12e522549, type: 2}
-  <EnemyCount>k__BackingField: 5
+    <Config>k__BackingField: {fileID: 11400000, guid: 6d2892527adfa7142b7d730601588eb7, type: 2}
+  <EnemyCount>k__BackingField: 1

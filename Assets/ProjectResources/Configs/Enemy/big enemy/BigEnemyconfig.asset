@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68cdea147983413bafd755ed5e1dca3b, type: 3}
+  m_Name: BigEnemyconfig
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: 79a93415-b055-4e31-9e49-b9b27f1e592a
+  <Prefab>k__BackingField: {fileID: 905853938731985664, guid: 7deee01869017ac4abe06c18824eb079, type: 3}
+  <Movement>k__BackingField: {fileID: 11400000, guid: 5e1c0207f5516b54facef73883c921ac, type: 2}
+  <Survival>k__BackingField: {fileID: 11400000, guid: ce2efa387acd09040a2b35f6904a4e08, type: 2}
+  <Behaviour>k__BackingField: {fileID: 11400000, guid: b077bb561865ea748b6c73e7ba314bb8, type: 2}
+  <MountedWeapon>k__BackingField: {fileID: 11400000, guid: 5f066ea163bab654eb55838a685d3064, type: 2}
