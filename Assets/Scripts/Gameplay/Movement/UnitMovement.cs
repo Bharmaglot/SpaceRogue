@@ -31,8 +31,9 @@ namespace SpaceRogue.Player.Movement
 
         #region Properties
 
-        public float CurrentSpeed => _model.CurrentSpeed;
-        public float MaxSpeed => _model.MaxSpeed;
+        public float ExtraSpeed { get; set; } = 0.0f;
+        public float CurrentSpeed => _model.CurrentSpeed + ExtraSpeed;
+        public float MaxSpeed => _model.MaxSpeed + ExtraSpeed;
 
         #endregion
 

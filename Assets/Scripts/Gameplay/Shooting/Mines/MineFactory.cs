@@ -1,12 +1,11 @@
 using Gameplay.Mechanics.Timer;
-using Gameplay.Shooting.Scriptables;
-using SpaceRogue.Shooting;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.Services;
 using UnityEngine;
 using Zenject;
 
 
-namespace Gameplay.Shooting.Factories
+namespace SpaceRogue.Gameplay.Shooting.Factories
 {
     public sealed class MineFactory : PlaceholderFactory<Vector2, MineConfig, Mine>
     {

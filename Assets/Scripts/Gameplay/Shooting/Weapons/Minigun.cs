@@ -1,33 +1,49 @@
-using System;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
-using Gameplay.Shooting.Factories;
-using Gameplay.Shooting.Scriptables;
 using SpaceRogue.Enums;
+using SpaceRogue.Gameplay.Shooting.Factories;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
+using System;
 using UnityEngine;
 using Utilities.Mathematics;
 
 
-namespace Gameplay.Shooting.Weapons
+namespace SpaceRogue.Gameplay.Shooting.Weapons
 {
-    public class Minigun : Weapon, IDisposable
+    public sealed class Minigun : Weapon, IDisposable
     {
+
+        #region Fields
+
         private readonly MinigunConfig _config;
         private readonly EntityType _entityType;
         private readonly ProjectileFactory _projectileFactory;
         private readonly MeterWithCooldown _overheatMeter;
-        
+
         private float _currentSprayAngle;
-        
+
+        #endregion
+
+
+        #region Properties
+
         private float SprayIncrease => (_config.MaxSprayAngle - _config.SprayAngle) / (_config.TimeToOverheat * (1 / _config.Cooldown));
 
-        public Minigun(MinigunConfig config, EntityType entityType, ProjectileFactory projectileFactory, TimerFactory timerFactory)
+        #endregion
+
+
+        #region CodeLife
+
+        public Minigun(
+            MinigunConfig config,
+            EntityType entityType,
+            ProjectileFactory projectileFactory,
+            TimerFactory timerFactory) : base(config, timerFactory)
         {
             _config = config;
             _entityType = entityType;
             _projectileFactory = projectileFactory;
-            CooldownTimer = timerFactory.Create(config.Cooldown);
-            
+
             _overheatMeter = new MeterWithCooldown(0.0f, config.TimeToOverheat, config.OverheatCoolDown, timerFactory);
             _overheatMeter.OnCooldownEnd += ResetSpray;
             _currentSprayAngle = config.SprayAngle;
@@ -39,15 +55,35 @@ namespace Gameplay.Shooting.Weapons
             _overheatMeter.Dispose();
             base.Dispose();
         }
-        
-        public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretDirection)
-        {
-            if (_overheatMeter.IsOnCooldown || IsOnCooldown) return;
 
-            FireSingleProjectile(bulletPosition, turretDirection);
+        #endregion
+
+
+        #region Methods
+
+        public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretRotation)
+        {
+            if (_overheatMeter.IsOnCooldown || IsOnCooldown)
+            {
+                return;
+            }
+
+            FireSingleProjectile(bulletPosition, turretRotation);
             AddHeat();
 
             CooldownTimer.Start();
+        }
+
+        private void ResetSpray() => _currentSprayAngle = _config.SprayAngle;
+
+        private void FireSingleProjectile(Vector2 bulletPosition, Quaternion turretRotation)
+        {
+            var angle = _currentSprayAngle / 2;
+
+            var pelletAngle = RandomPicker.PickRandomBetweenTwoValues(-angle, angle);
+            var pelletDirection = turretRotation * Quaternion.AngleAxis(pelletAngle, Vector3.forward);
+
+            _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, pelletDirection, _entityType, _config.MinigunProjectile));
         }
 
         private void AddHeat()
@@ -58,24 +94,15 @@ namespace Gameplay.Shooting.Weapons
 
         private void IncreaseSpray()
         {
-            if (_currentSprayAngle >= _config.MaxSprayAngle) return;
+            if (_currentSprayAngle >= _config.MaxSprayAngle)
+            {
+                return;
+            }
+
             _currentSprayAngle += SprayIncrease;
         }
 
-        private void ResetSpray()
-        {
-            _currentSprayAngle = _config.SprayAngle;
-        }
+        #endregion
 
-        private void FireSingleProjectile(Vector2 bulletPosition, Quaternion turretDirection)
-        {
-            float angle = _currentSprayAngle / 2;
-
-            float pelletAngle = RandomPicker.PickRandomBetweenTwoValues(-angle, angle);
-            Vector3 pelletVector = (pelletAngle + 90).ToVector3();
-            Quaternion pelletDirection = turretDirection * Quaternion.Euler(pelletVector.x, pelletVector.y, pelletVector.z);
-            //TODO check 90 degrees turn
-            _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, pelletDirection, _entityType, _config.MinigunProjectile));
-        }
     }
 }

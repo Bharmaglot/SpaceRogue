@@ -1,15 +1,17 @@
 using Gameplay.Pooling;
-using Gameplay.Shooting;
-using Gameplay.Shooting.Factories;
-using Gameplay.Shooting.Scriptables;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
-using SpaceRogue.Shooting;
+using SpaceRogue.Gameplay.Abilities;
+using SpaceRogue.Gameplay.Abilities.Scriptables;
+using SpaceRogue.Gameplay.Pooling;
+using SpaceRogue.Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting.Factories;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
 
-
-namespace SpaceRogue.Installers
+namespace SpaceRogue.Gameplay.Installers
 {
     public sealed class WeaponsInstaller : MonoInstaller
     {
@@ -17,6 +19,7 @@ namespace SpaceRogue.Installers
         #region Properties
 
         [field: SerializeField] public ProjectilePool ProjectilePool { get; private set; }
+        [field: SerializeField] public AbilityPool AbilityPool { get; private set; }
         [field: SerializeField] public TurretView TurretView { get; private set; }
         [field: SerializeField] public GunPointView GunPoint { get; private set; }
 
@@ -34,6 +37,7 @@ namespace SpaceRogue.Installers
             InstallGunPointFactory();
             InstallWeaponFactories();
             InstallUnitWeaponFactory();
+            InstallAbilityFactories();
         }
 
         private void InstallProjectilePool()
@@ -116,7 +120,27 @@ namespace SpaceRogue.Installers
         private void InstallUnitWeaponFactory()
         {
             Container
-                .BindFactory<EntityViewBase, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
+                .BindFactory<EntityViewBase, MountedWeaponConfig, UnitMovement, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
+                .AsSingle();
+        }
+        
+        private void InstallAbilityFactories()
+        {
+            Container
+                .Bind<AbilityPool>()
+                .FromInstance(AbilityPool)
+                .AsSingle();
+
+            Container
+                .BindIFactory<AbilityConfig, EntityViewBase, UnitMovement, Ability>()
+                .FromFactory<AbilityFactory>();
+
+            Container
+                .Bind<AbilityFactory>()
+                .AsCached();
+
+            Container
+                .BindFactory<Vector2, AbilityConfig, AbilityView, AbilityViewFactory>()
                 .AsSingle();
         }
 

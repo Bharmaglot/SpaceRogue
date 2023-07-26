@@ -1,14 +1,14 @@
-using Gameplay.Shooting.Scriptables;
-using SpaceRogue.Enums;
-using SpaceRogue.Services;
-using SpaceRogue.Abstraction;
-using System;
-using UnityEngine;
 using Gameplay.Damage;
 using Gameplay.Mechanics.Timer;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
+using SpaceRogue.Services;
+using System;
+using UnityEngine;
 
 
-namespace SpaceRogue.Shooting
+namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class Mine : IDisposable
     {
@@ -18,20 +18,20 @@ namespace SpaceRogue.Shooting
         private readonly Updater _updater;
         private readonly Timer _timerToActivateAlarmSystem;
 
-        private MineView _mineView;
-        private MineAlertZoneView _mineAlertZoneView;
-        private MineExploseView _mineExploseView;
+        private readonly MineView _mineView;
+        private readonly MineAlertZoneView _mineAlertZoneView;
+        private readonly MineExplosionView _mineExplosionView;
 
-        private Transform _mineBodyTransform;
-        private Transform _mineAlertZoneTansform;
-        private Transform _mineTimerVisualTransform;
-        private Transform _explozionTransform;
+        private readonly Transform _mineBodyTransform;
+        private readonly Transform _mineAlertZoneTransform;
+        private readonly Transform _mineTimerVisualTransform;
+        private readonly Transform _explosionTransform;
 
-        private float _timeToExplosion;
-        private float _alertAndDamageAuraSize;
-        private float _speedWaveExplosion;
-        private float _stepTimerVisualTransform;
-        private EntityType _targetUnitType;
+        private readonly float _timeToExplosion;
+        private readonly float _alertAndDamageAuraSize;
+        private readonly float _speedWaveExplosion;
+        private readonly float _stepTimerVisualTransform;
+        private readonly EntityType _targetUnitType;
 
         #endregion
 
@@ -42,23 +42,23 @@ namespace SpaceRogue.Shooting
             _updater = updater;
 
             _mineBodyTransform = mineView.MineBodyTransform;
-            _mineAlertZoneTansform = mineView.MineAlertZoneTansform;
+            _mineAlertZoneTransform = mineView.MineAlertZoneTransform;
             _mineTimerVisualTransform = mineView.MineTimerVisualTransform;
-            _explozionTransform = mineView.ExplozionTransform;
+            _explosionTransform = mineView.ExplosionTransform;
             _mineView = mineView;
 
             _timeToExplosion = mineConfig.TimeToExplosion;
             _speedWaveExplosion = mineConfig.SpeedWaveExplosion;
 
-            _alertAndDamageAuraSize = _mineAlertZoneTansform.localScale.x;
+            _alertAndDamageAuraSize = _mineAlertZoneTransform.localScale.x;
 
             _targetUnitType = mineConfig.TargetUnitType;
 
             _mineAlertZoneView = mineView.MineAlertZoneView;
-            _mineExploseView = mineView.MineExploseView;
-            _mineExploseView.Init(new DamageModel(mineConfig.DamageFromExplosion));
+            _mineExplosionView = mineView.MineExplosionView;
+            _mineExplosionView.Init(new DamageModel(mineConfig.DamageFromExplosion));
 
-            _stepTimerVisualTransform = (_mineAlertZoneTansform.localScale.x - _mineTimerVisualTransform.localScale.x) / _timeToExplosion * Time.deltaTime;
+            _stepTimerVisualTransform = (_mineAlertZoneTransform.localScale.x - _mineTimerVisualTransform.localScale.x) / _timeToExplosion * Time.deltaTime;
 
             _timerToActivateAlarmSystem = timerFactory.Create(mineConfig.TimeToActiveAlarmSystem);
             _timerToActivateAlarmSystem.OnExpire += TimerToActiveAlarmZone;
@@ -70,7 +70,7 @@ namespace SpaceRogue.Shooting
         {
             _updater.UnsubscribeFromUpdate(ExplosionEffect);
             _updater.UnsubscribeFromUpdate(ActiveExplosionTimer);
-            GameObject.Destroy(_mineView.gameObject);
+            UnityEngine.Object.Destroy(_mineView.gameObject);
         }
 
         #endregion
@@ -82,7 +82,7 @@ namespace SpaceRogue.Shooting
         {
             _timerToActivateAlarmSystem.OnExpire -= TimerToActiveAlarmZone;
             _timerToActivateAlarmSystem.Dispose();
-            _mineAlertZoneTansform.gameObject.SetActive(true);
+            _mineAlertZoneTransform.gameObject.SetActive(true);
             _mineAlertZoneView.TargetEnterAlarmZone += StartExplosionTimer;
         }
 
@@ -91,7 +91,7 @@ namespace SpaceRogue.Shooting
             if (_targetUnitType.HasFlag(target.EntityType))
             {
                 _mineAlertZoneView.TargetEnterAlarmZone -= StartExplosionTimer;
-                _mineAlertZoneTansform.gameObject.SetActive(true);
+                _mineAlertZoneTransform.gameObject.SetActive(true);
                 _mineTimerVisualTransform.gameObject.SetActive(true);
                 _updater.SubscribeToUpdate(ActiveExplosionTimer);
             }
@@ -109,9 +109,9 @@ namespace SpaceRogue.Shooting
                 _mineAlertZoneView.TargetEnterAlarmZone -= StartExplosionTimer;
 
                 _mineTimerVisualTransform.gameObject.SetActive(false);
-                _mineAlertZoneTansform.gameObject.SetActive(false);
+                _mineAlertZoneTransform.gameObject.SetActive(false);
                 _mineBodyTransform.gameObject.SetActive(false);
-                _explozionTransform.gameObject.SetActive(true);
+                _explosionTransform.gameObject.SetActive(true);
 
                 _updater.SubscribeToUpdate(ExplosionEffect);
             }
@@ -119,9 +119,9 @@ namespace SpaceRogue.Shooting
 
         private void ExplosionEffect()
         {
-            if (_explozionTransform.localScale.x < _alertAndDamageAuraSize)
+            if (_explosionTransform.localScale.x < _alertAndDamageAuraSize)
             {
-                _explozionTransform.localScale = new Vector2(_explozionTransform.localScale.x + _speedWaveExplosion * Time.deltaTime, _explozionTransform.localScale.y + _speedWaveExplosion * Time.deltaTime);
+                _explosionTransform.localScale = new Vector2(_explosionTransform.localScale.x + _speedWaveExplosion * Time.deltaTime, _explosionTransform.localScale.y + _speedWaveExplosion * Time.deltaTime);
             }
             else
             {

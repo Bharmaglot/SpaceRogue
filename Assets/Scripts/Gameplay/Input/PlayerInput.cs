@@ -18,6 +18,7 @@ namespace SpaceRogue.InputSystem
 
         public event Action<bool> PrimaryFireInput;
         public event Action<bool> ChangeWeaponInput;
+        public event Action<bool> AbilityInput;
         public event Action<bool> NextLevelInput;
         public event Action<bool> MapInput;
 
@@ -29,6 +30,7 @@ namespace SpaceRogue.InputSystem
         private const string VERTICAL = "Vertical";
         private const string HORIZONTAL = "Horizontal";
         private const KeyCode PRIMARY_FIRE = KeyCode.Mouse0;
+        private const KeyCode ABILITY = KeyCode.Mouse1;
         private const KeyCode CHANGE_WEAPON = KeyCode.Q;
         private const KeyCode NEXT_LEVEL = KeyCode.Return;
         private const KeyCode MAP = KeyCode.Tab;
@@ -49,6 +51,7 @@ namespace SpaceRogue.InputSystem
             _updater.SubscribeToUpdate(CheckVerticalInput);
             _updater.SubscribeToUpdate(CheckHorizontalInput);
             _updater.SubscribeToUpdate(CheckFiringInput);
+            _updater.SubscribeToUpdate(CheckAbilityInput);
             _updater.SubscribeToUpdate(CheckMousePositionInput);
             _updater.SubscribeToUpdate(CheckChangeWeaponInput);
             _updater.SubscribeToUpdate(CheckNextLevelInput);
@@ -60,6 +63,7 @@ namespace SpaceRogue.InputSystem
             _updater.UnsubscribeFromUpdate(CheckVerticalInput);
             _updater.UnsubscribeFromUpdate(CheckHorizontalInput);
             _updater.UnsubscribeFromUpdate(CheckFiringInput);
+            _updater.UnsubscribeFromUpdate(CheckAbilityInput);
             _updater.UnsubscribeFromUpdate(CheckMousePositionInput);
             _updater.UnsubscribeFromUpdate(CheckChangeWeaponInput);
             _updater.UnsubscribeFromUpdate(CheckNextLevelInput);
@@ -89,6 +93,12 @@ namespace SpaceRogue.InputSystem
         {
             bool value = Input.GetKey(PRIMARY_FIRE);
             PrimaryFireInput?.Invoke(value);
+        }
+        
+        private void CheckAbilityInput()
+        {
+            bool value = Input.GetKey(ABILITY);
+            AbilityInput?.Invoke(value);
         }
 
         private void CheckMousePositionInput()

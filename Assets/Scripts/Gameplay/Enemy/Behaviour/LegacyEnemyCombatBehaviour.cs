@@ -1,5 +1,5 @@
 using Gameplay.Player;
-using Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Enemy.Movement;
 using UnityEngine;
 using Utilities.Reactive.SubscriptionProperty;

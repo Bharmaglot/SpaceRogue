@@ -1,4 +1,4 @@
-namespace Gameplay.Shooting
+namespace SpaceRogue.Enums
 {
     public enum WeaponType
     {
@@ -7,6 +7,6 @@ namespace Gameplay.Shooting
         Shotgun = 2,
         Minigun = 3,
         Railgun = 4,
-        Mortar = 5
+        Mortar = 5,
     }
 }

@@ -1,11 +1,17 @@
+using SpaceRogue.Enums;
 using UnityEngine;
 
-namespace Gameplay.Shooting.Scriptables
+
+namespace SpaceRogue.Gameplay.Shooting.Scriptables
 {
     [CreateAssetMenu(fileName = nameof(RailgunConfig), menuName = "Configs/Weapons/" + nameof(RailgunConfig))]
     public sealed class RailgunConfig : WeaponConfig
     {
         [field: SerializeField] public ProjectileConfig RailgunProjectile { get; private set; }
-        public RailgunConfig() => Type = WeaponType.Railgun;
+
+        public RailgunConfig()
+        {
+            Type = WeaponType.Railgun;
+        }
     }
 }

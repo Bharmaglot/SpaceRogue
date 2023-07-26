@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace SpaceRogue.Shooting
+namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class MineView : MonoBehaviour
     {
@@ -9,12 +9,12 @@ namespace SpaceRogue.Shooting
         #region Properties
 
         [field: SerializeField] public Transform MineBodyTransform { get; private set; }
-        [field: SerializeField] public Transform MineAlertZoneTansform { get; private set; }
+        [field: SerializeField] public Transform MineAlertZoneTransform { get; private set; }
         [field: SerializeField] public Transform MineTimerVisualTransform { get; private set; }
-        [field: SerializeField] public Transform ExplozionTransform { get; private set; }
+        [field: SerializeField] public Transform ExplosionTransform { get; private set; }
 
         [field: SerializeField] public MineAlertZoneView MineAlertZoneView { get; private set; }
-        [field: SerializeField] public MineExploseView MineExploseView { get; private set; }
+        [field: SerializeField] public MineExplosionView MineExplosionView { get; private set; }
 
         #endregion
 

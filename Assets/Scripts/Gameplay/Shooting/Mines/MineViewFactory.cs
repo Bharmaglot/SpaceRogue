@@ -1,11 +1,10 @@
 using Gameplay.Pooling;
-using Gameplay.Shooting.Scriptables;
-using SpaceRogue.Shooting;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using UnityEngine;
 using Zenject;
 
 
-namespace Gameplay.Shooting.Factories
+namespace SpaceRogue.Gameplay.Shooting.Factories
 {
     public sealed class MineViewFactory : PlaceholderFactory<Vector2, MineConfig, MineView>
     {
@@ -33,18 +32,18 @@ namespace Gameplay.Shooting.Factories
 
         public override MineView Create(Vector2 position, MineConfig config)
         {
-            MineView view = _diContainer.InstantiatePrefabForComponent<MineView>(config.MinePrefab, position, Quaternion.identity, _projectilePoolTransform);
-            
+            var view = _diContainer.InstantiatePrefabForComponent<MineView>(config.MinePrefab, position, Quaternion.identity, _projectilePoolTransform);
+
             view.MineBodyTransform.localScale = new Vector2(config.MineSize, config.MineSize);
-            
-            view.MineAlertZoneTansform.localScale = new Vector2(config.MineSize + config.AlarmZoneRadius, config.MineSize + config.AlarmZoneRadius);
-            view.MineAlertZoneTansform.gameObject.SetActive(false);
-            
+
+            view.MineAlertZoneTransform.localScale = new Vector2(config.MineSize + config.AlarmZoneRadius, config.MineSize + config.AlarmZoneRadius);
+            view.MineAlertZoneTransform.gameObject.SetActive(false);
+
             view.MineTimerVisualTransform.localScale = view.MineBodyTransform.localScale;
             view.MineTimerVisualTransform.gameObject.SetActive(false);
-            
-            view.ExplozionTransform.localScale = view.MineBodyTransform.localScale;
-            view.ExplozionTransform.gameObject.SetActive(false);
+
+            view.ExplosionTransform.localScale = view.MineBodyTransform.localScale;
+            view.ExplosionTransform.gameObject.SetActive(false);
 
             return view;
         }

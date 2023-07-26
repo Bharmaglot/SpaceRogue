@@ -1,46 +1,60 @@
-using System;
 using Gameplay.Damage;
 using Gameplay.Survival;
+using System;
 using UnityEngine;
 
-namespace Gameplay.Shooting
+
+namespace SpaceRogue.Gameplay.Shooting
 {
-    [RequireComponent(typeof(Rigidbody2D))]
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(Collider))]
     public sealed class ProjectileView : MonoBehaviour, IDamagingView
     {
-        public event Action CollidedObject = () => { };
+
+        #region Events
+
+        public event Action CollidedObject;
+
+        #endregion
+
+
+        #region Properties
+
         public DamageModel DamageModel { get; private set; }
 
-        public void Init(DamageModel damageModel)
-        {
-            DamageModel = damageModel;
-        }
+        #endregion
 
-        public void DealDamage(IDamageableView damageable)
-        {
-            damageable.TakeDamage(DamageModel);
-        }
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {   
-            CollisionEnter(other.gameObject);
-        }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        #region Mono
+
+        private void OnTriggerEnter2D(Collider2D other) => CollisionEnter(other.gameObject);
+
+        private void OnCollisionEnter2D(Collision2D collision) => CollisionEnter(collision.gameObject);
+
+        #endregion
+
+
+        #region CodeLife
+
+        public void Init(DamageModel damageModel) => DamageModel = damageModel;
+
+        #endregion
+
+
+        #region Methods
+
+        public void DealDamage(IDamageableView damageable) => damageable.TakeDamage(DamageModel);
+
+        private void CollisionEnter(GameObject gameObject)
         {
-            CollisionEnter(collision.gameObject);
-        }
-        
-        private void CollisionEnter(GameObject go)
-        {
-            var damageable = go.GetComponent<IDamageableView>();
-            if (damageable is not null)
+            if (gameObject.TryGetComponent(out IDamageableView damageable))
             {
                 DealDamage(damageable);
             }
 
-            CollidedObject.Invoke();
+            CollidedObject?.Invoke();
         }
+
+        #endregion
+
     }
 }

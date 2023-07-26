@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Gameplay.Enemy.Behaviour;
 using Gameplay.Movement;
-using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using Gameplay.Survival.Health;
 using Gameplay.Survival.Shield;
 using Scriptables;

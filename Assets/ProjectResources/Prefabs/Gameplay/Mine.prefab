@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 316645463800012562}
   - component: {fileID: 8301560022569256160}
   m_Layer: 0
-  m_Name: MineExplose
+  m_Name: MineExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,8 +445,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MineBodyTransform>k__BackingField: {fileID: 6004976868710556857}
-  <MineAlertZoneTansform>k__BackingField: {fileID: 1851306592075655012}
+  <MineAlertZoneTransform>k__BackingField: {fileID: 1851306592075655012}
   <MineTimerVisualTransform>k__BackingField: {fileID: 8019927176256295517}
-  <ExplozionTransform>k__BackingField: {fileID: 5663136699875195057}
+  <ExplosionTransform>k__BackingField: {fileID: 5663136699875195057}
   <MineAlertZoneView>k__BackingField: {fileID: 1177447717481221660}
-  <MineExploseView>k__BackingField: {fileID: 316645463800012562}
+  <MineExplosionView>k__BackingField: {fileID: 316645463800012562}

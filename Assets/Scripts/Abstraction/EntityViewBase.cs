@@ -10,6 +10,7 @@ namespace SpaceRogue.Abstraction
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class EntityViewBase : MonoBehaviour, IDamageableView
     {
+
         #region Events
 
         public event Action<DamageModel> DamageTaken = _ => { };
@@ -42,5 +43,6 @@ namespace SpaceRogue.Abstraction
         public void TakeDamage(DamageModel damageModel) => DamageTaken(damageModel);
 
         #endregion
+
     }
 }

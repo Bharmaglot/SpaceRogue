@@ -7,5 +7,6 @@ namespace SpaceRogue.Abstraction
     {
         event Action<bool> PrimaryFireInput;
         event Action<bool> ChangeWeaponInput;
+        event Action<bool> AbilityInput;
     }
 }

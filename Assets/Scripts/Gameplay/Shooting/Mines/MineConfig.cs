@@ -1,9 +1,8 @@
 using SpaceRogue.Enums;
 using UnityEngine;
-using SpaceRogue.Shooting;
 
 
-namespace Gameplay.Shooting.Scriptables
+namespace SpaceRogue.Gameplay.Shooting.Scriptables
 {
     [CreateAssetMenu(fileName = nameof(MineConfig), menuName = "Configs/Projectiles/" + nameof(MineConfig))]
     public sealed class MineConfig : ScriptableObject

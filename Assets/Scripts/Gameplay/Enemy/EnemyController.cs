@@ -1,7 +1,7 @@
 using Gameplay.Enemy.Behaviour;
 using Gameplay.Movement;
 using Gameplay.Player;
-using Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting;
 using Gameplay.Enemy.Scriptables;
 using UnityEngine;
 using SpaceRogue.Abstraction;
