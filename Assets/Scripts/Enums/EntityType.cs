@@ -1,11 +1,15 @@
+using System;
+
+
 namespace SpaceRogue.Enums
 {
+    [Flags]
     public enum EntityType
     {
-        None,
-        Player,
-        Enemy,
-        EnemyAssistant,
-        Asteroid
+        None = 0,
+        Player = 2,
+        Enemy = 4,
+        EnemyAssistant = 8,
+        Asteroid = 16
     }
 }

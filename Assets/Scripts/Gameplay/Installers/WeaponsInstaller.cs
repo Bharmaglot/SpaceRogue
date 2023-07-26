@@ -15,15 +15,24 @@ namespace Gameplay.Installers
 {
     public sealed class WeaponsInstaller : MonoInstaller
     {
+
+        #region Properties
+
         [field: SerializeField] public ProjectilePool ProjectilePool { get; private set; }
         [field: SerializeField] public AbilityPool AbilityPool { get; private set; }
         [field: SerializeField] public TurretView TurretView { get; private set; }
         [field: SerializeField] public GunPointView GunPoint { get; private set; }
-        
+
+        #endregion
+
+
+        #region Methods
+
         public override void InstallBindings()
         {
             InstallProjectilePool();
             InstallProjectileFactory();
+            InstallMineFactory();
             InstallTurretFactory();
             InstallGunPointFactory();
             InstallWeaponFactories();
@@ -47,6 +56,17 @@ namespace Gameplay.Installers
 
             Container
                 .BindFactory<ProjectileSpawnParams, Projectile, ProjectileFactory>()
+                .AsSingle();
+        }
+
+        private void InstallMineFactory()
+        {
+            Container
+                .BindFactory<Vector2, MineConfig, MineView, MineViewFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<Vector2, MineConfig, Mine, MineFactory>()
                 .AsSingle();
         }
 
@@ -123,5 +143,8 @@ namespace Gameplay.Installers
                 .BindFactory<Vector2, AbilityConfig, AbilityView, AbilityViewFactory>()
                 .AsSingle();
         }
+
+        #endregion
+
     }
 }
