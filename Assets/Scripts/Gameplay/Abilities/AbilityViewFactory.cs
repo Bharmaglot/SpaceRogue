@@ -8,12 +8,14 @@ namespace SpaceRogue.Gameplay.Abilities
 {
     public sealed class AbilityViewFactory : PlaceholderFactory<Vector2, AbilityConfig, AbilityView>
     {
+
         #region Fields
 
         private readonly AbilityPool _abilityPool;
         private readonly DiContainer _diContainer;
 
         #endregion
+
 
         #region CodeLife
 
@@ -25,11 +27,13 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #endregion
 
+
         #region Methods
 
-        public override AbilityView Create(Vector2 position, AbilityConfig abilityConfig) 
+        public override AbilityView Create(Vector2 position, AbilityConfig abilityConfig)
             => _diContainer.InstantiatePrefabForComponent<AbilityView>(abilityConfig.AbilityPrefab, position, Quaternion.identity, _abilityPool.transform);
 
         #endregion
+
     }
 }

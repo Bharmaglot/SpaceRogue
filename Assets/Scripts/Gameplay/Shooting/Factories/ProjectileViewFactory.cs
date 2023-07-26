@@ -9,14 +9,16 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 {
     public sealed class ProjectileViewFactory : PlaceholderFactory<ProjectileSpawnParams, ProjectileView>
     {
+
         #region Fields
 
-        private const float ANGLE_CORRECTION = 90f;
+        private const float ANGLE_CORRECTION = 90.0f;
 
         private readonly DiContainer _diContainer;
         private readonly Transform _projectilePoolTransform;
 
         #endregion
+
 
         #region CodeLife
 
@@ -27,6 +29,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         }
 
         #endregion
+
 
         #region Methods
 
@@ -49,5 +52,6 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         }
 
         #endregion
+
     }
 }

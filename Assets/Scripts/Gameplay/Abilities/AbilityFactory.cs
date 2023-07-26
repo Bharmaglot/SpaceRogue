@@ -11,12 +11,14 @@ namespace SpaceRogue.Gameplay.Abilities
 {
     public sealed class AbilityFactory : IFactory<AbilityConfig, EntityViewBase, UnitMovement, Ability>
     {
+
         #region Fields
 
         private readonly TimerFactory _timerFactory;
         private readonly AbilityViewFactory _abilityViewFactory;
 
         #endregion
+
 
         #region CodeLife
 
@@ -27,6 +29,7 @@ namespace SpaceRogue.Gameplay.Abilities
         }
 
         #endregion
+
 
         #region Methods
 
@@ -41,5 +44,6 @@ namespace SpaceRogue.Gameplay.Abilities
         };
 
         #endregion
+
     }
 }

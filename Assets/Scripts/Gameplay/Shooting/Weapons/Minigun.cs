@@ -12,6 +12,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 {
     public sealed class Minigun : Weapon, IDisposable
     {
+
         #region Fields
 
         private readonly MinigunConfig _config;
@@ -23,11 +24,13 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #endregion
 
+
         #region Properties
 
         private float SprayIncrease => (_config.MaxSprayAngle - _config.SprayAngle) / (_config.TimeToOverheat * (1 / _config.Cooldown));
 
         #endregion
+
 
         #region CodeLife
 
@@ -55,11 +58,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #endregion
 
+
         #region Methods
 
         public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretRotation)
         {
-            if (_overheatMeter.IsOnCooldown || IsOnCooldown) return;
+            if (_overheatMeter.IsOnCooldown || IsOnCooldown)
+            {
+                return;
+            }
 
             FireSingleProjectile(bulletPosition, turretRotation);
             AddHeat();
@@ -87,10 +94,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         private void IncreaseSpray()
         {
-            if (_currentSprayAngle >= _config.MaxSprayAngle) return;
+            if (_currentSprayAngle >= _config.MaxSprayAngle)
+            {
+                return;
+            }
+
             _currentSprayAngle += SprayIncrease;
         }
 
         #endregion
+
     }
 }

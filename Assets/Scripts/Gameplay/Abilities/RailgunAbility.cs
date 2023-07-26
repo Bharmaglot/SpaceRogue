@@ -3,10 +3,12 @@ using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Abilities.Scriptables;
 using UnityEngine;
 
+
 namespace SpaceRogue.Gameplay.Abilities
 {
     public sealed class RailgunAbility : Ability
     {
+
         #region Fields
 
         private readonly RailgunAbilityConfig _railgunAbilityConfig;
@@ -14,6 +16,7 @@ namespace SpaceRogue.Gameplay.Abilities
         private readonly AbilityViewFactory _abilityViewFactory;
 
         #endregion
+
 
         #region CodeLife
 
@@ -30,11 +33,15 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #endregion
 
+
         #region Methods
 
         public override void UseAbility()
         {
-            if (IsOnCooldown) return;
+            if (IsOnCooldown)
+            {
+                return;
+            }
 
             CreateAbilityView();
             ShockwaveEffect();
@@ -60,22 +67,26 @@ namespace SpaceRogue.Gameplay.Abilities
 
             foreach (var collider in colliders)
             {
-                if(collider.TryGetComponent(out EntityViewBase entityViewBase))
+                if (collider.TryGetComponent(out EntityViewBase entityViewBase))
                 {
-                    if (entityViewBase.EntityType == _entityView.EntityType) continue;
-                    
+                    if (entityViewBase.EntityType == _entityView.EntityType)
+                    {
+                        continue;
+                    }
+
                     var distance = entityViewBase.transform.position - _entityView.transform.position;
                     var length = distance.magnitude;
 
-                    if (length > 0)
+                    if (length > 0.0f)
                     {
                         var force = _railgunAbilityConfig.ShockwaveForce / length;
-                        entityViewBase.Rigidbody2D.AddForce(distance.normalized *  force, ForceMode2D.Impulse);
+                        entityViewBase.Rigidbody2D.AddForce(distance.normalized * force, ForceMode2D.Impulse);
                     }
                 }
             }
         }
 
         #endregion
+
     }
 }

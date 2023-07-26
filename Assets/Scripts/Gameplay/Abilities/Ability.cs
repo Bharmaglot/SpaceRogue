@@ -7,6 +7,7 @@ namespace SpaceRogue.Gameplay.Abilities
 {
     public abstract class Ability : IDisposable
     {
+
         #region Events
 
         public event Action AbilityUsed;
@@ -15,6 +16,7 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #endregion
 
+
         #region Properties
 
         public string AbilityName { get; private set; }
@@ -22,6 +24,7 @@ namespace SpaceRogue.Gameplay.Abilities
         protected bool IsOnCooldown => CooldownTimer.InProgress;
 
         #endregion
+
 
         #region CodeLife
 
@@ -47,6 +50,7 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #endregion
 
+
         #region Methods
 
         public abstract void UseAbility();
@@ -58,5 +62,6 @@ namespace SpaceRogue.Gameplay.Abilities
         private void OnAbilityAvailable() => AbilityAvailable?.Invoke();
 
         #endregion
+
     }
 }

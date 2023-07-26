@@ -9,6 +9,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 {
     public sealed class Blaster : Weapon
     {
+
         #region Fields
 
         private readonly BlasterConfig _blasterConfig;
@@ -17,13 +18,14 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #endregion
 
+
         #region CodeLife
 
         public Blaster(
             BlasterConfig blasterConfig,
             EntityType entityType,
             ProjectileFactory projectileFactory,
-            TimerFactory timerFactory) : base (blasterConfig, timerFactory)
+            TimerFactory timerFactory) : base(blasterConfig, timerFactory)
         {
             _blasterConfig = blasterConfig;
             _entityType = entityType;
@@ -32,11 +34,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #endregion
 
+
         #region Methods
 
         public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretRotation)
         {
-            if (IsOnCooldown) return;
+            if (IsOnCooldown)
+            {
+                return;
+            }
 
             _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, turretRotation, _entityType, _blasterConfig.BlasterProjectile));
 
@@ -44,5 +50,6 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
         }
 
         #endregion
+
     }
 }

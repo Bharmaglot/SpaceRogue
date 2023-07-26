@@ -8,11 +8,13 @@ namespace SpaceRogue.Gameplay.Shooting
     [RequireComponent(typeof(CircleCollider2D))]
     public sealed class TurretView : MonoBehaviour
     {
+
         #region Fields
 
-        private const float ANGLE_CORRECTION = 270f;
+        private const float ANGLE_CORRECTION = 270.0f;
 
         #endregion
+
 
         #region Events
 
@@ -21,6 +23,7 @@ namespace SpaceRogue.Gameplay.Shooting
         public event Action<EntityViewBase> TargetExitsTrigger = (_) => { };
 
         #endregion
+
 
         #region Mono
 
@@ -42,6 +45,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region Methods
 
         public void Rotate(Vector3 direction, float speed)
@@ -51,5 +55,6 @@ namespace SpaceRogue.Gameplay.Shooting
         }
 
         #endregion
+
     }
 }

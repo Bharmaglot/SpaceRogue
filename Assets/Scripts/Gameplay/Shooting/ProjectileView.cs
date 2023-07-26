@@ -9,17 +9,20 @@ namespace SpaceRogue.Gameplay.Shooting
     [RequireComponent(typeof(Rigidbody2D), typeof(Collider))]
     public sealed class ProjectileView : MonoBehaviour, IDamagingView
     {
+
         #region Events
 
         public event Action CollidedObject;
 
         #endregion
 
+
         #region Properties
 
         public DamageModel DamageModel { get; private set; }
 
         #endregion
+
 
         #region Mono
 
@@ -29,11 +32,13 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region CodeLife
 
-        public void Init(DamageModel damageModel) => DamageModel = damageModel; 
-        
+        public void Init(DamageModel damageModel) => DamageModel = damageModel;
+
         #endregion
+
 
         #region Methods
 
@@ -41,7 +46,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         private void CollisionEnter(GameObject gameObject)
         {
-            if(gameObject.TryGetComponent(out IDamageableView damageable))
+            if (gameObject.TryGetComponent(out IDamageableView damageable))
             {
                 DealDamage(damageable);
             }
@@ -50,5 +55,6 @@ namespace SpaceRogue.Gameplay.Shooting
         }
 
         #endregion
+
     }
 }

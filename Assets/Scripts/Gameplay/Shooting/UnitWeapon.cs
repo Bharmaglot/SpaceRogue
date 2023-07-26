@@ -7,11 +7,13 @@ namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class UnitWeapon : IDisposable
     {
+
         #region Events
 
         public event Action UnitWeaponChanged; //TODO Change Weapon
 
         #endregion
+
 
         #region Fields
 
@@ -21,12 +23,14 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region Properties
 
         public Weapon CurrentWeapon { get; private set; }
         public Ability CurrentAbility { get; private set; }
 
         #endregion
+
 
         #region CodeLife
 
@@ -51,6 +55,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region Methods
 
         private void HandleFiringInput(bool buttonIsPressed)
@@ -70,5 +75,6 @@ namespace SpaceRogue.Gameplay.Shooting
         }
 
         #endregion
+
     }
 }

@@ -8,6 +8,7 @@ namespace SpaceRogue.Gameplay.Shooting
 {
     public abstract class Weapon : IDisposable
     {
+
         #region Events
 
         public event Action WeaponUsed;
@@ -16,6 +17,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region Properties
 
         public string WeaponName { get; private set; }
@@ -23,6 +25,7 @@ namespace SpaceRogue.Gameplay.Shooting
         protected bool IsOnCooldown => CooldownTimer.InProgress;
 
         #endregion
+
 
         #region CodeLife
 
@@ -47,6 +50,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region Methods
 
         public abstract void CommenceFiring(Vector2 bulletPosition, Quaternion turretRotation);
@@ -56,5 +60,6 @@ namespace SpaceRogue.Gameplay.Shooting
         private void OnWeaponAvailable() => WeaponAvailable?.Invoke();
 
         #endregion
+
     }
 }

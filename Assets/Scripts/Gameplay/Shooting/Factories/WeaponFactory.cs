@@ -10,12 +10,14 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 {
     public sealed class WeaponFactory : IFactory<WeaponConfig, EntityType, Weapon>
     {
+
         #region Fields
 
         private readonly ProjectileFactory _projectileFactory;
         private readonly TimerFactory _timerFactory;
 
         #endregion
+
 
         #region CodeLife
 
@@ -26,6 +28,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         }
 
         #endregion
+
 
         #region Methods
 
@@ -40,5 +43,6 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         };
 
         #endregion
+
     }
 }

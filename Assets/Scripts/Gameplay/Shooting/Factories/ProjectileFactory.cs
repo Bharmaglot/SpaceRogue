@@ -6,12 +6,14 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 {
     public sealed class ProjectileFactory : PlaceholderFactory<ProjectileSpawnParams, Projectile>
     {
+
         #region Fields
 
         private readonly ProjectileViewFactory _projectileViewFactory;
         private readonly TimerFactory _timerFactory;
 
         #endregion
+
 
         #region CodeLife
 
@@ -23,6 +25,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 
         #endregion
 
+
         #region Methods
 
         public override Projectile Create(ProjectileSpawnParams spawnParams)
@@ -33,5 +36,6 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         }
 
         #endregion
+
     }
 }

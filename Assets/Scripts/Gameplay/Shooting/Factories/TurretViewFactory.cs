@@ -7,12 +7,14 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 {
     public sealed class TurretViewFactory : PlaceholderFactory<Transform, TurretConfig, TurretView>
     {
+
         #region Fields
 
         private readonly TurretView _prefab;
         private readonly DiContainer _diContainer;
 
         #endregion
+
 
         #region CodeLife
 
@@ -23,6 +25,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         }
 
         #endregion
+
 
         #region Methods
 
@@ -36,5 +39,6 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         }
 
         #endregion
+
     }
 }

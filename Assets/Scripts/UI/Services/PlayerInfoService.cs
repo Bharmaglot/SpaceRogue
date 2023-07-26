@@ -10,6 +10,7 @@ namespace SpaceRogue.UI.Services
 {
     public sealed class PlayerInfoService : IDisposable
     {
+
         #region Fields
 
         private readonly PlayerUsedItemView _playerWeaponView;
@@ -21,6 +22,7 @@ namespace SpaceRogue.UI.Services
         private Ability _currentAbility;
 
         #endregion
+
 
         #region CodeLife
 
@@ -43,6 +45,7 @@ namespace SpaceRogue.UI.Services
         }
 
         #endregion
+
 
         #region Methods
 
@@ -127,5 +130,6 @@ namespace SpaceRogue.UI.Services
         private void OnAbilityUsed() => _playerAbilityView.Panel.color = _playerAbilityView.ColorNotActive;
 
         #endregion
+
     }
 }

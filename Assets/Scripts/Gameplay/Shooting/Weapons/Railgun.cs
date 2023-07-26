@@ -9,6 +9,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 {
     public sealed class Railgun : Weapon
     {
+
         #region Fields
 
         private readonly RailgunConfig _railgunConfig;
@@ -16,6 +17,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
         private readonly ProjectileFactory _projectileFactory;
 
         #endregion
+
 
         #region CodeLife
 
@@ -32,11 +34,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #endregion
 
+
         #region Methods
 
         public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretRotation)
         {
-            if (IsOnCooldown) return;
+            if (IsOnCooldown)
+            {
+                return;
+            }
 
             _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, turretRotation, _entityType, _railgunConfig.RailgunProjectile));
 
@@ -44,5 +50,6 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
         }
 
         #endregion
+
     }
 }

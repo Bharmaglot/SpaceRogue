@@ -9,6 +9,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 {
     public sealed class MountedWeaponFactory : IFactory<MountedWeaponConfig, EntityViewBase, MountedWeapon>
     {
+
         #region Fields
 
         private readonly WeaponFactory _weaponFactory;
@@ -17,6 +18,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         private readonly TurretMountedWeaponFactory _turretMountedWeaponFactory;
 
         #endregion
+
 
         #region CodeLife
 
@@ -34,6 +36,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 
         #endregion
 
+
         #region Methods
 
         public MountedWeapon Create(MountedWeaponConfig config, EntityViewBase entityView) => config.WeaponMountType switch
@@ -49,5 +52,6 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         private Weapon CreateWeapon(MountedWeaponConfig config, EntityViewBase entityView) => _weaponFactory.Create(config.MountedWeapon, entityView.EntityType);
 
         #endregion
+
     }
 }

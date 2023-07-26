@@ -10,11 +10,13 @@ namespace Gameplay.Player
 {
     public sealed class PlayerWeaponFactory : PlaceholderFactory<PlayerView, UnitMovement, UnitWeapon>
     {
+
         #region Events
 
         public event Action<UnitWeapon> UnitWeaponCreated;
 
         #endregion
+
 
         #region Fields
 
@@ -23,6 +25,7 @@ namespace Gameplay.Player
         private readonly DiContainer _diContainer;
 
         #endregion
+
 
         #region CodeLife
 
@@ -35,6 +38,7 @@ namespace Gameplay.Player
 
         #endregion
 
+
         #region Methods
 
         public override UnitWeapon Create(PlayerView playerView, UnitMovement unitMovement)
@@ -46,5 +50,6 @@ namespace Gameplay.Player
         }
 
         #endregion
+
     }
 }

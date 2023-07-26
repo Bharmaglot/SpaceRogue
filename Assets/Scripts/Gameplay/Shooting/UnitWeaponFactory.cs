@@ -10,12 +10,14 @@ namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class UnitWeaponFactory : PlaceholderFactory<EntityViewBase, MountedWeaponConfig, UnitMovement, IUnitWeaponInput, UnitWeapon>
     {
+
         #region Fields
 
         private readonly MountedWeaponFactory _mountedWeaponFactory;
         private readonly AbilityFactory _abilityFactory;
 
         #endregion
+
 
         #region CodeLife
 
@@ -27,6 +29,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region Methods
 
         public override UnitWeapon Create(EntityViewBase entityView, MountedWeaponConfig config, UnitMovement unitMovement, IUnitWeaponInput input)
@@ -37,5 +40,6 @@ namespace SpaceRogue.Gameplay.Shooting
         }
 
         #endregion
+
     }
 }

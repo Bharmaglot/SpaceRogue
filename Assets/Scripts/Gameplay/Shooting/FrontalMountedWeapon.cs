@@ -7,6 +7,7 @@ namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class FrontalMountedWeapon : MountedWeapon
     {
+
         #region Fields
 
         private const float GUN_POSITION_CORRECTION = 0.7f;
@@ -14,6 +15,7 @@ namespace SpaceRogue.Gameplay.Shooting
         private readonly Transform _gunPointViewTransform;
 
         #endregion
+
 
         #region CodeLife
 
@@ -31,10 +33,12 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region Methods
 
         public override void CommenceFiring() => Weapon.CommenceFiring(_gunPointViewTransform.position, _gunPointViewTransform.rotation);
 
         #endregion
+
     }
 }

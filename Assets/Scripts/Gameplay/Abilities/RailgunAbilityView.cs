@@ -5,11 +5,13 @@ namespace SpaceRogue.Gameplay.Abilities
 {
     public sealed class RailgunAbilityView : AbilityView
     {
+
         #region Fields
 
         [SerializeField] private ParticleSystem _particleSystem;
 
         #endregion
+
 
         #region Methods
 
@@ -23,5 +25,6 @@ namespace SpaceRogue.Gameplay.Abilities
         }
 
         #endregion
+
     }
 }

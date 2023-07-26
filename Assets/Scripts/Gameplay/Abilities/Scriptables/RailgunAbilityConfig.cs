@@ -8,9 +8,9 @@ namespace SpaceRogue.Gameplay.Abilities.Scriptables
     public sealed class RailgunAbilityConfig : AbilityConfig
     {
         [field: SerializeField] public Gradient ShockwaveGradient { get; private set; }
-        [field: SerializeField, Tooltip("Seconds"), Min(0)] public float ShockwaveLifetime { get; private set; } = 1;
-        [field: SerializeField, Min(5)] public float ShockwaveRadius { get; private set; } = 10;
-        [field: SerializeField, Min(0)] public float ShockwaveForce { get; private set; } = 50;
+        [field: SerializeField, Tooltip("Seconds"), Min(0.0f)] public float ShockwaveLifetime { get; private set; } = 1.0f;
+        [field: SerializeField, Min(5.0f)] public float ShockwaveRadius { get; private set; } = 10.0f;
+        [field: SerializeField, Min(0.0f)] public float ShockwaveForce { get; private set; } = 50.0f;
 
         public RailgunAbilityConfig()
         {

@@ -11,6 +11,7 @@ namespace SpaceRogue.Gameplay.Abilities
 {
     public sealed class MinigunAbility : Ability
     {
+
         #region Fields
 
         private const string ENEMY_LAYER = "Enemy";
@@ -27,9 +28,10 @@ namespace SpaceRogue.Gameplay.Abilities
 
         private readonly int _unitLayer;
 
-        private List<int> _ignoreLayers = new();
+        private readonly List<int> _ignoreLayers = new();
 
         #endregion
+
 
         #region CodeLife
 
@@ -56,11 +58,15 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #endregion
 
+
         #region Methods
 
         public override void UseAbility()
         {
-            if (IsOnCooldown) return;
+            if (IsOnCooldown)
+            {
+                return;
+            }
 
             _accelerationTimer.Start();
             _damageAndCollisionIgnoreTimer.Start();
@@ -84,14 +90,14 @@ namespace SpaceRogue.Gameplay.Abilities
 
         private void GetIgnoreLayers(EntityType entityType)
         {
-            if(entityType == EntityType.Player)
+            if (entityType == EntityType.Player)
             {
                 _ignoreLayers.Add(LayerMask.NameToLayer(ENEMY_LAYER));
                 _ignoreLayers.Add(LayerMask.NameToLayer(ENEMY_PROJECTILE_LAYER));
                 return;
             }
-            
-            if(entityType == EntityType.Enemy)
+
+            if (entityType == EntityType.Enemy)
             {
                 _ignoreLayers.Add(LayerMask.NameToLayer(PLAYER_LAYER));
                 _ignoreLayers.Add(LayerMask.NameToLayer(PLAYER_PROJECTILE_LAYER));
@@ -101,13 +107,13 @@ namespace SpaceRogue.Gameplay.Abilities
 
         private void AccelerationBoost() => _unitMovement.ExtraSpeed = _minigunAbilityConfig.AccelerationBoost;
 
-        private void AccelerationBoostStopped() => _unitMovement.ExtraSpeed = 0;
+        private void AccelerationBoostStopped() => _unitMovement.ExtraSpeed = 0.0f;
 
         private void DamageAndCollisionIgnore()
         {
             foreach (var layer in _ignoreLayers)
             {
-                Physics2D.IgnoreLayerCollision(_unitLayer, layer, true); 
+                Physics2D.IgnoreLayerCollision(_unitLayer, layer, true);
             }
         }
 
@@ -120,5 +126,6 @@ namespace SpaceRogue.Gameplay.Abilities
         }
 
         #endregion
+
     }
 }

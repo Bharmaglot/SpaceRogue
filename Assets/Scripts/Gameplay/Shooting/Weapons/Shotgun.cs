@@ -10,6 +10,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 {
     public sealed class Shotgun : Weapon
     {
+
         #region Fields
 
         private readonly ShotgunConfig _config;
@@ -17,6 +18,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
         private readonly ProjectileFactory _projectileFactory;
 
         #endregion
+
 
         #region CodeLife
 
@@ -33,11 +35,15 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
         #endregion
 
+
         #region Methods
 
         public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretRotation)
         {
-            if (IsOnCooldown) return;
+            if (IsOnCooldown)
+            {
+                return;
+            }
 
             FireMultipleProjectiles(bulletPosition, turretRotation, _config.PelletCount, _config.SprayAngle);
 
@@ -51,8 +57,8 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
 
             for (var i = 0; i < count; i++)
             {
-                var minimumPelletAngle = minimumAngle + (i * singlePelletAngle);
-                var maximumPelletAngle = minimumAngle + ((i + 1) * singlePelletAngle);
+                var minimumPelletAngle = minimumAngle + i * singlePelletAngle;
+                var maximumPelletAngle = minimumAngle + (i + 1) * singlePelletAngle;
 
                 var pelletAngle = RandomPicker.PickRandomBetweenTwoValues(minimumPelletAngle, maximumPelletAngle);
                 var pelletRotation = turretRotation * Quaternion.AngleAxis(pelletAngle, Vector3.forward);
@@ -62,5 +68,6 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
         }
 
         #endregion
+
     }
 }

@@ -7,6 +7,7 @@ namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class ProjectileSpawnParams
     {
+
         #region Properties
 
         public Vector2 Position { get; }
@@ -15,6 +16,7 @@ namespace SpaceRogue.Gameplay.Shooting
         public ProjectileConfig Config { get; }
 
         #endregion
+
 
         #region CodeLife
 
@@ -35,5 +37,6 @@ namespace SpaceRogue.Gameplay.Shooting
         }
 
         #endregion
+
     }
 }

@@ -13,6 +13,7 @@ namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class TurretMountedWeapon : MountedWeapon, IDisposable
     {
+
         #region Fields
 
         private readonly Updater _updater;
@@ -26,6 +27,7 @@ namespace SpaceRogue.Gameplay.Shooting
         private EntityViewBase _currentTarget;
 
         #endregion
+
 
         #region CodeLife
 
@@ -65,13 +67,18 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #endregion
 
+
         #region Methods
 
         public override void CommenceFiring() => Weapon.CommenceFiring(_gunPointViewTransform.position, _gunPointViewTransform.rotation);
 
         private void RotateTurret()
         {
-            if (_currentTarget == null) return;
+            if (_currentTarget == null)
+            {
+                return;
+            }
+
             var direction = _currentTarget.transform.position - _turretView.transform.position;
             _turretView.Rotate(direction, _rotationSpeed);
         }
@@ -120,8 +127,14 @@ namespace SpaceRogue.Gameplay.Shooting
                     {
                         _currentTarget.EntityDestroyed -= OnTargetIsDestroyed;
                         _currentTarget = PickNewTarget();
-                        if (_currentTarget == null) _updater.UnsubscribeFromUpdate(RotateTurret);
-                        else _currentTarget.EntityDestroyed += OnTargetIsDestroyed;
+                        if (_currentTarget == null)
+                        {
+                            _updater.UnsubscribeFromUpdate(RotateTurret);
+                        }
+                        else
+                        {
+                            _currentTarget.EntityDestroyed += OnTargetIsDestroyed;
+                        }
                     }
                 }
             }
@@ -140,5 +153,6 @@ namespace SpaceRogue.Gameplay.Shooting
         private void OnTargetIsDestroyed() => _updater.UnsubscribeFromUpdate(RotateTurret);
 
         #endregion
+
     }
 }

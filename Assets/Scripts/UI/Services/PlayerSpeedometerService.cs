@@ -10,11 +10,21 @@ namespace UI.Services
 {
     public sealed class PlayerSpeedometerService : IDisposable
     {
+
+        private const string EXTRA_SPEED_COLOR = "#DBD080";
+
+        #region Fields
+
         private readonly PlayerSpeedometerView _playerSpeedometerView;
         private readonly Updater _updater;
         private readonly PlayerMovementFactory _movementFactory;
 
         private UnitMovement _playerMovement;
+
+        #endregion
+
+
+        #region CodeLife
 
         public PlayerSpeedometerService(Updater updater, PlayerInfoView playerInfoView, PlayerMovementFactory movementFactory)
         {
@@ -33,6 +43,11 @@ namespace UI.Services
             _updater.UnsubscribeFromUpdate(UpdateSpeedometer);
         }
 
+        #endregion
+
+
+        #region Methods
+
         private void OnPlayerMovementCreated(UnitMovement playerMovement)
         {
             _playerMovement = playerMovement;
@@ -43,24 +58,25 @@ namespace UI.Services
             _updater.SubscribeToUpdate(UpdateSpeedometer);
         }
 
-        private void UpdateSpeedometer()
-        {
-            _playerSpeedometerView.UpdateText(GetSpeedometerTextValue(_playerMovement.CurrentSpeed, _playerMovement.MaxSpeed, _playerMovement.ExtraSpeed));
-        }
+        private void UpdateSpeedometer() 
+            => _playerSpeedometerView.UpdateText(GetSpeedometerTextValue(_playerMovement.CurrentSpeed, _playerMovement.MaxSpeed, _playerMovement.ExtraSpeed));
 
         private string GetSpeedometerTextValue(float currentSpeed, float maximumSpeed, float extraSpeed)
         {
             var speed = (currentSpeed - extraSpeed) switch
             {
                 < 0 => "R",
-                _ => $"SPD: {Mathf.RoundToInt((currentSpeed - extraSpeed) / (maximumSpeed - extraSpeed) * 100)}"
+                _ => $"SPD: {Mathf.RoundToInt((currentSpeed - extraSpeed) / (maximumSpeed - extraSpeed) * 100)}%"
             };
 
-            if(!Mathf.Approximately(extraSpeed, 0))
+            if (!Mathf.Approximately(extraSpeed, 0.0f))
             {
-                speed = $"{speed} <color=#DBD080>+{extraSpeed}</color>";
+                speed = $"{speed} <color={EXTRA_SPEED_COLOR}>+{extraSpeed}</color>";
             }
             return speed;
         }
+
+        #endregion
+
     }
 }

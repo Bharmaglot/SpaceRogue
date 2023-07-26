@@ -8,12 +8,14 @@ namespace SpaceRogue.Gameplay.Abilities
 {
     public sealed class BlasterAbility : Ability
     {
+
         #region Fields
 
         private readonly BlasterAbilityConfig _blasterAbilityConfig;
         private readonly EntityViewBase _entityView;
 
         #endregion
+
 
         #region CodeLife
 
@@ -28,11 +30,15 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #endregion
 
+
         #region Methods
 
         public override void UseAbility()
         {
-            if (IsOnCooldown) return;
+            if (IsOnCooldown)
+            {
+                return;
+            }
 
             //TODO Ability
             Debug.Log($"Ability Used!");
@@ -41,5 +47,6 @@ namespace SpaceRogue.Gameplay.Abilities
         }
 
         #endregion
+
     }
 }
