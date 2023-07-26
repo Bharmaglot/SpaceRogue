@@ -10,6 +10,7 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
 {
     public sealed class SpaceObstacle : IDisposable
     {
+
         #region Events
 
         public event Action PlayerInObstacle;
@@ -17,6 +18,7 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
         public event Action PlayerOutObstacle;
 
         #endregion
+
 
         #region Fields
 
@@ -32,6 +34,7 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
         private readonly List<EntityViewBase> _listForRemoving = new();
 
         #endregion
+
 
         #region CodeLife
 
@@ -65,12 +68,20 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
 
         #endregion
 
+
         #region Methods
 
         private void OnObstacleEnter(EntityViewBase entityView)
         {
-            if (_unitCollection.ContainsKey(entityView)) return;
-            if (entityView.EntityType == Enums.EntityType.Player) PlayerInObstacle?.Invoke();
+            if (_unitCollection.ContainsKey(entityView))
+            {
+                return;
+            }
+
+            if (entityView.EntityType == Enums.EntityType.Player)
+            {
+                PlayerInObstacle?.Invoke();
+            }
 
             var closestPoint = _obstacleCollider.ClosestPoint(entityView.transform.position);
 
@@ -85,15 +96,25 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
 
         private void OnObstacleExit(EntityViewBase entityView)
         {
-            if (!_unitCollection.ContainsKey(entityView)) return;
-            if (entityView.EntityType == Enums.EntityType.Player) PlayerOutObstacle?.Invoke();
+            if (!_unitCollection.ContainsKey(entityView))
+            {
+                return;
+            }
+
+            if (entityView.EntityType == Enums.EntityType.Player)
+            {
+                PlayerOutObstacle?.Invoke();
+            }
 
             _unitCollection.Remove(entityView);
         }
 
         private void Repulsion()
         {
-            if (!_unitCollection.Any()) return;
+            if (!_unitCollection.Any())
+            {
+                return;
+            }
 
             foreach (var item in _unitCollection)
             {
@@ -118,9 +139,13 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
                 _unitCollection.Remove(entityView);
             }
 
-            if (_listForRemoving.Count > 0) _listForRemoving.Clear();
+            if (_listForRemoving.Count > 0)
+            {
+                _listForRemoving.Clear();
+            }
         }
 
         #endregion
+
     }
 }

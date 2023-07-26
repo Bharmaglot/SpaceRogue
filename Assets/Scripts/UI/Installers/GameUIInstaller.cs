@@ -4,18 +4,22 @@ using UI.Game;
 using UnityEngine;
 using Zenject;
 
-namespace UI.Installers
+
+namespace SpaceRogue.UI.Installers
 {
     public sealed class GameUIInstaller : MonoInstaller
     {
+
+        #region Properties
+
         [field: Header("GameUICanvas")]
         [field: SerializeField] public MainCanvas MainCanvas { get; private set; }
-        [field: SerializeField] public GameCanvasView GameCanvasView{ get; private set; }
+        [field: SerializeField] public GameCanvasView GameCanvasView { get; private set; }
 
         [field: Header("Permanent UI")]
         [field: SerializeField] public ObstacleUIEffectView ObstacleUIEffectView { get; private set; }
-        [field: SerializeField] public PlayerInfoView PlayerInfoView{ get; private set; }
-        [field: SerializeField] public LevelInfoView LevelInfoView{ get; private set; }
+        [field: SerializeField] public PlayerInfoView PlayerInfoView { get; private set; }
+        [field: SerializeField] public LevelInfoView LevelInfoView { get; private set; }
         [field: SerializeField] public MinimapView MinimapView { get; private set; }
 
         [field: Header("For instantiate other UI")]
@@ -23,6 +27,11 @@ namespace UI.Installers
         [field: SerializeField] public HealthShieldStatusBarView HealthShieldStatusBarView { get; private set; }
         [field: SerializeField] public HealthStatusBarView HealthStatusBarView { get; private set; }
         [field: SerializeField] public GameEventIndicatorsView GameEventIndicatorsView { get; private set; }
+
+        #endregion
+
+
+        #region Methods
 
         public override void InstallBindings()
         {
@@ -43,14 +52,14 @@ namespace UI.Installers
                 .FromInstance(MainCanvas)
                 .AsSingle()
                 .NonLazy();
-            
+
             Container
                 .Bind<GameCanvasView>()
                 .FromInstance(GameCanvasView)
                 .AsSingle()
                 .NonLazy();
         }
-        
+
         private void BindObstacleUIEffect()
         {
             Container
@@ -59,7 +68,7 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
-        
+
         private void BindPlayerInfo()
         {
             Container
@@ -68,7 +77,7 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
-        
+
         private void BindLevelInfo()
         {
             Container
@@ -77,7 +86,7 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
-        
+
         private void BindMinimap()
         {
             Container
@@ -86,14 +95,14 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
-        
+
         private void BindFloatStatusBarFactory()
         {
             Container
                 .BindFactory<HealthStatusBarView, Collider2D, EntitySurvival, FloatStatusBar, FloatStatusBarFactory>()
                 .AsSingle();
         }
-        
+
         private void BindEnemyStatusBars()
         {
             Container
@@ -116,7 +125,7 @@ namespace UI.Installers
                 .BindFactory<EntitySurvival, EnemyHealthBarsView, HealthStatusBarView, EnemyStatusBarViewFactory>()
                 .AsSingle();
         }
-        
+
         private void BindGameEventIndicators()
         {
             Container
@@ -125,5 +134,8 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
+
+        #endregion
+
     }
 }

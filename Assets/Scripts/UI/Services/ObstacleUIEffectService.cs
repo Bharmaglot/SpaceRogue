@@ -3,10 +3,12 @@ using SpaceRogue.Services;
 using SpaceRogue.UI.Game;
 using System;
 
+
 namespace SpaceRogue.UI.Services
 {
     public sealed class ObstacleUIEffectService : IDisposable
     {
+
         #region Fields
 
         private readonly Updater _updater;
@@ -19,6 +21,7 @@ namespace SpaceRogue.UI.Services
         private bool _isBlocked;
 
         #endregion
+
 
         #region CodeLife
 
@@ -38,11 +41,16 @@ namespace SpaceRogue.UI.Services
             _obstacleUIEffectView.VignetteSizeLimit -= BlockUpdate;
             _spaceObstacleFactory.SpaceObstacleCreated -= OnSpaceObstacleCreated;
 
-            if (_spaceObstacle == null) return;
+            if (_spaceObstacle == null)
+            {
+                return;
+            }
+
             UnsubscribeFromObstacleEffect();
         }
 
         #endregion
+
 
         #region Methods
 
@@ -50,7 +58,10 @@ namespace SpaceRogue.UI.Services
 
         private void OnSpaceObstacleCreated(SpaceObstacle spaceObstacle)
         {
-            if (_spaceObstacle != null) UnsubscribeFromObstacleEffect();
+            if (_spaceObstacle != null)
+            {
+                UnsubscribeFromObstacleEffect();
+            }
 
             _spaceObstacle = spaceObstacle;
             _spaceObstacle.PlayerInObstacle += OnPlayerInObstacle;
@@ -82,9 +93,13 @@ namespace SpaceRogue.UI.Services
 
         private void ChangeVignetteSize()
         {
-            if (!_isBlocked) _obstacleUIEffectView.ChangeVignetteSize(_isIncrease);
+            if (!_isBlocked)
+            {
+                _obstacleUIEffectView.ChangeVignetteSize(_isIncrease);
+            }
         }
 
         #endregion
+
     }
 }

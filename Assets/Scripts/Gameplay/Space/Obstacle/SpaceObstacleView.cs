@@ -8,6 +8,7 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
     [RequireComponent(typeof(Collider2D))]
     public sealed class SpaceObstacleView : MonoBehaviour
     {
+
         #region Events
 
         public event Action<EntityViewBase> OnTriggerEnter;
@@ -17,6 +18,7 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
         public event Action<EntityViewBase> OnTriggerExit;
 
         #endregion
+
 
         #region Mono
 
@@ -45,5 +47,6 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
         }
 
         #endregion
+
     }
 }

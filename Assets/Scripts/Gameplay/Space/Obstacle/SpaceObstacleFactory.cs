@@ -8,9 +8,9 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
     {
         public event Action<SpaceObstacle> SpaceObstacleCreated;
 
-        public override SpaceObstacle Create(SpaceObstacleView param1, float param2)
+        public override SpaceObstacle Create(SpaceObstacleView spaceObstacleView, float obstacleForce)
         {
-            var spaceObstacle = base.Create(param1, param2);
+            var spaceObstacle = base.Create(spaceObstacleView, obstacleForce);
             SpaceObstacleCreated?.Invoke(spaceObstacle);
             return spaceObstacle;
         }
