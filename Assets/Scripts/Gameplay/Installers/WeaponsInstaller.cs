@@ -9,12 +9,12 @@ using UnityEngine;
 using Zenject;
 
 
-namespace Gameplay.Installers
+namespace SpaceRogue.Installers
 {
     public sealed class WeaponsInstaller : MonoInstaller
     {
 
-        #region Fields
+        #region Properties
 
         [field: SerializeField] public ProjectilePool ProjectilePool { get; private set; }
         [field: SerializeField] public TurretView TurretView { get; private set; }
