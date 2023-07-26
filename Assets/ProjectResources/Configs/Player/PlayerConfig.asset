@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b250957b824a3ab44cbb4d9d4187ca, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  <StartingWeapon>k__BackingField: {fileID: 11400000, guid: 78916d1fdd835d646a8df5bb47b72e59, type: 2}
+  <StartingWeapon>k__BackingField: {fileID: 11400000, guid: 214e1369cc0b19444884ea0f3ebc6324, type: 2}
   <UnitMovement>k__BackingField: {fileID: 11400000, guid: b1516abb4cd09b045b0b72999cecf42f, type: 2}
   <Survival>k__BackingField: {fileID: 11400000, guid: 58b908b7be952f04d8c48e5b455ff03d, type: 2}

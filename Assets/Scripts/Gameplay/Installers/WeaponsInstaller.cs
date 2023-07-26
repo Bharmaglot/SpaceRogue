@@ -4,22 +4,32 @@ using Gameplay.Shooting.Factories;
 using Gameplay.Shooting.Scriptables;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
+using SpaceRogue.Shooting;
 using UnityEngine;
 using Zenject;
 
 
-namespace Gameplay.Installers
+namespace SpaceRogue.Installers
 {
     public sealed class WeaponsInstaller : MonoInstaller
     {
+
+        #region Properties
+
         [field: SerializeField] public ProjectilePool ProjectilePool { get; private set; }
         [field: SerializeField] public TurretView TurretView { get; private set; }
         [field: SerializeField] public GunPointView GunPoint { get; private set; }
-        
+
+        #endregion
+
+
+        #region Methods
+
         public override void InstallBindings()
         {
             InstallProjectilePool();
             InstallProjectileFactory();
+            InstallMineFactory();
             InstallTurretFactory();
             InstallGunPointFactory();
             InstallWeaponFactories();
@@ -42,6 +52,17 @@ namespace Gameplay.Installers
 
             Container
                 .BindFactory<ProjectileSpawnParams, Projectile, ProjectileFactory>()
+                .AsSingle();
+        }
+
+        private void InstallMineFactory()
+        {
+            Container
+                .BindFactory<Vector2, MineConfig, MineView, MineViewFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<Vector2, MineConfig, Mine, MineFactory>()
                 .AsSingle();
         }
 
@@ -98,5 +119,8 @@ namespace Gameplay.Installers
                 .BindFactory<EntityViewBase, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
                 .AsSingle();
         }
+
+        #endregion
+
     }
 }
