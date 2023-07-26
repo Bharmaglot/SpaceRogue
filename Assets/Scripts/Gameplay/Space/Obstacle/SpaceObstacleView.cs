@@ -1,30 +1,40 @@
+using SpaceRogue.Abstraction;
 using System;
 using UnityEngine;
-using SpaceRogue.Abstraction;
 
 
-namespace Gameplay.Space.Obstacle
+namespace SpaceRogue.Gameplay.Space.Obstacle
 {
     [RequireComponent(typeof(Collider2D))]
     public sealed class SpaceObstacleView : MonoBehaviour
     {
-        public event Action<EntityViewBase> OnTriggerEnter = (EntityViewBase _) => {};
-        public event Action<EntityViewBase> OnTriggerStay = (EntityViewBase _) => { };
-        public event Action<EntityViewBase> OnTriggerExit = (EntityViewBase _) => { };
+
+        #region Events
+
+        public event Action<EntityViewBase> OnTriggerEnter;
+
+        public event Action<EntityViewBase> OnTriggerStay;
+
+        public event Action<EntityViewBase> OnTriggerExit;
+
+        #endregion
+
+
+        #region Mono
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.TryGetComponent(out EntityViewBase unitView))
             {
-                OnTriggerEnter(unitView);
+                OnTriggerEnter?.Invoke(unitView);
             }
         }
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if(collision.gameObject.TryGetComponent(out EntityViewBase unitView))
+            if (collision.gameObject.TryGetComponent(out EntityViewBase unitView))
             {
-                OnTriggerStay(unitView);
+                OnTriggerStay?.Invoke(unitView);
             }
         }
 
@@ -32,8 +42,11 @@ namespace Gameplay.Space.Obstacle
         {
             if (collision.gameObject.TryGetComponent(out EntityViewBase unitView))
             {
-                OnTriggerExit(unitView);
+                OnTriggerExit?.Invoke(unitView);
             }
         }
+
+        #endregion
+
     }
 }

@@ -16,7 +16,7 @@ namespace Gameplay.Asteroids.Movement
 
         public void StartMovement()
         {
-            var rigidbody = _view.GetComponent<Rigidbody2D>();
+            var rigidbody = _view.Rigidbody2D;
             var direction = RandomPicker.PickRandomAngle(0, 360);
             rigidbody.AddForce(direction * _startingSpeed, ForceMode2D.Impulse);
         }

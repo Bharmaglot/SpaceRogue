@@ -1,4 +1,4 @@
-﻿using Gameplay.Space.Obstacle;
+﻿using SpaceRogue.Gameplay.Space.Obstacle;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 

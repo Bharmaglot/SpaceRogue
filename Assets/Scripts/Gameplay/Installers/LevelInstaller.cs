@@ -2,19 +2,28 @@ using Gameplay.LevelProgress;
 using Gameplay.Services;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
-using Gameplay.Space.Obstacle;
 using Gameplay.Space.SpaceObjects.Scriptables;
 using Scriptables;
+using SpaceRogue.Gameplay.Space.Obstacle;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Zenject;
 
-namespace Gameplay.Installers
+
+namespace SpaceRogue.Gameplay.Installers
 {
     public sealed class LevelInstaller : MonoInstaller
     {
+
+        #region Properties
+
         [field: SerializeField] public SpaceView SpaceViewPrefab { get; private set; }
         [field: SerializeField] public LevelPresetsConfig LevelPresetsConfig { get; private set; }
+
+        #endregion
+
+
+        #region Methods
 
         public override void InstallBindings()
         {
@@ -54,16 +63,16 @@ namespace Gameplay.Installers
             Container
                 .BindFactory<SpaceConfig, MapGenerator, MapGeneratorFactory>()
                 .AsSingle();
-            
+
             Container
                 .BindFactory<SpaceView, SpaceConfig, int[,], int[,], LevelMap, LevelMapFactory>()
                 .AsSingle();
-            
+
             Container
                 .BindFactory<int[,], Tilemap, SpawnPointsFinder, SpawnPointsFinderFactory>()
                 .AsSingle();
         }
-        
+
         private void InstallSpaceObstacle()
         {
             Container
@@ -78,5 +87,8 @@ namespace Gameplay.Installers
                 .AsSingle()
                 .NonLazy();
         }
+
+        #endregion
+
     }
 }
