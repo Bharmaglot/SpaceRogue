@@ -11,7 +11,7 @@ using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
 
-namespace Gameplay.Installers
+namespace SpaceRogue.Gameplay.Installers
 {
     public sealed class WeaponsInstaller : MonoInstaller
     {

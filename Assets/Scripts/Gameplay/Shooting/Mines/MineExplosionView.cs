@@ -3,9 +3,9 @@ using Gameplay.Survival;
 using UnityEngine;
 
 
-namespace SpaceRogue.Shooting
+namespace SpaceRogue.Gameplay.Shooting
 {
-    public sealed class MineExploseView : MonoBehaviour, IDamagingView
+    public sealed class MineExplosionView : MonoBehaviour, IDamagingView
     {
 
         #region Fields

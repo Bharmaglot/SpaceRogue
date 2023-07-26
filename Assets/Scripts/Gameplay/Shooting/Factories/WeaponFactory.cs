@@ -34,29 +34,6 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 
         #region Methods
 
-        public Weapon Create(WeaponConfig weaponConfig, EntityType entityType)
-        {
-            return weaponConfig.Type switch
-            {
-                WeaponType.None => new NullGun(),
-                WeaponType.Blaster => new Blaster(weaponConfig as BlasterConfig, entityType, _projectileFactory, _timerFactory),
-                WeaponType.Shotgun => new Shotgun(weaponConfig as ShotgunConfig, entityType, _projectileFactory, _timerFactory),
-                WeaponType.Minigun => new Minigun(weaponConfig as MinigunConfig, entityType, _projectileFactory, _timerFactory),
-                WeaponType.Railgun => new Railgun(weaponConfig as RailgunConfig, entityType, _projectileFactory, _timerFactory),
-                WeaponType.Mortar => new Mortar(weaponConfig as MortarConfig, _mineFactory, _timerFactory),
-                _ => throw new ArgumentOutOfRangeException(nameof(weaponConfig.Type), weaponConfig.Type,
-                    "A not-existent weapon type is provided")
-            };
-        }
-
-        #endregion
-
-
-        #endregion
-
-
-        #region Methods
-
         public Weapon Create(WeaponConfig weaponConfig, EntityType entityType) => weaponConfig.Type switch
         {
             WeaponType.None => new NullGun(),
@@ -64,6 +41,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
             WeaponType.Shotgun => new Shotgun(weaponConfig as ShotgunConfig, entityType, _projectileFactory, _timerFactory),
             WeaponType.Minigun => new Minigun(weaponConfig as MinigunConfig, entityType, _projectileFactory, _timerFactory),
             WeaponType.Railgun => new Railgun(weaponConfig as RailgunConfig, entityType, _projectileFactory, _timerFactory),
+            WeaponType.Mortar => new Mortar(weaponConfig as MortarConfig, _mineFactory, _timerFactory),
             _ => throw new ArgumentOutOfRangeException(nameof(weaponConfig.Type), weaponConfig.Type, $"A not-existent weapon type is provided")
         };
 

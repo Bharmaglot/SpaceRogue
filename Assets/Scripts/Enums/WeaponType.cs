@@ -7,5 +7,6 @@ namespace SpaceRogue.Enums
         Shotgun = 2,
         Minigun = 3,
         Railgun = 4,
+        Mortar = 5,
     }
 }

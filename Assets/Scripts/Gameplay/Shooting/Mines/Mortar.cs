@@ -1,10 +1,10 @@
 using Gameplay.Mechanics.Timer;
-using Gameplay.Shooting.Factories;
-using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Gameplay.Shooting.Factories;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using UnityEngine;
 
 
-namespace Gameplay.Shooting.Weapons
+namespace SpaceRogue.Gameplay.Shooting.Weapons
 {
     public sealed class Mortar : Weapon
     {
@@ -19,11 +19,13 @@ namespace Gameplay.Shooting.Weapons
 
         #region CodeLife
 
-        public Mortar(MortarConfig mortarConfig, MineFactory mineFactory, TimerFactory timerFactory)
+        public Mortar(
+            MortarConfig mortarConfig,
+            MineFactory mineFactory,
+            TimerFactory timerFactory) : base(mortarConfig, timerFactory)
         {
             _mortarConfig = mortarConfig;
             _mineFactory = mineFactory;
-            CooldownTimer = timerFactory.Create(mortarConfig.Cooldown);
         }
 
         #endregion
@@ -33,7 +35,10 @@ namespace Gameplay.Shooting.Weapons
 
         public override void CommenceFiring(Vector2 minePosition, Quaternion turretDirection)
         {
-            if (IsOnCooldown) return;
+            if (IsOnCooldown)
+            {
+                return;
+            }
 
             _mineFactory.Create(minePosition, _mortarConfig.MineConfig);
 
