@@ -1,8 +1,7 @@
 using Gameplay.Movement;
 using Gameplay.Player;
-using Gameplay.Player.Weapon;
-using Gameplay.Shooting;
-using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using Gameplay.Survival;
 using Scriptables;
 using SpaceRogue.Abstraction;
@@ -70,7 +69,7 @@ namespace Gameplay.Installers
                 .WhenInjectedInto<PlayerWeaponFactory>();
 
             Container
-                .BindFactory<PlayerView, UnitWeapon, PlayerWeaponFactory>()
+                .BindFactory<PlayerView, UnitMovement, UnitWeapon, PlayerWeaponFactory>()
                 .AsSingle();
         }
 

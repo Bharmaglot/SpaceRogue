@@ -1,29 +1,43 @@
 using Gameplay.Pooling;
-using Gameplay.Shooting;
-using Gameplay.Shooting.Factories;
-using Gameplay.Shooting.Scriptables;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
+using SpaceRogue.Gameplay.Abilities;
+using SpaceRogue.Gameplay.Abilities.Scriptables;
+using SpaceRogue.Gameplay.Pooling;
+using SpaceRogue.Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting.Factories;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
+using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
 
-
-namespace Gameplay.Installers
+namespace SpaceRogue.Gameplay.Installers
 {
     public sealed class WeaponsInstaller : MonoInstaller
     {
+
+        #region Properties
+
         [field: SerializeField] public ProjectilePool ProjectilePool { get; private set; }
+        [field: SerializeField] public AbilityPool AbilityPool { get; private set; }
         [field: SerializeField] public TurretView TurretView { get; private set; }
         [field: SerializeField] public GunPointView GunPoint { get; private set; }
-        
+
+        #endregion
+
+
+        #region Methods
+
         public override void InstallBindings()
         {
             InstallProjectilePool();
             InstallProjectileFactory();
+            InstallMineFactory();
             InstallTurretFactory();
             InstallGunPointFactory();
             InstallWeaponFactories();
             InstallUnitWeaponFactory();
+            InstallAbilityFactories();
         }
 
         private void InstallProjectilePool()
@@ -42,6 +56,17 @@ namespace Gameplay.Installers
 
             Container
                 .BindFactory<ProjectileSpawnParams, Projectile, ProjectileFactory>()
+                .AsSingle();
+        }
+
+        private void InstallMineFactory()
+        {
+            Container
+                .BindFactory<Vector2, MineConfig, MineView, MineViewFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<Vector2, MineConfig, Mine, MineFactory>()
                 .AsSingle();
         }
 
@@ -95,8 +120,31 @@ namespace Gameplay.Installers
         private void InstallUnitWeaponFactory()
         {
             Container
-                .BindFactory<EntityViewBase, MountedWeaponConfig, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
+                .BindFactory<EntityViewBase, MountedWeaponConfig, UnitMovement, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
                 .AsSingle();
         }
+        
+        private void InstallAbilityFactories()
+        {
+            Container
+                .Bind<AbilityPool>()
+                .FromInstance(AbilityPool)
+                .AsSingle();
+
+            Container
+                .BindIFactory<AbilityConfig, EntityViewBase, UnitMovement, Ability>()
+                .FromFactory<AbilityFactory>();
+
+            Container
+                .Bind<AbilityFactory>()
+                .AsCached();
+
+            Container
+                .BindFactory<Vector2, AbilityConfig, AbilityView, AbilityViewFactory>()
+                .AsSingle();
+        }
+
+        #endregion
+
     }
 }

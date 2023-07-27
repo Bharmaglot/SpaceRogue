@@ -1,39 +1,136 @@
-using Gameplay.Events;
-using Gameplay.Services;
+using Gameplay.Player;
+using SpaceRogue.Gameplay.Abilities;
+using SpaceRogue.Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting.Weapons;
 using System;
 using Gameplay.GameProgress;
 using UI.Game;
 
-namespace UI.Services
+
+namespace SpaceRogue.UI.Services
 {
     public sealed class PlayerInfoService : IDisposable
     {
-        private readonly LevelProgress _levelProgress;
-        public PlayerWeaponView PlayerWeaponView { get; private set; }
 
-        public PlayerInfoService(LevelProgress levelProgress, PlayerInfoView playerInfoView)
+        #region Fields
+
+        private readonly PlayerUsedItemView _playerWeaponView;
+        private readonly PlayerUsedItemView _playerAbilityView;
+        private readonly PlayerWeaponFactory _playerWeaponFactory;
+
+        private UnitWeapon _unitWeapon;
+        private Weapon _currentWeapon;
+        private Ability _currentAbility;
+
+        #endregion
+
+
+        #region CodeLife
+
+        public PlayerInfoService(PlayerInfoView playerInfoView, PlayerWeaponFactory playerWeaponFactory)
         {
-            _levelProgress = levelProgress;
-            PlayerWeaponView = playerInfoView.PlayerWeaponView;
+            _playerWeaponView = playerInfoView.PlayerWeaponView;
+            _playerAbilityView = playerInfoView.PlayerAbilityView;
+            _playerWeaponFactory = playerWeaponFactory;
 
-            ShowPlayerInfo(false);
+            _playerWeaponView.Hide();
+            _playerAbilityView.Hide();
 
-            _levelProgress.PlayerSpawned += OnPlayerSpawned;
+            _playerWeaponFactory.UnitWeaponCreated += OnUnitWeaponCreated;
         }
 
         public void Dispose()
         {
-            _levelProgress.PlayerSpawned -= OnPlayerSpawned;
+            UnsubscribeFromAllUnitWeaponEvents();
+            _playerWeaponFactory.UnitWeaponCreated -= OnUnitWeaponCreated;
         }
 
-        private void OnPlayerSpawned(PlayerSpawnedEventArgs obj)
+        #endregion
+
+
+        #region Methods
+
+        private void OnUnitWeaponCreated(UnitWeapon unitWeapon)
         {
-            ShowPlayerInfo(true);
+            UnsubscribeFromAllUnitWeaponEvents();
+
+            _unitWeapon = unitWeapon;
+            _currentWeapon = unitWeapon.CurrentWeapon;
+            _currentAbility = unitWeapon.CurrentAbility;
+
+            _unitWeapon.UnitWeaponChanged += OnUnitWeaponChanged;
+            SubscriptionsForWeaponsAndAbilities();
+            SetupWeaponsAndAbilities();
         }
 
-        private void ShowPlayerInfo(bool enable)
+        private void UnsubscribeFromAllUnitWeaponEvents()
         {
-            PlayerWeaponView.gameObject.SetActive(enable);
+            if (_unitWeapon != null)
+            {
+                _unitWeapon.UnitWeaponChanged -= OnUnitWeaponChanged;
+                UnsubscribesFromWeaponsAndAbilities();
+            }
         }
+
+        private void UnsubscribesFromWeaponsAndAbilities()
+        {
+            _currentWeapon.WeaponAvailable -= OnWeaponAvailable;
+            _currentWeapon.WeaponUsed -= OnWeaponUsed;
+            _currentAbility.AbilityAvailable -= OnAbilityAvailable;
+            _currentAbility.AbilityUsed -= OnAbilityUsed;
+        }
+
+        private void OnUnitWeaponChanged()
+        {
+            UnsubscribesFromWeaponsAndAbilities();
+            _currentWeapon = _unitWeapon.CurrentWeapon;
+            _currentAbility = _unitWeapon.CurrentAbility;
+            SubscriptionsForWeaponsAndAbilities();
+            SetupWeaponsAndAbilities();
+        }
+
+        private void SubscriptionsForWeaponsAndAbilities()
+        {
+            _currentWeapon.WeaponAvailable += OnWeaponAvailable;
+            _currentWeapon.WeaponUsed += OnWeaponUsed;
+            _currentAbility.AbilityAvailable += OnAbilityAvailable;
+            _currentAbility.AbilityUsed += OnAbilityUsed;
+        }
+
+        private void SetupWeaponsAndAbilities()
+        {
+            if (_currentWeapon is NullGun)
+            {
+                _playerWeaponView.Hide();
+            }
+            else
+            {
+                _playerWeaponView.Show();
+                _playerWeaponView.Init(_currentWeapon.WeaponName);
+                _playerWeaponView.Panel.color = _playerWeaponView.ColorActive;
+            }
+
+            if (_currentAbility is NullAbility)
+            {
+                _playerAbilityView.Hide();
+            }
+            else
+            {
+                _playerAbilityView.Show();
+                _playerAbilityView.Init(_currentAbility.AbilityName);
+                _playerAbilityView.Panel.color = _playerAbilityView.ColorActive;
+            }
+        }
+
+        private void OnWeaponAvailable() => _playerWeaponView.Panel.color = _playerWeaponView.ColorActive;
+
+        private void OnWeaponUsed() => _playerWeaponView.Panel.color = _playerWeaponView.ColorNotActive;
+
+        private void OnAbilityAvailable() => _playerAbilityView.Panel.color = _playerAbilityView.ColorActive;
+
+        private void OnAbilityUsed() => _playerAbilityView.Panel.color = _playerAbilityView.ColorNotActive;
+
+        #endregion
+
     }
 }

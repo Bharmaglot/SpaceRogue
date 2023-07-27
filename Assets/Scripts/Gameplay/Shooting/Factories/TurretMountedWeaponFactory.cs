@@ -1,11 +1,11 @@
-﻿using Gameplay.Shooting.Scriptables;
-using SpaceRogue.Abstraction;
+﻿using SpaceRogue.Abstraction;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using Zenject;
 
 
-namespace Gameplay.Shooting.Factories
+namespace SpaceRogue.Gameplay.Shooting.Factories
 {
-    public class TurretMountedWeaponFactory : PlaceholderFactory<Weapon, EntityViewBase, TurretViewFactory, GunPointViewFactory, TurretConfig, TurretMountedWeapon>
+    public sealed class TurretMountedWeaponFactory : PlaceholderFactory<Weapon, EntityViewBase, TurretViewFactory, GunPointViewFactory, TurretConfig, TurretMountedWeapon>
     {
     }
 }

@@ -1,30 +1,44 @@
-using Gameplay.Shooting.Factories;
-using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Enums;
+using SpaceRogue.Gameplay.Shooting.Factories;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
+using SpaceRogue.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using SpaceRogue.Abstraction;
-using SpaceRogue.Enums;
-using SpaceRogue.Services;
 
 
-namespace Gameplay.Shooting
+namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class TurretMountedWeapon : MountedWeapon, IDisposable
     {
-        private readonly Updater _updater;
 
+        #region Fields
+
+        private readonly Updater _updater;
         private readonly TurretView _turretView;
         private readonly Transform _gunPointViewTransform;
-
+        private readonly EntityType _entityType;
         private readonly float _rotationSpeed;
 
         private readonly List<EntityViewBase> _targets;
-        private EntityViewBase _currentTarget;
-        private readonly EntityType _entityType;
 
-        public TurretMountedWeapon(Weapon weapon, EntityViewBase entityView, TurretViewFactory turretViewFactory, GunPointViewFactory gunPointViewFactory, TurretConfig config, Updater updater) : base(weapon, entityView)
+        private EntityViewBase _currentTarget;
+
+        #endregion
+
+
+        #region CodeLife
+
+        public TurretMountedWeapon(
+            Weapon weapon,
+            EntityViewBase entityView,
+            TurretViewFactory turretViewFactory,
+            GunPointViewFactory gunPointViewFactory,
+            TurretConfig config,
+            Updater updater)
+            : base(weapon, entityView)
         {
             _updater = updater;
 
@@ -43,24 +57,37 @@ namespace Gameplay.Shooting
             _turretView.TargetExitsTrigger += OnTargetOutOfRange;
         }
 
-        public override void CommenceFiring()
+        public void Dispose()
         {
-            Weapon.CommenceFiring(_gunPointViewTransform.position, _gunPointViewTransform.rotation);
+            _updater.UnsubscribeFromUpdate(RotateTurret);
+            _turretView.TargetEntersTrigger -= OnTargetInRange;
+            _turretView.TargetExitsTrigger -= OnTargetOutOfRange;
+            _currentTarget.EntityDestroyed -= OnTargetIsDestroyed;
         }
+
+        #endregion
+
+
+        #region Methods
+
+        public override void CommenceFiring() => Weapon.CommenceFiring(_gunPointViewTransform.position, _gunPointViewTransform.rotation);
 
         private void RotateTurret()
         {
-            if (_currentTarget is null) return;
+            if (_currentTarget == null)
+            {
+                return;
+            }
+
             var direction = _currentTarget.transform.position - _turretView.transform.position;
             _turretView.Rotate(direction, _rotationSpeed);
         }
 
-        private EntityViewBase PickNewTarget()
-        {
-            if (!_targets.Any()) return null;
-            if (_targets.Count == 1) return _targets[0];
-            return _targets.OrderBy(t => (_turretView.transform.position - t.transform.position).sqrMagnitude).First();
-        }
+        private EntityViewBase PickNewTarget() => !_targets.Any()
+                ? null
+                : _targets.Count == 1
+                ? _targets[0]
+                : _targets.OrderBy(t => (_turretView.transform.position - t.transform.position).sqrMagnitude).First();
 
         private void OnTargetInRange(EntityViewBase target)
         {
@@ -69,10 +96,10 @@ namespace Gameplay.Shooting
                 if (target.EntityType == EntityType.Enemy | target.EntityType == EntityType.EnemyAssistant)
                 {
                     _targets.Add(target);
-                    if (_currentTarget is null)
+                    if (_currentTarget == null)
                     {
                         _currentTarget = target;
-                        _currentTarget.EntityDestroyed += OnTargetIsDestioyed;
+                        _currentTarget.EntityDestroyed += OnTargetIsDestroyed;
                         _updater.SubscribeToUpdate(RotateTurret);
                     }
                 }
@@ -83,7 +110,7 @@ namespace Gameplay.Shooting
                 if (target.EntityType == EntityType.Player)
                 {
                     _currentTarget = target;
-                    _currentTarget.EntityDestroyed += OnTargetIsDestioyed;
+                    _currentTarget.EntityDestroyed += OnTargetIsDestroyed;
                     _updater.SubscribeToUpdate(RotateTurret);
                 }
             }
@@ -98,10 +125,16 @@ namespace Gameplay.Shooting
                     _targets.Remove(target);
                     if (_currentTarget == target)
                     {
-                        _currentTarget.EntityDestroyed -= OnTargetIsDestioyed;
+                        _currentTarget.EntityDestroyed -= OnTargetIsDestroyed;
                         _currentTarget = PickNewTarget();
-                        if (_currentTarget is null) _updater.UnsubscribeFromUpdate(RotateTurret);
-                        else _currentTarget.EntityDestroyed += OnTargetIsDestioyed;
+                        if (_currentTarget == null)
+                        {
+                            _updater.UnsubscribeFromUpdate(RotateTurret);
+                        }
+                        else
+                        {
+                            _currentTarget.EntityDestroyed += OnTargetIsDestroyed;
+                        }
                     }
                 }
             }
@@ -110,24 +143,16 @@ namespace Gameplay.Shooting
             {
                 if (target.EntityType == EntityType.Player)
                 {
-                    _currentTarget.EntityDestroyed -= OnTargetIsDestioyed;
+                    _currentTarget.EntityDestroyed -= OnTargetIsDestroyed;
                     _updater.UnsubscribeFromUpdate(RotateTurret);
                     _currentTarget = null;
                 }
             }
         }
 
-        public void Dispose()
-        {
-            _updater.UnsubscribeFromUpdate(RotateTurret);
-            _turretView.TargetEntersTrigger -= OnTargetInRange;
-            _turretView.TargetExitsTrigger -= OnTargetOutOfRange;
-            _currentTarget.EntityDestroyed -= OnTargetIsDestioyed;
-        }
+        private void OnTargetIsDestroyed() => _updater.UnsubscribeFromUpdate(RotateTurret);
 
-        private void OnTargetIsDestioyed()
-        {
-            _updater.UnsubscribeFromUpdate(RotateTurret);
-        }
+        #endregion
+
     }
 }

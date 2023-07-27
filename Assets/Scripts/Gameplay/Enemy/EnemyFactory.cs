@@ -2,11 +2,12 @@ using Gameplay.Enemy.Behaviour;
 using Gameplay.Enemy.Movement;
 using Gameplay.Enemy.Scriptables;
 using Gameplay.Movement;
-using Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting;
 using Gameplay.Survival;
 using System;
 using UnityEngine;
 using Zenject;
+using SpaceRogue.Player.Movement;
 
 namespace Gameplay.Enemy
 {
@@ -50,7 +51,7 @@ namespace Gameplay.Enemy
             var model = _unitMovementModelFactory.Create(enemyConfig.Movement);
             var unitMovement = _unitMovementFactory.Create(enemyView, enemyInput, model);
             var unitTurning = _unitTurningFactory.Create(enemyView, enemyInput, model);
-            var unitWeapon = _unitWeaponFactory.Create(enemyView, enemyConfig.MountedWeapon, enemyInput);
+            var unitWeapon = _unitWeaponFactory.Create(enemyView, enemyConfig.MountedWeapon, unitMovement, enemyInput);
             var enemyBehaviourSwitcher = _enemyBehaviourSwitcherFactory.Create(
                 enemyView,
                 enemyInput,

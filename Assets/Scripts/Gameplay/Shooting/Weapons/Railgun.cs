@@ -1,33 +1,55 @@
 using Gameplay.Mechanics.Timer;
-using Gameplay.Shooting.Factories;
-using Gameplay.Shooting.Scriptables;
 using SpaceRogue.Enums;
+using SpaceRogue.Gameplay.Shooting.Factories;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using UnityEngine;
 
 
-namespace Gameplay.Shooting.Weapons
+namespace SpaceRogue.Gameplay.Shooting.Weapons
 {
-    public class Railgun : Weapon
+    public sealed class Railgun : Weapon
     {
+
+        #region Fields
+
         private readonly RailgunConfig _railgunConfig;
         private readonly EntityType _entityType;
         private readonly ProjectileFactory _projectileFactory;
 
-        public Railgun(RailgunConfig railgunConfig, EntityType entityType, ProjectileFactory projectileFactory, TimerFactory timerFactory)
+        #endregion
+
+
+        #region CodeLife
+
+        public Railgun(
+            RailgunConfig railgunConfig,
+            EntityType entityType,
+            ProjectileFactory projectileFactory,
+            TimerFactory timerFactory) : base(railgunConfig, timerFactory)
         {
             _railgunConfig = railgunConfig;
             _entityType = entityType;
             _projectileFactory = projectileFactory;
-            CooldownTimer = timerFactory.Create(railgunConfig.Cooldown);
         }
 
-        public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretDirection)
-        {
-            if (IsOnCooldown) return;
+        #endregion
 
-            _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, turretDirection, _entityType, _railgunConfig.RailgunProjectile));
-            
+
+        #region Methods
+
+        public override void CommenceFiring(Vector2 bulletPosition, Quaternion turretRotation)
+        {
+            if (IsOnCooldown)
+            {
+                return;
+            }
+
+            _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, turretRotation, _entityType, _railgunConfig.RailgunProjectile));
+
             CooldownTimer.Start();
         }
+
+        #endregion
+
     }
 }

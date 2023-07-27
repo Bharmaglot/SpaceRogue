@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EnemyTypes>k__BackingField:
   - <Weight>k__BackingField: 500
-    <Config>k__BackingField: {fileID: 11400000, guid: d2cdacf20545e5b49bb5e713b1bab072, type: 2}
+    <Config>k__BackingField: {fileID: 11400000, guid: 556514fff54de3a4a9075cb12e522549, type: 2}
   <EnemyCount>k__BackingField: 5

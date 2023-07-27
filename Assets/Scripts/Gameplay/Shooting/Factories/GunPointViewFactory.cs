@@ -1,12 +1,21 @@
 using UnityEngine;
 using Zenject;
 
-namespace Gameplay.Shooting.Factories
+
+namespace SpaceRogue.Gameplay.Shooting.Factories
 {
     public sealed class GunPointViewFactory : PlaceholderFactory<Vector2, Quaternion, Transform, GunPointView>
     {
+
+        #region Fields
+
         private readonly GunPointView _prefab;
         private readonly DiContainer _diContainer;
+
+        #endregion
+
+
+        #region CodeLife
 
         public GunPointViewFactory(GunPointView prefab, DiContainer diContainer)
         {
@@ -14,9 +23,15 @@ namespace Gameplay.Shooting.Factories
             _diContainer = diContainer;
         }
 
+        #endregion
+
+
+        #region Methods
+
         public override GunPointView Create(Vector2 position, Quaternion rotation, Transform parentTransform)
-        {
-            return _diContainer.InstantiatePrefabForComponent<GunPointView>(_prefab, position, rotation, parentTransform);
-        }
+            => _diContainer.InstantiatePrefabForComponent<GunPointView>(_prefab, position, rotation, parentTransform);
+
+        #endregion
+
     }
 }

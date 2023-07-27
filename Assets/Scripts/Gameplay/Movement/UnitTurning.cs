@@ -18,7 +18,7 @@ namespace Gameplay.Movement
             UnitMovementModel model)
         {
             _transform = entityView.transform;
-            _rigidbody = entityView.GetComponent<Rigidbody2D>();
+            _rigidbody = entityView.Rigidbody2D;
             _turningInput = turningInput;
             _model = model;
 

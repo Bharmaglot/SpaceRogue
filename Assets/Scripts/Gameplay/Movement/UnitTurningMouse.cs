@@ -25,7 +25,7 @@ namespace Gameplay.Movement
         {
             _camera = cameraView.GetComponent<UnityEngine.Camera>();
             _transform = entityView.transform;
-            _rigidbody = entityView.GetComponent<Rigidbody2D>();
+            _rigidbody = entityView.Rigidbody2D;
             _turningMouseInput = turningMouseInput;
             _model = model;
 

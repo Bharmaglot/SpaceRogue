@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68cdea147983413bafd755ed5e1dca3b, type: 3}
+  m_Name: DreadEnemyConfig
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: 9221c79f-e779-4d31-8a7c-f356d1a1115b
+  <Prefab>k__BackingField: {fileID: 905853938731985664, guid: decdcf08a746d104b9b54f6ba61e58a0, type: 3}
+  <Movement>k__BackingField: {fileID: 11400000, guid: 4893e3dee4b29ee4bb446f7b1c56fe97, type: 2}
+  <Survival>k__BackingField: {fileID: 11400000, guid: 40fbbdfac11945f4eb45da271bb3fcb7, type: 2}
+  <Behaviour>k__BackingField: {fileID: 11400000, guid: b077bb561865ea748b6c73e7ba314bb8, type: 2}
+  <MountedWeapon>k__BackingField: {fileID: 11400000, guid: 72cbfd656e0fe234c932fc0505a2e547, type: 2}

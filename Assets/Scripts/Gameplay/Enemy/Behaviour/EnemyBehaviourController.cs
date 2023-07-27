@@ -1,6 +1,6 @@
 using Gameplay.Movement;
 using Gameplay.Player;
-using Gameplay.Shooting;
+using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enemy.Movement;
 using SpaceRogue.Player.Movement;
@@ -60,12 +60,12 @@ namespace Gameplay.Enemy.Behaviour
                 case EnemyState.PassiveRoaming:
                     _currentBehaviour = new LegacyEnemyRoamingBehaviour(_enemyCurrentState, _view, _playerController, _unitMovementModel, _inputController, _enemyConfig);
                     break;
-                case EnemyState.InCombat:
-                    _currentBehaviour = new LegacyEnemyCombatBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _turretController, _enemyConfig);
-                    break;
-                case EnemyState.InCombatWithRetreat:
-                    _currentBehaviour = new LegacyEnemyCombatWithRetreatBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _turretController, _enemyConfig, lastEnemyState);
-                    break;
+                //case EnemyState.InCombat:
+                //    _currentBehaviour = new LegacyEnemyCombatBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _turretController, _enemyConfig);
+                //    break;
+                //case EnemyState.InCombatWithRetreat:
+                //    _currentBehaviour = new LegacyEnemyCombatWithRetreatBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _turretController, _enemyConfig, lastEnemyState);
+                //    break;
                 case EnemyState.Escort:
                     _currentBehaviour = new LegacyEnemyEscortBehaviour(_enemyCurrentState, _view, _playerController, _inputController, _enemyConfig, _target);
                     break;

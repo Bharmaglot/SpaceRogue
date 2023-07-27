@@ -1,5 +1,5 @@
 using Gameplay.Movement;
-using Gameplay.Shooting.Scriptables;
+using SpaceRogue.Gameplay.Shooting.Scriptables;
 using Gameplay.Survival;
 using UnityEngine;
 

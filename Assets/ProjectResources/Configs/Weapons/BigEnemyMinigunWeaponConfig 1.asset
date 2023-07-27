@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebbcd469be55d8444b682eb02ed90af9, type: 3}
+  m_Name: BigEnemyMinigunWeaponConfig 1
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: e844e25f-4a63-4c12-b72d-9f105b1be94d
+  <Cooldown>k__BackingField: 0.1
+  <MinigunProjectile>k__BackingField: {fileID: 11400000, guid: 958bb7f1934902f42955aa7ae9446a1e, type: 2}
+  <SprayAngle>k__BackingField: 10
+  <MaxSprayAngle>k__BackingField: 30
+  <OverheatCoolDown>k__BackingField: 0.5
+  <TimeToOverheat>k__BackingField: 1

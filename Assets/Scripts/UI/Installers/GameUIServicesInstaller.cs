@@ -1,24 +1,35 @@
 using Gameplay.Minimap;
 using Scriptables;
+using SpaceRogue.UI.Services;
 using UI.Game.LevelInfo;
 using UI.Services;
 using UnityEngine;
 using Zenject;
 
-namespace UI.Installers
+
+namespace SpaceRogue.UI.Installers
 {
     public sealed class GameUIServicesInstaller : MonoInstaller
     {
+
+        #region Properties
+
         [field: SerializeField] public MinimapCamera MinimapCamera { get; private set; }
         [field: SerializeField] public MinimapConfig MinimapConfig { get; private set; }
 
+        #endregion
+
+
+        #region Methods
+
         public override void InstallBindings()
         {
+            InstallObstacleUIEffectService();
             InstallPlayerInfoService();
             InstallPlayerStatusBarService();
             InstallPlayerSpeedometerService();
             InstallMinimapService();
-            
+
             InstallEnemyStatusBarService();
             //TODO GameEventUIService
         }
@@ -30,7 +41,15 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
-        
+
+        private void InstallObstacleUIEffectService()
+        {
+            Container
+                .BindInterfacesAndSelfTo<ObstacleUIEffectService>()
+                .AsSingle()
+                .NonLazy();
+        }
+
         private void InstallPlayerStatusBarService()
         {
             Container
@@ -38,7 +57,7 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
-        
+
         private void InstallPlayerSpeedometerService()
         {
             Container
@@ -54,13 +73,13 @@ namespace UI.Installers
                 .FromInstance(MinimapCamera)
                 .AsSingle()
                 .NonLazy();
-            
+
             Container
                 .Bind<MinimapConfig>()
                 .FromInstance(MinimapConfig)
                 .AsSingle()
                 .NonLazy();
-            
+
             Container
                 .BindInterfacesAndSelfTo<MinimapService>()
                 .AsSingle()
@@ -74,5 +93,8 @@ namespace UI.Installers
                 .AsSingle()
                 .NonLazy();
         }
+
+        #endregion
+
     }
 }
