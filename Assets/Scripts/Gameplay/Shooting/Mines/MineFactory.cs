@@ -1,3 +1,4 @@
+using Gameplay.GameProgress;
 using Gameplay.Mechanics.Timer;
 using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.Services;

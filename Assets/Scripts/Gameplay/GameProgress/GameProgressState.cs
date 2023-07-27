@@ -1,5 +1,4 @@
 using SpaceRogue.Services;
-using UnityEngine;
 using Zenject;
 
 namespace Gameplay.GameProgress

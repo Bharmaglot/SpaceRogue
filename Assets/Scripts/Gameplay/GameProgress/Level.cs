@@ -2,7 +2,7 @@ using System;
 using Gameplay.Asteroids;
 using Gameplay.Enemy;
 using Gameplay.Missions;
-using Gameplay.Space.Obstacle;
+using SpaceRogue.Gameplay.Space.Obstacle;
 
 namespace Gameplay.GameProgress
 {

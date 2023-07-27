@@ -27,6 +27,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
             _lifeTime = timerFactory.Create(config.LifeTime);
             _lifeTime.OnExpire += Dispose;
+
             if (config.IsDestroyedOnHit)
             {
                 _projectileView.CollidedObject += Dispose;
@@ -37,9 +38,13 @@ namespace SpaceRogue.Gameplay.Shooting
 
         public void Dispose()
         {
-            if (_disposing) return;
+            if (_disposing)
+            {
+                return;
+            }
+
             _disposing = true;
-            
+
             _lifeTime.OnExpire -= Dispose;
             _projectileView.CollidedObject -= Dispose;
             _lifeTime.Dispose();

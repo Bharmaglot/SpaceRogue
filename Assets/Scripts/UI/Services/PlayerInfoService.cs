@@ -3,7 +3,6 @@ using SpaceRogue.Gameplay.Abilities;
 using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Gameplay.Shooting.Weapons;
 using System;
-using Gameplay.GameProgress;
 using UI.Game;
 
 

@@ -2,7 +2,6 @@ using Gameplay.GameProgress;
 using Gameplay.Missions;
 using Gameplay.Missions.Factories;
 using Gameplay.Missions.Scriptables;
-using Gameplay.Services;
 using Gameplay.Space;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
@@ -98,7 +97,7 @@ namespace SpaceRogue.Gameplay.Installers
                 .AsSingle()
                 .NonLazy();
         }
-        
+
         private void InstallMissionFactory()
         {
             Container
@@ -109,7 +108,7 @@ namespace SpaceRogue.Gameplay.Installers
                 .BindFactory<int, KillEnemiesMissionConfig, KillEnemiesMission, KillMissionFactory>()
                 .AsSingle();
         }
-        
+
         private void InstallMissionCompleteCheat()
         {
             Container
