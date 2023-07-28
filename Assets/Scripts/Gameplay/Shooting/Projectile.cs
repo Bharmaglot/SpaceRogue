@@ -8,6 +8,7 @@ namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class Projectile : IDisposable
     {
+        private readonly Weapon _weapon;
 
         #region Fields
 
@@ -21,9 +22,12 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #region CodeLife
 
-        public Projectile(ProjectileConfig config, ProjectileView projectileView, TimerFactory timerFactory)
+        public Projectile(ProjectileConfig config, Weapon weapon, ProjectileView projectileView, TimerFactory timerFactory)
         {
             _projectileView = projectileView;
+            _weapon = weapon;
+
+            _weapon.WeaponDisposed += Dispose;
 
             _lifeTime = timerFactory.Create(config.LifeTime);
             _lifeTime.OnExpire += Dispose;
@@ -44,6 +48,8 @@ namespace SpaceRogue.Gameplay.Shooting
             }
 
             _disposing = true;
+
+            _weapon.WeaponDisposed -= Dispose;
 
             _lifeTime.OnExpire -= Dispose;
             _projectileView.CollidedObject -= Dispose;

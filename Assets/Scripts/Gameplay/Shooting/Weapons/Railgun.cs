@@ -44,7 +44,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
                 return;
             }
 
-            _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, turretRotation, _entityType, _railgunConfig.RailgunProjectile));
+            _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, turretRotation, _entityType, _railgunConfig.RailgunProjectile, this));
 
             CooldownTimer.Start();
         }

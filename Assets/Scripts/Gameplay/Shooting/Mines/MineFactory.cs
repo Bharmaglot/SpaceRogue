@@ -8,7 +8,7 @@ using Zenject;
 
 namespace SpaceRogue.Gameplay.Shooting.Factories
 {
-    public sealed class MineFactory : PlaceholderFactory<Vector2, MineConfig, Mine>
+    public sealed class MineFactory : PlaceholderFactory<Vector2, MineConfig, Weapon, Mine>
     {
 
         #region Fields
@@ -34,10 +34,10 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 
         #region Methods
 
-        public override Mine Create(Vector2 position, MineConfig config)
+        public override Mine Create(Vector2 position, MineConfig config, Weapon weapon)
         {
             var mineView = _mineViewFactory.Create(position, config);
-            var mine = new Mine(_updater, mineView, _timerFactory, config);
+            var mine = new Mine(_updater, mineView, _timerFactory, config, weapon);
             return mine;
         }
 

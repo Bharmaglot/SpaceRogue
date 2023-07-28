@@ -40,7 +40,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
                 return;
             }
 
-            _mineFactory.Create(minePosition, _mortarConfig.MineConfig);
+            _mineFactory.Create(minePosition, _mortarConfig.MineConfig, this);
 
             CooldownTimer.Start();
         }

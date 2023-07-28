@@ -15,6 +15,8 @@ namespace SpaceRogue.Gameplay.Shooting
 
         public event Action WeaponAvailable;
 
+        public event Action WeaponDisposed;
+
         #endregion
 
 
@@ -42,10 +44,16 @@ namespace SpaceRogue.Gameplay.Shooting
 
         public void Dispose()
         {
+            if (CooldownTimer == null)
+            {
+                return;
+            }
+
             CooldownTimer.OnStart -= OnWeaponUsed;
             CooldownTimer.OnExpire -= OnWeaponAvailable;
 
             CooldownTimer.Dispose();
+            WeaponDisposed?.Invoke();
         }
 
         #endregion
