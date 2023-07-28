@@ -4,7 +4,6 @@ using SpaceRogue.InputSystem;
 using SpaceRogue.Player.Movement;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 
@@ -56,7 +55,6 @@ namespace Gameplay.Player
             }
 
             result[^1].IsEnable = true;
-            UnitWeaponCreated?.Invoke(result[^1]);
 
             return result;
         }

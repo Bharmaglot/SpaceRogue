@@ -15,7 +15,9 @@ namespace SpaceRogue.UI.Services
 
         private readonly PlayerUsedItemView _playerWeaponView;
         private readonly PlayerUsedItemView _playerAbilityView;
-        private readonly PlayerWeaponFactory _playerWeaponFactory;
+        private readonly global::Gameplay.Player.Player _player;
+
+        //private readonly PlayerWeaponFactory _playerWeaponFactory;
 
         private UnitWeapon _unitWeapon;
         private Weapon _currentWeapon;
@@ -30,18 +32,19 @@ namespace SpaceRogue.UI.Services
         {
             _playerWeaponView = playerInfoView.PlayerWeaponView;
             _playerAbilityView = playerInfoView.PlayerAbilityView;
-            _playerWeaponFactory = playerWeaponFactory;
+            //_playerWeaponFactory = playerWeaponFactory;
+            //_player = player;
 
             _playerWeaponView.Hide();
             _playerAbilityView.Hide();
 
-            _playerWeaponFactory.UnitWeaponCreated += OnUnitWeaponCreated;
+            //_playerWeaponFactory.UnitWeaponCreated += OnUnitWeaponCreated;
         }
 
         public void Dispose()
         {
             UnsubscribeFromAllUnitWeaponEvents();
-            _playerWeaponFactory.UnitWeaponCreated -= OnUnitWeaponCreated;
+            //_playerWeaponFactory.UnitWeaponCreated -= OnUnitWeaponCreated;
         }
 
         #endregion

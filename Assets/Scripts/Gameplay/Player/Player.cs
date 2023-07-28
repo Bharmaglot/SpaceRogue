@@ -1,16 +1,26 @@
-using System;
 using Gameplay.Movement;
-using SpaceRogue.Gameplay.Shooting;
 using Gameplay.Survival;
-using SpaceRogue.Player.Movement;
-using System.Collections.Generic;
+using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.InputSystem;
-using UnityEngine;
+using SpaceRogue.Player.Movement;
+using System;
+using System.Collections.Generic;
+
 
 namespace Gameplay.Player
 {
     public sealed class Player : IDisposable
     {
+
+        #region Events
+
+        public event Action PlayerDestroyed;
+        public event Action PlayerDisposed;
+
+        #endregion
+
+
+        #region Fields
 
         private int _currentWeaponID;
 
@@ -19,13 +29,20 @@ namespace Gameplay.Player
         private readonly List<UnitWeapon> _unitWeapons;
         private readonly PlayerInput _playerInput;
 
-        public event Action PlayerDestroyed;
-        public event Action PlayerDisposed;
+        private bool _disposing;
+
+        #endregion
+
+
+        #region Properties
 
         public PlayerView PlayerView { get; }
         public EntitySurvival Survival { get; }
 
-        private bool _disposing;
+        #endregion
+
+
+        #region CodeLife
 
         public Player(
             PlayerView playerView,
@@ -75,6 +92,11 @@ namespace Gameplay.Player
             }
         }
 
+        #endregion
+
+
+        #region Metods
+
         private void OnDeath()
         {
             PlayerDestroyed?.Invoke();
@@ -83,9 +105,6 @@ namespace Gameplay.Player
 
         private void ChangeWeaponInputHandler(bool isNextWeapon)
         {
-            Debug.Log(isNextWeapon?"next":"prev");
-            Debug.Log($"disable [{_currentWeaponID}] {_unitWeapons[_currentWeaponID].CurrentWeapon.WeaponName}");
-
             _unitWeapons[_currentWeaponID].IsEnable = false;
 
             if (isNextWeapon)
@@ -108,7 +127,9 @@ namespace Gameplay.Player
             }
 
             _unitWeapons[_currentWeaponID].IsEnable = true;
-            Debug.Log($"enable [{_currentWeaponID}] {_unitWeapons[_currentWeaponID].CurrentWeapon.WeaponName}");
         }
+
+        #endregion
+
     }
 }
