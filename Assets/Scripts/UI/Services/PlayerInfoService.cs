@@ -57,7 +57,7 @@ namespace SpaceRogue.UI.Services
             _currentWeapon = unitWeapon.CurrentWeapon;
             _currentAbility = unitWeapon.CurrentAbility;
 
-            _unitWeapon.OnUnitWeaponChanged += OnUnitWeaponChanged;
+            _unitWeapon.OnUnitWeaponActivated += OnUnitWeaponChanged;
             SubscriptionsForWeaponsAndAbilities();
             SetupWeaponsAndAbilities();
         }
@@ -66,7 +66,7 @@ namespace SpaceRogue.UI.Services
         {
             if (_unitWeapon != null)
             {
-                _unitWeapon.OnUnitWeaponChanged -= OnUnitWeaponChanged;
+                _unitWeapon.OnUnitWeaponActivated -= OnUnitWeaponChanged;
                 UnsubscribesFromWeaponsAndAbilities();
             }
         }

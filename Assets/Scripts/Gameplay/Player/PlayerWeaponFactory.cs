@@ -51,11 +51,13 @@ namespace Gameplay.Player
             foreach (var weaponConfig in _weaponConfigs)
             {
                 var unitWeapon = _unitWeaponFactory.Create(playerView, weaponConfig, unitMovement, playerInput);
+                unitWeapon.IsEnable = false;
                 result.Add(unitWeapon);
             }
 
-            UnitWeaponCreated?.Invoke(result[0]);
-                        
+            result[^1].IsEnable = true;
+            UnitWeaponCreated?.Invoke(result[^1]);
+
             return result;
         }
 
