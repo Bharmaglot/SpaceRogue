@@ -1,7 +1,7 @@
 using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Abilities;
 using System;
-
+using UnityEngine;
 
 namespace SpaceRogue.Gameplay.Shooting
 {
@@ -45,12 +45,14 @@ namespace SpaceRogue.Gameplay.Shooting
 
             _input.PrimaryFireInput += HandleFiringInput;
             _input.AbilityInput += AbilityInput;
+            _input.ChangeWeaponInput += ChangeWeaponInputHandler;
         }
 
         public void Dispose()
         {
             _input.PrimaryFireInput -= HandleFiringInput;
             _input.AbilityInput -= AbilityInput;
+            _input.ChangeWeaponInput -= ChangeWeaponInputHandler;
 
             CurrentWeapon.Dispose();
             CurrentAbility.Dispose();
@@ -75,6 +77,14 @@ namespace SpaceRogue.Gameplay.Shooting
             {
                 _ability.UseAbility();
             }
+        }
+
+        private void ChangeWeaponInputHandler(bool isNextWeapon)
+        {
+
+            UnitWeaponChanged?.Invoke();
+            Debug.Log(isNextWeapon ? "next" : "prev");
+
         }
 
         #endregion
