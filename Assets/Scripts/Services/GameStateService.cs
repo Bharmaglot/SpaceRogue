@@ -58,7 +58,7 @@ namespace SpaceRogue.Services
 
         public void PauseGame()
         {
-            if (CurrentState != GameState.Game)
+            if (CurrentState == GameState.GamePaused)
             {
                 return;
             }
@@ -68,7 +68,7 @@ namespace SpaceRogue.Services
 
         public void UnpauseGame()
         {
-            if (CurrentState != GameState.GamePaused)
+            if (CurrentState == GameState.Game)
             {
                 return;
             }

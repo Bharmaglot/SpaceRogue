@@ -75,6 +75,8 @@ namespace SpaceRogue.Gameplay.Shooting
             
             _timerToActivateAlarmSystem.OnExpire -= TimerToActiveAlarmZone;
             _timerToActivateAlarmSystem.Dispose();
+            _mineAlertZoneView.TargetEnterAlarmZone -= StartExplosionTimer;
+
             _updater.UnsubscribeFromUpdate(ExplosionEffect);
             _updater.UnsubscribeFromUpdate(ActiveExplosionTimer);
             UnityEngine.Object.Destroy(_mineView.gameObject);
