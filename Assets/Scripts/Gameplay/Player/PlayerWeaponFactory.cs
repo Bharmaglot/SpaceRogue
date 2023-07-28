@@ -3,12 +3,14 @@ using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.InputSystem;
 using SpaceRogue.Player.Movement;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 
 namespace Gameplay.Player
 {
-    public sealed class PlayerWeaponFactory : PlaceholderFactory<PlayerView, UnitMovement, UnitWeapon>
+    public sealed class PlayerWeaponFactory : PlaceholderFactory<PlayerView, UnitMovement, List<UnitWeapon>>
     {
 
         #region Events
@@ -21,7 +23,7 @@ namespace Gameplay.Player
         #region Fields
 
         private readonly UnitWeaponFactory _unitWeaponFactory;
-        private readonly MountedWeaponConfig _config;
+        private readonly List<MountedWeaponConfig> _weaponConfigs;
         private readonly DiContainer _diContainer;
 
         #endregion
@@ -29,10 +31,10 @@ namespace Gameplay.Player
 
         #region CodeLife
 
-        public PlayerWeaponFactory(UnitWeaponFactory unitWeaponFactory, MountedWeaponConfig config, DiContainer diContainer)
+        public PlayerWeaponFactory(UnitWeaponFactory unitWeaponFactory, List<MountedWeaponConfig> weaponConfigs, DiContainer diContainer)
         {
             _unitWeaponFactory = unitWeaponFactory;
-            _config = config;
+            _weaponConfigs = weaponConfigs;
             _diContainer = diContainer;
         }
 
@@ -41,12 +43,20 @@ namespace Gameplay.Player
 
         #region Methods
 
-        public override UnitWeapon Create(PlayerView playerView, UnitMovement unitMovement)
+        public override List<UnitWeapon> Create(PlayerView playerView, UnitMovement unitMovement)
         {
+            var result = new List<UnitWeapon>();
             var playerInput = _diContainer.Resolve<PlayerInput>();
-            var unitWeapon = _unitWeaponFactory.Create(playerView, _config, unitMovement, playerInput);
-            UnitWeaponCreated?.Invoke(unitWeapon);
-            return unitWeapon;
+
+            foreach (var weaponConfig in _weaponConfigs)
+            {
+                var unitWeapon = _unitWeaponFactory.Create(playerView, weaponConfig, unitMovement, playerInput);
+                result.Add(unitWeapon);
+            }
+
+            UnitWeaponCreated?.Invoke(result[0]);
+                        
+            return result;
         }
 
         #endregion

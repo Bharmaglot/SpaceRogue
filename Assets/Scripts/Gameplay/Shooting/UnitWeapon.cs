@@ -3,6 +3,7 @@ using SpaceRogue.Gameplay.Abilities;
 using System;
 using UnityEngine;
 
+
 namespace SpaceRogue.Gameplay.Shooting
 {
     public sealed class UnitWeapon : IDisposable
@@ -10,7 +11,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #region Events
 
-        public event Action UnitWeaponChanged; //TODO Change Weapon
+        public event Action OnUnitWeaponChanged;
 
         #endregion
 
@@ -70,7 +71,7 @@ namespace SpaceRogue.Gameplay.Shooting
                 _mountedWeapon.CommenceFiring();
             }
         }
-        
+
         private void AbilityInput(bool buttonIsPressed)
         {
             if (buttonIsPressed)
@@ -81,10 +82,12 @@ namespace SpaceRogue.Gameplay.Shooting
 
         private void ChangeWeaponInputHandler(bool isNextWeapon)
         {
+            //_playerConfig.ChangeWeapon(isNextWeapon);
+            CurrentWeapon = _mountedWeapon.Weapon;
+            CurrentAbility = _ability;
 
-            UnitWeaponChanged?.Invoke();
+            OnUnitWeaponChanged?.Invoke();
             Debug.Log(isNextWeapon ? "next" : "prev");
-
         }
 
         #endregion
