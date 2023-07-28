@@ -3,9 +3,9 @@ using SpaceRogue.UI.Game;
 using UI.Game;
 using UnityEngine;
 using Zenject;
-using UI.Game.LevelFinishedPopup;
-using UI.Game.LevelInfo;
-using UI.Game.PlayerDestroyedPopup;
+using SpaceRogue.UI.Game.LevelFinishedPopup;
+using SpaceRogue.UI.Game.LevelInfo;
+using SpaceRogue.UI.Game.PlayerDestroyedPopup;
 
 
 namespace SpaceRogue.UI.Installers

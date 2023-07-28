@@ -1,6 +1,7 @@
-using Gameplay.Missions.Scriptables;
+using SpaceRogue.Gameplay.Missions.Scriptables;
 using Gameplay.Space.SpaceObjects.Scriptables;
 using UnityEngine;
+
 
 namespace Scriptables
 {

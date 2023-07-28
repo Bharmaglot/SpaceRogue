@@ -1,17 +1,26 @@
-﻿using System;
-using Gameplay.Events;
-using Gameplay.GameProgress;
+﻿using Gameplay.Events;
+using SpaceRogue.Gameplay.GameProgress;
+using System;
 
-namespace UI.Game.PlayerDestroyedPopup
+
+namespace SpaceRogue.UI.Game.PlayerDestroyedPopup
 {
     public class PlayerDestroyedPopupPresenter : IDisposable
     {
+
+        #region Fields
+
         private readonly DestroyPlayerMessageView _view;
         private readonly GameProgressState _gameProgress;
         private readonly LevelProgress _levelProgress;
 
+        #endregion
+
+
+        #region CodeLife
+
         public PlayerDestroyedPopupPresenter(
-            LevelProgress levelProgress, 
+            LevelProgress levelProgress,
             DestroyPlayerMessageView view,
             GameProgressState gameProgress
             )
@@ -22,16 +31,18 @@ namespace UI.Game.PlayerDestroyedPopup
 
             _levelProgress.PlayerDestroyed += OnPlayerDestroyed;
         }
-        
-        public void Dispose()
-        {
-            _levelProgress.PlayerDestroyed -= OnPlayerDestroyed;
-        }
+
+        public void Dispose() => _levelProgress.PlayerDestroyed -= OnPlayerDestroyed;
+
+        #endregion
+
+
+        #region Methods
 
         private void OnPlayerDestroyed(PlayerDestroyedEventArgs args)
         {
-            _view.Init((args.CurrentLevel -1).ToString(), OnBackToMenuButtonClicked);
-            
+            _view.Init((args.CurrentLevel - 1).ToString(), OnBackToMenuButtonClicked);
+
             _view.Show();
         }
 
@@ -40,5 +51,8 @@ namespace UI.Game.PlayerDestroyedPopup
             _view.Hide();
             _gameProgress.BackToMenu();
         }
+
+        #endregion
+
     }
 }

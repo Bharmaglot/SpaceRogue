@@ -1,20 +1,29 @@
-using System;
 using Gameplay.Asteroids.Factories;
 using Gameplay.Enemy;
-using Gameplay.Missions;
-using Gameplay.Missions.Factories;
 using Gameplay.Player;
-using Gameplay.Services;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
-using SpaceRogue.Gameplay.Space.Obstacle;
 using Scriptables;
+using SpaceRogue.Gameplay.Missions.Factories;
+using SpaceRogue.Gameplay.Space.Obstacle;
+using System;
 using Zenject;
 
-namespace Gameplay.GameProgress
+
+namespace SpaceRogue.Gameplay.GameProgress
 {
     public sealed class LevelFactory : PlaceholderFactory<int, Level>
     {
+
+        #region Events
+
+        public event Action<Level> LevelCreated;
+
+        #endregion
+
+
+        #region Fields
+
         private readonly LevelPresetsConfig _levelPresetsConfig;
         private readonly SpaceViewFactory _spaceViewFactory;
         private readonly MapGeneratorFactory _mapGeneratorFactory;
@@ -29,7 +38,10 @@ namespace Gameplay.GameProgress
 
         private LevelPreset _currentLevelPreset;
 
-        public event Action<Level> LevelCreated;
+        #endregion
+
+
+        #region CodeLife
 
         public LevelFactory(
             LevelPresetsConfig levelPresetsConfig,
@@ -56,6 +68,11 @@ namespace Gameplay.GameProgress
             _asteroidsInSpaceFactory = asteroidsInSpaceFactory;
             _missionFactory = missionFactory;
         }
+
+        #endregion
+
+
+        #region Methods
 
         public override Level Create(int levelNumber)
         {
@@ -95,5 +112,8 @@ namespace Gameplay.GameProgress
             var index = new Random().Next(_levelPresetsConfig.Presets.Count);
             return _levelPresetsConfig.Presets[index];
         }
+
+        #endregion
+
     }
 }

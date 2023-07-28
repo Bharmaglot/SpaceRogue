@@ -4,7 +4,7 @@ using Scriptables;
 using SpaceRogue.InputSystem;
 using SpaceRogue.Services;
 using System;
-using Gameplay.GameProgress;
+using SpaceRogue.Gameplay.GameProgress;
 using UI.Game;
 using UnityEngine;
 

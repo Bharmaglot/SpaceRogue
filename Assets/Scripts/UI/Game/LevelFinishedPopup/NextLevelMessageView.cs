@@ -3,12 +3,21 @@ using UI.Abstracts;
 using UI.Common;
 using UnityEngine;
 
-namespace UI.Game.LevelFinishedPopup
+
+namespace SpaceRogue.UI.Game.LevelFinishedPopup
 {
     public sealed class NextLevelMessageView : MonoBehaviour, IShowableView, IHideableView
     {
+
+        #region Properties
+
         [field: SerializeField] public TextView LevelsNumber { get; private set; }
         [field: SerializeField] public ButtonView NextLevelButton { get; private set; }
+
+        #endregion
+
+
+        #region CodeLife
 
         public void Init(string levelNumber, Action onClickAction)
         {
@@ -16,14 +25,16 @@ namespace UI.Game.LevelFinishedPopup
             NextLevelButton.Init(onClickAction);
         }
 
-        public void Show()
-        {
-            gameObject.SetActive(true);
-        }
+        #endregion
 
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-    } 
+
+        #region Methods
+
+        public void Show() => gameObject.SetActive(true);
+
+        public void Hide() => gameObject.SetActive(false);
+
+        #endregion
+
+    }
 }

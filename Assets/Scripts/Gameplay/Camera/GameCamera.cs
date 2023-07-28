@@ -1,7 +1,6 @@
 using System;
 using Gameplay.Events;
-using Gameplay.GameProgress;
-using Gameplay.Services;
+using SpaceRogue.Gameplay.GameProgress;
 using SpaceRogue.Services;
 using UnityEngine;
 

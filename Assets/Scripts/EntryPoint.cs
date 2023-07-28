@@ -1,5 +1,4 @@
 using System;
-using Gameplay.GameState;
 using UnityEngine;
 
 public sealed class EntryPoint : MonoBehaviour

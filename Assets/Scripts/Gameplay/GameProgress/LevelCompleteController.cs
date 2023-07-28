@@ -1,14 +1,23 @@
-﻿using System;
-using Gameplay.Events;
+﻿using Gameplay.Events;
 using SpaceRogue.Services;
+using System;
 using UnityEngine;
 
-namespace Gameplay.GameProgress
+
+namespace SpaceRogue.Gameplay.GameProgress
 {
     public class LevelCompleteController : IDisposable
     {
+
+        #region Fields
+
         private readonly LevelProgress _levelProgress;
         private readonly GameStateService _gameStateService;
+
+        #endregion
+
+
+        #region CodeLife
 
         public LevelCompleteController(LevelProgress levelProgress, GameStateService gameStateService)
         {
@@ -18,6 +27,11 @@ namespace Gameplay.GameProgress
             _levelProgress.LevelStarted += OnLevelStarted;
             _levelProgress.LevelFinished += OnLevelFinished;
         }
+
+        #endregion
+
+
+        #region Methods
 
         public void Dispose()
         {
@@ -36,5 +50,8 @@ namespace Gameplay.GameProgress
             Time.timeScale = 0;
             _gameStateService.PauseGame();
         }
+
+        #endregion
+
     }
 }

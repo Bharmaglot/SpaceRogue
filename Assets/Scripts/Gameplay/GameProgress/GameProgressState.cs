@@ -1,16 +1,30 @@
 using SpaceRogue.Services;
 using Zenject;
 
-namespace Gameplay.GameProgress
+
+namespace SpaceRogue.Gameplay.GameProgress
 {
     public sealed class GameProgressState : IInitializable
     {
+
+        #region Fields
+
         private readonly LevelFactory _levelFactory;
         private readonly GameStateService _gameStateService;
 
         private Level _currentLevel;
-        
+
+        #endregion
+
+
+        #region Properties
+
         public int CurrentLevelNumber { get; private set; }
+
+        #endregion
+
+
+        #region CodeLife
 
         public GameProgressState(LevelFactory levelFactory, GameStateService gameStateService)
         {
@@ -19,11 +33,13 @@ namespace Gameplay.GameProgress
 
             CurrentLevelNumber = 1;
         }
-        
-        public void Initialize()
-        {
-            _currentLevel = _levelFactory.Create(CurrentLevelNumber);
-        }
+
+        #endregion
+
+
+        #region Methods
+
+        public void Initialize() => _currentLevel = _levelFactory.Create(CurrentLevelNumber);
 
         public void StartNextLevel()
         {
@@ -38,5 +54,8 @@ namespace Gameplay.GameProgress
             _currentLevel.Dispose();
             _gameStateService.GoToMenu();
         }
+
+        #endregion
+
     }
 }

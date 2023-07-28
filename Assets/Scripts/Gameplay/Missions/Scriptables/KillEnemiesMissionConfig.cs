@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Gameplay.Missions.Scriptables
+
+namespace SpaceRogue.Gameplay.Missions.Scriptables
 {
     [CreateAssetMenu(fileName = nameof(KillEnemiesMissionConfig), menuName = "Configs/Mission/" + nameof(KillEnemiesMissionConfig))]
     public class KillEnemiesMissionConfig : BaseMissionConfig

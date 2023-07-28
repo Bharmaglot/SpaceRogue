@@ -1,24 +1,31 @@
-using System;
 using Gameplay.Events;
-using Gameplay.GameProgress;
-using Gameplay.Missions;
-using UnityEngine;
-using Zenject;
+using SpaceRogue.Gameplay.GameProgress;
+using SpaceRogue.Gameplay.Missions;
+using System;
 
-namespace UI.Game.LevelInfo
+
+namespace SpaceRogue.UI.Game.LevelInfo
 {
     public sealed class LevelInfoAdapter : IDisposable
     {
+
+        #region Fields
+
         private readonly LevelInfoView _view;
         private readonly LevelProgress _levelProgress;
 
         private KillEnemiesMission _levelMission;
 
+        #endregion
+
+
+        #region CodeLife
+
         public LevelInfoAdapter(LevelInfoView levelInfoView, LevelProgress levelProgress)
         {
             _view = levelInfoView;
             _levelProgress = levelProgress;
-            
+
             _levelProgress.LevelStarted += InitView;
         }
 
@@ -28,23 +35,28 @@ namespace UI.Game.LevelInfo
             _levelMission.KillCountChanged -= UpdateDefeatedEnemiesCount;
         }
 
+        #endregion
+
+
+        #region Methods
+
         private void InitView(LevelStartedEventArgs level)
         {
             _levelMission = level.Mission;
 
             _levelMission.KillCountChanged += UpdateDefeatedEnemiesCount;
-            
+
             _view.Init(
-                level.Number.ToString(), 
-                _levelMission.EnemiesKilled.ToString(), 
+                level.Number.ToString(),
+                _levelMission.EnemiesKilled.ToString(),
                 _levelMission.EnemiesToKill.ToString());
-            
+
             _view.Show();
         }
 
-        private void UpdateDefeatedEnemiesCount(int defeatedEnemiesCount)
-        {
-            _view.UpdateKillCounter(defeatedEnemiesCount.ToString());
-        }
+        private void UpdateDefeatedEnemiesCount(int defeatedEnemiesCount) => _view.UpdateKillCounter(defeatedEnemiesCount.ToString());
+
+        #endregion
+
     }
 }

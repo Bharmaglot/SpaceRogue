@@ -1,5 +1,5 @@
+using SpaceRogue.Enums;
 using System;
-using Gameplay.GameState;
 using UnityEngine;
 using Zenject;
 
@@ -8,30 +8,59 @@ namespace SpaceRogue.Services
 {
     public sealed class Updater : ITickable, IFixedTickable, ILateTickable
     {
+
+        #region Events
+
+        private event Action OnUpdate;
+
+        private event Action<float> OnDeltaTimeUpdate;
+
+        private event Action OnFixedUpdate;
+
+        private event Action<float> OnDeltaTimeFixedUpdate;
+
+        private event Action OnLateUpdate;
+
+        #endregion
+
+
+        #region Fields
+
         private readonly GameStateService _gameStateService;
-        
-        private event Action OnUpdate = () => { };
-        private event Action<float> OnDeltaTimeUpdate = _ => { };
-        private event Action OnFixedUpdate = () => { };
-        private event Action<float> OnDeltaTimeFixedUpdate = _ => { };
-        private event Action OnLateUpdate = () => { };
+
+        #endregion
+
+
+        #region CodeLife
 
         public Updater(GameStateService gameStateService)
         {
             _gameStateService = gameStateService;
         }
 
+        #endregion
+
+
+        #region Methods
+
         public void SubscribeToUpdate(Action callback) => OnUpdate += callback;
+
         public void UnsubscribeFromUpdate(Action callback) => OnUpdate -= callback;
+
         public void SubscribeToUpdate(Action<float> callback) => OnDeltaTimeUpdate += callback;
+
         public void UnsubscribeFromUpdate(Action<float> callback) => OnDeltaTimeUpdate -= callback;
 
         public void SubscribeToFixedUpdate(Action callback) => OnFixedUpdate += callback;
+
         public void UnsubscribeFromFixedUpdate(Action callback) => OnFixedUpdate -= callback;
+
         public void SubscribeToFixedUpdate(Action<float> callback) => OnDeltaTimeFixedUpdate += callback;
+
         public void UnsubscribeFromFixedUpdate(Action<float> callback) => OnDeltaTimeFixedUpdate -= callback;
 
         public void SubscribeToLateUpdate(Action callback) => OnLateUpdate += callback;
+
         public void UnsubscribeFromLateUpdate(Action callback) => OnLateUpdate -= callback;
 
         public void Tick()
@@ -40,9 +69,9 @@ namespace SpaceRogue.Services
             {
                 return;
             }
-            
-            OnUpdate.Invoke();
-            OnDeltaTimeUpdate.Invoke(Time.deltaTime);
+
+            OnUpdate?.Invoke();
+            OnDeltaTimeUpdate?.Invoke(Time.deltaTime);
         }
 
         public void FixedTick()
@@ -51,9 +80,9 @@ namespace SpaceRogue.Services
             {
                 return;
             }
-            
-            OnFixedUpdate.Invoke();
-            OnDeltaTimeFixedUpdate.Invoke(Time.fixedDeltaTime);
+
+            OnFixedUpdate?.Invoke();
+            OnDeltaTimeFixedUpdate?.Invoke(Time.fixedDeltaTime);
         }
 
         public void LateTick()
@@ -62,8 +91,11 @@ namespace SpaceRogue.Services
             {
                 return;
             }
-            
-            OnLateUpdate.Invoke();
+
+            OnLateUpdate?.Invoke();
         }
+
+        #endregion
+
     }
 }

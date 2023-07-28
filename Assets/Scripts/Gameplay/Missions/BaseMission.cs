@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace Gameplay.Missions
+
+namespace SpaceRogue.Gameplay.Missions
 {
     public abstract class BaseMission
     {

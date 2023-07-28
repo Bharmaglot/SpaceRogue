@@ -1,7 +1,7 @@
-using Gameplay.GameProgress;
-using Gameplay.Missions;
-using Gameplay.Missions.Factories;
-using Gameplay.Missions.Scriptables;
+using SpaceRogue.Gameplay.GameProgress;
+using SpaceRogue.Gameplay.Missions;
+using SpaceRogue.Gameplay.Missions.Factories;
+using SpaceRogue.Gameplay.Missions.Scriptables;
 using Gameplay.Space;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;

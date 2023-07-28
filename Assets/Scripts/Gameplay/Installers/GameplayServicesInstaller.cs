@@ -1,6 +1,6 @@
 using Gameplay.Background;
 using Gameplay.Enemy.Movement;
-using Gameplay.GameProgress;
+using SpaceRogue.Gameplay.GameProgress;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Movement;

@@ -1,18 +1,27 @@
-﻿using System;
-using Gameplay.Events;
-using Gameplay.GameProgress;
+﻿using Gameplay.Events;
+using SpaceRogue.Gameplay.GameProgress;
+using System;
 
-namespace UI.Game.LevelFinishedPopup
+
+namespace SpaceRogue.UI.Game.LevelFinishedPopup
 {
     public class LevelFinishedPopupPresenter : IDisposable
     {
+
+        #region Fields
+
         private readonly LevelProgress _levelProgress;
         private readonly NextLevelMessageView _view;
         private readonly GameProgressState _gameProgress;
 
+        #endregion
+
+
+        #region CodeLife
+
         public LevelFinishedPopupPresenter(
             LevelProgress levelProgress,
-            NextLevelMessageView view, 
+            NextLevelMessageView view,
             GameProgressState gameProgress
             )
         {
@@ -23,10 +32,12 @@ namespace UI.Game.LevelFinishedPopup
             _levelProgress.LevelCompleted += OnLevelCompleted;
         }
 
-        public void Dispose()
-        {
-            _levelProgress.LevelCompleted -= OnLevelCompleted;
-        }
+        public void Dispose() => _levelProgress.LevelCompleted -= OnLevelCompleted;
+
+        #endregion
+
+
+        #region Methods
 
         private void OnLevelCompleted(LevelCompletedEventArgs args)
         {
@@ -39,5 +50,8 @@ namespace UI.Game.LevelFinishedPopup
             _view.Hide();
             _gameProgress.StartNextLevel();
         }
+
+        #endregion
+
     }
 }

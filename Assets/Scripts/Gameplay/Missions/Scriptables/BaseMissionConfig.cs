@@ -2,7 +2,8 @@
 using SpaceRogue.Abstraction;
 using UnityEngine;
 
-namespace Gameplay.Missions.Scriptables
+
+namespace SpaceRogue.Gameplay.Missions.Scriptables
 {
     public abstract class BaseMissionConfig : ScriptableObject, IIdentityItem<string>
     {

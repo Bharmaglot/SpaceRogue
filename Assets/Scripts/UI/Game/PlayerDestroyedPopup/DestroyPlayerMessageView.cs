@@ -3,12 +3,21 @@ using UI.Abstracts;
 using UI.Common;
 using UnityEngine;
 
-namespace UI.Game.PlayerDestroyedPopup
+
+namespace SpaceRogue.UI.Game.PlayerDestroyedPopup
 {
     public sealed class DestroyPlayerMessageView : MonoBehaviour, IShowableView, IHideableView
     {
+
+        #region Properties
+
         [field: SerializeField] public TextView LevelsNumber { get; private set; }
         [field: SerializeField] public ButtonView DestroyPlayerButton { get; private set; }
+
+        #endregion
+
+
+        #region CodeLife
 
         public void Init(string levelsNumber, Action onClickAction)
         {
@@ -16,14 +25,16 @@ namespace UI.Game.PlayerDestroyedPopup
             DestroyPlayerButton.Init(onClickAction);
         }
 
-        public void Show()
-        {
-            gameObject.SetActive(true);
-        }
+        #endregion
+        
+        
+        #region Methods
 
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-    } 
+        public void Show() => gameObject.SetActive(true);
+
+        public void Hide() => gameObject.SetActive(false);
+
+        #endregion
+
+    }
 }

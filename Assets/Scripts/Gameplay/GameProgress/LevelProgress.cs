@@ -1,30 +1,45 @@
-using System;
 using Gameplay.Events;
 using Gameplay.Player;
-using UnityEngine;
-using Zenject;
+using System;
 
-namespace Gameplay.GameProgress
+
+namespace SpaceRogue.Gameplay.GameProgress
 {
     public sealed class LevelProgress : IDisposable
     {
-        private readonly LevelFactory _levelFactory;
-        private readonly PlayerFactory _playerFactory;
-        
+
+        #region Events
+
         public event Action<LevelStartedEventArgs> LevelStarted;
+
         public event Action<LevelCompletedEventArgs> LevelCompleted;
+
         public event Action LevelFinished;
+
         public event Action<PlayerSpawnedEventArgs> PlayerSpawned;
+
         public event Action<PlayerDestroyedEventArgs> PlayerDestroyed;
 
+        #endregion
+
+
+        #region Fields
+
+        private readonly LevelFactory _levelFactory;
+        private readonly PlayerFactory _playerFactory;
         private Level _level;
-        private Player.Player _player;
+        private global::Gameplay.Player.Player _player;
+
+        #endregion
+
+
+        #region CodeLife
 
         public LevelProgress(LevelFactory levelFactory, PlayerFactory playerFactory)
         {
             _levelFactory = levelFactory;
             _playerFactory = playerFactory;
-            
+
             _levelFactory.LevelCreated += OnLevelCreated;
             _playerFactory.PlayerSpawned += OnPlayerSpawned;
         }
@@ -35,15 +50,20 @@ namespace Gameplay.GameProgress
             _playerFactory.PlayerSpawned -= OnPlayerSpawned;
         }
 
+        #endregion
+
+
+        #region Methods
+
         private void OnLevelCreated(Level level)
         {
             _level = level;
             _level.LevelMission.Completed += OnLevelMissionCompleted;
-            
+
             LevelStarted?.Invoke(
                 new LevelStartedEventArgs(
-                    _level.CurrentLevelNumber, 
-                    _level.LevelMission, 
+                    _level.CurrentLevelNumber,
+                    _level.LevelMission,
                     _level.MapCameraSize
                     )
                 );
@@ -51,8 +71,11 @@ namespace Gameplay.GameProgress
 
         private void OnLevelMissionCompleted()
         {
-            if (_player is null) return;
-            
+            if (_player is null)
+            {
+                return;
+            }
+
             LevelCompleted?.Invoke(new LevelCompletedEventArgs(_level.CurrentLevelNumber));
             LevelFinished?.Invoke();
 
@@ -71,9 +94,11 @@ namespace Gameplay.GameProgress
         {
             PlayerDestroyed?.Invoke(new PlayerDestroyedEventArgs(_level.CurrentLevelNumber));
             LevelFinished?.Invoke();
-            
+
             _player.PlayerDestroyed -= OnPlayerDestroyed;
             _player = null;
         }
+
+        #endregion
     }
 }

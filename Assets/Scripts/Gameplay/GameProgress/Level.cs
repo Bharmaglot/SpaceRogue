@@ -1,30 +1,44 @@
-using System;
 using Gameplay.Asteroids;
 using Gameplay.Enemy;
-using Gameplay.Missions;
+using SpaceRogue.Gameplay.Missions;
 using SpaceRogue.Gameplay.Space.Obstacle;
+using System;
 
-namespace Gameplay.GameProgress
+
+namespace SpaceRogue.Gameplay.GameProgress
 {
     public sealed class Level : IDisposable
     {
-        private readonly Player.Player _player;
+
+        #region Fields
+
+        private readonly global::Gameplay.Player.Player _player;
         private readonly EnemyForces _enemyForces;
-        private readonly Space.Space _space;
+        private readonly global::Gameplay.Space.Space _space;
         private readonly SpaceObstacle _spaceObstacle;
         private readonly AsteroidsInSpace _asteroids;
+
+        #endregion
+
+
+        #region Properties
 
         public int CurrentLevelNumber { get; }
         public KillEnemiesMission LevelMission { get; }
         public float MapCameraSize { get; }
 
+        #endregion
+
+
+        #region CodeLife
+
         public Level(
             int currentLevelNumber,
             KillEnemiesMission levelMission,
             float mapCameraSize,
-            Player.Player player,
+            global::Gameplay.Player.Player player,
             EnemyForces enemyForces,
-            Space.Space space,
+            global::Gameplay.Space.Space space,
             SpaceObstacle spaceObstacle,
             AsteroidsInSpace asteroids
             )
@@ -32,7 +46,7 @@ namespace Gameplay.GameProgress
             CurrentLevelNumber = currentLevelNumber;
             LevelMission = levelMission;
             MapCameraSize = mapCameraSize;
-            
+
             _player = player;
             _enemyForces = enemyForces;
             _space = space;
@@ -42,22 +56,16 @@ namespace Gameplay.GameProgress
 
         public void Dispose()
         {
-            if (_enemyForces is not null)
-            {
-                _enemyForces.Dispose();
-            }
-
-            if (_player is not null)
-            {
-                _player.Dispose();
-            }
+            _enemyForces?.Dispose();
+            _player?.Dispose();
 
             _asteroids.Dispose();
             _spaceObstacle.Dispose();
-            
-            
-            
+
             _space.Dispose(); //Important to be last!
         }
+
+        #endregion
+
     }
 }
