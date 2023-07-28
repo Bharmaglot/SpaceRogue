@@ -19,24 +19,24 @@ namespace UI.Game
         private readonly EntitySurvival _entitySurvival;
 
         private readonly HealthShieldStatusBarView _shieldStatusBarView;
-        private readonly float _scaleFactor;
+        private readonly Vector2 _referenceResolution;
 
 
         public FloatStatusBar(
             Updater updater, 
             CameraView cameraView, 
-            float scaleFactor, 
+            Vector2 referenceResolution, 
             HealthStatusBarView statusBarView, 
             Collider2D unitCollider, 
             EntitySurvival entitySurvival)
         {
             _updater = updater;
             _mainCamera = cameraView.GetComponent<Camera>();
+            _referenceResolution = referenceResolution;
             _statusBarView = statusBarView;
             _unitCollider = unitCollider;
             _entitySurvival = entitySurvival;
-            
-            _scaleFactor = scaleFactor;
+
 
             if (_statusBarView is HealthShieldStatusBarView shieldStatusBarView)
             {
@@ -60,7 +60,7 @@ namespace UI.Game
                 _entitySurvival.EntityShield.ShieldChanged -= UpdateShieldBar;
                 UnityEngine.Object.Destroy(_shieldStatusBarView.gameObject);
             }
-            else
+            else if( _statusBarView != null)
             {
                 UnityEngine.Object.Destroy(_statusBarView.gameObject);
             }
@@ -119,7 +119,9 @@ namespace UI.Game
         {
             var position = _mainCamera.WorldToScreenPoint(unitPosition + Vector3.up * HealthBarOffset);
             position = new Vector3(position.x - Screen.width / 2, position.y - Screen.height / 2, 0);
-            var finalPosition = position / _scaleFactor;
+            var xScaleFactor = _referenceResolution.x / Screen.width;
+            var yScaleFactor = _referenceResolution.y / Screen.height;
+            var finalPosition = new Vector2(position.x * xScaleFactor, position.y * yScaleFactor);
 
             statusBarRectTransform.anchoredPosition = finalPosition;
         }
