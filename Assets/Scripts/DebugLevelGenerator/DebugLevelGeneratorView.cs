@@ -1,4 +1,5 @@
-﻿using Gameplay.Space.Generator;
+﻿using Gameplay.Space;
+using Gameplay.Space.Generator;
 using Gameplay.Space.SpaceObjects.Scriptables;
 using UnityEngine;
 using UnityEngine.Tilemaps;

@@ -1,5 +1,8 @@
-using Gameplay.LevelProgress;
-using Gameplay.Services;
+using SpaceRogue.Gameplay.GameProgress;
+using SpaceRogue.Gameplay.Missions;
+using SpaceRogue.Gameplay.Missions.Factories;
+using SpaceRogue.Gameplay.Missions.Scriptables;
+using Gameplay.Space;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
 using Gameplay.Space.SpaceObjects.Scriptables;
@@ -32,6 +35,8 @@ namespace SpaceRogue.Gameplay.Installers
             InstallLevelGenerator();
             InstallSpaceObstacle();
             InstallLevelProgressService();
+            InstallMissionFactory();
+            InstallMissionCompleteCheat();
         }
 
         private void InstallSpaceView()
@@ -83,9 +88,32 @@ namespace SpaceRogue.Gameplay.Installers
         private void InstallLevelProgressService()
         {
             Container
-                .BindInterfacesAndSelfTo<CurrentLevelProgress>()
+                .BindInterfacesAndSelfTo<LevelProgress>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<LevelCompleteController>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void InstallMissionFactory()
+        {
+            Container
+                .BindIFactory<BaseMissionConfig, BaseMission>()
+                .FromFactory<MissionFactory>();
+
+            Container
+                .BindFactory<int, KillEnemiesMissionConfig, KillEnemiesMission, KillMissionFactory>()
+                .AsSingle();
+        }
+
+        private void InstallMissionCompleteCheat()
+        {
+            Container
+                .BindInterfacesAndSelfTo<InstantMissionCompletionController>()
+                .AsSingle();
         }
 
         #endregion

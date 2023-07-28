@@ -51,6 +51,9 @@ namespace SpaceRogue.Gameplay.Shooting
         {
             _input.PrimaryFireInput -= HandleFiringInput;
             _input.AbilityInput -= AbilityInput;
+
+            CurrentWeapon.Dispose();
+            CurrentAbility.Dispose();
         }
 
         #endregion

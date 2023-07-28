@@ -14,6 +14,7 @@ namespace Gameplay.Services
         private readonly PlayerFactory _playerFactory;
 
         private Transform _playerTransform;
+        private Player.Player _player;
 
         public event Action<Transform> PlayerTransform = _ => { };
 
@@ -46,8 +47,17 @@ namespace Gameplay.Services
         private void OnPlayerSpawned(PlayerSpawnedEventArgs args)
         {
             _playerTransform = args.Transform;
+            _player = args.Player;
+            _player.PlayerDisposed += OnPlayerDisposed;
             _timer.Start();
             _timer.OnExpire += Locator;
+        }
+
+        private void OnPlayerDisposed()
+        {
+            _timer.OnExpire -= Locator;
+            _player.PlayerDisposed -= OnPlayerDisposed;
+            _player = null;
         }
     }
 }

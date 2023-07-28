@@ -63,7 +63,7 @@ namespace SpaceRogue.Gameplay.Shooting.Weapons
                 var pelletAngle = RandomPicker.PickRandomBetweenTwoValues(minimumPelletAngle, maximumPelletAngle);
                 var pelletRotation = turretRotation * Quaternion.AngleAxis(pelletAngle, Vector3.forward);
 
-                _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, pelletRotation, _entityType, _config.ShotgunProjectile));
+                _projectileFactory.Create(new ProjectileSpawnParams(bulletPosition, pelletRotation, _entityType, _config.ShotgunProjectile, this));
             }
         }
 

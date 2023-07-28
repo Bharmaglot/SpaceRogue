@@ -1,6 +1,6 @@
 using System;
 using Gameplay.Events;
-using Gameplay.Services;
+using SpaceRogue.Gameplay.GameProgress;
 using SpaceRogue.Services;
 using UnityEngine;
 
@@ -10,14 +10,14 @@ namespace Gameplay.Camera
     public sealed class GameCamera : IDisposable
     {
         private readonly Updater _updater;
-        private readonly CurrentLevelProgress _gameProgress;
+        private readonly LevelProgress _gameProgress;
         private readonly Transform _cameraTransform;
         
         private Transform _playerTransform;
         
         private const int CameraZAxisOffset = -10;
 
-        public GameCamera(Updater updater, CurrentLevelProgress gameProgress, CameraView cameraView)
+        public GameCamera(Updater updater, LevelProgress gameProgress, CameraView cameraView)
         {
             _updater = updater;
             _gameProgress = gameProgress;
@@ -40,7 +40,7 @@ namespace Gameplay.Camera
             _updater.SubscribeToUpdate(FollowPlayer);
         }
 
-        private void OnPlayerDestroyed()
+        private void OnPlayerDestroyed(PlayerDestroyedEventArgs _)
         {
             _updater.UnsubscribeFromUpdate(FollowPlayer);
             _playerTransform = null;

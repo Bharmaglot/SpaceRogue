@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Gameplay.Space.Factories
 {
-    public sealed class SpaceFactory : PlaceholderFactory<int, SpawnPointsFinder, Space>
+    public sealed class SpaceFactory : PlaceholderFactory<int, SpaceView, SpawnPointsFinder, Space>
     {
         private readonly SpaceObjectFactory _spaceObjectFactory;
         private readonly SpaceObjectSpawnConfig _spaceObjectSpawnConfig;
@@ -18,7 +18,7 @@ namespace Gameplay.Space.Factories
             _spaceObjectSpawnConfig = spaceObjectSpawnConfig;
         }
         
-        public override Space Create(int spaceObjectCount, SpawnPointsFinder spawnPointsFinder)
+        public override Space Create(int spaceObjectCount, SpaceView spaceView, SpawnPointsFinder spawnPointsFinder)
         {
             List<SpaceObject> spaceObjects = new();
             for (int i = 0; i < spaceObjectCount; i++)
@@ -31,7 +31,7 @@ namespace Gameplay.Space.Factories
                 }
             }
 
-            return new Space(spaceObjects);
+            return new Space(spaceObjects, spaceView);
         }
     }
 }

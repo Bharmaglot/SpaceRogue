@@ -47,13 +47,16 @@ namespace Gameplay.Player
             var unitTurningMouse = _unitTurningMouseFactory.Create(playerView, _playerInput, model);
             var unitWeapon = _playerWeaponFactory.Create(playerView, unitMovement);
             var playerSurvival = _playerSurvivalFactory.Create(playerView);
+
+            var player = new Player(playerView, unitMovement, unitTurningMouse, playerSurvival, unitWeapon);
+
+            PlayerSpawned.Invoke(
+                new PlayerSpawnedEventArgs(
+                    player,
+                    playerView.transform)
+            );
             
-            PlayerSpawned.Invoke(new PlayerSpawnedEventArgs
-            {
-                Transform = playerView.transform
-            });
-            
-            return new Player(playerView, unitMovement, unitTurningMouse, playerSurvival, unitWeapon);
+            return player;
         }
     }
 }

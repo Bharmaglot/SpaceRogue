@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 using Gameplay.Pooling;
+using Gameplay.Space;
 using Gameplay.Space.SpaceObjects.Scriptables;
 using Gameplay.Space.SpaceObjects;
 using Gameplay.Space.Factories;
@@ -115,7 +116,7 @@ namespace Gameplay.Installers
                 .AsSingle();
 
             Container
-                .BindFactory<int, SpawnPointsFinder, Space.Space, SpaceFactory>()
+                .BindFactory<int, SpaceView, SpawnPointsFinder, Space.Space, SpaceFactory>()
                 .AsSingle();
         }
     }

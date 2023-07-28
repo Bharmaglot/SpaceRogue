@@ -27,7 +27,6 @@ namespace SpaceRogue.UI.Installers
             InstallPlayerInfoService();
             InstallPlayerStatusBarService();
             InstallPlayerSpeedometerService();
-            InstallLevelInfoService();
             InstallMinimapService();
 
             InstallEnemyStatusBarService();
@@ -62,14 +61,6 @@ namespace SpaceRogue.UI.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<PlayerSpeedometerService>()
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallLevelInfoService()
-        {
-            Container
-                .BindInterfacesAndSelfTo<LevelInfoService>()
                 .AsSingle()
                 .NonLazy();
         }

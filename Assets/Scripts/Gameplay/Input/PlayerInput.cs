@@ -32,7 +32,7 @@ namespace SpaceRogue.InputSystem
         private const KeyCode PRIMARY_FIRE = KeyCode.Mouse0;
         private const KeyCode ABILITY = KeyCode.Mouse1;
         private const KeyCode CHANGE_WEAPON = KeyCode.Q;
-        private const KeyCode NEXT_LEVEL = KeyCode.Return;
+        private const KeyCode NEXT_LEVEL = KeyCode.G;
         private const KeyCode MAP = KeyCode.Tab;
 
         private readonly Updater _updater;

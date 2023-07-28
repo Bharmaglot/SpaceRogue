@@ -14,18 +14,20 @@ namespace SpaceRogue.Gameplay.Shooting
         public Quaternion Rotation { get; }
         public EntityType EntityType { get; }
         public ProjectileConfig Config { get; }
+        public Weapon Weapon { get; }
 
         #endregion
 
 
         #region CodeLife
 
-        public ProjectileSpawnParams(Vector2 position, Quaternion rotation, EntityType entityType, ProjectileConfig config)
+        public ProjectileSpawnParams(Vector2 position, Quaternion rotation, EntityType entityType, ProjectileConfig config, Weapon weapon)
         {
             Position = position;
             Rotation = rotation;
             EntityType = entityType;
             Config = config;
+            Weapon = weapon;
         }
 
         public void Deconstruct(out Vector2 position, out Quaternion rotation, out ProjectileConfig config, out EntityType entityType)

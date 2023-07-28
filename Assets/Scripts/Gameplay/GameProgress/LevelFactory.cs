@@ -1,18 +1,29 @@
-using System;
 using Gameplay.Asteroids.Factories;
 using Gameplay.Enemy;
 using Gameplay.Player;
-using Gameplay.Services;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
-using SpaceRogue.Gameplay.Space.Obstacle;
 using Scriptables;
+using SpaceRogue.Gameplay.Missions.Factories;
+using SpaceRogue.Gameplay.Space.Obstacle;
+using System;
 using Zenject;
 
-namespace Gameplay.LevelProgress
+
+namespace SpaceRogue.Gameplay.GameProgress
 {
     public sealed class LevelFactory : PlaceholderFactory<int, Level>
     {
+
+        #region Events
+
+        public event Action<Level> LevelCreated;
+
+        #endregion
+
+
+        #region Fields
+
         private readonly LevelPresetsConfig _levelPresetsConfig;
         private readonly SpaceViewFactory _spaceViewFactory;
         private readonly MapGeneratorFactory _mapGeneratorFactory;
@@ -23,10 +34,14 @@ namespace Gameplay.LevelProgress
         private readonly SpaceFactory _spaceFactory;
         private readonly EnemyForcesFactory _enemyForcesFactory;
         private readonly AsteroidsInSpaceFactory _asteroidsInSpaceFactory;
-        
+        private readonly KillMissionFactory _missionFactory;
+
         private LevelPreset _currentLevelPreset;
 
-        public event Action<Level> LevelCreated = (_) => { };
+        #endregion
+
+
+        #region CodeLife
 
         public LevelFactory(
             LevelPresetsConfig levelPresetsConfig,
@@ -38,7 +53,8 @@ namespace Gameplay.LevelProgress
             PlayerFactory playerFactory,
             SpaceFactory spaceFactory,
             EnemyForcesFactory enemyForcesFactory,
-            AsteroidsInSpaceFactory asteroidsInSpaceFactory)
+            AsteroidsInSpaceFactory asteroidsInSpaceFactory,
+            KillMissionFactory missionFactory)
         {
             _levelPresetsConfig = levelPresetsConfig;
             _spaceViewFactory = spaceViewFactory;
@@ -50,7 +66,13 @@ namespace Gameplay.LevelProgress
             _spaceFactory = spaceFactory;
             _enemyForcesFactory = enemyForcesFactory;
             _asteroidsInSpaceFactory = asteroidsInSpaceFactory;
+            _missionFactory = missionFactory;
         }
+
+        #endregion
+
+
+        #region Methods
 
         public override Level Create(int levelNumber)
         {
@@ -66,19 +88,22 @@ namespace Gameplay.LevelProgress
 
             var spawnPointsFinder = _spawnPointsFinderFactory.Create(map.NebulaMap, spaceView.NebulaTilemap);
 
-            _spaceObstacleFactory.Create(spaceView.SpaceObstacleView, _currentLevelPreset.SpaceConfig.ObstacleForce);
+            var obstacle = _spaceObstacleFactory.Create(spaceView.SpaceObstacleView, _currentLevelPreset.SpaceConfig.ObstacleForce);
 
             var player = _playerFactory.Create(spawnPointsFinder.GetPlayerSpawnPoint());
 
-            var space = _spaceFactory.Create(_currentLevelPreset.SpaceConfig.SpaceObjectCount, spawnPointsFinder);
+            var space = _spaceFactory.Create(_currentLevelPreset.SpaceConfig.SpaceObjectCount, spaceView, spawnPointsFinder);
 
             var enemyForces = _enemyForcesFactory.Create(_currentLevelPreset.SpaceConfig.EnemyGroupCount, spawnPointsFinder);
 
             var asteroids = _asteroidsInSpaceFactory.Create(_currentLevelPreset.SpaceConfig.AsteroidsOnStartCount, spawnPointsFinder);
             asteroids.SpawnStartAsteroids();
 
-            var level = new Level(levelNumber, _currentLevelPreset.EnemiesCountToWin, mapCameraSize, player, enemyForces, space, asteroids);
-            LevelCreated.Invoke(level);
+            var enemiesSpawned = enemyForces.GetEnemiesCount();
+            var mission = _missionFactory.Create(enemiesSpawned, _currentLevelPreset.LevelMission);
+
+            var level = new Level(levelNumber, mission, mapCameraSize, player, enemyForces, space, obstacle, asteroids);
+            LevelCreated?.Invoke(level);
             return level;
         }
 
@@ -87,5 +112,8 @@ namespace Gameplay.LevelProgress
             var index = new Random().Next(_levelPresetsConfig.Presets.Count);
             return _levelPresetsConfig.Presets[index];
         }
+
+        #endregion
+
     }
 }

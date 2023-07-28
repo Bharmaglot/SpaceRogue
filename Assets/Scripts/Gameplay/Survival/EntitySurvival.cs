@@ -16,7 +16,7 @@ namespace Gameplay.Survival
 
         public EntityHealth EntityHealth { get; }
         public EntityShield EntityShield { get; }
-        public event Action UnitDestroyed = () => { };
+        public event Action UnitDestroyed;
 
         public EntitySurvival(EntityViewBase entityView, EntityHealth entityHealth, EntityShield entityShield, EntityDamageImmunityFrame entityDamageImmunityFrame)
         {
@@ -77,7 +77,7 @@ namespace Gameplay.Survival
 
         private void OnHealthReachedZero()
         {
-            UnitDestroyed.Invoke();
+            UnitDestroyed?.Invoke();
         }
     }
 }

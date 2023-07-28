@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Gameplay.Space.Generator
+namespace Gameplay.Space
 {
     public sealed class SpaceView : MonoBehaviour
     {

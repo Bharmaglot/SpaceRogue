@@ -31,7 +31,7 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
         public override Projectile Create(ProjectileSpawnParams spawnParams)
         {
             var projectileView = _projectileViewFactory.Create(spawnParams);
-            var projectile = new Projectile(spawnParams.Config, projectileView, _timerFactory);
+            var projectile = new Projectile(spawnParams.Config, spawnParams.Weapon, projectileView, _timerFactory);
             return projectile;
         }
 
