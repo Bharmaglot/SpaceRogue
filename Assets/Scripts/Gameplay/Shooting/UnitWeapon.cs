@@ -1,7 +1,7 @@
 using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Abilities;
 using System;
-
+using UnityEngine;
 
 namespace SpaceRogue.Gameplay.Shooting
 {
@@ -42,6 +42,7 @@ namespace SpaceRogue.Gameplay.Shooting
             }
         }
 
+        public Sprite CharacterIcon { get; private set; }
         public Weapon CurrentWeapon { get; private set; }
         public Ability CurrentAbility { get; private set; }
 
@@ -50,8 +51,9 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #region CodeLife
 
-        public UnitWeapon(MountedWeapon mountedWeapon, Ability ability, IUnitWeaponInput input)
+        public UnitWeapon(Sprite characterIcon, MountedWeapon mountedWeapon, Ability ability, IUnitWeaponInput input)
         {
+            CharacterIcon = characterIcon;
             _mountedWeapon = mountedWeapon;
             _ability = ability;
             _input = input;

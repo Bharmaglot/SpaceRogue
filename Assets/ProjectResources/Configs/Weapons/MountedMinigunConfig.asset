@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ed8d06865043f6b503a28c367e423b, type: 3}
   m_Name: MountedMinigunConfig
   m_EditorClassIdentifier: 
+  <CharacterIcon>k__BackingField: {fileID: 21300000, guid: 087740a1b992bff49a4dcd1dda143415, type: 3}
   <WeaponMountType>k__BackingField: 1
   <MountedWeapon>k__BackingField: {fileID: 11400000, guid: d1f9d344806f3f044858b4c2571f8672, type: 2}
   <Ability>k__BackingField: {fileID: 11400000, guid: cef2b1c2b2fe422419c5c076d721b6da, type: 2}

@@ -4,7 +4,7 @@ using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Gameplay.Shooting.Weapons;
 using System;
 using UI.Game;
-
+using UnityEngine;
 
 namespace SpaceRogue.UI.Services
 {
@@ -15,9 +15,11 @@ namespace SpaceRogue.UI.Services
 
         private readonly PlayerUsedItemView _playerWeaponView;
         private readonly PlayerUsedItemView _playerAbilityView;
+        private readonly CharacterView _characterView;
         private readonly PlayerFactory _playerFactory;
         private global::Gameplay.Player.Player _player;
 
+        private Sprite _currentCharacterIcon;
         private Weapon _currentWeapon;
         private Ability _currentAbility;
 
@@ -30,12 +32,14 @@ namespace SpaceRogue.UI.Services
         {
             _playerWeaponView = playerInfoView.PlayerWeaponView;
             _playerAbilityView = playerInfoView.PlayerAbilityView;
+            _characterView = playerInfoView.CharacterView;
             _playerFactory = playerFactory;
 
             _playerFactory.OnPlayerSpawned += OnPlayerSpawnedHandler;
 
             _playerWeaponView.Hide();
             _playerAbilityView.Hide();
+            _characterView.Hide();
         }
 
         private void OnPlayerSpawnedHandler(global::Gameplay.Player.Player player)
@@ -66,6 +70,7 @@ namespace SpaceRogue.UI.Services
                 UnsubscribesFromWeaponsAndAbilities();
             }
 
+            _currentCharacterIcon = unitWeapon.CharacterIcon != null ? unitWeapon.CharacterIcon : default;
             _currentWeapon = unitWeapon.CurrentWeapon;
             _currentAbility = unitWeapon.CurrentAbility;
 
@@ -91,6 +96,9 @@ namespace SpaceRogue.UI.Services
 
         private void SetupWeaponsAndAbilities()
         {
+            _characterView.Show();
+            _characterView.Image.sprite = _currentCharacterIcon;
+
             if (_currentWeapon is NullGun)
             {
                 _playerWeaponView.Hide();
