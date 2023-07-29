@@ -163,6 +163,7 @@ Transform:
   - {fileID: 1176755960}
   - {fileID: 1973976291}
   - {fileID: 1275334704}
+  - {fileID: 393584749}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -257,6 +258,51 @@ MonoBehaviour:
   <GameBackgroundConfig>k__BackingField: {fileID: 11400000, guid: 34f804a0705613c4aaeed5fc66c7fa58, type: 2}
   <GameBackgroundView>k__BackingField: {fileID: 1854316519}
   <PlayerInputConfig>k__BackingField: {fileID: 11400000, guid: 2178629364486a942ab557a20e400472, type: 2}
+--- !u!1 &393584748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 393584749}
+  - component: {fileID: 393584750}
+  m_Layer: 0
+  m_Name: GameEventsInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &393584749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393584748}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 273910148}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &393584750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393584748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3338c67616ed1b442962fd26dd5f15e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GameEventPool>k__BackingField: {fileID: 1249094342}
 --- !u!1001 &411342707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -673,7 +719,8 @@ MonoBehaviour:
   <EnemyHealthBarsView>k__BackingField: {fileID: 1024208123}
   <HealthShieldStatusBarView>k__BackingField: {fileID: 4510019004231548740, guid: dd61e8ef8ca2574438bbff898a3db5c0, type: 3}
   <HealthStatusBarView>k__BackingField: {fileID: 1853970955932722102, guid: 0ce30fd6c2206f54f8a7b263d9033611, type: 3}
-  <GameEventIndicatorsView>k__BackingField: {fileID: 1024208120}
+  <IndicatorsView>k__BackingField: {fileID: 1024208120}
+  <GameEventIndicatorView>k__BackingField: {fileID: -6141970156064390766, guid: f790ba35fbeb81f45880171aef55362d, type: 3}
   <PlayerDestroyedPopup>k__BackingField: {fileID: 411342709}
   <LevelCompletedPopup>k__BackingField: {fileID: 1731520084}
 --- !u!1 &564741017
@@ -2099,6 +2146,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MinimapCamera>k__BackingField: {fileID: 1998262877}
   <MinimapConfig>k__BackingField: {fileID: 11400000, guid: 81136bfea65e88c4aacddcd20930b12b, type: 2}
+--- !u!1 &1249094341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1249094343}
+  - component: {fileID: 1249094342}
+  m_Layer: 0
+  m_Name: GameEventPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1249094342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249094341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644a7f9535ee92c44bdb4d141a27bd35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1249094343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249094341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1275334703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,6 +2816,7 @@ MonoBehaviour:
   - {fileID: 1176755961}
   - {fileID: 1973976292}
   - {fileID: 1275334705}
+  - {fileID: 393584750}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:

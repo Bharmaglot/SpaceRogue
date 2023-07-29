@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SpaceConfig>k__BackingField: {fileID: 11400000, guid: 00c5c5b9e87037a4c9fb20b404afe0e0, type: 2}
   <LevelMission>k__BackingField: {fileID: 11400000, guid: 577aa34a7fad25a44a6edd9dcede2a4e, type: 2}
+  <GameEventsConfig>k__BackingField: {fileID: 11400000, guid: 8f68d19611728b14d8b79d718b108bbe, type: 2}

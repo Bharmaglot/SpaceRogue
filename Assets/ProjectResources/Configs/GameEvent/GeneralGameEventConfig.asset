@@ -15,5 +15,3 @@ MonoBehaviour:
   <GameEvents>k__BackingField:
   - {fileID: 11400000, guid: c318b14d5eb8d684e84c8fa5e434bcd8, type: 2}
   - {fileID: 11400000, guid: 47a2923b9f7fefd48999d71cf86f3e1c, type: 2}
-  - {fileID: 11400000, guid: e2c4ba2b71150504c8fea37773a24d75, type: 2}
-  - {fileID: 11400000, guid: 898e3026f088f6c47a438afcbeb8546d, type: 2}

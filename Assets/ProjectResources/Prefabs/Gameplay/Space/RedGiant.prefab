@@ -27,7 +27,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.03, z: 0}
   m_LocalScale: {x: 1.4, y: 1.4131813, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7109022986221857422}
   m_RootOrder: 0
@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fa2b71b17a6fb4c908d6e91de72152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CircleCollider2D>k__BackingField: {fileID: 1851201680517866144}
+  <SpriteRenderer>k__BackingField: {fileID: 7931291843106246743}
   <MinimapIconSpriteRenderer>k__BackingField: {fileID: 8448350388064284482}
 --- !u!50 &2280198196944652713
 Rigidbody2D:

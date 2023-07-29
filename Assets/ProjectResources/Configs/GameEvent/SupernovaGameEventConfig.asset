@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b39e3b6d98ec2845a093d18f04debb0, type: 3}
   m_Name: SupernovaGameEventConfig
   m_EditorClassIdentifier: 
-  <GameEventType>k__BackingField: 2
   <Icon>k__BackingField: {fileID: 21300000, guid: 3a6e3ba4a9643434db7e3714ebec5c30, type: 3}
   <IndicatorDiameter>k__BackingField: 625
   <IsRecurring>k__BackingField: 1
-  <ResponseTimeInSeconds>k__BackingField: 30
+  <ShowUntilItIsVisibleOnce>k__BackingField: 0
+  <ResponseTime>k__BackingField: 0.1
   <Chance>k__BackingField: 0.2
   <SearchRadius>k__BackingField: 300
-  <TimeToExplosionInSeconds>k__BackingField: 5
+  <TimeToExplosion>k__BackingField: 5
   <WarningColor>k__BackingField: {r: 0.27058825, g: 0.8156863, b: 0.61960787, a: 1}
   <SupernovaSprite>k__BackingField: {fileID: 21300000, guid: 219a5af12ff4c014eb0711b20c5c8fc9, type: 3}
   <ShockwaveColor>k__BackingField: {r: 0.27058825, g: 0.8156863, b: 0.61960787, a: 1}

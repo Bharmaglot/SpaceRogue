@@ -1,5 +1,6 @@
 using Gameplay.Asteroids;
 using Gameplay.Enemy;
+using SpaceRogue.Gameplay.GameEvent;
 using SpaceRogue.Gameplay.Missions;
 using SpaceRogue.Gameplay.Space.Obstacle;
 using System;
@@ -17,6 +18,7 @@ namespace SpaceRogue.Gameplay.GameProgress
         private readonly global::Gameplay.Space.Space _space;
         private readonly SpaceObstacle _spaceObstacle;
         private readonly AsteroidsInSpace _asteroids;
+        private readonly GameEventsController _gameEventsController;
 
         #endregion
 
@@ -40,7 +42,8 @@ namespace SpaceRogue.Gameplay.GameProgress
             EnemyForces enemyForces,
             global::Gameplay.Space.Space space,
             SpaceObstacle spaceObstacle,
-            AsteroidsInSpace asteroids
+            AsteroidsInSpace asteroids,
+            GameEventsController gameEventsController
             )
         {
             CurrentLevelNumber = currentLevelNumber;
@@ -52,6 +55,7 @@ namespace SpaceRogue.Gameplay.GameProgress
             _space = space;
             _spaceObstacle = spaceObstacle;
             _asteroids = asteroids;
+            _gameEventsController = gameEventsController;
         }
 
         public void Dispose()
@@ -61,6 +65,7 @@ namespace SpaceRogue.Gameplay.GameProgress
 
             _asteroids.Dispose();
             _spaceObstacle.Dispose();
+            _gameEventsController.Dispose();
 
             _space.Dispose(); //Important to be last!
         }

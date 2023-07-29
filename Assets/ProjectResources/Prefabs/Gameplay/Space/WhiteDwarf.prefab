@@ -69,6 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fa2b71b17a6fb4c908d6e91de72152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CircleCollider2D>k__BackingField: {fileID: 5627150777455120643}
+  <SpriteRenderer>k__BackingField: {fileID: 5971736525922904753}
   <MinimapIconSpriteRenderer>k__BackingField: {fileID: 4671632434687478807}
 --- !u!58 &5627150777455120643
 CircleCollider2D:
