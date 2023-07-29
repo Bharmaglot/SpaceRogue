@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: AsteroidConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: -855076941684117732, guid: ae4d463454dcd3f4f8546cef1366ff03, type: 3}
-  <Type>k__BackingField: 1
-  <SizeType>k__BackingField: 2
   <SurvivalConfig>k__BackingField: {fileID: 11400000, guid: a975cfa3cacf95945ada093cc30cc710, type: 2}
-  <MoveConfig>k__BackingField: {fileID: 11400000, guid: f012dd68efe45624786152543e5ed425, type: 2}
-  <MaxSpawnOrbit>k__BackingField: 100
+  <Type>k__BackingField: 1
+  <SizeType>k__BackingField: 3
+  <MoveType>k__BackingField: 0
+  <StartingSpeed>k__BackingField: 15
+  <MaxSpawnRadius>k__BackingField: 500
   <AsteroidLifeTime>k__BackingField: 20
-  <Damage>k__BackingField: 1
+  <Damage>k__BackingField: 20

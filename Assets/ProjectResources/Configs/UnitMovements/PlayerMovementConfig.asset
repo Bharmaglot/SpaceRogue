@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: PlayerMovementConfig
   m_EditorClassIdentifier: 
   maximumSpeed: 15
-  maximumBackwardSpeed: 3
-  accelerationTime: 2
-  stoppingSpeed: 0.1
-  startingTurnSpeed: 3
+  maximumBackwardSpeed: 10
+  accelerationTime: 1
+  stoppingSpeed: 0.5
+  startingTurnSpeed: 5
   maximumTurnSpeed: 10
-  turnAccelerationTime: 0.2
-  <DashLength>k__BackingField: 5
+  turnAccelerationTime: 0.5
+  <DashLength>k__BackingField: 20
   <DashCooldown>k__BackingField: 5
-  <DashCompleteTime>k__BackingField: 5
-  <DashForce>k__BackingField: 100

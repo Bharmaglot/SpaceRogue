@@ -45,4 +45,4 @@ MonoBehaviour:
     m_NumAlphaKeys: 4
   <ShockwaveLifetime>k__BackingField: 1
   <ShockwaveRadius>k__BackingField: 50
-  <ShockwaveForce>k__BackingField: 500
+  <ShockwaveForce>k__BackingField: 800

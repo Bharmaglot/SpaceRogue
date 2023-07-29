@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: EnemySpawnConfig
   m_EditorClassIdentifier: 
   <Groups>k__BackingField:
-  - <Weight>k__BackingField: 500
+  - <Weight>k__BackingField: 400
     <Config>k__BackingField: {fileID: 11400000, guid: c52a07c0302e3dc45b80205f9749b1d4, type: 2}
+  - <Weight>k__BackingField: 300
+    <Config>k__BackingField: {fileID: 11400000, guid: b8d721e03ffc4204e9f6b3ed15b410c9, type: 2}
+  - <Weight>k__BackingField: 200
+    <Config>k__BackingField: {fileID: 11400000, guid: cb4e1490e2ab32548ba93a3329cf7c11, type: 2}
+  - <Weight>k__BackingField: 100
+    <Config>k__BackingField: {fileID: 11400000, guid: 616a7508b2641bb43a3fa4c66b17a9a4, type: 2}

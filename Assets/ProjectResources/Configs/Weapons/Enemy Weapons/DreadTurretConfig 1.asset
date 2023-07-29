@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666af914f2d488549ae9a3742a6cd3ae, type: 3}
   m_Name: DreadTurretConfig 1
   m_EditorClassIdentifier: 
-  <Range>k__BackingField: 6
+  <Range>k__BackingField: 10
   <TurningSpeed>k__BackingField: 200

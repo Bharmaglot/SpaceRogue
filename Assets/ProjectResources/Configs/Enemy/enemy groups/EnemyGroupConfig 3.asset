@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e0c1c582364e7da04a766891bf1b30, type: 3}
+  m_Name: EnemyGroupConfig 3
+  m_EditorClassIdentifier: 
+  <Squads>k__BackingField:
+  - {fileID: 11400000, guid: 30e562f8052ae8c46962c42cf993084e, type: 2}
+  - {fileID: 11400000, guid: 32d7a98a822862342b803da2f89a2f57, type: 2}
+  <TimeToPickNewDirectionInSeconds>k__BackingField: 5

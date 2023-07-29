@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RailgunProjectileConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 800c8385-c4f2-47b8-97d7-6b0160314221
-  <Prefab>k__BackingField: {fileID: 5373172656145502590, guid: ca5073dec663d494c9b378aa95523cb9, type: 3}
+  <Prefab>k__BackingField: {fileID: 5373172656145502590, guid: 247af62fd0890b6408ac39d069008c37, type: 3}
   <DamageAmount>k__BackingField: 80
   <Speed>k__BackingField: 60
   <LifeTime>k__BackingField: 4

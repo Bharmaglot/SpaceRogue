@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aae0a974de4d2bad053fb328300b13, type: 3}
   m_Name: DreadEnemyShieldConfig
   m_EditorClassIdentifier: 
-  <MaximumShield>k__BackingField: 30
-  <StartingShield>k__BackingField: 30
-  <Cooldown>k__BackingField: 20
+  <MaximumShield>k__BackingField: 100
+  <StartingShield>k__BackingField: 100
+  <Cooldown>k__BackingField: 60

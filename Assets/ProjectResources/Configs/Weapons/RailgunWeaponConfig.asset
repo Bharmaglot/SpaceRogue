@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RailgunWeaponConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 7cd9c3f2-e43a-48c3-8059-2e88a1c71573
-  <Cooldown>k__BackingField: 1
+  <Cooldown>k__BackingField: 1.5
   <RailgunProjectile>k__BackingField: {fileID: 11400000, guid: 575afc6c802ac6540a8a60059efd0be9, type: 2}

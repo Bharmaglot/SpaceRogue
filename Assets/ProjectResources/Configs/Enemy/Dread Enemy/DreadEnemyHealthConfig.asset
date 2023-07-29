@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc225a310bce4ebbacc86a609feadf39, type: 3}
   m_Name: DreadEnemyHealthConfig
   m_EditorClassIdentifier: 
-  <MaximumHealth>k__BackingField: 100
-  <StartingHealth>k__BackingField: 100
+  <MaximumHealth>k__BackingField: 200
+  <StartingHealth>k__BackingField: 200
   <HealthRegen>k__BackingField: 0

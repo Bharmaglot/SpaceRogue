@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db7017ec4a149909820b38cda780f62, type: 3}
   m_Name: BigEnemeMovement
   m_EditorClassIdentifier: 
-  maximumSpeed: 10
+  maximumSpeed: 6
   maximumBackwardSpeed: 4
   accelerationTime: 1
   stoppingSpeed: 0.3
-  startingTurnSpeed: 3
-  maximumTurnSpeed: 10
-  turnAccelerationTime: 1
+  startingTurnSpeed: 0.5
+  maximumTurnSpeed: 3
+  turnAccelerationTime: 5
   <DashLength>k__BackingField: 0.1
   <DashCooldown>k__BackingField: 0.1
