@@ -1,54 +1,93 @@
-using System;
 using Gameplay.Movement;
-using SpaceRogue.Gameplay.Shooting;
 using Gameplay.Survival;
+using SpaceRogue.Gameplay.Shooting;
+using SpaceRogue.InputSystem;
 using SpaceRogue.Player.Movement;
+using System;
+using System.Collections.Generic;
 
 
 namespace Gameplay.Player
 {
     public sealed class Player : IDisposable
     {
-        private readonly UnitMovement _unitMovement;
-        private readonly UnitTurningMouse _unitTurningMouse;
-        private readonly UnitWeapon _unitWeapon;
+
+        #region Events
 
         public event Action PlayerDestroyed;
         public event Action PlayerDisposed;
 
-        public PlayerView PlayerView { get; }
-        public EntitySurvival Survival { get; }
+        public event Action<UnitWeapon> OnWeaponChange;
+
+        #endregion
+
+
+        #region Fields
+
+        private int _currentWeaponID;
+
+        private readonly UnitMovement _unitMovement;
+        private readonly UnitTurningMouse _unitTurningMouse;
+        private readonly List<UnitWeapon> _unitWeapons;
+        private readonly PlayerInput _playerInput;
 
         private bool _disposing;
 
+        #endregion
+
+
+        #region Properties
+
+        public PlayerView PlayerView { get; }
+        public EntitySurvival Survival { get; }
+        public UnitWeapon CurrentWeapon => _unitWeapons[_currentWeaponID];
+
+        #endregion
+
+
+        #region CodeLife
+
         public Player(
-            PlayerView playerView, 
-            UnitMovement unitMovement, 
+            PlayerView playerView,
+            UnitMovement unitMovement,
             UnitTurningMouse unitTurningMouse,
             EntitySurvival playerSurvival,
-            UnitWeapon unitWeapon)
+            List<UnitWeapon> unitWeapon,
+            PlayerInput playerInput)
         {
             PlayerView = playerView;
             _unitMovement = unitMovement;
             _unitTurningMouse = unitTurningMouse;
-            _unitWeapon = unitWeapon;
+            _unitWeapons = unitWeapon;
+            _currentWeaponID = _unitWeapons.Count - 1;
+            _playerInput = playerInput;
             Survival = playerSurvival;
 
             Survival.UnitDestroyed += OnDeath;
+            _playerInput.ChangeWeaponInput += ChangeWeaponInputHandler;
         }
 
         public void Dispose()
         {
-            if (_disposing) return;
+            if (_disposing)
+            {
+                return;
+            }
+
             _disposing = true;
             Survival.UnitDestroyed -= OnDeath;
-            
+            _playerInput.ChangeWeaponInput -= ChangeWeaponInputHandler;
+
             PlayerDisposed?.Invoke();
 
             Survival.Dispose();
             _unitMovement.Dispose();
             _unitTurningMouse.Dispose();
-            _unitWeapon.Dispose();
+
+            foreach (var weapon in _unitWeapons)
+            {
+                weapon.Dispose();
+            }
 
             if (PlayerView is not null)
             {
@@ -56,10 +95,46 @@ namespace Gameplay.Player
             }
         }
 
+        #endregion
+
+
+        #region Metods
+
         private void OnDeath()
         {
             PlayerDestroyed?.Invoke();
             Dispose();
         }
+
+        private void ChangeWeaponInputHandler(bool isNextWeapon)
+        {
+            _unitWeapons[_currentWeaponID].IsEnable = false;
+
+            if (isNextWeapon)
+            {
+                _currentWeaponID++;
+
+                if (_currentWeaponID == _unitWeapons.Count)
+                {
+                    _currentWeaponID = 0;
+                }
+            }
+            else
+            {
+                _currentWeaponID--;
+
+                if (_currentWeaponID < 0)
+                {
+                    _currentWeaponID = _unitWeapons.Count - 1;
+                }
+            }
+
+            _unitWeapons[_currentWeaponID].IsEnable = true;
+
+            OnWeaponChange?.Invoke(_unitWeapons[_currentWeaponID]);
+        }
+
+        #endregion
+
     }
 }
