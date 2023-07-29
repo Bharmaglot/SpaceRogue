@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <WeaponMountType>k__BackingField: 1
   <MountedWeapon>k__BackingField: {fileID: 11400000, guid: f5294e08f8fa7b643b0589a59c6217d5, type: 2}
+  <Ability>k__BackingField: {fileID: 11400000, guid: 879cafb505e818a4f80b265a97449f9f, type: 2}
+  <TurretConfig>k__BackingField: {fileID: 0}

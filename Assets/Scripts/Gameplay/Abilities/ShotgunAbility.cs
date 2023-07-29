@@ -1,6 +1,8 @@
 using Gameplay.Mechanics.Timer;
+using Gameplay.Space.Factories;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Abilities.Scriptables;
+using System;
 using UnityEngine;
 
 
@@ -13,6 +15,8 @@ namespace SpaceRogue.Gameplay.Abilities
 
         private readonly ShotgunAbilityConfig _shotgunAbilityConfig;
         private readonly EntityViewBase _entityView;
+        private readonly GravitationMineFactory _gravitationMineFactory;
+        private readonly AbilityViewFactory _abilityViewFactory;
 
         #endregion
 
@@ -22,10 +26,14 @@ namespace SpaceRogue.Gameplay.Abilities
         public ShotgunAbility(
             ShotgunAbilityConfig shotgunAbilityConfig,
             EntityViewBase entityView,
-            TimerFactory timerFactory) : base(shotgunAbilityConfig, timerFactory)
+            TimerFactory timerFactory,
+            AbilityViewFactory abilityViewFactory,
+            GravitationMineFactory gravitationMineFactory) : base(shotgunAbilityConfig, timerFactory)
         {
             _shotgunAbilityConfig = shotgunAbilityConfig;
             _entityView = entityView;
+            _abilityViewFactory = abilityViewFactory;
+            _gravitationMineFactory = gravitationMineFactory;
         }
 
         #endregion
@@ -40,8 +48,10 @@ namespace SpaceRogue.Gameplay.Abilities
                 return;
             }
 
-            //TODO Ability
-            Debug.Log($"Ability Used!");
+            var position = _entityView.transform.position + _entityView.transform.TransformDirection(Vector3.up * _shotgunAbilityConfig.Distance);
+ 
+            var view = _abilityViewFactory.Create(position, _shotgunAbilityConfig);
+            _gravitationMineFactory.Create(view, view.transform, _shotgunAbilityConfig);
 
             CooldownTimer.Start();
         }

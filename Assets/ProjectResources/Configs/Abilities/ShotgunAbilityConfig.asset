@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85969b8fee9f7584c859277f7e881e26, type: 3}
   m_Name: ShotgunAbilityConfig
   m_EditorClassIdentifier: 
-  <AbilityPrefab>k__BackingField: {fileID: 0}
-  <Cooldown>k__BackingField: 0
+  <AbilityPrefab>k__BackingField: {fileID: 5770428131626653124, guid: 6250805ae9e549546b8a97debbe638c4, type: 3}
+  <Cooldown>k__BackingField: 2
+  <GravitaionAreaConfig>k__BackingField: {fileID: 11400000, guid: 1911e687481e2f64497cd369c00f7f99, type: 2}
+  <LifeTime>k__BackingField: 5
+  <Distance>k__BackingField: 10
