@@ -1,4 +1,5 @@
 using Gameplay.Mechanics.Timer;
+using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.Services;
 using UnityEngine;
@@ -7,7 +8,7 @@ using Zenject;
 
 namespace SpaceRogue.Gameplay.Shooting.Factories
 {
-    public sealed class MineFactory : PlaceholderFactory<Vector2, MineConfig, Weapon, Mine>
+    public sealed class MineFactory : PlaceholderFactory<Vector2, MineConfig, IDestroyable, Mine>
     {
 
         #region Fields
@@ -33,10 +34,10 @@ namespace SpaceRogue.Gameplay.Shooting.Factories
 
         #region Methods
 
-        public override Mine Create(Vector2 position, MineConfig config, Weapon weapon)
+        public override Mine Create(Vector2 position, MineConfig config, IDestroyable destroyable)
         {
             var mineView = _mineViewFactory.Create(position, config);
-            var mine = new Mine(_updater, mineView, _timerFactory, config, weapon);
+            var mine = new Mine(_updater, mineView, _timerFactory, config, destroyable);
             return mine;
         }
 

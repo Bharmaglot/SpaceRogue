@@ -43,7 +43,7 @@ namespace SpaceRogue.Gameplay.Abilities
                 return;
             }
 
-            _mineFactory.Create(_entityView.transform.position, _blasterAbilityConfig.MineConfig);
+            _mineFactory.Create(_entityView.transform.position, _blasterAbilityConfig.MineConfig, this);
 
             CooldownTimer.Start();
         }

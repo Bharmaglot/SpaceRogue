@@ -1,8 +1,6 @@
 using Gameplay.Mechanics.Timer;
-using Gameplay.Space.Factories;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Abilities.Scriptables;
-using System;
 using UnityEngine;
 
 
@@ -49,7 +47,7 @@ namespace SpaceRogue.Gameplay.Abilities
             }
 
             var position = _entityView.transform.position + _entityView.transform.TransformDirection(Vector3.up * _shotgunAbilityConfig.Distance);
- 
+
             var view = _abilityViewFactory.Create(position, _shotgunAbilityConfig);
             _gravitationMineFactory.Create(view, view.transform, _shotgunAbilityConfig);
 

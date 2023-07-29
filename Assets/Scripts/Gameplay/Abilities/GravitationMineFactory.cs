@@ -1,8 +1,6 @@
 using Gameplay.Mechanics.Timer;
 using Gameplay.Space.Factories;
 using SpaceRogue.Gameplay.Abilities.Scriptables;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -14,7 +12,6 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #region Fields
 
-        private readonly AbilityViewFactory _gravitationMineViewFactory;
         private readonly GravitationAuraFactory _gravitationAuraFactory;
         private readonly TimerFactory _timerFactory;
 
@@ -23,9 +20,8 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #region CodeLife
 
-        public GravitationMineFactory(AbilityViewFactory gravitationMineViewFactory, GravitationAuraFactory gravitationAuraFactory, TimerFactory timerFactory)
+        public GravitationMineFactory(GravitationAuraFactory gravitationAuraFactory, TimerFactory timerFactory)
         {
-            _gravitationMineViewFactory = gravitationMineViewFactory;
             _gravitationAuraFactory = gravitationAuraFactory;
             _timerFactory = timerFactory;
         }

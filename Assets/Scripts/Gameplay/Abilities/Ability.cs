@@ -1,11 +1,12 @@
 using Gameplay.Mechanics.Timer;
+using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Abilities.Scriptables;
 using System;
 
 
 namespace SpaceRogue.Gameplay.Abilities
 {
-    public abstract class Ability : IDisposable
+    public abstract class Ability : IDisposable, IDestroyable
     {
 
         #region Events
@@ -14,7 +15,7 @@ namespace SpaceRogue.Gameplay.Abilities
 
         public event Action AbilityAvailable;
 
-        public event Action AbilityDisposed;
+        public event Action Destroyed;
 
         #endregion
 
@@ -54,7 +55,7 @@ namespace SpaceRogue.Gameplay.Abilities
             CooldownTimer.OnExpire -= OnAbilityAvailable;
 
             CooldownTimer.Dispose();
-            AbilityDisposed?.Invoke();
+            Destroyed?.Invoke();
         }
 
         #endregion

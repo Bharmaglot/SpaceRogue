@@ -19,7 +19,7 @@ namespace SpaceRogue.Gameplay.Shooting
         private readonly Timer _timerToActivateAlarmSystem;
 
         private readonly MineView _mineView;
-        private readonly Weapon _weapon;
+        private readonly IDestroyable _destroyable;
         private readonly MineAlertZoneView _mineAlertZoneView;
         private readonly MineExplosionView _mineExplosionView;
 
@@ -38,7 +38,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
 
         #region CodeLife
-        public Mine(Updater updater, MineView mineView, TimerFactory timerFactory, MineConfig mineConfig, Weapon weapon)
+        public Mine(Updater updater, MineView mineView, TimerFactory timerFactory, MineConfig mineConfig, IDestroyable destroyable)
         {
             _updater = updater;
 
@@ -47,9 +47,9 @@ namespace SpaceRogue.Gameplay.Shooting
             _mineTimerVisualTransform = mineView.MineTimerVisualTransform;
             _explosionTransform = mineView.ExplosionTransform;
             _mineView = mineView;
-            _weapon = weapon;
+            _destroyable = destroyable;
 
-            _weapon.WeaponDisposed += Dispose;
+            _destroyable.Destroyed += Dispose;
             _timeToExplosion = mineConfig.TimeToExplosion;
             _speedWaveExplosion = mineConfig.SpeedWaveExplosion;
 
@@ -71,7 +71,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         public void Dispose()
         {
-            _weapon.WeaponDisposed -= Dispose;
+            _destroyable.Destroyed -= Dispose;
             
             _timerToActivateAlarmSystem.OnExpire -= TimerToActiveAlarmZone;
             _timerToActivateAlarmSystem.Dispose();
