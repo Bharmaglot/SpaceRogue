@@ -55,7 +55,10 @@ namespace SpaceRogue.Gameplay.GameEvent.Comet
             _updater.UnsubscribeFromUpdate(Move);
             IsDestroyed = true;
 
-            UnityEngine.Object.Destroy(CometView.gameObject);
+            if (CometView != null)
+            {
+                UnityEngine.Object.Destroy(CometView.gameObject); 
+            }
         }
 
         #endregion

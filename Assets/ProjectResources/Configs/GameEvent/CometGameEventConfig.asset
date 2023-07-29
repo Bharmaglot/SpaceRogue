@@ -16,6 +16,6 @@ MonoBehaviour:
   <IndicatorDiameter>k__BackingField: 625
   <IsRecurring>k__BackingField: 1
   <ShowUntilItIsVisibleOnce>k__BackingField: 1
-  <ResponseTime>k__BackingField: 2
+  <ResponseTime>k__BackingField: 0.1
   <Chance>k__BackingField: 0.2
   <CometConfig>k__BackingField: {fileID: 11400000, guid: 99269cffe9d2bf44eaed8b2c1caaa460, type: 2}

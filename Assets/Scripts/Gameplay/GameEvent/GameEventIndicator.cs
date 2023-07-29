@@ -58,7 +58,7 @@ namespace SpaceRogue.Gameplay.GameEvent
 
         private void RotateToGameEventObject()
         {
-            if (_gameEventObjectCollider == null)
+            if (_gameEventObjectCollider == null || _gameEventObjectCollider.enabled == false)
             {
                 Dispose();
                 return;
