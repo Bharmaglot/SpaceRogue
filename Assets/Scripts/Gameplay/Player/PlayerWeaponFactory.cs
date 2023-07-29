@@ -2,7 +2,6 @@ using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.InputSystem;
 using SpaceRogue.Player.Movement;
-using System;
 using System.Collections.Generic;
 using Zenject;
 
@@ -11,13 +10,6 @@ namespace Gameplay.Player
 {
     public sealed class PlayerWeaponFactory : PlaceholderFactory<PlayerView, UnitMovement, List<UnitWeapon>>
     {
-
-        #region Events
-
-        public event Action<UnitWeapon> UnitWeaponCreated;
-
-        #endregion
-
 
         #region Fields
 
