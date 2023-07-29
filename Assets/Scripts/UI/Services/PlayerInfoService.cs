@@ -44,9 +44,12 @@ namespace SpaceRogue.UI.Services
 
         private void OnPlayerSpawnedHandler(global::Gameplay.Player.Player player)
         {
-            _playerFactory.OnPlayerSpawned -= OnPlayerSpawnedHandler;
+            if (_player != null)
+            {
+                _player.OnWeaponChange -= OnUnitWeaponChanged; 
+            }
+            
             _player = player;
-
             _player.OnWeaponChange += OnUnitWeaponChanged;
 
             OnUnitWeaponChanged(_player.CurrentWeapon);
@@ -54,6 +57,7 @@ namespace SpaceRogue.UI.Services
 
         public void Dispose()
         {
+            _playerFactory.OnPlayerSpawned -= OnPlayerSpawnedHandler;
             _player.OnWeaponChange -= OnUnitWeaponChanged;
         }
 
