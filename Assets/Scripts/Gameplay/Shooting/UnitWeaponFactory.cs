@@ -36,6 +36,7 @@ namespace SpaceRogue.Gameplay.Shooting
         {
             var mountedWeapon = _mountedWeaponFactory.Create(config, entityView);
             var ability = config.Ability != null ? _abilityFactory.Create(config.Ability, entityView, unitMovement) : new NullAbility();
+
             return new UnitWeapon(mountedWeapon, ability, input);
         }
 

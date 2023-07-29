@@ -183,5 +183,6 @@ namespace SpaceRogue.UI.Installers
         }
 
         #endregion
+
     }
 }

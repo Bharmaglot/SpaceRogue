@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87ed8d06865043f6b503a28c367e423b, type: 3}
-  m_Name: FrontalBlasterConfig
+  m_Name: MountedShotgunConfig
   m_EditorClassIdentifier: 
   <WeaponMountType>k__BackingField: 1
-  <MountedWeapon>k__BackingField: {fileID: 11400000, guid: f5294e08f8fa7b643b0589a59c6217d5, type: 2}
+  <MountedWeapon>k__BackingField: {fileID: 11400000, guid: 74cda2afc8f8bfc44b70705c87c7fb8d, type: 2}
+  <Ability>k__BackingField: {fileID: 11400000, guid: 86cdc68f7006dd349b5d59c7e339fadb, type: 2}
+  <TurretConfig>k__BackingField: {fileID: 0}

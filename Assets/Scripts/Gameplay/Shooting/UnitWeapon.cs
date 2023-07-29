@@ -10,12 +10,14 @@ namespace SpaceRogue.Gameplay.Shooting
 
         #region Events
 
-        public event Action UnitWeaponChanged; //TODO Change Weapon
+        public event Action OnUnitWeaponActivated;
 
         #endregion
 
 
         #region Fields
+
+        private bool _isEnable = true;
 
         private readonly MountedWeapon _mountedWeapon;
         private readonly Ability _ability;
@@ -25,6 +27,20 @@ namespace SpaceRogue.Gameplay.Shooting
 
 
         #region Properties
+
+        public bool IsEnable
+        {
+            get => _isEnable;
+            set
+            {
+                _isEnable = value;
+
+                if (_isEnable)
+                {
+                    OnUnitWeaponActivated?.Invoke();
+                }
+            }
+        }
 
         public Weapon CurrentWeapon { get; private set; }
         public Ability CurrentAbility { get; private set; }
@@ -63,15 +79,15 @@ namespace SpaceRogue.Gameplay.Shooting
 
         private void HandleFiringInput(bool buttonIsPressed)
         {
-            if (buttonIsPressed)
+            if (buttonIsPressed && IsEnable)
             {
                 _mountedWeapon.CommenceFiring();
             }
         }
-        
+
         private void AbilityInput(bool buttonIsPressed)
         {
-            if (buttonIsPressed)
+            if (buttonIsPressed && IsEnable)
             {
                 _ability.UseAbility();
             }
