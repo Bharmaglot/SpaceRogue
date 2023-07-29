@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db7017ec4a149909820b38cda780f62, type: 3}
   m_Name: EnemyMovementConfig
   m_EditorClassIdentifier: 
-  maximumSpeed: 20
+  maximumSpeed: 10
   maximumBackwardSpeed: 8
   accelerationTime: 1
   stoppingSpeed: 0.1
-  startingTurnSpeed: 5
-  maximumTurnSpeed: 15
-  turnAccelerationTime: 3
+  startingTurnSpeed: 0.5
+  maximumTurnSpeed: 5
+  turnAccelerationTime: 2
+  <DashLength>k__BackingField: 0.1
+  <DashCooldown>k__BackingField: 0.1

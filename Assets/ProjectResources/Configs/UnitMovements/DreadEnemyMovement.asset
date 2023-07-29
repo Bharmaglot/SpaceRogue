@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db7017ec4a149909820b38cda780f62, type: 3}
   m_Name: DreadEnemyMovement
   m_EditorClassIdentifier: 
-  maximumSpeed: 5
+  maximumSpeed: 3
   maximumBackwardSpeed: 1
   accelerationTime: 1
   stoppingSpeed: 0.3
-  startingTurnSpeed: 3
-  maximumTurnSpeed: 3
-  turnAccelerationTime: 1
+  startingTurnSpeed: 0.5
+  maximumTurnSpeed: 1
+  turnAccelerationTime: 5
   <DashLength>k__BackingField: 0.1
   <DashCooldown>k__BackingField: 0.1

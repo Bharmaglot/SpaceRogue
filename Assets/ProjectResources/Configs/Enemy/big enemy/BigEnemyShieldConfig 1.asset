@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aae0a974de4d2bad053fb328300b13, type: 3}
   m_Name: BigEnemyShieldConfig 1
   m_EditorClassIdentifier: 
-  <MaximumShield>k__BackingField: 15
-  <StartingShield>k__BackingField: 15
-  <Cooldown>k__BackingField: 4
+  <MaximumShield>k__BackingField: 40
+  <StartingShield>k__BackingField: 40
+  <Cooldown>k__BackingField: 15

@@ -17,4 +17,4 @@ MonoBehaviour:
   <Movement>k__BackingField: {fileID: 11400000, guid: 4893e3dee4b29ee4bb446f7b1c56fe97, type: 2}
   <Survival>k__BackingField: {fileID: 11400000, guid: 40fbbdfac11945f4eb45da271bb3fcb7, type: 2}
   <Behaviour>k__BackingField: {fileID: 11400000, guid: b077bb561865ea748b6c73e7ba314bb8, type: 2}
-  <MountedWeapon>k__BackingField: {fileID: 11400000, guid: 72cbfd656e0fe234c932fc0505a2e547, type: 2}
+  <MountedWeapon>k__BackingField: {fileID: 11400000, guid: 02e2cc8ff23446a4ea66ab8bb4ef5ffb, type: 2}

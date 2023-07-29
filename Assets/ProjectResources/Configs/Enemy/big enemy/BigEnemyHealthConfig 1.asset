@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc225a310bce4ebbacc86a609feadf39, type: 3}
   m_Name: BigEnemyHealthConfig 1
   m_EditorClassIdentifier: 
-  <MaximumHealth>k__BackingField: 50
-  <StartingHealth>k__BackingField: 25
-  <HealthRegen>k__BackingField: 5
+  <MaximumHealth>k__BackingField: 100
+  <StartingHealth>k__BackingField: 100
+  <HealthRegen>k__BackingField: 0

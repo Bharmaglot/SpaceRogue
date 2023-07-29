@@ -16,4 +16,4 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 1.5
   <ShotgunProjectile>k__BackingField: {fileID: 11400000, guid: 3a3a768c7b747ea4abac3f173360a451, type: 2}
   <PelletCount>k__BackingField: 10
-  <SprayAngle>k__BackingField: 45
+  <SprayAngle>k__BackingField: 40

@@ -16,14 +16,14 @@ MonoBehaviour:
   <IndicatorDiameter>k__BackingField: 625
   <IsRecurring>k__BackingField: 1
   <ShowUntilItIsVisibleOnce>k__BackingField: 0
-  <ResponseTime>k__BackingField: 0.1
-  <Chance>k__BackingField: 0.2
+  <ResponseTime>k__BackingField: 10
+  <Chance>k__BackingField: 0.1
   <SearchRadius>k__BackingField: 300
   <TimeToExplosion>k__BackingField: 5
   <WarningColor>k__BackingField: {r: 0.27058825, g: 0.8156863, b: 0.61960787, a: 1}
   <SupernovaSprite>k__BackingField: {fileID: 21300000, guid: 219a5af12ff4c014eb0711b20c5c8fc9, type: 3}
   <ShockwaveColor>k__BackingField: {r: 0.27058825, g: 0.8156863, b: 0.61960787, a: 1}
-  <ShockwaveSpeed>k__BackingField: 4
+  <ShockwaveSpeed>k__BackingField: 10
   <ShockwaveRadius>k__BackingField: 500
   <ShockwaveForce>k__BackingField: 50
   <ShockwaveDamage>k__BackingField: 75
