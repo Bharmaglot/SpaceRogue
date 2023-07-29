@@ -16,8 +16,9 @@ namespace Gameplay.Player
         private readonly PlayerMovementFactory _playerMovementFactory;
         private readonly UnitTurningMouseFactory _unitTurningMouseFactory;
         private readonly PlayerSurvivalFactory _playerSurvivalFactory;
-        private readonly PlayerWeaponFactory _playerWeaponFactory;
+        private readonly PlayerWeaponFactory _playerWeaponsFactory;
         public event Action<PlayerSpawnedEventArgs> PlayerSpawned = _ => { };
+        public event Action<Player> OnPlayerSpawned;
 
         public PlayerFactory(
             PlayerViewFactory playerViewFactory,
@@ -27,7 +28,7 @@ namespace Gameplay.Player
             PlayerMovementFactory playerMovementFactory,
             UnitTurningMouseFactory unitTurningMouseFactory,
             PlayerSurvivalFactory playerSurvivalFactory,
-            PlayerWeaponFactory playerWeaponFactory)
+            PlayerWeaponFactory playerWeaponsFactory)
         {
             _playerViewFactory = playerViewFactory;
             _playerInput = playerInput;
@@ -36,7 +37,7 @@ namespace Gameplay.Player
             _playerMovementFactory = playerMovementFactory;
             _unitTurningMouseFactory = unitTurningMouseFactory;
             _playerSurvivalFactory = playerSurvivalFactory;
-            _playerWeaponFactory = playerWeaponFactory;
+            _playerWeaponsFactory = playerWeaponsFactory;
         }
 
         public override Player Create(Vector2 spawnPoint)
@@ -45,15 +46,22 @@ namespace Gameplay.Player
             var model = _unitMovementModelFactory.Create(_unitMovementConfig);
             var unitMovement = _playerMovementFactory.Create(playerView, _playerInput, model);
             var unitTurningMouse = _unitTurningMouseFactory.Create(playerView, _playerInput, model);
-            var unitWeapon = _playerWeaponFactory.Create(playerView, unitMovement);
+
+            var unitWeapons = _playerWeaponsFactory.Create(playerView, unitMovement);
+
             var playerSurvival = _playerSurvivalFactory.Create(playerView);
-            
-            PlayerSpawned.Invoke(new PlayerSpawnedEventArgs
-            {
-                Transform = playerView.transform
-            });
-            
-            return new Player(playerView, unitMovement, unitTurningMouse, playerSurvival, unitWeapon);
+
+            var player = new Player(playerView, unitMovement, unitTurningMouse, playerSurvival, unitWeapons, _playerInput);
+
+            PlayerSpawned?.Invoke(
+                new PlayerSpawnedEventArgs(
+                    player,
+                    playerView.transform)
+            );
+
+            OnPlayerSpawned?.Invoke(player);
+
+            return player;
         }
     }
 }

@@ -14,6 +14,8 @@ namespace SpaceRogue.Gameplay.Abilities
 
         public event Action AbilityAvailable;
 
+        public event Action AbilityDisposed;
+
         #endregion
 
 
@@ -42,10 +44,17 @@ namespace SpaceRogue.Gameplay.Abilities
         public void Dispose()
         {
             OnDispose();
+            
+            if (CooldownTimer == null)
+            {
+                return;
+            }
+
             CooldownTimer.OnStart -= OnAbilityUsed;
             CooldownTimer.OnExpire -= OnAbilityAvailable;
 
             CooldownTimer.Dispose();
+            AbilityDisposed?.Invoke();
         }
 
         #endregion

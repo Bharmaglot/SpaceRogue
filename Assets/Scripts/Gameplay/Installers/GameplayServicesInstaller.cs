@@ -1,5 +1,6 @@
 using Gameplay.Background;
 using Gameplay.Enemy.Movement;
+using SpaceRogue.Gameplay.GameProgress;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Movement;
@@ -25,13 +26,14 @@ namespace Gameplay.Installers
         public override void InstallBindings()
         {
             InstallGameplayMechanics();
-            InstallCurrentGameState();
+            InstallGameProgressState();
             InstallBackground();
             InstallPlayerInput();
             InstallEnemyInput();
             InstallUnitMovement();
             InstallPlayerLocator();
             InstallEnemiesAlarm();
+            InstallEnemyDeathObserver();
         }
 
         private void InstallGameplayMechanics()
@@ -45,10 +47,10 @@ namespace Gameplay.Installers
                 .AsSingle();
         }
 
-        private void InstallCurrentGameState()
+        private void InstallGameProgressState()
         {
             Container
-                .Bind<CurrentGameState>()
+                .BindInterfacesAndSelfTo<GameProgressState>()
                 .AsSingle()
                 .NonLazy();
         }
@@ -125,6 +127,14 @@ namespace Gameplay.Installers
         {
             Container
                 .Bind<EnemiesAlarm>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void InstallEnemyDeathObserver()
+        {
+            Container
+                .BindInterfacesAndSelfTo<EnemyDeathObserver>()
                 .AsSingle()
                 .NonLazy();
         }

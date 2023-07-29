@@ -3,7 +3,10 @@ using SpaceRogue.UI.Game;
 using UI.Game;
 using UnityEngine;
 using Zenject;
-
+using SpaceRogue.UI.Game.LevelFinishedPopup;
+using SpaceRogue.UI.Game.LevelInfo;
+using SpaceRogue.UI.Game.PlayerDestroyedPopup;
+using SpaceRogue.Gameplay.GameEvent;
 
 namespace SpaceRogue.UI.Installers
 {
@@ -26,7 +29,12 @@ namespace SpaceRogue.UI.Installers
         [field: SerializeField] public EnemyHealthBarsView EnemyHealthBarsView { get; private set; }
         [field: SerializeField] public HealthShieldStatusBarView HealthShieldStatusBarView { get; private set; }
         [field: SerializeField] public HealthStatusBarView HealthStatusBarView { get; private set; }
-        [field: SerializeField] public GameEventIndicatorsView GameEventIndicatorsView { get; private set; }
+        [field: SerializeField] public IndicatorsView IndicatorsView { get; private set; }
+        [field: SerializeField] public GameEventIndicatorView GameEventIndicatorView { get; private set; }
+
+        [field: Header("Popups")]
+        [field: SerializeField] public DestroyPlayerMessageView PlayerDestroyedPopup { get; private set; }
+        [field: SerializeField] public NextLevelMessageView LevelCompletedPopup { get; private set; }
 
         #endregion
 
@@ -43,6 +51,13 @@ namespace SpaceRogue.UI.Installers
             BindFloatStatusBarFactory();
             BindEnemyStatusBars();
             BindGameEventIndicators();
+            BindPopups();
+        }
+        
+        private void BindPopups()
+        {
+            BindPlayerDestroyedPopup();
+            BindLevelCompletedPopup();
         }
 
         private void BindGameUICanvas()
@@ -83,6 +98,11 @@ namespace SpaceRogue.UI.Installers
             Container
                 .Bind<LevelInfoView>()
                 .FromInstance(LevelInfoView)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<LevelInfoAdapter>()
                 .AsSingle()
                 .NonLazy();
         }
@@ -129,8 +149,42 @@ namespace SpaceRogue.UI.Installers
         private void BindGameEventIndicators()
         {
             Container
-                .Bind<GameEventIndicatorsView>()
-                .FromInstance(GameEventIndicatorsView)
+                .Bind<IndicatorsView>()
+                .FromInstance(IndicatorsView)
+                .AsSingle()
+                .NonLazy();
+            
+            Container
+                .Bind<GameEventIndicatorView>()
+                .FromInstance(GameEventIndicatorView)
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindPlayerDestroyedPopup()
+        {
+            Container
+                .Bind<DestroyPlayerMessageView>()
+                .FromInstance(PlayerDestroyedPopup)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<PlayerDestroyedPopupPresenter>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindLevelCompletedPopup()
+        {
+            Container
+                .Bind<NextLevelMessageView>()
+                .FromInstance(LevelCompletedPopup)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<LevelFinishedPopupPresenter>()
                 .AsSingle()
                 .NonLazy();
         }

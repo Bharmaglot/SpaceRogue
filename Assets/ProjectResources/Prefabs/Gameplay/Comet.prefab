@@ -137,6 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a43eb825704e7ac459fbaa24423a330a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Rigidbody2D>k__BackingField: {fileID: 2844193965290992359}
+  <Collider2D>k__BackingField: {fileID: 7341503538829543574}
+  <TrailRenderer>k__BackingField: {fileID: 7450774447668827708}
 --- !u!96 &7450774447668827708
 TrailRenderer:
   serializedVersion: 2

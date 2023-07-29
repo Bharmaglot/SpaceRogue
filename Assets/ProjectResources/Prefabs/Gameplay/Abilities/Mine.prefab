@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3064823861939240029}
   - component: {fileID: 316645463800012562}
   - component: {fileID: 8301560022569256160}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MineExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6004976868710556857}
   - component: {fileID: 3247747429176791059}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MineBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8019927176256295517}
   - component: {fileID: 4977341935535865726}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MineTimerCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 297018776891342490}
   - component: {fileID: 1177447717481221660}
   - component: {fileID: 3217002784150682215}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MineAlertZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5474900955064705107}
   - component: {fileID: 7168092304700788529}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

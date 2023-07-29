@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scriptables.GameEvent
+
+namespace SpaceRogue.Scriptables.GameEvent
 {
     [CreateAssetMenu(fileName = nameof(GeneralGameEventConfig), menuName = "Configs/GameEvent/" + nameof(GeneralGameEventConfig))]
     public sealed class GeneralGameEventConfig : ScriptableObject

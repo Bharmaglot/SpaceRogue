@@ -31,9 +31,10 @@ namespace SpaceRogue.InputSystem
         private const string HORIZONTAL = "Horizontal";
         private const KeyCode PRIMARY_FIRE = KeyCode.Mouse0;
         private const KeyCode ABILITY = KeyCode.Mouse1;
-        private const KeyCode CHANGE_WEAPON = KeyCode.Q;
-        private const KeyCode NEXT_LEVEL = KeyCode.Return;
+        private const KeyCode NEXT_LEVEL = KeyCode.G;
         private const KeyCode MAP = KeyCode.Tab;
+        private const KeyCode PREVIOUS_WEAPON = KeyCode.Q;
+        private const KeyCode NEXT_WEAPON = KeyCode.E;
 
         private readonly Updater _updater;
         private readonly PlayerInputConfig _playerInputConfig;
@@ -109,8 +110,25 @@ namespace SpaceRogue.InputSystem
 
         private void CheckChangeWeaponInput()
         {
-            bool value = Input.GetKeyDown(CHANGE_WEAPON);
-            ChangeWeaponInput?.Invoke(value);
+            bool needChangeWeapon = false;
+            bool result = default;
+
+            if (Input.GetKeyDown(PREVIOUS_WEAPON))
+            {
+                needChangeWeapon = true;
+                result = false;
+            }
+
+            if (Input.GetKeyDown(NEXT_WEAPON))
+            {
+                needChangeWeapon = true;
+                result = true;
+            }
+
+            if (needChangeWeapon)
+            {
+                ChangeWeaponInput?.Invoke(result);
+            }
         }
 
         private void CheckNextLevelInput()

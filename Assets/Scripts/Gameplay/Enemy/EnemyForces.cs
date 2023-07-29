@@ -10,7 +10,7 @@ namespace Gameplay.Enemy
 {
     public sealed class EnemyForces : IDisposable
     {
-        public List<EnemiesGroup> EnemiesGroups { get; private set; } = new();
+        public List<EnemiesGroup> EnemyGroups { get; private set; } = new();
 
         public EnemyForces(
             int enemyGroupCount,
@@ -25,39 +25,37 @@ namespace Gameplay.Enemy
 
                 if (!spawnPointsFinder.TryGetEnemySpawnPoint(enemyCount, out var spawnPoint))
                 {
-                    Debug.Log("EnemiesGroup spawn point not found");
+                    //Debug.Log("EnemiesGroup spawn point not found");
                     continue;
                 }
 
                 var enemiesGroup = enemiesGroupFactory.Create(groupConfig, spawnPoint);
                 enemiesGroup.EnemiesGroupDestroyed += OnGroupDestroyed;
-                EnemiesGroups.Add(enemiesGroup);
+                EnemyGroups.Add(enemiesGroup);
             }
         }
 
         public void Dispose()
         {
-            EnemiesGroups.Clear();
+            var enemyGroups = EnemyGroups.ToArray();
+            foreach (var enemyGroup in enemyGroups)
+            {
+                enemyGroup?.Dispose();
+            }
+            EnemyGroups.Clear();
         }
 
         public int GetEnemiesCount()
         {
-            var count = 0;
-
-            foreach (var enemiesGroup in EnemiesGroups)
-            {
-                count += enemiesGroup.Enemies.Count; 
-            }
-
-            return count;
+            return EnemyGroups.Sum(g => g.Enemies.Count);
         }
 
         private void OnGroupDestroyed(EnemiesGroup enemiesGroup)
         {
             enemiesGroup.EnemiesGroupDestroyed -= OnGroupDestroyed;
-            EnemiesGroups.Remove(enemiesGroup);
+            EnemyGroups.Remove(enemiesGroup);
 
-            if (EnemiesGroups.Count == 0) Dispose();
+            if (EnemyGroups.Count == 0) Dispose();
         }
     }
 }

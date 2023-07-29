@@ -36,7 +36,7 @@ namespace Gameplay.Asteroids
         {
             foreach (var asteroid in _asteroids)
             {
-                asteroid.Dispose();
+                asteroid?.Dispose();
             }
             _asteroids.Clear();
         }

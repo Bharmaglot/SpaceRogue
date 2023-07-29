@@ -70,7 +70,7 @@ namespace SpaceRogue.Gameplay.Installers
                 .AsSingle();
 
             Container
-                .BindFactory<Vector2, MineConfig, Mine, MineFactory>()
+                .BindFactory<Vector2, MineConfig, Weapon, Mine, MineFactory>()
                 .AsSingle();
         }
 

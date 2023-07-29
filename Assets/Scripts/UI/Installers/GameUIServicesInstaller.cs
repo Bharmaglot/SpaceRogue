@@ -27,11 +27,10 @@ namespace SpaceRogue.UI.Installers
             InstallPlayerInfoService();
             InstallPlayerStatusBarService();
             InstallPlayerSpeedometerService();
-            InstallLevelInfoService();
             InstallMinimapService();
 
             InstallEnemyStatusBarService();
-            //TODO GameEventUIService
+            InstallGameEventIndicatorService();
         }
 
         private void InstallPlayerInfoService()
@@ -66,14 +65,6 @@ namespace SpaceRogue.UI.Installers
                 .NonLazy();
         }
 
-        private void InstallLevelInfoService()
-        {
-            Container
-                .BindInterfacesAndSelfTo<LevelInfoService>()
-                .AsSingle()
-                .NonLazy();
-        }
-
         private void InstallMinimapService()
         {
             Container
@@ -98,6 +89,14 @@ namespace SpaceRogue.UI.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<EnemyStatusBarService>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void InstallGameEventIndicatorService()
+        {
+            Container
+                .BindInterfacesAndSelfTo<GameEventIndicatorService>()
                 .AsSingle()
                 .NonLazy();
         }

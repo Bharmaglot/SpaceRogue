@@ -8,6 +8,7 @@ using SpaceRogue.Abstraction;
 using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
+using System.Collections.Generic;
 
 
 namespace Gameplay.Installers
@@ -16,7 +17,7 @@ namespace Gameplay.Installers
     {
         [field: SerializeField] public PlayerView PlayerViewPrefab { get; private set; }
         [field: SerializeField] public PlayerConfig PlayerConfig { get; private set; }
-        
+
         public override void InstallBindings()
         {
             InstallPlayerView();
@@ -55,7 +56,7 @@ namespace Gameplay.Installers
             Container.Bind<EntitySurvivalConfig>()
                 .FromInstance(PlayerConfig.Survival)
                 .WhenInjectedInto<PlayerSurvivalFactory>();
-            
+
             Container
                 .BindFactory<EntityViewBase, EntitySurvival, PlayerSurvivalFactory>()
                 .AsSingle();
@@ -64,12 +65,12 @@ namespace Gameplay.Installers
         private void InstallPlayerWeapon()
         {
             Container
-                .Bind<MountedWeaponConfig>()
-                .FromInstance(PlayerConfig.StartingWeapon)
+                .Bind<List<MountedWeaponConfig>>()
+                .FromInstance(PlayerConfig.AvailableWeapons)
                 .WhenInjectedInto<PlayerWeaponFactory>();
 
             Container
-                .BindFactory<PlayerView, UnitMovement, UnitWeapon, PlayerWeaponFactory>()
+                .BindFactory<PlayerView, UnitMovement, List<UnitWeapon>, PlayerWeaponFactory>()
                 .AsSingle();
         }
 

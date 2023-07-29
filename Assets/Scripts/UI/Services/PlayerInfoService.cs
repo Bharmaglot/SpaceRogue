@@ -4,7 +4,7 @@ using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Gameplay.Shooting.Weapons;
 using System;
 using UI.Game;
-
+using UnityEngine;
 
 namespace SpaceRogue.UI.Services
 {
@@ -15,9 +15,11 @@ namespace SpaceRogue.UI.Services
 
         private readonly PlayerUsedItemView _playerWeaponView;
         private readonly PlayerUsedItemView _playerAbilityView;
-        private readonly PlayerWeaponFactory _playerWeaponFactory;
+        private readonly CharacterView _characterView;
+        private readonly PlayerFactory _playerFactory;
+        private global::Gameplay.Player.Player _player;
 
-        private UnitWeapon _unitWeapon;
+        private Sprite _currentCharacterIcon;
         private Weapon _currentWeapon;
         private Ability _currentAbility;
 
@@ -26,22 +28,33 @@ namespace SpaceRogue.UI.Services
 
         #region CodeLife
 
-        public PlayerInfoService(PlayerInfoView playerInfoView, PlayerWeaponFactory playerWeaponFactory)
+        public PlayerInfoService(PlayerInfoView playerInfoView, PlayerFactory playerFactory)
         {
             _playerWeaponView = playerInfoView.PlayerWeaponView;
             _playerAbilityView = playerInfoView.PlayerAbilityView;
-            _playerWeaponFactory = playerWeaponFactory;
+            _characterView = playerInfoView.CharacterView;
+            _playerFactory = playerFactory;
+
+            _playerFactory.OnPlayerSpawned += OnPlayerSpawnedHandler;
 
             _playerWeaponView.Hide();
             _playerAbilityView.Hide();
+            _characterView.Hide();
+        }
 
-            _playerWeaponFactory.UnitWeaponCreated += OnUnitWeaponCreated;
+        private void OnPlayerSpawnedHandler(global::Gameplay.Player.Player player)
+        {
+            _playerFactory.OnPlayerSpawned -= OnPlayerSpawnedHandler;
+            _player = player;
+
+            _player.OnWeaponChange += OnUnitWeaponChanged;
+
+            OnUnitWeaponChanged(_player.CurrentWeapon);
         }
 
         public void Dispose()
         {
-            UnsubscribeFromAllUnitWeaponEvents();
-            _playerWeaponFactory.UnitWeaponCreated -= OnUnitWeaponCreated;
+            _player.OnWeaponChange -= OnUnitWeaponChanged;
         }
 
         #endregion
@@ -49,26 +62,20 @@ namespace SpaceRogue.UI.Services
 
         #region Methods
 
-        private void OnUnitWeaponCreated(UnitWeapon unitWeapon)
-        {
-            UnsubscribeFromAllUnitWeaponEvents();
 
-            _unitWeapon = unitWeapon;
+        private void OnUnitWeaponChanged(UnitWeapon unitWeapon)
+        {
+            if (_currentWeapon != null)
+            {
+                UnsubscribesFromWeaponsAndAbilities();
+            }
+
+            _currentCharacterIcon = unitWeapon.CharacterIcon != null ? unitWeapon.CharacterIcon : default;
             _currentWeapon = unitWeapon.CurrentWeapon;
             _currentAbility = unitWeapon.CurrentAbility;
 
-            _unitWeapon.UnitWeaponChanged += OnUnitWeaponChanged;
             SubscriptionsForWeaponsAndAbilities();
             SetupWeaponsAndAbilities();
-        }
-
-        private void UnsubscribeFromAllUnitWeaponEvents()
-        {
-            if (_unitWeapon != null)
-            {
-                _unitWeapon.UnitWeaponChanged -= OnUnitWeaponChanged;
-                UnsubscribesFromWeaponsAndAbilities();
-            }
         }
 
         private void UnsubscribesFromWeaponsAndAbilities()
@@ -77,15 +84,6 @@ namespace SpaceRogue.UI.Services
             _currentWeapon.WeaponUsed -= OnWeaponUsed;
             _currentAbility.AbilityAvailable -= OnAbilityAvailable;
             _currentAbility.AbilityUsed -= OnAbilityUsed;
-        }
-
-        private void OnUnitWeaponChanged()
-        {
-            UnsubscribesFromWeaponsAndAbilities();
-            _currentWeapon = _unitWeapon.CurrentWeapon;
-            _currentAbility = _unitWeapon.CurrentAbility;
-            SubscriptionsForWeaponsAndAbilities();
-            SetupWeaponsAndAbilities();
         }
 
         private void SubscriptionsForWeaponsAndAbilities()
@@ -98,6 +96,9 @@ namespace SpaceRogue.UI.Services
 
         private void SetupWeaponsAndAbilities()
         {
+            _characterView.Show();
+            _characterView.Image.sprite = _currentCharacterIcon;
+
             if (_currentWeapon is NullGun)
             {
                 _playerWeaponView.Hide();

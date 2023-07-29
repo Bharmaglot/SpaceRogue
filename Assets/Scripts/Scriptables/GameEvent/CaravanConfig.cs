@@ -1,11 +1,11 @@
-using Gameplay.GameEvent;
 using Gameplay.GameEvent.Caravan;
 using Gameplay.Movement;
 using Gameplay.Survival.Health;
 using Gameplay.Survival.Shield;
 using UnityEngine;
 
-namespace Scriptables.GameEvent
+
+namespace SpaceRogue.Scriptables.GameEvent
 {
     [CreateAssetMenu(fileName = nameof(CaravanConfig), menuName = "Configs/Caravan/" + nameof(CaravanConfig))]
     public sealed class CaravanConfig : ScriptableObject

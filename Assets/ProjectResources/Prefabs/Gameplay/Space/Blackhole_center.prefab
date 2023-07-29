@@ -132,7 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fa2b71b17a6fb4c908d6e91de72152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CircleCollider2D>k__BackingField: {fileID: 4848679960178397620}
+  <SpriteRenderer>k__BackingField: {fileID: 8885129039428988876}
   <MinimapIconSpriteRenderer>k__BackingField: {fileID: 7325650567856342081}
+  <IsVisibleForGameEvents>k__BackingField: 0
 --- !u!58 &4848679960178397620
 CircleCollider2D:
   m_ObjectHideFlags: 0

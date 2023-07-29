@@ -15,6 +15,8 @@ namespace SpaceRogue.Gameplay.Abilities
         private readonly EntityViewBase _entityView;
         private readonly AbilityViewFactory _abilityViewFactory;
 
+        private AbilityView _currentAbilityView;
+
         #endregion
 
 
@@ -36,6 +38,14 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #region Methods
 
+        protected override void OnDispose() 
+        {
+            if (_currentAbilityView != null)
+            {
+                Object.Destroy(_currentAbilityView.gameObject);
+            }
+        }
+
         public override void UseAbility()
         {
             if (IsOnCooldown)
@@ -43,15 +53,21 @@ namespace SpaceRogue.Gameplay.Abilities
                 return;
             }
 
-            CreateAbilityView();
+            if(_currentAbilityView != null)
+            {
+                Object.Destroy(_currentAbilityView.gameObject);
+            }
+
+            _currentAbilityView = CreateAbilityView();
             ShockwaveEffect();
 
             CooldownTimer.Start();
         }
 
-        private void CreateAbilityView()
+        private AbilityView CreateAbilityView()
         {
             var abilityView = _abilityViewFactory.Create(_entityView.transform.position, _railgunAbilityConfig);
+            
             if (abilityView is RailgunAbilityView railgunAbilityView)
             {
                 railgunAbilityView.SetShockwaveEffectSettings(
@@ -59,6 +75,8 @@ namespace SpaceRogue.Gameplay.Abilities
                     _railgunAbilityConfig.ShockwaveLifetime,
                     _railgunAbilityConfig.ShockwaveRadius);
             }
+
+            return abilityView;
         }
 
         private void ShockwaveEffect()

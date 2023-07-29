@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 
 namespace SpaceRogue.Gameplay.Space.Obstacle
@@ -64,6 +65,8 @@ namespace SpaceRogue.Gameplay.Space.Obstacle
             _listForRemoving.Clear();
 
             _updater.UnsubscribeFromFixedUpdate(Repulsion);
+
+            Object.Destroy(_obstacleView.gameObject);
         }
 
         #endregion

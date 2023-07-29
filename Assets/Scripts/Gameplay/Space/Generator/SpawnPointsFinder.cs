@@ -75,7 +75,7 @@ namespace Gameplay.Space.Generator
             if (isFound)
             {
                 spawnPoint = GetSpawnPoint(cellType);
-                Debug.Log($"{cellType}Radius: {Mathf.CeilToInt(correctOccupiedRadius)}");
+                //Debug.Log($"{cellType}Radius: {Mathf.CeilToInt(correctOccupiedRadius)}");
             }
 
             return isFound;
@@ -97,7 +97,7 @@ namespace Gameplay.Space.Generator
             {
                 if (points.Count == 0 || tryCount > MaxCountSpawnTries)
                 {
-                    Debug.LogWarning($"Not enough space for all \"{cellType}\" | Count = {count}");
+                    //Debug.LogWarning($"Not enough space for all \"{cellType}\" | Count = {count}");
                     return false;
                 }
 
