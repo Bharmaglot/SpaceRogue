@@ -1,4 +1,8 @@
 using Gameplay.Pooling;
+using Gameplay.Space.Factories;
+using Gameplay.Space.SpaceObjects.Scriptables;
+using Gameplay.Space.SpaceObjects.SpaceObjectsEffects;
+using Gameplay.Space.SpaceObjects.SpaceObjectsEffects.Views;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
 using SpaceRogue.Gameplay.Abilities;
@@ -66,7 +70,7 @@ namespace SpaceRogue.Gameplay.Installers
                 .AsSingle();
 
             Container
-                .BindFactory<Vector2, MineConfig, Weapon, Mine, MineFactory>()
+                .BindFactory<Vector2, MineConfig, IDestroyable, Mine, MineFactory>()
                 .AsSingle();
         }
 
@@ -85,14 +89,14 @@ namespace SpaceRogue.Gameplay.Installers
                 .BindFactory<Transform, TurretConfig, TurretView, TurretViewFactory>()
                 .AsSingle();
         }
-        
+
         private void InstallGunPointFactory()
         {
             Container
                 .Bind<GunPointView>()
                 .FromInstance(GunPoint)
                 .WhenInjectedInto<GunPointViewFactory>();
-            
+
             Container
                 .BindFactory<Vector2, Quaternion, Transform, GunPointView, GunPointViewFactory>()
                 .AsSingle();
@@ -116,16 +120,17 @@ namespace SpaceRogue.Gameplay.Installers
                 .Bind<MountedWeaponFactory>()
                 .AsCached();
         }
-        
+
         private void InstallUnitWeaponFactory()
         {
             Container
                 .BindFactory<EntityViewBase, MountedWeaponConfig, UnitMovement, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
                 .AsSingle();
         }
-        
+
         private void InstallAbilityFactories()
         {
+
             Container
                 .Bind<AbilityPool>()
                 .FromInstance(AbilityPool)
@@ -142,7 +147,12 @@ namespace SpaceRogue.Gameplay.Installers
             Container
                 .BindFactory<Vector2, AbilityConfig, AbilityView, AbilityViewFactory>()
                 .AsSingle();
+
+            Container
+                .BindFactory<AbilityView, Transform, ShotgunAbilityConfig, GravitationMine, GravitationMineFactory>()
+                .AsSingle();
         }
+
 
         #endregion
 

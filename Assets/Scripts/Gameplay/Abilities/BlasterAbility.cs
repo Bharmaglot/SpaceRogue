@@ -1,7 +1,7 @@
 using Gameplay.Mechanics.Timer;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Abilities.Scriptables;
-using UnityEngine;
+using SpaceRogue.Gameplay.Shooting.Factories;
 
 
 namespace SpaceRogue.Gameplay.Abilities
@@ -13,6 +13,7 @@ namespace SpaceRogue.Gameplay.Abilities
 
         private readonly BlasterAbilityConfig _blasterAbilityConfig;
         private readonly EntityViewBase _entityView;
+        private readonly MineFactory _mineFactory;
 
         #endregion
 
@@ -22,10 +23,12 @@ namespace SpaceRogue.Gameplay.Abilities
         public BlasterAbility(
             BlasterAbilityConfig blasterAbilityConfig,
             EntityViewBase entityView,
-            TimerFactory timerFactory) : base(blasterAbilityConfig, timerFactory)
+            TimerFactory timerFactory,
+            MineFactory mineFactory) : base(blasterAbilityConfig, timerFactory)
         {
             _blasterAbilityConfig = blasterAbilityConfig;
             _entityView = entityView;
+            _mineFactory = mineFactory;
         }
 
         #endregion
@@ -40,8 +43,7 @@ namespace SpaceRogue.Gameplay.Abilities
                 return;
             }
 
-            //TODO Ability
-            Debug.Log($"Ability Used!");
+            _mineFactory.Create(_entityView.transform.position, _blasterAbilityConfig.MineConfig, this);
 
             CooldownTimer.Start();
         }

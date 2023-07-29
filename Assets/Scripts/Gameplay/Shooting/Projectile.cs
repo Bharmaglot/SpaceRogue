@@ -27,7 +27,7 @@ namespace SpaceRogue.Gameplay.Shooting
             _projectileView = projectileView;
             _weapon = weapon;
 
-            _weapon.WeaponDisposed += Dispose;
+            _weapon.Destroyed += Dispose;
 
             _lifeTime = timerFactory.Create(config.LifeTime);
             _lifeTime.OnExpire += Dispose;
@@ -49,7 +49,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
             _disposing = true;
 
-            _weapon.WeaponDisposed -= Dispose;
+            _weapon.Destroyed -= Dispose;
 
             _lifeTime.OnExpire -= Dispose;
             _projectileView.CollidedObject -= Dispose;

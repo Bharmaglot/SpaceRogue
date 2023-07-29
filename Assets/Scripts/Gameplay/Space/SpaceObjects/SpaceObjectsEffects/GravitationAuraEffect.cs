@@ -21,7 +21,10 @@ namespace Gameplay.Space.SpaceObjects.SpaceObjectsEffects
 
         public override void Dispose()
         {
-            Object.Destroy(_view.gameObject);
+            if (_view != null)
+            {
+                Object.Destroy(_view.gameObject); 
+            }
         }
     }
 }

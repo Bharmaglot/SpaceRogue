@@ -1,4 +1,5 @@
 using Gameplay.Mechanics.Timer;
+using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Shooting.Scriptables;
 using System;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace SpaceRogue.Gameplay.Shooting
 {
-    public abstract class Weapon : IDisposable
+    public abstract class Weapon : IDisposable, IDestroyable
     {
 
         #region Events
@@ -15,7 +16,7 @@ namespace SpaceRogue.Gameplay.Shooting
 
         public event Action WeaponAvailable;
 
-        public event Action WeaponDisposed;
+        public event Action Destroyed;
 
         #endregion
 
@@ -53,7 +54,7 @@ namespace SpaceRogue.Gameplay.Shooting
             CooldownTimer.OnExpire -= OnWeaponAvailable;
 
             CooldownTimer.Dispose();
-            WeaponDisposed?.Invoke();
+            Destroyed?.Invoke();
         }
 
         #endregion
