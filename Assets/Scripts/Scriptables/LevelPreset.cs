@@ -1,5 +1,6 @@
 using SpaceRogue.Gameplay.Missions.Scriptables;
 using Gameplay.Space.SpaceObjects.Scriptables;
+using SpaceRogue.Scriptables.GameEvent;
 using UnityEngine;
 
 
@@ -9,7 +10,7 @@ namespace Scriptables
     public sealed class LevelPreset : ScriptableObject
     {
         [field: SerializeField] public SpaceConfig SpaceConfig { get; private set; }
-
         [field: SerializeField] public KillEnemiesMissionConfig LevelMission { get; private set; }
+        [field: SerializeField] public GeneralGameEventConfig GameEventsConfig { get; private set; }
     }
 }

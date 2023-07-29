@@ -4,6 +4,7 @@ using Gameplay.Player;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
 using Scriptables;
+using SpaceRogue.Gameplay.GameEvent.Factories;
 using SpaceRogue.Gameplay.Missions.Factories;
 using SpaceRogue.Gameplay.Space.Obstacle;
 using System;
@@ -35,7 +36,8 @@ namespace SpaceRogue.Gameplay.GameProgress
         private readonly EnemyForcesFactory _enemyForcesFactory;
         private readonly AsteroidsInSpaceFactory _asteroidsInSpaceFactory;
         private readonly KillMissionFactory _missionFactory;
-
+        private readonly GameEventsControllerFactory _gameEventsControllerFactory;
+        private readonly GameEventFactory _gameEventFactory;
         private LevelPreset _currentLevelPreset;
 
         #endregion
@@ -54,7 +56,9 @@ namespace SpaceRogue.Gameplay.GameProgress
             SpaceFactory spaceFactory,
             EnemyForcesFactory enemyForcesFactory,
             AsteroidsInSpaceFactory asteroidsInSpaceFactory,
-            KillMissionFactory missionFactory)
+            KillMissionFactory missionFactory,
+            GameEventsControllerFactory gameEventsControllerFactory,
+            GameEventFactory gameEventFactory)
         {
             _levelPresetsConfig = levelPresetsConfig;
             _spaceViewFactory = spaceViewFactory;
@@ -67,6 +71,8 @@ namespace SpaceRogue.Gameplay.GameProgress
             _enemyForcesFactory = enemyForcesFactory;
             _asteroidsInSpaceFactory = asteroidsInSpaceFactory;
             _missionFactory = missionFactory;
+            _gameEventsControllerFactory = gameEventsControllerFactory;
+            _gameEventFactory = gameEventFactory;
         }
 
         #endregion
@@ -102,7 +108,9 @@ namespace SpaceRogue.Gameplay.GameProgress
             var enemiesSpawned = enemyForces.GetEnemiesCount();
             var mission = _missionFactory.Create(enemiesSpawned, _currentLevelPreset.LevelMission);
 
-            var level = new Level(levelNumber, mission, mapCameraSize, player, enemyForces, space, obstacle, asteroids);
+            var gameEventsController = _gameEventsControllerFactory.Create(_currentLevelPreset.GameEventsConfig, _gameEventFactory, player.PlayerView);
+
+            var level = new Level(levelNumber, mission, mapCameraSize, player, enemyForces, space, obstacle, asteroids, gameEventsController);
             LevelCreated?.Invoke(level);
             return level;
         }

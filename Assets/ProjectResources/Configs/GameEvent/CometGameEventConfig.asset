@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbc35df0fd613c4790a271039fcb441, type: 3}
   m_Name: CometGameEventConfig
   m_EditorClassIdentifier: 
-  <GameEventType>k__BackingField: 1
   <Icon>k__BackingField: {fileID: 21300000, guid: e3425648ab5179440a2cf8d6a3423ee5, type: 3}
   <IndicatorDiameter>k__BackingField: 625
   <IsRecurring>k__BackingField: 1
-  <ResponseTimeInSeconds>k__BackingField: 1
+  <ShowUntilItIsVisibleOnce>k__BackingField: 1
+  <ResponseTime>k__BackingField: 2
   <Chance>k__BackingField: 0.2
   <CometConfig>k__BackingField: {fileID: 11400000, guid: 99269cffe9d2bf44eaed8b2c1caaa460, type: 2}
