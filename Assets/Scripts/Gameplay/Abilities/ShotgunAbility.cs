@@ -49,7 +49,7 @@ namespace SpaceRogue.Gameplay.Abilities
             var position = _entityView.transform.position + _entityView.transform.TransformDirection(Vector3.up * _shotgunAbilityConfig.Distance);
 
             var view = _abilityViewFactory.Create(position, _shotgunAbilityConfig);
-            _gravitationMineFactory.Create(view, view.transform, _shotgunAbilityConfig);
+            _gravitationMineFactory.Create(view, view.transform, _shotgunAbilityConfig, this);
 
             CooldownTimer.Start();
         }

@@ -1,8 +1,4 @@
 using Gameplay.Pooling;
-using Gameplay.Space.Factories;
-using Gameplay.Space.SpaceObjects.Scriptables;
-using Gameplay.Space.SpaceObjects.SpaceObjectsEffects;
-using Gameplay.Space.SpaceObjects.SpaceObjectsEffects.Views;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
 using SpaceRogue.Gameplay.Abilities;
@@ -14,6 +10,7 @@ using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.Player.Movement;
 using UnityEngine;
 using Zenject;
+
 
 namespace SpaceRogue.Gameplay.Installers
 {
@@ -149,7 +146,7 @@ namespace SpaceRogue.Gameplay.Installers
                 .AsSingle();
 
             Container
-                .BindFactory<AbilityView, Transform, ShotgunAbilityConfig, GravitationMine, GravitationMineFactory>()
+                .BindFactory<AbilityView, Transform, ShotgunAbilityConfig, IDestroyable, GravitationMine, GravitationMineFactory>()
                 .AsSingle();
         }
 

@@ -1,5 +1,6 @@
 using Gameplay.Mechanics.Timer;
 using Gameplay.Space.Factories;
+using SpaceRogue.Abstraction;
 using SpaceRogue.Gameplay.Abilities.Scriptables;
 using UnityEngine;
 using Zenject;
@@ -7,7 +8,7 @@ using Zenject;
 
 namespace SpaceRogue.Gameplay.Abilities
 {
-    public class GravitationMineFactory : PlaceholderFactory<AbilityView, Transform, ShotgunAbilityConfig, GravitationMine>
+    public class GravitationMineFactory : PlaceholderFactory<AbilityView, Transform, ShotgunAbilityConfig, IDestroyable, GravitationMine>
     {
 
         #region Fields
@@ -31,10 +32,10 @@ namespace SpaceRogue.Gameplay.Abilities
 
         #region Methods
 
-        public override GravitationMine Create(AbilityView view, Transform transform, ShotgunAbilityConfig shotgunAbilityConfig)
+        public override GravitationMine Create(AbilityView view, Transform transform, ShotgunAbilityConfig shotgunAbilityConfig, IDestroyable destroyable)
         {
             var gravitationArea = _gravitationAuraFactory.Create(transform, shotgunAbilityConfig.GravitaionAreaConfig);
-            return new GravitationMine(view, gravitationArea, shotgunAbilityConfig, _timerFactory);
+            return new GravitationMine(view, gravitationArea, shotgunAbilityConfig, _timerFactory, destroyable);
         }
 
         #endregion
