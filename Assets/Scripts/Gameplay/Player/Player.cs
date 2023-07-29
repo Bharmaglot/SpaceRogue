@@ -17,6 +17,8 @@ namespace Gameplay.Player
         public event Action PlayerDestroyed;
         public event Action PlayerDisposed;
 
+        public event Action<UnitWeapon> OnWeaponChange;
+
         #endregion
 
 
@@ -38,6 +40,7 @@ namespace Gameplay.Player
 
         public PlayerView PlayerView { get; }
         public EntitySurvival Survival { get; }
+        public UnitWeapon CurrentWeapon => _unitWeapons[_currentWeaponID];
 
         #endregion
 
@@ -127,6 +130,8 @@ namespace Gameplay.Player
             }
 
             _unitWeapons[_currentWeaponID].IsEnable = true;
+
+            OnWeaponChange?.Invoke(_unitWeapons[_currentWeaponID]);
         }
 
         #endregion

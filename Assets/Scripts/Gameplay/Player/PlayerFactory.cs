@@ -18,6 +18,7 @@ namespace Gameplay.Player
         private readonly PlayerSurvivalFactory _playerSurvivalFactory;
         private readonly PlayerWeaponFactory _playerWeaponsFactory;
         public event Action<PlayerSpawnedEventArgs> PlayerSpawned = _ => { };
+        public event Action<Player> OnPlayerSpawned;
 
         public PlayerFactory(
             PlayerViewFactory playerViewFactory,
@@ -52,11 +53,13 @@ namespace Gameplay.Player
 
             var player = new Player(playerView, unitMovement, unitTurningMouse, playerSurvival, unitWeapons, _playerInput);
 
-            PlayerSpawned.Invoke(
+            PlayerSpawned?.Invoke(
                 new PlayerSpawnedEventArgs(
                     player,
                     playerView.transform)
             );
+
+            OnPlayerSpawned?.Invoke(player);
 
             return player;
         }

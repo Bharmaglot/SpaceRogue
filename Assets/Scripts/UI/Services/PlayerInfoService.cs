@@ -15,11 +15,9 @@ namespace SpaceRogue.UI.Services
 
         private readonly PlayerUsedItemView _playerWeaponView;
         private readonly PlayerUsedItemView _playerAbilityView;
-        private readonly global::Gameplay.Player.Player _player;
+        private readonly PlayerFactory _playerFactory;
+        private global::Gameplay.Player.Player _player;
 
-        //private readonly PlayerWeaponFactory _playerWeaponFactory;
-
-        private UnitWeapon _unitWeapon;
         private Weapon _currentWeapon;
         private Ability _currentAbility;
 
@@ -28,23 +26,31 @@ namespace SpaceRogue.UI.Services
 
         #region CodeLife
 
-        public PlayerInfoService(PlayerInfoView playerInfoView, PlayerWeaponFactory playerWeaponFactory)
+        public PlayerInfoService(PlayerInfoView playerInfoView, PlayerFactory playerFactory)
         {
             _playerWeaponView = playerInfoView.PlayerWeaponView;
             _playerAbilityView = playerInfoView.PlayerAbilityView;
-            //_playerWeaponFactory = playerWeaponFactory;
-            //_player = player;
+            _playerFactory = playerFactory;
+
+            _playerFactory.OnPlayerSpawned += OnPlayerSpawnedHandler;
 
             _playerWeaponView.Hide();
             _playerAbilityView.Hide();
+        }
 
-            //_playerWeaponFactory.UnitWeaponCreated += OnUnitWeaponCreated;
+        private void OnPlayerSpawnedHandler(global::Gameplay.Player.Player player)
+        {
+            _playerFactory.OnPlayerSpawned -= OnPlayerSpawnedHandler;
+            _player = player;
+
+            _player.OnWeaponChange += OnUnitWeaponChanged;
+
+            OnUnitWeaponChanged(_player.CurrentWeapon);
         }
 
         public void Dispose()
         {
-            UnsubscribeFromAllUnitWeaponEvents();
-            //_playerWeaponFactory.UnitWeaponCreated -= OnUnitWeaponCreated;
+            _player.OnWeaponChange -= OnUnitWeaponChanged;
         }
 
         #endregion
@@ -52,26 +58,19 @@ namespace SpaceRogue.UI.Services
 
         #region Methods
 
-        private void OnUnitWeaponCreated(UnitWeapon unitWeapon)
-        {
-            UnsubscribeFromAllUnitWeaponEvents();
 
-            _unitWeapon = unitWeapon;
+        private void OnUnitWeaponChanged(UnitWeapon unitWeapon)
+        {
+            if (_currentWeapon != null)
+            {
+                UnsubscribesFromWeaponsAndAbilities();
+            }
+
             _currentWeapon = unitWeapon.CurrentWeapon;
             _currentAbility = unitWeapon.CurrentAbility;
 
-            _unitWeapon.OnUnitWeaponActivated += OnUnitWeaponChanged;
             SubscriptionsForWeaponsAndAbilities();
             SetupWeaponsAndAbilities();
-        }
-
-        private void UnsubscribeFromAllUnitWeaponEvents()
-        {
-            if (_unitWeapon != null)
-            {
-                _unitWeapon.OnUnitWeaponActivated -= OnUnitWeaponChanged;
-                UnsubscribesFromWeaponsAndAbilities();
-            }
         }
 
         private void UnsubscribesFromWeaponsAndAbilities()
@@ -80,15 +79,6 @@ namespace SpaceRogue.UI.Services
             _currentWeapon.WeaponUsed -= OnWeaponUsed;
             _currentAbility.AbilityAvailable -= OnAbilityAvailable;
             _currentAbility.AbilityUsed -= OnAbilityUsed;
-        }
-
-        private void OnUnitWeaponChanged()
-        {
-            UnsubscribesFromWeaponsAndAbilities();
-            _currentWeapon = _unitWeapon.CurrentWeapon;
-            _currentAbility = _unitWeapon.CurrentAbility;
-            SubscriptionsForWeaponsAndAbilities();
-            SetupWeaponsAndAbilities();
         }
 
         private void SubscriptionsForWeaponsAndAbilities()
