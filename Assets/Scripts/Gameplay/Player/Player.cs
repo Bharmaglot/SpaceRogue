@@ -5,6 +5,7 @@ using SpaceRogue.InputSystem;
 using SpaceRogue.Player.Movement;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 
 namespace Gameplay.Player
@@ -89,7 +90,7 @@ namespace Gameplay.Player
                 weapon.Dispose();
             }
 
-            if (PlayerView is not null)
+            if (PlayerView != null)
             {
                 UnityEngine.Object.Destroy(PlayerView.gameObject);
             }
@@ -99,6 +100,12 @@ namespace Gameplay.Player
 
 
         #region Metods
+
+        public void SetStartPosition(Vector2 position)
+        {
+            _unitMovement.StopMoving();
+            PlayerView.transform.position = position;
+        }
 
         private void OnDeath()
         {

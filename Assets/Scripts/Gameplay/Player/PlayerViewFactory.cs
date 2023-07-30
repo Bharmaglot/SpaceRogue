@@ -1,9 +1,8 @@
-using UnityEngine;
 using Zenject;
 
 namespace Gameplay.Player
 {
-    public sealed class PlayerViewFactory : PlaceholderFactory<Vector2, PlayerView>
+    public sealed class PlayerViewFactory : PlaceholderFactory<PlayerView>
     {
         private readonly DiContainer _diContainer;
         private readonly PlayerView _playerViewPrefab;
@@ -14,10 +13,10 @@ namespace Gameplay.Player
             _playerViewPrefab = playerViewPrefab;
         }
         
-        public override PlayerView Create(Vector2 position)
+        public override PlayerView Create()
         {
             return _diContainer
-                .InstantiatePrefabForComponent<PlayerView>(_playerViewPrefab, position, Quaternion.identity, null);
+                .InstantiatePrefabForComponent<PlayerView>(_playerViewPrefab);
         }
     }
 }

@@ -1,4 +1,6 @@
+using Gameplay.Player;
 using SpaceRogue.Services;
+using UnityEngine;
 using Zenject;
 
 
@@ -6,12 +8,14 @@ namespace SpaceRogue.Gameplay.GameProgress
 {
     public sealed class GameProgressState : IInitializable
     {
+        private readonly PlayerFactory _playerFactory;
 
         #region Fields
 
         private readonly LevelFactory _levelFactory;
         private readonly GameStateService _gameStateService;
 
+        private global::Gameplay.Player.Player _player;
         private Level _currentLevel;
 
         #endregion
@@ -26,8 +30,9 @@ namespace SpaceRogue.Gameplay.GameProgress
 
         #region CodeLife
 
-        public GameProgressState(LevelFactory levelFactory, GameStateService gameStateService)
+        public GameProgressState(PlayerFactory playerFactory, LevelFactory levelFactory, GameStateService gameStateService)
         {
+            _playerFactory = playerFactory;
             _levelFactory = levelFactory;
             _gameStateService = gameStateService;
 
@@ -39,14 +44,18 @@ namespace SpaceRogue.Gameplay.GameProgress
 
         #region Methods
 
-        public void Initialize() => _currentLevel = _levelFactory.Create(CurrentLevelNumber);
+        public void Initialize()
+        {
+            _player = _playerFactory.Create();
+            _currentLevel = _levelFactory.Create(_player, CurrentLevelNumber);
+        }
 
         public void StartNextLevel()
         {
             _currentLevel.Dispose();
             _currentLevel = null;
             CurrentLevelNumber++;
-            _currentLevel = _levelFactory.Create(CurrentLevelNumber);
+            _currentLevel = _levelFactory.Create(_player, CurrentLevelNumber);
         }
 
         public void BackToMenu()

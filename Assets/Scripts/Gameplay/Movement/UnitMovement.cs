@@ -71,6 +71,13 @@ namespace SpaceRogue.Player.Movement
 
         #region Methods
 
+        public void StopMoving()
+        {
+            ExtraSpeed = 0.0f;
+            _model.StopMoving();
+            _rigidbody.velocity = Vector3.zero;
+        }
+
         private void HorizontalAxisInputHandler(float axisValue)
         {
             if (Mathf.Approximately(axisValue, 0.0f))

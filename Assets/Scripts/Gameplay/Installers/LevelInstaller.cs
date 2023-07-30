@@ -59,7 +59,7 @@ namespace SpaceRogue.Gameplay.Installers
                 .AsSingle();
 
             Container
-                .BindFactory<int, Level, LevelFactory>()
+                .BindFactory<global::Gameplay.Player.Player, int, Level, LevelFactory>()
                 .AsSingle();
         }
 

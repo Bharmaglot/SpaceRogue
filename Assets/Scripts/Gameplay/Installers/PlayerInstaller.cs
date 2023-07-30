@@ -35,7 +35,7 @@ namespace Gameplay.Installers
                 .WhenInjectedInto<PlayerViewFactory>();
 
             Container
-                .BindFactory<Vector2, PlayerView, PlayerViewFactory>()
+                .BindFactory<PlayerView, PlayerViewFactory>()
                 .AsSingle();
         }
 
@@ -77,7 +77,7 @@ namespace Gameplay.Installers
         private void InstallPlayer()
         {
             Container
-                .BindFactory<Vector2, Player.Player, PlayerFactory>()
+                .BindFactory<Player.Player, PlayerFactory>()
                 .AsSingle();
         }
     }
