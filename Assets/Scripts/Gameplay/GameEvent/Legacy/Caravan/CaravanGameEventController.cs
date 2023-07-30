@@ -18,14 +18,14 @@ namespace Gameplay.GameEvent.Caravan
         private CaravanController _caravanController;
         private bool _isStopped;
 
-        public CaravanGameEventController(GameEventConfig config, PlayerController playerController) : base(config, playerController)
+        public CaravanGameEventController(GameEventConfig config/*, PlayerController playerController*/) : base(config/*, playerController*/)
         {
             var baseCaravanGameEvent = config as BaseCaravanGameEventConfig;
             _baseCaravanGameEvent = baseCaravanGameEvent
                 ? baseCaravanGameEvent
                 : throw new System.Exception("Wrong config type was provided");
 
-            _playerView = _playerController.View;
+            //_playerView = _playerController.View;
             _orthographicSize = UnityEngine.Camera.main.orthographicSize;
             _caravanSize = _baseCaravanGameEvent.CaravanConfig.CaravanView.transform.localScale.MaxVector3CoordinateOnPlane();
         }
@@ -44,7 +44,7 @@ namespace Gameplay.GameEvent.Caravan
             }
 
             var caravanView = CreateCaravanView(position);
-            _caravanController = new(_config, _playerController, caravanView, targetPosition);
+            //_caravanController = new(_config, _playerController, caravanView, targetPosition);
             _caravanController.OnDestroy.Subscribe(DestroyController);
             AddController(_caravanController);
             AddGameEventObjectToUIController(caravanView.gameObject);

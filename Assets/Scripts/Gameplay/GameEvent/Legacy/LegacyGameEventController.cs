@@ -16,7 +16,7 @@ namespace Gameplay.GameEvent
     public abstract class LegacyGameEventController : BaseController
     {
         protected readonly GameEventConfig _config;
-        protected readonly PlayerController _playerController;
+        //protected readonly PlayerController _playerController;
         protected Timer _timer;
 
         private readonly ResourcePath _gameEventIndicatorCanvasPath =
@@ -24,12 +24,12 @@ namespace Gameplay.GameEvent
 
         private bool _isOnceSuccessfully;
 
-        public LegacyGameEventController(GameEventConfig config, PlayerController playerController)
+        public LegacyGameEventController(GameEventConfig config/*, PlayerController playerController*/)
         {
             _config = config;
-            _playerController = playerController;
-            _playerController.PlayerDestroyed += OnPlayerDestroyed;
-            _playerController.OnControllerDispose += OnPlayerDestroyed;
+            //_playerController = playerController;
+            //_playerController.PlayerDestroyed += OnPlayerDestroyed;
+            //_playerController.OnControllerDispose += OnPlayerDestroyed;
             _timer = new(_config.ResponseTime, new Updater(new GameStateService(new SceneLoader())));
             _timer.Start();
 
@@ -39,8 +39,8 @@ namespace Gameplay.GameEvent
         protected override void OnDispose()
         {
             _timer.Dispose();
-            _playerController.PlayerDestroyed -= OnPlayerDestroyed;
-            _playerController.OnControllerDispose -= OnPlayerDestroyed;
+            //_playerController.PlayerDestroyed -= OnPlayerDestroyed;
+            //_playerController.OnControllerDispose -= OnPlayerDestroyed;
             EntryPoint.UnsubscribeFromUpdate(CheckEvent);
         }
 

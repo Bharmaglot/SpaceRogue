@@ -13,13 +13,13 @@ namespace Gameplay.GameEvent.Caravan
     public sealed class CaravanController : BaseController
     {
         private readonly BaseCaravanGameEventConfig _baseCaravanGameEvent;
-        private readonly PlayerController _playerController;
+        //private readonly PlayerController _playerController;
         private readonly PlayerView _playerView;
         private readonly CaravanView _caravanView;
 
         public SubscribedProperty<bool> OnDestroy = new();
 
-        public CaravanController(GameEventConfig config, PlayerController playerController, 
+        public CaravanController(GameEventConfig config,/* PlayerController playerController,*/ 
             CaravanView caravanView, Vector3 targetPosition)
         {
             var baseCaravanGameEvent = config as BaseCaravanGameEventConfig;
@@ -27,15 +27,15 @@ namespace Gameplay.GameEvent.Caravan
                 ? baseCaravanGameEvent
                 : throw new System.Exception("Wrong config type was provided");
 
-            _playerController = playerController;
-            _playerView = _playerController.View;
+            //_playerController = playerController;
+            //_playerView = _playerController.View;
 
             _caravanView = caravanView;
             AddGameObject(_caravanView.gameObject);
 
             AddCarnavalBehaviourController(_baseCaravanGameEvent.CaravanConfig.UnitMovement, targetPosition);
 
-            AddEnemyGroup(_baseCaravanGameEvent, _caravanView.transform.position, _playerController, _caravanView.transform);
+            //AddEnemyGroup(_baseCaravanGameEvent, _caravanView.transform.position, _playerController, _caravanView.transform);
         }
 
         private void AddCarnavalBehaviourController(UnitMovementConfig unitMovement, Vector3 targetPosition)
@@ -83,19 +83,19 @@ namespace Gameplay.GameEvent.Caravan
             Debug($"AlertRadius = {config.AlertRadius}");
         }
 
-        private void AddEnemyGroup(BaseCaravanGameEventConfig config, Vector3 spawnPoint, 
-            PlayerController playerController, Transform target)
-        {
-            var enemyFactory = new LegacyEnemyFactory(config.LegacyEnemyConfig);
-            var unitSize = config.LegacyEnemyConfig.Prefab.transform.localScale;
+        //private void AddEnemyGroup(BaseCaravanGameEventConfig config, Vector3 spawnPoint, 
+        //    PlayerController playerController, Transform target)
+        //{
+        //    var enemyFactory = new LegacyEnemyFactory(config.LegacyEnemyConfig);
+        //    var unitSize = config.LegacyEnemyConfig.Prefab.transform.localScale;
             
-            var spawnCircleRadius = config.EnemyCount * 2;
-            for (int i = 0; i < config.EnemyCount; i++)
-            {
-                var unitSpawnPoint = UnityHelper.GetEmptySpawnPoint(spawnPoint, unitSize, spawnCircleRadius);
-                var enemyController = enemyFactory.CreateEnemy(unitSpawnPoint, playerController, target);
-                AddController(enemyController);
-            }
-        }
+        //    var spawnCircleRadius = config.EnemyCount * 2;
+        //    for (int i = 0; i < config.EnemyCount; i++)
+        //    {
+        //        var unitSpawnPoint = UnityHelper.GetEmptySpawnPoint(spawnPoint, unitSize, spawnCircleRadius);
+        //        var enemyController = enemyFactory.CreateEnemy(unitSpawnPoint, playerController, target);
+        //        AddController(enemyController);
+        //    }
+        //}
     }
 }
