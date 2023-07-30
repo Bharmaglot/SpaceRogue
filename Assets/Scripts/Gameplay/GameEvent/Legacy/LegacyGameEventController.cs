@@ -1,5 +1,5 @@
 using Gameplay.Mechanics.Timer;
-using Gameplay.Player;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Scriptables.GameEvent;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Services;

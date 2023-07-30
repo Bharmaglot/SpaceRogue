@@ -5,18 +5,36 @@ using System;
 using Zenject;
 
 
-namespace Gameplay.Player
+namespace SpaceRogue.Gameplay.Player
 {
     public sealed class PlayerMovementFactory : PlaceholderFactory<PlayerView, IUnitMovementInput, UnitMovementModel, UnitMovement>
     {
-        private readonly UnitMovementFactory _unitMovementFactory;
+
+        #region Events
 
         public event Action<UnitMovement> PlayerMovementCreated;
 
-        private PlayerMovementFactory(UnitMovementFactory unitMovementFactory)
+        #endregion
+
+
+        #region Fields
+
+        private readonly UnitMovementFactory _unitMovementFactory;
+
+        #endregion
+
+
+        #region CodeLife
+
+        public PlayerMovementFactory(UnitMovementFactory unitMovementFactory)
         {
             _unitMovementFactory = unitMovementFactory;
         }
+
+        #endregion
+
+
+        #region Methods
 
         public override UnitMovement Create(PlayerView playerView, IUnitMovementInput movementInput, UnitMovementModel model)
         {
@@ -24,5 +42,8 @@ namespace Gameplay.Player
             PlayerMovementCreated?.Invoke(playerMovement);
             return playerMovement;
         }
+
+        #endregion
+
     }
 }

@@ -1,22 +1,30 @@
 using Gameplay.Movement;
-using Gameplay.Player;
+using Gameplay.Survival;
+using SpaceRogue.Abstraction;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Gameplay.Shooting.Scriptables;
-using Gameplay.Survival;
-using Scriptables;
-using SpaceRogue.Abstraction;
 using SpaceRogue.Player.Movement;
+using SpaceRogue.Scriptables;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using System.Collections.Generic;
 
 
-namespace Gameplay.Installers
+namespace SpaceRogue.Gameplay.Installers
 {
     public sealed class PlayerInstaller : MonoInstaller
     {
+
+        #region Properties
+
         [field: SerializeField] public PlayerView PlayerViewPrefab { get; private set; }
         [field: SerializeField] public PlayerConfig PlayerConfig { get; private set; }
+
+        #endregion
+
+
+        #region Methods
 
         public override void InstallBindings()
         {
@@ -80,5 +88,8 @@ namespace Gameplay.Installers
                 .BindFactory<Player.Player, PlayerFactory>()
                 .AsSingle();
         }
+
+        #endregion
+
     }
 }

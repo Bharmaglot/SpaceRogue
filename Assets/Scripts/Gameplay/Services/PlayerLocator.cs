@@ -1,26 +1,40 @@
-using System;
-using Gameplay.Events;
 using Gameplay.Mechanics.Timer;
-using Gameplay.Player;
+using SpaceRogue.Gameplay.Events;
+using SpaceRogue.Gameplay.Player;
+using System;
 using UnityEngine;
+
 
 namespace Gameplay.Services
 {
     public sealed class PlayerLocator : IDisposable
     {
-        private const float LocatorCooldown = 1;
+
+        #region Events
+
+        public event Action<Transform> PlayerTransform;
+
+        #endregion
+
+
+        #region Fields
+
+        private const float LOCATOR_COOLDOWN = 1;
 
         private readonly Timer _timer;
         private readonly PlayerFactory _playerFactory;
 
         private Transform _playerTransform;
-        private Player.Player _player;
+        private Player _player;
 
-        public event Action<Transform> PlayerTransform = _ => { };
+        #endregion
+
+
+        #region CodeLife
 
         public PlayerLocator(TimerFactory timerFactory, PlayerFactory playerFactory)
         {
-            _timer = timerFactory.Create(LocatorCooldown);
+            _timer = timerFactory.Create(LOCATOR_COOLDOWN);
             _playerFactory = playerFactory;
 
             _playerFactory.PlayerSpawned += OnPlayerSpawned;
@@ -32,16 +46,21 @@ namespace Gameplay.Services
             _playerFactory.PlayerSpawned -= OnPlayerSpawned;
         }
 
+        #endregion
+
+
+        #region Methods
+
         private void Locator()
         {
-            if(_playerTransform == null)
+            if (_playerTransform == null)
             {
                 Dispose();
                 return;
             }
 
             _timer.Start();
-            PlayerTransform.Invoke(_playerTransform);
+            PlayerTransform?.Invoke(_playerTransform);
         }
 
         private void OnPlayerSpawned(PlayerSpawnedEventArgs args)
@@ -59,5 +78,8 @@ namespace Gameplay.Services
             _player.PlayerDisposed -= OnPlayerDisposed;
             _player = null;
         }
+
+        #endregion
+
     }
 }

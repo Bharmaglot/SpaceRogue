@@ -1,10 +1,11 @@
-using Gameplay.Player;
 using SpaceRogue.Gameplay.Abilities;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Gameplay.Shooting.Weapons;
+using SpaceRogue.UI.Game;
 using System;
-using UI.Game;
 using UnityEngine;
+
 
 namespace SpaceRogue.UI.Services
 {
@@ -17,7 +18,8 @@ namespace SpaceRogue.UI.Services
         private readonly PlayerUsedItemView _playerAbilityView;
         private readonly CharacterView _characterView;
         private readonly PlayerFactory _playerFactory;
-        private global::Gameplay.Player.Player _player;
+        
+        private Gameplay.Player.Player _player;
 
         private Sprite _currentCharacterIcon;
         private Weapon _currentWeapon;
@@ -42,13 +44,13 @@ namespace SpaceRogue.UI.Services
             _characterView.Hide();
         }
 
-        private void OnPlayerSpawnedHandler(global::Gameplay.Player.Player player)
+        private void OnPlayerSpawnedHandler(Gameplay.Player.Player player)
         {
             if (_player != null)
             {
-                _player.OnWeaponChange -= OnUnitWeaponChanged; 
+                _player.OnWeaponChange -= OnUnitWeaponChanged;
             }
-            
+
             _player = player;
             _player.OnWeaponChange += OnUnitWeaponChanged;
 

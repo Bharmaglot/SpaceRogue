@@ -1,6 +1,6 @@
 using Gameplay.Mechanics.Timer;
-using Gameplay.Player;
 using SpaceRogue.Gameplay.GameEvent.Factories;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Scriptables.GameEvent;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +34,7 @@ namespace SpaceRogue.Gameplay.GameEvent.Comet
             _cometGameEventConfig = config;
             _playerView = playerView;
             _cometFactory = cometFactory;
-            _orthographicSize = Camera.main.orthographicSize;
+            _orthographicSize = UnityEngine.Camera.main.orthographicSize;
         }
 
         #endregion

@@ -1,6 +1,7 @@
 using UnityEngine;
 
-namespace UI.Game
+
+namespace SpaceRogue.UI.Game
 {
     public sealed class PlayerInfoView : MonoBehaviour
     {

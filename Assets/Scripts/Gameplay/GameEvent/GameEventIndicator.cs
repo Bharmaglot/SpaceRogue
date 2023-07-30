@@ -16,7 +16,7 @@ namespace SpaceRogue.Gameplay.GameEvent
         private readonly GameEventConfig _gameEventConfig;
         private readonly Updater _updater;
         private readonly GameEventIndicatorView _indicatorView;
-        private readonly Camera _camera;
+        private readonly UnityEngine.Camera _camera;
 
         private bool _isVisible;
         private bool _isVisibleOnce;
@@ -32,7 +32,7 @@ namespace SpaceRogue.Gameplay.GameEvent
             _indicatorView = indicatorView;
             _gameEventObjectCollider = collider;
             _gameEventConfig = gameEventConfig;
-            _camera = Camera.main;
+            _camera = UnityEngine.Camera.main;
 
             _indicatorView.Hide();
             _indicatorView.Icon.sprite = _gameEventConfig.Icon;

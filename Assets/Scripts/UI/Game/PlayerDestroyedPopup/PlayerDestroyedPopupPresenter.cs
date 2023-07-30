@@ -1,4 +1,4 @@
-﻿using Gameplay.Events;
+﻿using SpaceRogue.Gameplay.Events;
 using SpaceRogue.Gameplay.GameProgress;
 using System;
 

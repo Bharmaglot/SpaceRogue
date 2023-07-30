@@ -1,10 +1,12 @@
+using UI.Abstracts;
 using UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Game
+
+namespace SpaceRogue.UI.Game
 {
-    public sealed class PlayerUsedItemView : MonoBehaviour
+    public sealed class PlayerUsedItemView : MonoBehaviour, IShowableView, IHideableView
     {
         [field: SerializeField] public Image Panel { get; private set; }
         [field: SerializeField] public Color ColorActive { get; private set; }

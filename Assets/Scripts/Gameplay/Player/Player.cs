@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Gameplay.Player
+namespace SpaceRogue.Gameplay.Player
 {
     public sealed class Player : IDisposable
     {

@@ -2,7 +2,7 @@ using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
 
 
-namespace Gameplay.Player
+namespace SpaceRogue.Gameplay.Player
 {
     public sealed class PlayerView : EntityViewBase
     {

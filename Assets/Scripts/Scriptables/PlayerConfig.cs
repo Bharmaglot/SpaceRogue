@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Scriptables
+namespace SpaceRogue.Scriptables
 {
     [CreateAssetMenu(fileName = nameof(PlayerConfig), menuName = "Configs/Player/" + nameof(PlayerConfig))]
     public sealed class PlayerConfig : ScriptableObject

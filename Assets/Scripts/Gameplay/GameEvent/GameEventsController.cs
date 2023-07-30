@@ -1,5 +1,5 @@
-using Gameplay.Player;
 using SpaceRogue.Gameplay.GameEvent.Factories;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Scriptables.GameEvent;
 using System;
 using System.Collections.Generic;

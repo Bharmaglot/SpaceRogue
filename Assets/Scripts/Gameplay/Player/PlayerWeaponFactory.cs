@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Zenject;
 
 
-namespace Gameplay.Player
+namespace SpaceRogue.Gameplay.Player
 {
     public sealed class PlayerWeaponFactory : PlaceholderFactory<PlayerView, UnitMovement, List<UnitWeapon>>
     {

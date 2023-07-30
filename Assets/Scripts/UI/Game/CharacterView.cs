@@ -2,7 +2,8 @@ using UI.Abstracts;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Game
+
+namespace SpaceRogue.UI.Game
 {
     public sealed class CharacterView : MonoBehaviour, IShowableView, IHideableView
     {

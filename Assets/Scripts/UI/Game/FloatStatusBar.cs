@@ -1,4 +1,4 @@
-using Gameplay.Camera;
+using SpaceRogue.Gameplay.Camera;
 using Gameplay.Survival;
 using SpaceRogue.Services;
 using System;

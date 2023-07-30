@@ -1,6 +1,6 @@
 using Gameplay.Enemy;
 using Gameplay.Movement;
-using Gameplay.Player;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Scriptables.GameEvent;
 using SpaceRogue.Abstraction;
 using UnityEngine;

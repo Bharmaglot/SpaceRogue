@@ -1,4 +1,4 @@
-using Gameplay.Player;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Scriptables.GameEvent;
 
 namespace Gameplay.GameEvent.Caravan

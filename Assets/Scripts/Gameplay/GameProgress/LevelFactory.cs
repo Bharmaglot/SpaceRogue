@@ -1,11 +1,11 @@
 using Gameplay.Asteroids.Factories;
 using Gameplay.Enemy;
-using Gameplay.Player;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
 using Scriptables;
 using SpaceRogue.Gameplay.GameEvent.Factories;
 using SpaceRogue.Gameplay.Missions.Factories;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Gameplay.Space.Obstacle;
 using System;
 using Zenject;
@@ -13,7 +13,7 @@ using Zenject;
 
 namespace SpaceRogue.Gameplay.GameProgress
 {
-    public sealed class LevelFactory : PlaceholderFactory<global::Gameplay.Player.Player, int, Level>
+    public sealed class LevelFactory : PlaceholderFactory<Player.Player, int, Level>
     {
 
         #region Events
@@ -80,7 +80,7 @@ namespace SpaceRogue.Gameplay.GameProgress
 
         #region Methods
 
-        public override Level Create(global::Gameplay.Player.Player player, int levelNumber)
+        public override Level Create(Player.Player player, int levelNumber)
         {
             _currentLevelPreset = PickRandomLevelPreset();
             var spaceView = _spaceViewFactory.Create();

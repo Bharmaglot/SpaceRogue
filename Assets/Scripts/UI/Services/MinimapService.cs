@@ -1,19 +1,23 @@
 using Gameplay.Events;
 using Gameplay.Minimap;
 using Scriptables;
+using SpaceRogue.Gameplay.Events;
+using SpaceRogue.Gameplay.GameProgress;
 using SpaceRogue.InputSystem;
 using SpaceRogue.Services;
 using System;
-using SpaceRogue.Gameplay.GameProgress;
 using UI.Game;
 using UnityEngine;
 
 
-namespace UI.Services
+namespace SpaceRogue.UI.Services
 {
     public sealed class MinimapService : IDisposable
     {
-        private const int CameraZAxisOffset = -1;
+
+        #region Fields
+
+        private const int CAMERA_Z_AXIS_OFFSET = -1;
 
         private readonly Updater _updater;
         private readonly LevelProgress _levelProgress;
@@ -33,13 +37,18 @@ namespace UI.Services
         private Transform _playerTransform;
         private bool _isButtonPressed;
 
+        #endregion
+
+
+        #region CodeLife
+
         public MinimapService(
-            Updater updater, 
-            LevelProgress levelProgress, 
+            Updater updater,
+            LevelProgress levelProgress,
             PlayerInput playerInput,
-            MainCanvas mainCanvas, 
+            MainCanvas mainCanvas,
             MinimapCamera minimapCamera,
-            MinimapView minimapView, 
+            MinimapView minimapView,
             MinimapConfig minimapConfig
             )
         {
@@ -72,10 +81,12 @@ namespace UI.Services
             _updater.UnsubscribeFromUpdate(FollowPlayer);
         }
 
-        private void OnLevelStarted(LevelStartedEventArgs level)
-        {
-            _mapCameraSize = level.MapCameraSize;
-        }
+        #endregion
+
+
+        #region Methods
+
+        private void OnLevelStarted(LevelStartedEventArgs level) => _mapCameraSize = level.MapCameraSize;
 
         private void OnPlayerSpawned(PlayerSpawnedEventArgs eventArgs)
         {
@@ -108,7 +119,7 @@ namespace UI.Services
             }
 
             var position = _playerTransform.position;
-            _minimapCameraTransform.position = new(position.x, position.y, position.z + CameraZAxisOffset);
+            _minimapCameraTransform.position = new(position.x, position.y, position.z + CAMERA_Z_AXIS_OFFSET);
         }
 
         private void MapInput(bool mapInput)
@@ -133,20 +144,23 @@ namespace UI.Services
 
         private void BecomeMap()
         {
-            _minimapCameraTransform.position = new(0, 0, CameraZAxisOffset);
+            _minimapCameraTransform.position = new(0.0f, 0.0f, CAMERA_Z_AXIS_OFFSET);
             _minimapCamera.orthographicSize = _mapCameraSize;
 
-            var newHeight = _mainRectTransform.sizeDelta.y - _anchoredPositionY * 2;
-            var newAnchoredPositionX = _mainRectTransform.sizeDelta.x / 2 - newHeight / 2;
-            _minimapRectTransform.sizeDelta = new(0, newHeight);
+            var newHeight = _mainRectTransform.sizeDelta.y - _anchoredPositionY * 2.0f;
+            var newAnchoredPositionX = _mainRectTransform.sizeDelta.x * 0.5f - newHeight * 0.5f;
+            _minimapRectTransform.sizeDelta = new(0.0f, newHeight);
             _minimapRectTransform.anchoredPosition = new(newAnchoredPositionX, _anchoredPositionY);
         }
 
         private void ReturnToMinimap()
         {
             _minimapCamera.orthographicSize = _minimapConfig.MinimapCameraSize;
-            _minimapRectTransform.sizeDelta = new(0, _minimapConfig.MinimapHeight);
+            _minimapRectTransform.sizeDelta = new(0.0f, _minimapConfig.MinimapHeight);
             _minimapRectTransform.anchoredPosition = new(_anchoredPositionX, _anchoredPositionY);
         }
+
+        #endregion
+
     }
 }

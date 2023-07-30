@@ -1,12 +1,21 @@
-using Gameplay.Camera;
+using SpaceRogue.Gameplay.Camera;
 using UnityEngine;
 using Zenject;
 
-namespace Gameplay.Installers
+
+namespace SpaceRogue.Gameplay.Installers
 {
     public sealed class CameraInstaller : MonoInstaller
     {
+
+        #region Properties
+
         [field: SerializeField] public CameraView GameCameraView { get; private set; }
+
+        #endregion
+
+
+        #region Methods
 
         public override void InstallBindings()
         {
@@ -26,5 +35,8 @@ namespace Gameplay.Installers
                 .AsSingle()
                 .NonLazy();
         }
+
+        #endregion
+
     }
 }
