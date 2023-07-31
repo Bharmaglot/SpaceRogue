@@ -19,12 +19,6 @@ namespace SpaceRogue.Enemy.Movement
 
         public event Action<bool> PrimaryFireInput;
 
-#pragma warning disable 67
-        public event Action<bool> AbilityInput;
-
-        public event Action<bool> ChangeWeaponInput;
-#pragma warning restore 67
-
         #endregion
 
 

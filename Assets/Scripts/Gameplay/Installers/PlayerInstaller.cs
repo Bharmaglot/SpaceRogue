@@ -1,9 +1,10 @@
 using Gameplay.Movement;
-using Gameplay.Survival;
 using SpaceRogue.Abstraction;
+using SpaceRogue.Gameplay.Abilities;
+using SpaceRogue.Gameplay.Abilities.Scriptables;
 using SpaceRogue.Gameplay.Player;
-using SpaceRogue.Gameplay.Shooting;
-using SpaceRogue.Gameplay.Shooting.Scriptables;
+using SpaceRogue.Gameplay.Player.Character;
+using SpaceRogue.Gameplay.Pooling;
 using SpaceRogue.Player.Movement;
 using SpaceRogue.Scriptables;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace SpaceRogue.Gameplay.Installers
 
         [field: SerializeField] public PlayerView PlayerViewPrefab { get; private set; }
         [field: SerializeField] public PlayerConfig PlayerConfig { get; private set; }
+        [field: SerializeField] public AbilityPool AbilityPool { get; private set; }
 
         #endregion
 
@@ -30,9 +32,9 @@ namespace SpaceRogue.Gameplay.Installers
         {
             InstallPlayerView();
             InstallPlayerMovement();
-            InstallPlayerHealth();
-            InstallPlayerWeapon();
+            InstallCharacters();
             InstallPlayer();
+            InstallAbilityFactories();
         }
 
         private void InstallPlayerView()
@@ -59,26 +61,15 @@ namespace SpaceRogue.Gameplay.Installers
                 .AsSingle();
         }
 
-        private void InstallPlayerHealth()
-        {
-            Container.Bind<EntitySurvivalConfig>()
-                .FromInstance(PlayerConfig.Survival)
-                .WhenInjectedInto<PlayerSurvivalFactory>();
-
-            Container
-                .BindFactory<EntityViewBase, EntitySurvival, PlayerSurvivalFactory>()
-                .AsSingle();
-        }
-
-        private void InstallPlayerWeapon()
+        private void InstallCharacters()
         {
             Container
-                .Bind<List<MountedWeaponConfig>>()
-                .FromInstance(PlayerConfig.AvailableWeapons)
-                .WhenInjectedInto<PlayerWeaponFactory>();
+                .Bind<List<CharacterConfig>>()
+                .FromInstance(PlayerConfig.Characters)
+                .WhenInjectedInto<CharacterFactory>();
 
             Container
-                .BindFactory<PlayerView, UnitMovement, List<UnitWeapon>, PlayerWeaponFactory>()
+                .BindFactory<EntityViewBase, UnitMovement, List<Character>, CharacterFactory>()
                 .AsSingle();
         }
 
@@ -86,6 +77,35 @@ namespace SpaceRogue.Gameplay.Installers
         {
             Container
                 .BindFactory<Player.Player, PlayerFactory>()
+                .AsSingle();
+        }
+
+        private void InstallAbilityFactories()
+        {
+
+            Container
+                .Bind<AbilityPool>()
+                .FromInstance(AbilityPool)
+                .AsSingle();
+
+            Container
+                .BindIFactory<AbilityConfig, EntityViewBase, UnitMovement, Ability>()
+                .FromFactory<AbilityFactory>();
+
+            Container
+                .Bind<AbilityFactory>()
+                .AsCached();
+
+            Container
+                .BindFactory<Vector2, AbilityConfig, AbilityView, AbilityViewFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<AbilityView, Transform, ShotgunAbilityConfig, IDestroyable, GravitationMine, GravitationMineFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<EntityViewBase, AbilityConfig, UnitMovement, IUnitAbilityInput, UnitAbility, UnitAbilityFactory>()
                 .AsSingle();
         }
 

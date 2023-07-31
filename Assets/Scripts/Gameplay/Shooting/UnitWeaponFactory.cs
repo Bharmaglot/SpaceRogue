@@ -1,5 +1,4 @@
 using SpaceRogue.Abstraction;
-using SpaceRogue.Gameplay.Abilities;
 using SpaceRogue.Gameplay.Shooting.Factories;
 using SpaceRogue.Gameplay.Shooting.Scriptables;
 using SpaceRogue.Player.Movement;
@@ -14,17 +13,15 @@ namespace SpaceRogue.Gameplay.Shooting
         #region Fields
 
         private readonly MountedWeaponFactory _mountedWeaponFactory;
-        private readonly AbilityFactory _abilityFactory;
 
         #endregion
 
 
         #region CodeLife
 
-        public UnitWeaponFactory(MountedWeaponFactory mountedWeaponFactory, AbilityFactory abilityFactory)
+        public UnitWeaponFactory(MountedWeaponFactory mountedWeaponFactory)
         {
             _mountedWeaponFactory = mountedWeaponFactory;
-            _abilityFactory = abilityFactory;
         }
 
         #endregion
@@ -35,9 +32,7 @@ namespace SpaceRogue.Gameplay.Shooting
         public override UnitWeapon Create(EntityViewBase entityView, MountedWeaponConfig config, UnitMovement unitMovement, IUnitWeaponInput input)
         {
             var mountedWeapon = _mountedWeaponFactory.Create(config, entityView);
-            var ability = config.Ability != null ? _abilityFactory.Create(config.Ability, entityView, unitMovement) : new NullAbility();
-
-            return new UnitWeapon(config.CharacterIcon, mountedWeapon, ability, input);
+            return new UnitWeapon(mountedWeapon, input);
         }
 
         #endregion

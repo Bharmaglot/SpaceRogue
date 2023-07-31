@@ -1,5 +1,6 @@
 using Gameplay.Movement;
 using SpaceRogue.Gameplay.Events;
+using SpaceRogue.Gameplay.Player.Character;
 using SpaceRogue.InputSystem;
 using System;
 using Zenject;
@@ -27,8 +28,7 @@ namespace SpaceRogue.Gameplay.Player
         private readonly UnitMovementModelFactory _unitMovementModelFactory;
         private readonly PlayerMovementFactory _playerMovementFactory;
         private readonly UnitTurningMouseFactory _unitTurningMouseFactory;
-        private readonly PlayerSurvivalFactory _playerSurvivalFactory;
-        private readonly PlayerWeaponFactory _playerWeaponsFactory;
+        private readonly CharacterFactory _characterFactory;
 
         #endregion
 
@@ -42,8 +42,7 @@ namespace SpaceRogue.Gameplay.Player
             UnitMovementModelFactory unitMovementModelFactory,
             PlayerMovementFactory playerMovementFactory,
             UnitTurningMouseFactory unitTurningMouseFactory,
-            PlayerSurvivalFactory playerSurvivalFactory,
-            PlayerWeaponFactory playerWeaponsFactory)
+            CharacterFactory characterFactory)
         {
             _playerViewFactory = playerViewFactory;
             _playerInput = playerInput;
@@ -51,8 +50,7 @@ namespace SpaceRogue.Gameplay.Player
             _unitMovementModelFactory = unitMovementModelFactory;
             _playerMovementFactory = playerMovementFactory;
             _unitTurningMouseFactory = unitTurningMouseFactory;
-            _playerSurvivalFactory = playerSurvivalFactory;
-            _playerWeaponsFactory = playerWeaponsFactory;
+            _characterFactory = characterFactory;
         }
 
         #endregion
@@ -66,10 +64,9 @@ namespace SpaceRogue.Gameplay.Player
             var model = _unitMovementModelFactory.Create(_unitMovementConfig);
             var unitMovement = _playerMovementFactory.Create(playerView, _playerInput, model);
             var unitTurningMouse = _unitTurningMouseFactory.Create(playerView, _playerInput, model);
-            var unitWeapons = _playerWeaponsFactory.Create(playerView, unitMovement);
-            var playerSurvival = _playerSurvivalFactory.Create(playerView);
+            var characters = _characterFactory.Create(playerView, unitMovement);   
 
-            var player = new Player(playerView, unitMovement, unitTurningMouse, playerSurvival, unitWeapons, _playerInput);
+            var player = new Player(playerView, unitMovement, unitTurningMouse, characters, _playerInput);
 
             PlayerSpawned?.Invoke(new PlayerSpawnedEventArgs(player, playerView.transform));
             OnPlayerSpawned?.Invoke(player);

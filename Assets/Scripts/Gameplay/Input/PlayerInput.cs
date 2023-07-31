@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SpaceRogue.InputSystem
 {
-    public sealed class PlayerInput : IDisposable, IUnitMovementInput, IUnitTurningMouseInput, IUnitWeaponInput
+    public sealed class PlayerInput : IDisposable, IUnitMovementInput, IUnitTurningMouseInput, IUnitWeaponInput, IUnitAbilityInput, IChangeCharacterInput
     {
 
         #region Events
@@ -17,7 +17,7 @@ namespace SpaceRogue.InputSystem
         public event Action<float> HorizontalAxisInput;
 
         public event Action<bool> PrimaryFireInput;
-        public event Action<bool> ChangeWeaponInput;
+        public event Action<bool> ChangeCharacterInput;
         public event Action<bool> AbilityInput;
         public event Action<bool> NextLevelInput;
         public event Action<bool> MapInput;
@@ -33,8 +33,8 @@ namespace SpaceRogue.InputSystem
         private const KeyCode ABILITY = KeyCode.Mouse1;
         private const KeyCode NEXT_LEVEL = KeyCode.G;
         private const KeyCode MAP = KeyCode.Tab;
-        private const KeyCode PREVIOUS_WEAPON = KeyCode.Q;
-        private const KeyCode NEXT_WEAPON = KeyCode.E;
+        private const KeyCode PREVIOUS_CHARACTER = KeyCode.Q;
+        private const KeyCode NEXT_CHARACTER = KeyCode.E;
 
         private readonly Updater _updater;
         private readonly PlayerInputConfig _playerInputConfig;
@@ -54,7 +54,7 @@ namespace SpaceRogue.InputSystem
             _updater.SubscribeToUpdate(CheckFiringInput);
             _updater.SubscribeToUpdate(CheckAbilityInput);
             _updater.SubscribeToUpdate(CheckMousePositionInput);
-            _updater.SubscribeToUpdate(CheckChangeWeaponInput);
+            _updater.SubscribeToUpdate(CheckChangeCharacterInput);
             _updater.SubscribeToUpdate(CheckNextLevelInput);
             _updater.SubscribeToUpdate(CheckMapInput);
         }
@@ -66,7 +66,7 @@ namespace SpaceRogue.InputSystem
             _updater.UnsubscribeFromUpdate(CheckFiringInput);
             _updater.UnsubscribeFromUpdate(CheckAbilityInput);
             _updater.UnsubscribeFromUpdate(CheckMousePositionInput);
-            _updater.UnsubscribeFromUpdate(CheckChangeWeaponInput);
+            _updater.UnsubscribeFromUpdate(CheckChangeCharacterInput);
             _updater.UnsubscribeFromUpdate(CheckNextLevelInput);
             _updater.UnsubscribeFromUpdate(CheckMapInput);
         }
@@ -108,26 +108,26 @@ namespace SpaceRogue.InputSystem
             MousePositionInput?.Invoke(value);
         }
 
-        private void CheckChangeWeaponInput()
+        private void CheckChangeCharacterInput()
         {
-            bool needChangeWeapon = false;
-            bool result = default;
+            var needChangeCharacter = false;
+            var result = false;
 
-            if (Input.GetKeyDown(PREVIOUS_WEAPON))
+            if (Input.GetKeyDown(PREVIOUS_CHARACTER))
             {
-                needChangeWeapon = true;
+                needChangeCharacter = true;
                 result = false;
             }
 
-            if (Input.GetKeyDown(NEXT_WEAPON))
+            if (Input.GetKeyDown(NEXT_CHARACTER))
             {
-                needChangeWeapon = true;
+                needChangeCharacter = true;
                 result = true;
             }
 
-            if (needChangeWeapon)
+            if (needChangeCharacter)
             {
-                ChangeWeaponInput?.Invoke(result);
+                ChangeCharacterInput?.Invoke(result);
             }
         }
 

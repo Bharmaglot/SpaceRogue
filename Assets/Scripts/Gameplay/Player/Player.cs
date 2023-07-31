@@ -1,6 +1,4 @@
 using Gameplay.Movement;
-using Gameplay.Survival;
-using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.InputSystem;
 using SpaceRogue.Player.Movement;
 using System;
@@ -18,18 +16,19 @@ namespace SpaceRogue.Gameplay.Player
         public event Action PlayerDestroyed;
         public event Action PlayerDisposed;
 
-        public event Action<UnitWeapon> OnWeaponChange;
+        public event Action<Character.Character> OnCharacterChange;
 
         #endregion
 
 
         #region Fields
 
-        private int _currentWeaponID;
+        private int _currentCharacterID;
 
         private readonly UnitMovement _unitMovement;
         private readonly UnitTurningMouse _unitTurningMouse;
-        private readonly List<UnitWeapon> _unitWeapons;
+        private readonly List<Character.Character> _characters;
+        private readonly List<bool> _destroyedCharacters = new();
         private readonly PlayerInput _playerInput;
 
         private bool _disposing;
@@ -40,8 +39,7 @@ namespace SpaceRogue.Gameplay.Player
         #region Properties
 
         public PlayerView PlayerView { get; }
-        public EntitySurvival Survival { get; }
-        public UnitWeapon CurrentWeapon => _unitWeapons[_currentWeaponID];
+        public Character.Character CurrentCharacter => _characters[_currentCharacterID];
 
         #endregion
 
@@ -52,20 +50,24 @@ namespace SpaceRogue.Gameplay.Player
             PlayerView playerView,
             UnitMovement unitMovement,
             UnitTurningMouse unitTurningMouse,
-            EntitySurvival playerSurvival,
-            List<UnitWeapon> unitWeapon,
+            List<Character.Character> characters,
             PlayerInput playerInput)
         {
             PlayerView = playerView;
             _unitMovement = unitMovement;
             _unitTurningMouse = unitTurningMouse;
-            _unitWeapons = unitWeapon;
-            _currentWeaponID = _unitWeapons.Count - 1;
-            _playerInput = playerInput;
-            Survival = playerSurvival;
+            _characters = characters;
 
-            Survival.UnitDestroyed += OnDeath;
-            _playerInput.ChangeWeaponInput += ChangeWeaponInputHandler;
+            _playerInput = playerInput;
+            _currentCharacterID = 0;
+
+            foreach (var character in _characters)
+            {
+                character.CharacterDestroyed += OnCharacterDestroyed;
+                _destroyedCharacters.Add(false);
+            }
+
+            _playerInput.ChangeCharacterInput += ChangeCharacterInputHandler;
         }
 
         public void Dispose()
@@ -76,19 +78,21 @@ namespace SpaceRogue.Gameplay.Player
             }
 
             _disposing = true;
-            Survival.UnitDestroyed -= OnDeath;
-            _playerInput.ChangeWeaponInput -= ChangeWeaponInputHandler;
+
+            _playerInput.ChangeCharacterInput -= ChangeCharacterInputHandler;
 
             PlayerDisposed?.Invoke();
 
-            Survival.Dispose();
             _unitMovement.Dispose();
             _unitTurningMouse.Dispose();
 
-            foreach (var weapon in _unitWeapons)
+            foreach (var character in _characters)
             {
-                weapon.Dispose();
+                character.CharacterDestroyed -= OnCharacterDestroyed;
+                character.Dispose();
             }
+            _characters.Clear();
+            _destroyedCharacters.Clear();
 
             if (PlayerView != null)
             {
@@ -99,7 +103,7 @@ namespace SpaceRogue.Gameplay.Player
         #endregion
 
 
-        #region Metods
+        #region Methods
 
         public void SetStartPosition(Vector2 position)
         {
@@ -107,39 +111,86 @@ namespace SpaceRogue.Gameplay.Player
             PlayerView.transform.position = position;
         }
 
-        private void OnDeath()
+        private void OnCharacterDestroyed(Character.Character destroyedCharacter)
         {
-            PlayerDestroyed?.Invoke();
-            Dispose();
-        }
-
-        private void ChangeWeaponInputHandler(bool isNextWeapon)
-        {
-            _unitWeapons[_currentWeaponID].IsEnable = false;
-
-            if (isNextWeapon)
+            for (var i = 0; i < _characters.Count; i++)
             {
-                _currentWeaponID++;
-
-                if (_currentWeaponID == _unitWeapons.Count)
+                if (_characters[i] == destroyedCharacter)
                 {
-                    _currentWeaponID = 0;
-                }
-            }
-            else
-            {
-                _currentWeaponID--;
-
-                if (_currentWeaponID < 0)
-                {
-                    _currentWeaponID = _unitWeapons.Count - 1;
+                    _destroyedCharacters[i] = true;
                 }
             }
 
-            _unitWeapons[_currentWeaponID].IsEnable = true;
-
-            OnWeaponChange?.Invoke(_unitWeapons[_currentWeaponID]);
+            if (AreAllCharactersDestroyed())
+            {
+                return;
+            }
+            ChangeCharacterInputHandler(true);
         }
+
+        private bool AreAllCharactersDestroyed()
+        {
+            var count = 0;
+            foreach (var destroyedCharacter in _destroyedCharacters)
+            {
+                if (destroyedCharacter)
+                {
+                    count++;
+                }
+            }
+
+            if (count == _destroyedCharacters.Count)
+            {
+                PlayerDestroyed?.Invoke();
+                Dispose();
+                return true;
+            }
+            return false;
+        }
+
+        private void ChangeCharacterInputHandler(bool isNextWeapon)
+        {
+            if (AreAllCharactersDestroyed())
+            {
+                return;
+            }
+
+            _characters[_currentCharacterID].SetCharacterActive(false);
+
+            foreach (var _  in _characters)
+            {
+                if (isNextWeapon)
+                {
+                    _currentCharacterID++;
+
+                    if (_currentCharacterID == _characters.Count)
+                    {
+                        _currentCharacterID = 0;
+                    }
+                }
+                else
+                {
+                    _currentCharacterID--;
+
+                    if (_currentCharacterID < 0)
+                    {
+                        _currentCharacterID = _characters.Count - 1;
+                    }
+                }
+
+                if (!_destroyedCharacters[_currentCharacterID])
+                {
+                    break;
+                }
+            }
+
+            SetSpaceshipSprite(_characters[_currentCharacterID].SpaceshipSprite);
+            _characters[_currentCharacterID].SetCharacterActive(true);
+
+            OnCharacterChange?.Invoke(_characters[_currentCharacterID]);
+        }
+
+        private void SetSpaceshipSprite(Sprite spaceshipSprite) => PlayerView.SpriteRenderer.sprite = spaceshipSprite;
 
         #endregion
 

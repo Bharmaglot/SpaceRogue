@@ -1,10 +1,9 @@
 using SpaceRogue.Gameplay.Abilities;
 using SpaceRogue.Gameplay.Player;
-using SpaceRogue.Gameplay.Shooting;
+using SpaceRogue.Gameplay.Player.Character;
 using SpaceRogue.Gameplay.Shooting.Weapons;
 using SpaceRogue.UI.Game;
 using System;
-using UnityEngine;
 
 
 namespace SpaceRogue.UI.Services
@@ -21,9 +20,7 @@ namespace SpaceRogue.UI.Services
         
         private Gameplay.Player.Player _player;
 
-        private Sprite _currentCharacterIcon;
-        private Weapon _currentWeapon;
-        private Ability _currentAbility;
+        private Character _currentCharacter;
 
         #endregion
 
@@ -48,19 +45,21 @@ namespace SpaceRogue.UI.Services
         {
             if (_player != null)
             {
-                _player.OnWeaponChange -= OnUnitWeaponChanged;
+                _player.OnCharacterChange -= OnCharacterChanged;
             }
 
             _player = player;
-            _player.OnWeaponChange += OnUnitWeaponChanged;
+            _player.OnCharacterChange += OnCharacterChanged;
 
-            OnUnitWeaponChanged(_player.CurrentWeapon);
+            OnCharacterChanged(_player.CurrentCharacter);
         }
 
         public void Dispose()
         {
             _playerFactory.OnPlayerSpawned -= OnPlayerSpawnedHandler;
-            _player.OnWeaponChange -= OnUnitWeaponChanged;
+            _player.OnCharacterChange -= OnCharacterChanged;
+
+            UnsubscribesFromWeaponsAndAbilities();
         }
 
         #endregion
@@ -69,16 +68,11 @@ namespace SpaceRogue.UI.Services
         #region Methods
 
 
-        private void OnUnitWeaponChanged(UnitWeapon unitWeapon)
+        private void OnCharacterChanged(Character character)
         {
-            if (_currentWeapon != null)
-            {
-                UnsubscribesFromWeaponsAndAbilities();
-            }
+            UnsubscribesFromWeaponsAndAbilities();
 
-            _currentCharacterIcon = unitWeapon.CharacterIcon != null ? unitWeapon.CharacterIcon : default;
-            _currentWeapon = unitWeapon.CurrentWeapon;
-            _currentAbility = unitWeapon.CurrentAbility;
+            _currentCharacter = character;
 
             SubscriptionsForWeaponsAndAbilities();
             SetupWeaponsAndAbilities();
@@ -86,44 +80,47 @@ namespace SpaceRogue.UI.Services
 
         private void UnsubscribesFromWeaponsAndAbilities()
         {
-            _currentWeapon.WeaponAvailable -= OnWeaponAvailable;
-            _currentWeapon.WeaponUsed -= OnWeaponUsed;
-            _currentAbility.AbilityAvailable -= OnAbilityAvailable;
-            _currentAbility.AbilityUsed -= OnAbilityUsed;
+            if (_currentCharacter != null)
+            {
+                _currentCharacter.UnitWeapon.MountedWeapon.Weapon.WeaponAvailable -= OnWeaponAvailable;
+                _currentCharacter.UnitWeapon.MountedWeapon.Weapon.WeaponUsed -= OnWeaponUsed;
+                _currentCharacter.UnitAbility.Ability.AbilityAvailable -= OnAbilityAvailable;
+                _currentCharacter.UnitAbility.Ability.AbilityUsed -= OnAbilityUsed; 
+            }
         }
 
         private void SubscriptionsForWeaponsAndAbilities()
         {
-            _currentWeapon.WeaponAvailable += OnWeaponAvailable;
-            _currentWeapon.WeaponUsed += OnWeaponUsed;
-            _currentAbility.AbilityAvailable += OnAbilityAvailable;
-            _currentAbility.AbilityUsed += OnAbilityUsed;
+            _currentCharacter.UnitWeapon.MountedWeapon.Weapon.WeaponAvailable += OnWeaponAvailable;
+            _currentCharacter.UnitWeapon.MountedWeapon.Weapon.WeaponUsed += OnWeaponUsed;
+            _currentCharacter.UnitAbility.Ability.AbilityAvailable += OnAbilityAvailable;
+            _currentCharacter.UnitAbility.Ability.AbilityUsed += OnAbilityUsed;
         }
 
         private void SetupWeaponsAndAbilities()
         {
             _characterView.Show();
-            _characterView.Image.sprite = _currentCharacterIcon;
+            _characterView.Image.sprite = _currentCharacter.CharacterIcon != null ? _currentCharacter.CharacterIcon : default; ;
 
-            if (_currentWeapon is NullGun)
+            if (_currentCharacter.UnitWeapon.MountedWeapon.Weapon is NullGun)
             {
                 _playerWeaponView.Hide();
             }
             else
             {
                 _playerWeaponView.Show();
-                _playerWeaponView.Init(_currentWeapon.WeaponName);
+                _playerWeaponView.Init(_currentCharacter.UnitWeapon.MountedWeapon.Weapon.WeaponName);
                 _playerWeaponView.Panel.color = _playerWeaponView.ColorActive;
             }
 
-            if (_currentAbility is NullAbility)
+            if (_currentCharacter.UnitAbility.Ability is NullAbility)
             {
                 _playerAbilityView.Hide();
             }
             else
             {
                 _playerAbilityView.Show();
-                _playerAbilityView.Init(_currentAbility.AbilityName);
+                _playerAbilityView.Init(_currentCharacter.UnitAbility.Ability.AbilityName);
                 _playerAbilityView.Panel.color = _playerAbilityView.ColorActive;
             }
         }

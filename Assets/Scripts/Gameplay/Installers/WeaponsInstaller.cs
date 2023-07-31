@@ -1,9 +1,6 @@
 using Gameplay.Pooling;
 using SpaceRogue.Abstraction;
 using SpaceRogue.Enums;
-using SpaceRogue.Gameplay.Abilities;
-using SpaceRogue.Gameplay.Abilities.Scriptables;
-using SpaceRogue.Gameplay.Pooling;
 using SpaceRogue.Gameplay.Shooting;
 using SpaceRogue.Gameplay.Shooting.Factories;
 using SpaceRogue.Gameplay.Shooting.Scriptables;
@@ -20,7 +17,6 @@ namespace SpaceRogue.Gameplay.Installers
         #region Properties
 
         [field: SerializeField] public ProjectilePool ProjectilePool { get; private set; }
-        [field: SerializeField] public AbilityPool AbilityPool { get; private set; }
         [field: SerializeField] public TurretView TurretView { get; private set; }
         [field: SerializeField] public GunPointView GunPoint { get; private set; }
 
@@ -38,7 +34,6 @@ namespace SpaceRogue.Gameplay.Installers
             InstallGunPointFactory();
             InstallWeaponFactories();
             InstallUnitWeaponFactory();
-            InstallAbilityFactories();
         }
 
         private void InstallProjectilePool()
@@ -124,32 +119,6 @@ namespace SpaceRogue.Gameplay.Installers
                 .BindFactory<EntityViewBase, MountedWeaponConfig, UnitMovement, IUnitWeaponInput, UnitWeapon, UnitWeaponFactory>()
                 .AsSingle();
         }
-
-        private void InstallAbilityFactories()
-        {
-
-            Container
-                .Bind<AbilityPool>()
-                .FromInstance(AbilityPool)
-                .AsSingle();
-
-            Container
-                .BindIFactory<AbilityConfig, EntityViewBase, UnitMovement, Ability>()
-                .FromFactory<AbilityFactory>();
-
-            Container
-                .Bind<AbilityFactory>()
-                .AsCached();
-
-            Container
-                .BindFactory<Vector2, AbilityConfig, AbilityView, AbilityViewFactory>()
-                .AsSingle();
-
-            Container
-                .BindFactory<AbilityView, Transform, ShotgunAbilityConfig, IDestroyable, GravitationMine, GravitationMineFactory>()
-                .AsSingle();
-        }
-
 
         #endregion
 
