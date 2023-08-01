@@ -1,6 +1,7 @@
 using UnityEngine;
 
-namespace Gameplay.Background
+
+namespace SpaceRogue.Gameplay.Background
 {
     public sealed class NebulaEffect : ParallaxEffect
     {

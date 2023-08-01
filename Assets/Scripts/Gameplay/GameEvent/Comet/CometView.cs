@@ -1,8 +1,8 @@
 using Gameplay.Damage;
-using Gameplay.Player;
 using Gameplay.Space.Planets;
 using Gameplay.Space.SpaceObjects;
 using Gameplay.Survival;
+using SpaceRogue.Gameplay.Player;
 using System;
 using UnityEngine;
 

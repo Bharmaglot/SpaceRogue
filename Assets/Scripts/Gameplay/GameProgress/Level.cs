@@ -13,7 +13,6 @@ namespace SpaceRogue.Gameplay.GameProgress
 
         #region Fields
 
-        private readonly global::Gameplay.Player.Player _player;
         private readonly EnemyForces _enemyForces;
         private readonly global::Gameplay.Space.Space _space;
         private readonly SpaceObstacle _spaceObstacle;
@@ -38,7 +37,6 @@ namespace SpaceRogue.Gameplay.GameProgress
             int currentLevelNumber,
             KillEnemiesMission levelMission,
             float mapCameraSize,
-            global::Gameplay.Player.Player player,
             EnemyForces enemyForces,
             global::Gameplay.Space.Space space,
             SpaceObstacle spaceObstacle,
@@ -50,7 +48,6 @@ namespace SpaceRogue.Gameplay.GameProgress
             LevelMission = levelMission;
             MapCameraSize = mapCameraSize;
 
-            _player = player;
             _enemyForces = enemyForces;
             _space = space;
             _spaceObstacle = spaceObstacle;
@@ -61,7 +58,6 @@ namespace SpaceRogue.Gameplay.GameProgress
         public void Dispose()
         {
             _enemyForces?.Dispose();
-            _player?.Dispose();
 
             _asteroids.Dispose();
             _spaceObstacle.Dispose();

@@ -1,23 +1,42 @@
 using UnityEngine;
 
-namespace Gameplay.Background
+
+namespace SpaceRogue.Gameplay.Background
 {
     public sealed class InfiniteSprite : ParallaxEffect
     {
+
+        #region Fields
+
         private readonly SpriteRenderer _spriteRenderer;
 
         private readonly float _textureUnitSizeX;
         private readonly float _textureUnitSizeY;
 
-        public InfiniteSprite(Transform cameraTransform, SpriteRenderer spriteRenderer, float coefficient) : base(cameraTransform, spriteRenderer.transform, coefficient)
+        #endregion
+
+
+        #region CodeLife
+
+        public InfiniteSprite(
+            Transform cameraTransform,
+            SpriteRenderer spriteRenderer,
+            float coefficient) : base(cameraTransform, spriteRenderer.transform, coefficient)
         {
             _spriteRenderer = spriteRenderer;
 
-            _textureUnitSizeX = _spriteRenderer.sprite.texture.width / _spriteRenderer.sprite.pixelsPerUnit
+            _textureUnitSizeX = _spriteRenderer.sprite.texture.width
+                / _spriteRenderer.sprite.pixelsPerUnit
                 * _spriteRenderer.transform.localScale.x;
-            _textureUnitSizeY = _spriteRenderer.sprite.texture.height / _spriteRenderer.sprite.pixelsPerUnit
+            _textureUnitSizeY = _spriteRenderer.sprite.texture.height 
+                / _spriteRenderer.sprite.pixelsPerUnit
                 * _spriteRenderer.transform.localScale.y;
         }
+
+        #endregion
+
+
+        #region Methods
 
         protected override void OptionalExecute()
         {
@@ -39,5 +58,8 @@ namespace Gameplay.Background
 
             _spriteRenderer.transform.position = new(xPosition, yPosition);
         }
+
+        #endregion
+
     }
 }

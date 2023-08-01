@@ -1,69 +1,110 @@
-using Gameplay.Player;
-using System;
 using Gameplay.Survival;
-using UI.Game;
+using SpaceRogue.Gameplay.Player;
+using SpaceRogue.Gameplay.Player.Character;
+using SpaceRogue.UI.Game;
+using System;
 
-namespace UI.Services
+
+namespace SpaceRogue.UI.Services
 {
     public sealed class PlayerStatusBarService : IDisposable
     {
+
+        #region Fields
+
         private readonly PlayerStatusBarView _playerStatusBarView;
-        private readonly PlayerSurvivalFactory _survivalFactory;
+        private readonly PlayerFactory _playerFactory;
 
-        private EntitySurvival _playerSurvival;
+        private Gameplay.Player.Player _player;
 
-        public PlayerStatusBarService(PlayerInfoView playerInfoView, PlayerSurvivalFactory survivalFactory)
+        private EntitySurvival _currentSurvival;
+
+        #endregion
+
+
+        #region CodeLife
+
+        public PlayerStatusBarService(PlayerInfoView playerInfoView, PlayerFactory playerFactory)
         {
             _playerStatusBarView = playerInfoView.PlayerStatusBarView;
-            _survivalFactory = survivalFactory;
+            _playerFactory = playerFactory;
 
             _playerStatusBarView.Hide();
 
-            _survivalFactory.PlayerSurvivalCreated += OnPlayerSurvivalCreated;
+            _playerFactory.OnPlayerSpawned += OnPlayerSpawnedHandler;
         }
 
         public void Dispose()
         {
-            _survivalFactory.PlayerSurvivalCreated -= OnPlayerSurvivalCreated;
-            
-            if(_playerSurvival != null)
-            {
-                _playerSurvival.EntityHealth.HealthChanged -= UpdateHealthBar;
+            _playerFactory.OnPlayerSpawned -= OnPlayerSpawnedHandler;
+            _player.OnCharacterChange -= OnSurvivalChanged;
+            UnsubscribesFromEntityHealth();
+        }
 
-                if (_playerSurvival.EntityShield != null)
+        #endregion
+
+
+        #region Methods
+
+        private void OnPlayerSpawnedHandler(Gameplay.Player.Player player)
+        {
+            if (_player != null)
+            {
+                _player.OnCharacterChange -= OnSurvivalChanged;
+            }
+
+            _player = player;
+            _player.OnCharacterChange += OnSurvivalChanged;
+
+            OnSurvivalChanged(_player.CurrentCharacter);
+        }
+
+
+        private void OnSurvivalChanged(Character character)
+        {
+            UnsubscribesFromEntityHealth();
+
+            _currentSurvival = character.Survival;
+
+            _playerStatusBarView.HealthBar.Init(
+                0.0f,
+                _currentSurvival.EntityHealth.MaximumHealth,
+                _currentSurvival.EntityHealth.CurrentHealth);
+
+            _currentSurvival.EntityHealth.HealthChanged += UpdateHealthBar;
+
+            if (_currentSurvival.EntityShield != null)
+            {
+                _playerStatusBarView.ShieldBar.Init(
+                    0.0f,
+                    _currentSurvival.EntityShield.MaximumShield,
+                    _currentSurvival.EntityShield.CurrentShield);
+                _currentSurvival.EntityShield.ShieldChanged += UpdateShieldBar;
+            }
+
+            _playerStatusBarView.Show();
+        }
+
+        private void UnsubscribesFromEntityHealth()
+        {
+            if (_currentSurvival != null)
+            {
+                _currentSurvival.EntityHealth.HealthChanged -= UpdateHealthBar;
+
+                if (_currentSurvival.EntityShield != null)
                 {
-                    _playerSurvival.EntityShield.ShieldChanged -= UpdateShieldBar;
+                    _currentSurvival.EntityShield.ShieldChanged -= UpdateShieldBar;
                 }
             }
         }
 
-        private void OnPlayerSurvivalCreated(EntitySurvival entitySurvival)
-        {   
-            _playerSurvival = entitySurvival;
+        private void UpdateHealthBar() 
+            => _playerStatusBarView.HealthBar.UpdateValue(_currentSurvival.EntityHealth.CurrentHealth);
 
-            _playerStatusBarView.HealthBar.Init(0f, entitySurvival.EntityHealth.MaximumHealth, 
-                entitySurvival.EntityHealth.CurrentHealth);
-            
-            _playerSurvival.EntityHealth.HealthChanged += UpdateHealthBar;
-            
-            if(_playerSurvival.EntityShield != null)
-            {
-                _playerStatusBarView.ShieldBar.Init(0f, entitySurvival.EntityShield.MaximumShield,
-                entitySurvival.EntityShield.CurrentShield);
-                _playerSurvival.EntityShield.ShieldChanged += UpdateShieldBar;
-            }
-            
-            _playerStatusBarView.Show();
-        }
+        private void UpdateShieldBar() 
+            => _playerStatusBarView.ShieldBar.UpdateValue(_currentSurvival.EntityShield.CurrentShield);
 
-        private void UpdateHealthBar()
-        {
-            _playerStatusBarView.HealthBar.UpdateValue(_playerSurvival.EntityHealth.CurrentHealth);
-        }
-        
-        private void UpdateShieldBar()
-        {
-            _playerStatusBarView.ShieldBar.UpdateValue(_playerSurvival.EntityShield.CurrentShield);
-        }
+        #endregion
+
     }
 }

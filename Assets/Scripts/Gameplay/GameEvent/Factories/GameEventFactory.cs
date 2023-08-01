@@ -1,8 +1,8 @@
 using Gameplay.Mechanics.Timer;
-using Gameplay.Player;
 using SpaceRogue.Enums;
 using SpaceRogue.Gameplay.GameEvent.Comet;
 using SpaceRogue.Gameplay.GameEvent.Supernova;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Scriptables.GameEvent;
 using System;
 using Zenject;

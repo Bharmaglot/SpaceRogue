@@ -1,12 +1,12 @@
-using SpaceRogue.Gameplay.GameProgress;
-using SpaceRogue.Gameplay.Missions;
-using SpaceRogue.Gameplay.Missions.Factories;
-using SpaceRogue.Gameplay.Missions.Scriptables;
 using Gameplay.Space;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
 using Gameplay.Space.SpaceObjects.Scriptables;
 using Scriptables;
+using SpaceRogue.Gameplay.GameProgress;
+using SpaceRogue.Gameplay.Missions;
+using SpaceRogue.Gameplay.Missions.Factories;
+using SpaceRogue.Gameplay.Missions.Scriptables;
 using SpaceRogue.Gameplay.Space.Obstacle;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -59,7 +59,7 @@ namespace SpaceRogue.Gameplay.Installers
                 .AsSingle();
 
             Container
-                .BindFactory<int, Level, LevelFactory>()
+                .BindFactory<Player.Player, int, Level, LevelFactory>()
                 .AsSingle();
         }
 

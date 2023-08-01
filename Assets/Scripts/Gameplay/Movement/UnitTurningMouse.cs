@@ -1,4 +1,4 @@
-using Gameplay.Camera;
+using SpaceRogue.Gameplay.Camera;
 using SpaceRogue.Abstraction;
 using System;
 using UnityEngine;
@@ -9,7 +9,7 @@ namespace Gameplay.Movement
 {
     public sealed class UnitTurningMouse : IDisposable
     {
-        private readonly UnityEngine.Camera _camera;
+        private readonly Camera _camera;
         private readonly Transform _transform;
         private readonly Rigidbody2D _rigidbody;
         private readonly IUnitTurningMouseInput _turningMouseInput;
@@ -23,7 +23,7 @@ namespace Gameplay.Movement
             IUnitTurningMouseInput turningMouseInput,
             UnitMovementModel model)
         {
-            _camera = cameraView.GetComponent<UnityEngine.Camera>();
+            _camera = cameraView.GetComponent<Camera>();
             _transform = entityView.transform;
             _rigidbody = entityView.Rigidbody2D;
             _turningMouseInput = turningMouseInput;

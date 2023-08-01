@@ -1,5 +1,6 @@
 using Gameplay.Events;
-using Gameplay.Player;
+using SpaceRogue.Gameplay.Events;
+using SpaceRogue.Gameplay.Player;
 using System;
 
 
@@ -28,7 +29,7 @@ namespace SpaceRogue.Gameplay.GameProgress
         private readonly LevelFactory _levelFactory;
         private readonly PlayerFactory _playerFactory;
         private Level _level;
-        private global::Gameplay.Player.Player _player;
+        private Player.Player _player;
 
         #endregion
 

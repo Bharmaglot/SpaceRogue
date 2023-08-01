@@ -1,9 +1,11 @@
+using UI.Abstracts;
 using UI.Common;
 using UnityEngine;
 
-namespace UI.Game
+
+namespace SpaceRogue.UI.Game
 {
-    public sealed class PlayerSpeedometerView : MonoBehaviour
+    public sealed class PlayerSpeedometerView : MonoBehaviour, IShowableView, IHideableView
     {
         [field: SerializeField] public TextView SpeedometerTextView { get; private set; }
 

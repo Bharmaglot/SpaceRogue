@@ -1,9 +1,13 @@
 using UnityEngine;
 
-namespace Gameplay.Background
+
+namespace SpaceRogue.Gameplay.Background
 {
     public abstract class ParallaxEffect
     {
+
+        #region Fields
+
         protected readonly Transform _cameraTransform;
         protected readonly Transform _transform;
 
@@ -11,15 +15,25 @@ namespace Gameplay.Background
 
         protected Vector3 _lastCameraPosition;
 
+        #endregion
+
+
+        #region CodeLife
+
         public ParallaxEffect(Transform cameraTransform, Transform transform, float coefficient)
         {
             _cameraTransform = cameraTransform;
             _transform = transform;
             _coefficient = coefficient;
             _lastCameraPosition = _cameraTransform.position;
-            
-            transform.position = new(_lastCameraPosition.x, _lastCameraPosition.y, 0);
+
+            transform.position = new(_lastCameraPosition.x, _lastCameraPosition.y, 0.0f);
         }
+
+        #endregion
+
+
+        #region Methods
 
         public void Play()
         {
@@ -29,5 +43,8 @@ namespace Gameplay.Background
         }
 
         protected virtual void OptionalExecute() { }
-    } 
+
+        #endregion
+
+    }
 }

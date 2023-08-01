@@ -1,4 +1,4 @@
-using Gameplay.Background;
+using SpaceRogue.Gameplay.Background;
 using Gameplay.Enemy.Movement;
 using SpaceRogue.Gameplay.GameProgress;
 using Gameplay.Mechanics.Meter;

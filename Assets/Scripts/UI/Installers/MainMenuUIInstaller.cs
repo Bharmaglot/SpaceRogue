@@ -1,6 +1,5 @@
-using Gameplay.Background;
 using Scriptables;
-using UI.Game;
+using SpaceRogue.Gameplay.Background;
 using UI.MainMenu;
 using UnityEngine;
 using Zenject;

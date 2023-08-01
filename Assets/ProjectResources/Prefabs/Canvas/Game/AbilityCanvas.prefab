@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74f4b1d25bfa2a4f8769836e858c11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Panel>k__BackingField: {fileID: 247496872802997481}
-  <ColorActive>k__BackingField: {r: 1, g: 1, b: 1, a: 0.4}
-  <ColorNotActive>k__BackingField: {r: 1, g: 1, b: 1, a: 0.2}
+  _panel: {fileID: 247496872802997481}
+  _colorActive: {r: 1, g: 1, b: 1, a: 0.4}
+  _colorNotActive: {r: 1, g: 1, b: 1, a: 0.2}
   <ItemTextView>k__BackingField: {fileID: 7344993799250980811}

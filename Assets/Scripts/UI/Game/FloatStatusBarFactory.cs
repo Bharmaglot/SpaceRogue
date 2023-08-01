@@ -1,6 +1,6 @@
 using Zenject;
 using Gameplay.Survival;
-using Gameplay.Camera;
+using SpaceRogue.Gameplay.Camera;
 using SpaceRogue.Services;
 using UnityEngine;
 using UnityEngine.UI;

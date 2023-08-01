@@ -1,23 +1,36 @@
-using UnityEngine;
 using Zenject;
 
-namespace Gameplay.Player
+
+namespace SpaceRogue.Gameplay.Player
 {
-    public sealed class PlayerViewFactory : PlaceholderFactory<Vector2, PlayerView>
+    public sealed class PlayerViewFactory : PlaceholderFactory<PlayerView>
     {
+
+        #region Fields
+
         private readonly DiContainer _diContainer;
         private readonly PlayerView _playerViewPrefab;
+
+        #endregion
+
+
+        #region CodeLife
 
         public PlayerViewFactory(DiContainer diContainer, PlayerView playerViewPrefab)
         {
             _diContainer = diContainer;
             _playerViewPrefab = playerViewPrefab;
         }
-        
-        public override PlayerView Create(Vector2 position)
-        {
-            return _diContainer
-                .InstantiatePrefabForComponent<PlayerView>(_playerViewPrefab, position, Quaternion.identity, null);
-        }
+
+        #endregion
+
+
+        #region Methods
+
+        public override PlayerView Create() 
+            => _diContainer.InstantiatePrefabForComponent<PlayerView>(_playerViewPrefab);
+
+        #endregion
+
     }
 }

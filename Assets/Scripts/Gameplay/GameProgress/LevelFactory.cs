@@ -1,11 +1,11 @@
 using Gameplay.Asteroids.Factories;
 using Gameplay.Enemy;
-using Gameplay.Player;
 using Gameplay.Space.Factories;
 using Gameplay.Space.Generator;
 using Scriptables;
 using SpaceRogue.Gameplay.GameEvent.Factories;
 using SpaceRogue.Gameplay.Missions.Factories;
+using SpaceRogue.Gameplay.Player;
 using SpaceRogue.Gameplay.Space.Obstacle;
 using System;
 using Zenject;
@@ -13,7 +13,7 @@ using Zenject;
 
 namespace SpaceRogue.Gameplay.GameProgress
 {
-    public sealed class LevelFactory : PlaceholderFactory<int, Level>
+    public sealed class LevelFactory : PlaceholderFactory<Player.Player, int, Level>
     {
 
         #region Events
@@ -80,7 +80,7 @@ namespace SpaceRogue.Gameplay.GameProgress
 
         #region Methods
 
-        public override Level Create(int levelNumber)
+        public override Level Create(Player.Player player, int levelNumber)
         {
             _currentLevelPreset = PickRandomLevelPreset();
             var spaceView = _spaceViewFactory.Create();
@@ -96,7 +96,7 @@ namespace SpaceRogue.Gameplay.GameProgress
 
             var obstacle = _spaceObstacleFactory.Create(spaceView.SpaceObstacleView, _currentLevelPreset.SpaceConfig.ObstacleForce);
 
-            var player = _playerFactory.Create(spawnPointsFinder.GetPlayerSpawnPoint());
+            player.SetStartPosition(spawnPointsFinder.GetPlayerSpawnPoint());
 
             var space = _spaceFactory.Create(_currentLevelPreset.SpaceConfig.SpaceObjectCount, spaceView, spawnPointsFinder);
 
@@ -110,7 +110,7 @@ namespace SpaceRogue.Gameplay.GameProgress
 
             var gameEventsController = _gameEventsControllerFactory.Create(_currentLevelPreset.GameEventsConfig, _gameEventFactory, player.PlayerView);
 
-            var level = new Level(levelNumber, mission, mapCameraSize, player, enemyForces, space, obstacle, asteroids, gameEventsController);
+            var level = new Level(levelNumber, mission, mapCameraSize, enemyForces, space, obstacle, asteroids, gameEventsController);
             LevelCreated?.Invoke(level);
             return level;
         }

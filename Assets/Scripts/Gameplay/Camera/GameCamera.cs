@@ -1,28 +1,36 @@
-using System;
-using Gameplay.Events;
+using SpaceRogue.Gameplay.Events;
 using SpaceRogue.Gameplay.GameProgress;
 using SpaceRogue.Services;
+using System;
 using UnityEngine;
 
 
-namespace Gameplay.Camera
+namespace SpaceRogue.Gameplay.Camera
 {
     public sealed class GameCamera : IDisposable
     {
+
+        #region Fields
+
+        private const int CAMERA_Z_AXIS_OFFSET = -10;
+
         private readonly Updater _updater;
         private readonly LevelProgress _gameProgress;
         private readonly Transform _cameraTransform;
-        
+
         private Transform _playerTransform;
-        
-        private const int CameraZAxisOffset = -10;
+
+        #endregion
+
+
+        #region CodeLife
 
         public GameCamera(Updater updater, LevelProgress gameProgress, CameraView cameraView)
         {
             _updater = updater;
             _gameProgress = gameProgress;
             _cameraTransform = cameraView.transform;
-            
+
             _gameProgress.PlayerSpawned += OnPlayerSpawned;
             _gameProgress.PlayerDestroyed += OnPlayerDestroyed;
         }
@@ -33,7 +41,12 @@ namespace Gameplay.Camera
             _gameProgress.PlayerSpawned -= OnPlayerSpawned;
             _gameProgress.PlayerDestroyed -= OnPlayerDestroyed;
         }
-        
+
+        #endregion
+
+
+        #region Methods
+
         private void OnPlayerSpawned(PlayerSpawnedEventArgs eventArgs)
         {
             _playerTransform = eventArgs.Transform;
@@ -48,13 +61,16 @@ namespace Gameplay.Camera
 
         private void FollowPlayer()
         {
-            if(_playerTransform == null)
+            if (_playerTransform == null)
             {
                 return;
             }
 
             var position = _playerTransform.position;
-            _cameraTransform.position = new Vector3(position.x, position.y, position.z + CameraZAxisOffset);
+            _cameraTransform.position = new Vector3(position.x, position.y, position.z + CAMERA_Z_AXIS_OFFSET);
         }
+
+        #endregion
+
     }
 }

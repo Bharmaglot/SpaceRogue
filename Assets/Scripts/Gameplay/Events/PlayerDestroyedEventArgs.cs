@@ -1,4 +1,4 @@
-﻿namespace Gameplay.Events
+﻿namespace SpaceRogue.Gameplay.Events
 {
     public class PlayerDestroyedEventArgs
     {
