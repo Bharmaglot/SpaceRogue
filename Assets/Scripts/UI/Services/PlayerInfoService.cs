@@ -15,7 +15,6 @@ namespace SpaceRogue.UI.Services
 
         private readonly PlayerUsedItemView _playerWeaponView;
         private readonly PlayerUsedItemView _playerAbilityView;
-        private readonly CharacterView _characterView;
         private readonly PlayerFactory _playerFactory;
         
         private Gameplay.Player.Player _player;
@@ -31,27 +30,12 @@ namespace SpaceRogue.UI.Services
         {
             _playerWeaponView = playerInfoView.PlayerWeaponView;
             _playerAbilityView = playerInfoView.PlayerAbilityView;
-            _characterView = playerInfoView.CharacterView;
             _playerFactory = playerFactory;
 
             _playerFactory.OnPlayerSpawned += OnPlayerSpawnedHandler;
 
             _playerWeaponView.Hide();
             _playerAbilityView.Hide();
-            _characterView.Hide();
-        }
-
-        private void OnPlayerSpawnedHandler(Gameplay.Player.Player player)
-        {
-            if (_player != null)
-            {
-                _player.OnCharacterChange -= OnCharacterChanged;
-            }
-
-            _player = player;
-            _player.OnCharacterChange += OnCharacterChanged;
-
-            OnCharacterChanged(_player.CurrentCharacter);
         }
 
         public void Dispose()
@@ -67,6 +51,18 @@ namespace SpaceRogue.UI.Services
 
         #region Methods
 
+        private void OnPlayerSpawnedHandler(Gameplay.Player.Player player)
+        {
+            if (_player != null)
+            {
+                _player.OnCharacterChange -= OnCharacterChanged;
+            }
+
+            _player = player;
+            _player.OnCharacterChange += OnCharacterChanged;
+
+            OnCharacterChanged(_player.CurrentCharacter);
+        }
 
         private void OnCharacterChanged(Character character)
         {
@@ -99,9 +95,6 @@ namespace SpaceRogue.UI.Services
 
         private void SetupWeaponsAndAbilities()
         {
-            _characterView.Show();
-            _characterView.Image.sprite = _currentCharacter.CharacterIcon != null ? _currentCharacter.CharacterIcon : default; ;
-
             if (_currentCharacter.UnitWeapon.MountedWeapon.Weapon is NullGun)
             {
                 _playerWeaponView.Hide();
@@ -110,7 +103,7 @@ namespace SpaceRogue.UI.Services
             {
                 _playerWeaponView.Show();
                 _playerWeaponView.Init(_currentCharacter.UnitWeapon.MountedWeapon.Weapon.WeaponName);
-                _playerWeaponView.Panel.color = _playerWeaponView.ColorActive;
+                _playerWeaponView.SetPanelActive(true);
             }
 
             if (_currentCharacter.UnitAbility.Ability is NullAbility)
@@ -121,17 +114,17 @@ namespace SpaceRogue.UI.Services
             {
                 _playerAbilityView.Show();
                 _playerAbilityView.Init(_currentCharacter.UnitAbility.Ability.AbilityName);
-                _playerAbilityView.Panel.color = _playerAbilityView.ColorActive;
+                _playerAbilityView.SetPanelActive(true);
             }
         }
 
-        private void OnWeaponAvailable() => _playerWeaponView.Panel.color = _playerWeaponView.ColorActive;
+        private void OnWeaponAvailable() => _playerWeaponView.SetPanelActive(true);
 
-        private void OnWeaponUsed() => _playerWeaponView.Panel.color = _playerWeaponView.ColorNotActive;
+        private void OnWeaponUsed() => _playerWeaponView.SetPanelActive(false);
 
-        private void OnAbilityAvailable() => _playerAbilityView.Panel.color = _playerAbilityView.ColorActive;
+        private void OnAbilityAvailable() => _playerAbilityView.SetPanelActive(true);
 
-        private void OnAbilityUsed() => _playerAbilityView.Panel.color = _playerAbilityView.ColorNotActive;
+        private void OnAbilityUsed() => _playerAbilityView.SetPanelActive(false);
 
         #endregion
 

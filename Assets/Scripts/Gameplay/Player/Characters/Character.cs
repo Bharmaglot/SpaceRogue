@@ -18,6 +18,7 @@ namespace SpaceRogue.Gameplay.Player.Character
 
         #region Properties
 
+        public string Name { get; private set; }
         public Sprite CharacterIcon { get; private set; }
         public Sprite SpaceshipSprite { get; private set; }
         public EntitySurvival Survival { get; private set; }
@@ -30,12 +31,14 @@ namespace SpaceRogue.Gameplay.Player.Character
         #region CodeLife
 
         public Character(
+            string name,
             Sprite characterIcon,
             Sprite spaceshipSprite,
             EntitySurvival characterSurvival,
             UnitWeapon unitWeapon,
             UnitAbility unitAbility)
         {
+            Name = name;
             CharacterIcon = characterIcon;
             SpaceshipSprite = spaceshipSprite;
             Survival = characterSurvival;

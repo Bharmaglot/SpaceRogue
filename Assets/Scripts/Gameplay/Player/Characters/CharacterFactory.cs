@@ -62,7 +62,7 @@ namespace SpaceRogue.Gameplay.Player.Character
                 var characterSurvival = _entitySurvivalFactory.Create(entityView, characterConfig.Survival);
                 var unitWeapon = _unitWeaponFactory.Create(entityView, characterConfig.MountedWeapon, unitMovement, _playerInput);
                 var unitAbility = _unitAbilityFactory.Create(entityView, characterConfig.Ability, unitMovement, _playerInput);
-                var character = new Character(characterConfig.CharacterIcon, characterConfig.SpaceshipSprite, characterSurvival, unitWeapon, unitAbility);
+                var character = new Character(characterConfig.Name, characterConfig.CharacterIcon, characterConfig.SpaceshipSprite, characterSurvival, unitWeapon, unitAbility);
                 character.SetCharacterActive(false);
                 result.Add(character);
             }

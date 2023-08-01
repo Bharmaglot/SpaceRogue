@@ -26,6 +26,8 @@ namespace SpaceRogue.UI.Installers
         [field: SerializeField] public MinimapView MinimapView { get; private set; }
 
         [field: Header("For instantiate other UI")]
+        [field: SerializeField] public CharacterListView CharacterListView { get; private set; }
+        [field: SerializeField] public CharacterView CharacterView { get; private set; }
         [field: SerializeField] public EnemyHealthBarsView EnemyHealthBarsView { get; private set; }
         [field: SerializeField] public HealthShieldStatusBarView HealthShieldStatusBarView { get; private set; }
         [field: SerializeField] public HealthStatusBarView HealthStatusBarView { get; private set; }
@@ -49,6 +51,7 @@ namespace SpaceRogue.UI.Installers
             BindLevelInfo();
             BindMinimap();
             BindFloatStatusBarFactory();
+            BindCharacters();
             BindEnemyStatusBars();
             BindGameEventIndicators();
             BindPopups();
@@ -123,6 +126,24 @@ namespace SpaceRogue.UI.Installers
                 .AsSingle();
         }
 
+        private void BindCharacters()
+        {
+            Container
+                .Bind<CharacterListView>()
+                .FromInstance(CharacterListView)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .Bind<CharacterView>()
+                .FromInstance(CharacterView)
+                .WhenInjectedInto<CharacterViewFactory>();
+
+            Container
+                .BindFactory<CharacterListView, CharacterView, CharacterViewFactory>()
+                .AsSingle();
+        }
+        
         private void BindEnemyStatusBars()
         {
             Container

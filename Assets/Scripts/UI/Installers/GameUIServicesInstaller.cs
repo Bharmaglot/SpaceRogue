@@ -36,6 +36,11 @@ namespace SpaceRogue.UI.Installers
         private void InstallPlayerInfoService()
         {
             Container
+                .BindInterfacesAndSelfTo<CharacterListService>()
+                .AsSingle()
+                .NonLazy();
+            
+            Container
                 .BindInterfacesAndSelfTo<PlayerInfoService>()
                 .AsSingle()
                 .NonLazy();

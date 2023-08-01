@@ -9,6 +9,7 @@ namespace SpaceRogue.Gameplay.Player.Character
     [CreateAssetMenu(fileName = nameof(CharacterConfig), menuName = "Configs/Player/" + nameof(CharacterConfig))]
     public sealed class CharacterConfig : ScriptableObject
     {
+        [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public Sprite CharacterIcon { get; private set; }
         [field: SerializeField] public Sprite SpaceshipSprite { get; private set; }
         [field: SerializeField] public EntitySurvivalConfig Survival { get; private set; }

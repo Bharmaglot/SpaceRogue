@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e902802e9142f604483661f05e9593ab, type: 3}
   m_Name: RailgunCharacterConfig
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Railgun-chan
   <CharacterIcon>k__BackingField: {fileID: 21300000, guid: a603185b1f6ff454a843c186b327b84d, type: 3}
   <SpaceshipSprite>k__BackingField: {fileID: 1912787519, guid: 060eab229438c8b439080a97bab3a4ae, type: 3}
   <Survival>k__BackingField: {fileID: 11400000, guid: 58b908b7be952f04d8c48e5b455ff03d, type: 2}
