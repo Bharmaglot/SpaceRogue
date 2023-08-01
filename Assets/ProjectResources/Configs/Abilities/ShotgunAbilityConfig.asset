@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShotgunAbilityConfig
   m_EditorClassIdentifier: 
   <AbilityPrefab>k__BackingField: {fileID: 5770428131626653124, guid: 6250805ae9e549546b8a97debbe638c4, type: 3}
-  <Cooldown>k__BackingField: 2
+  <Cooldown>k__BackingField: 7
   <GravitaionAreaConfig>k__BackingField: {fileID: 11400000, guid: 1911e687481e2f64497cd369c00f7f99, type: 2}
   <LifeTime>k__BackingField: 5
   <Distance>k__BackingField: 10

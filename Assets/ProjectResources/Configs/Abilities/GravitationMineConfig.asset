@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GravitationMineConfig
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 506913842042880557, guid: 614b0fe356d74bd4e86bdaec2e2c0f9f, type: 3}
-  <Radius>k__BackingField: 1.31
-  <GravityForce>k__BackingField: 100
+  <Radius>k__BackingField: 1.7
+  <GravityForce>k__BackingField: 150
   <GravityVariation>k__BackingField: 1
   <GravityDistanceScale>k__BackingField: 1
   <GravityMode>k__BackingField: 0

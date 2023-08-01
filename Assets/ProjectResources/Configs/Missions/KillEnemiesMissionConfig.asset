@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: KillEnemiesMissionConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 0251419a-7261-4222-b050-6eb8ff4a3ca1
-  <KillCount>k__BackingField: 15
+  <KillCount>k__BackingField: 30
