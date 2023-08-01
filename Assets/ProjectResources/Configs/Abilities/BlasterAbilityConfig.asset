@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BlasterAbilityConfig
   m_EditorClassIdentifier: 
   <AbilityPrefab>k__BackingField: {fileID: 0}
-  <Cooldown>k__BackingField: 3
+  <Cooldown>k__BackingField: 1.5
   <MineConfig>k__BackingField: {fileID: 11400000, guid: b25cf7985bbb1734eaeeb5a8bdad0280, type: 2}
