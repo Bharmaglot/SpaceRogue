@@ -1,5 +1,6 @@
 using Zenject;
 
+
 namespace SpaceRogue.UI.Game
 {
     public sealed class CharacterViewFactory : PlaceholderFactory<CharacterListView, CharacterView>

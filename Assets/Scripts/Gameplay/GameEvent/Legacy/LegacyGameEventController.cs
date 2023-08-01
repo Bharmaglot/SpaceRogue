@@ -16,7 +16,6 @@ namespace Gameplay.GameEvent
     public abstract class LegacyGameEventController : BaseController
     {
         protected readonly GameEventConfig _config;
-        //protected readonly PlayerController _playerController;
         protected Timer _timer;
 
         private readonly ResourcePath _gameEventIndicatorCanvasPath =
@@ -24,12 +23,9 @@ namespace Gameplay.GameEvent
 
         private bool _isOnceSuccessfully;
 
-        public LegacyGameEventController(GameEventConfig config/*, PlayerController playerController*/)
+        public LegacyGameEventController(GameEventConfig config)
         {
             _config = config;
-            //_playerController = playerController;
-            //_playerController.PlayerDestroyed += OnPlayerDestroyed;
-            //_playerController.OnControllerDispose += OnPlayerDestroyed;
             _timer = new(_config.ResponseTime, new Updater(new GameStateService(new SceneLoader())));
             _timer.Start();
 
@@ -39,8 +35,6 @@ namespace Gameplay.GameEvent
         protected override void OnDispose()
         {
             _timer.Dispose();
-            //_playerController.PlayerDestroyed -= OnPlayerDestroyed;
-            //_playerController.OnControllerDispose -= OnPlayerDestroyed;
             EntryPoint.UnsubscribeFromUpdate(CheckEvent);
         }
 
@@ -75,23 +69,6 @@ namespace Gameplay.GameEvent
 
         protected void AddGameEventObjectToUIController(GameObject gameObject, bool showUntilItIsVisibleOnce = false)
         {
-            /*if (gameObject.TryGetComponent(out Collider2D collider))
-            {
-                var gameEventUIController = new GameEventUIController(
-                    AddGameEventIndicatorView(GameUIController.GameEventIndicators), 
-                    collider,
-                    _config.Icon,
-                    _config.IndicatorDiameter,
-                    showUntilItIsVisibleOnce);
-                AddController(gameEventUIController);
-            }*/
         }
-
-        //private GameEventIndicatorView AddGameEventIndicatorView(Transform transform)
-        //{
-        //    var gameEventIndicatorView = ResourceLoader.LoadPrefabAsChild<GameEventIndicatorView>
-        //        (_gameEventIndicatorCanvasPath, transform);
-        //    return gameEventIndicatorView;
-        //}
     }
 }

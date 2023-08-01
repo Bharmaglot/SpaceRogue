@@ -11,9 +11,9 @@ namespace SpaceRogue.UI.Game
 
         #region Fields
 
-        [field: SerializeField] private Image _panel;
-        [field: SerializeField] private Color _colorActive;
-        [field: SerializeField] private Color _colorNotActive;
+        [SerializeField] private Image _panel;
+        [SerializeField] private Color _colorActive;
+        [SerializeField] private Color _colorNotActive;
 
         #endregion
 

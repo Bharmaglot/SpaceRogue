@@ -19,7 +19,7 @@ namespace Gameplay.Services
 
         #region Fields
 
-        private const float LOCATOR_COOLDOWN = 1;
+        private const float LOCATOR_COOLDOWN = 1.0f;
 
         private readonly Timer _timer;
         private readonly PlayerFactory _playerFactory;

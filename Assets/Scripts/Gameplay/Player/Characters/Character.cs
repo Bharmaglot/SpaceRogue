@@ -4,6 +4,7 @@ using SpaceRogue.Gameplay.Shooting;
 using System;
 using UnityEngine;
 
+
 namespace SpaceRogue.Gameplay.Player.Character
 {
     public sealed class Character : IDisposable

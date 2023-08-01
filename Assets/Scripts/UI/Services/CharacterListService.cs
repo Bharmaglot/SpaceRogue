@@ -76,7 +76,7 @@ namespace SpaceRogue.UI.Services
 
             if (_characterViews.Count == 0)
             {
-                foreach (var _ in _characters)
+                for (var i = 0; i < _characters.Count; i++)
                 {
                     var characterView = _characterViewFactory.Create(_characterListView);
                     characterView.Hide();
@@ -127,6 +127,7 @@ namespace SpaceRogue.UI.Services
                         0.0f,
                         _characters[i].Survival.EntityShield.MaximumShield,
                         _characters[i].Survival.EntityShield.CurrentShield);
+
                     _characters[i].Survival.EntityShield.ShieldChanged += UpdateShieldBar;
                 }
 
