@@ -63,6 +63,11 @@ namespace SpaceRogue.Gameplay.Shooting
             _turretView.TargetEntersTrigger -= OnTargetInRange;
             _turretView.TargetExitsTrigger -= OnTargetOutOfRange;
             _currentTarget.EntityDestroyed -= OnTargetIsDestroyed;
+
+            if(_currentTarget.EntityType == EntityType.Player)
+            {
+                _updater.UnsubscribeFromUpdate(CommenceFiring);
+            }
         }
 
         #endregion
@@ -112,6 +117,7 @@ namespace SpaceRogue.Gameplay.Shooting
                     _currentTarget = target;
                     _currentTarget.EntityDestroyed += OnTargetIsDestroyed;
                     _updater.SubscribeToUpdate(RotateTurret);
+                    _updater.SubscribeToUpdate(CommenceFiring);
                 }
             }
         }
@@ -145,6 +151,7 @@ namespace SpaceRogue.Gameplay.Shooting
                 {
                     _currentTarget.EntityDestroyed -= OnTargetIsDestroyed;
                     _updater.UnsubscribeFromUpdate(RotateTurret);
+                    _updater.UnsubscribeFromUpdate(CommenceFiring);
                     _currentTarget = null;
                 }
             }
