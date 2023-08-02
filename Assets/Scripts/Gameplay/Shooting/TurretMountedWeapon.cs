@@ -112,6 +112,7 @@ namespace SpaceRogue.Gameplay.Shooting
                     _currentTarget = target;
                     _currentTarget.EntityDestroyed += OnTargetIsDestroyed;
                     _updater.SubscribeToUpdate(RotateTurret);
+                    _updater.SubscribeToUpdate(CommenceFiring);
                 }
             }
         }
@@ -145,6 +146,7 @@ namespace SpaceRogue.Gameplay.Shooting
                 {
                     _currentTarget.EntityDestroyed -= OnTargetIsDestroyed;
                     _updater.UnsubscribeFromUpdate(RotateTurret);
+                    _updater.UnsubscribeFromUpdate(CommenceFiring);
                     _currentTarget = null;
                 }
             }
