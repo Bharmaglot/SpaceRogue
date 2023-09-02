@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ed8d06865043f6b503a28c367e423b, type: 3}
   m_Name: MountedBlasterConfig
   m_EditorClassIdentifier: 
-  <CharacterIcon>k__BackingField: {fileID: 21300000, guid: 959282ac79fed5e46a8f6fa23cbd3c29, type: 3}
   <WeaponMountType>k__BackingField: 1
   <MountedWeapon>k__BackingField: {fileID: 11400000, guid: f5294e08f8fa7b643b0589a59c6217d5, type: 2}
-  <Ability>k__BackingField: {fileID: 11400000, guid: 879cafb505e818a4f80b265a97449f9f, type: 2}
-  <TurretConfig>k__BackingField: {fileID: 0}
+  <TurretConfig>k__BackingField: {fileID: 11400000, guid: 972dcc5878fce7a4397ed5d1f720c0ce, type: 2}

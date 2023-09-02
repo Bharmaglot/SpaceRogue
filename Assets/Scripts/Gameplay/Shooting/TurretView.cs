@@ -9,6 +9,8 @@ namespace SpaceRogue.Gameplay.Shooting
     public sealed class TurretView : MonoBehaviour
     {
 
+        //TO DO inheritance from TargetFinderView
+
         #region Fields
 
         private const float ANGLE_CORRECTION = 270.0f;

@@ -30,7 +30,11 @@ namespace SpaceRogue.Gameplay.Installers
             InstallProjectilePool();
             InstallProjectileFactory();
             InstallMineFactory();
+            InstallWaveExplosion();
+            InstallInstantExplosion();
             InstallTurretFactory();
+            InstallRocketFactory();
+            InstallTorpedoFactory();
             InstallGunPointFactory();
             InstallWeaponFactories();
             InstallUnitWeaponFactory();
@@ -65,6 +69,42 @@ namespace SpaceRogue.Gameplay.Installers
                 .BindFactory<Vector2, MineConfig, IDestroyable, Mine, MineFactory>()
                 .AsSingle();
         }
+
+        private void InstallRocketFactory()
+        {
+            Container
+                .BindFactory<Vector2, Quaternion, BaseReactiveObjectConfig, ReactiveObjectView, RocketViewFactory>()
+                .AsSingle();
+
+            Container
+                .BindFactory<Vector2, Quaternion, RocketConfig, InstantExplosionFactory, IDestroyable, Rocket, RocketFactory>()
+                .AsSingle();
+        }
+
+        private void InstallTorpedoFactory()
+        {
+            Container
+                .BindFactory<Vector2, Quaternion, TorpedoConfig, InstantExplosionFactory, IDestroyable, Torpedo, TorpedoFactory>()
+                .AsSingle();
+        }
+
+        private void InstallWaveExplosion()
+        {
+            Container
+                .BindFactory<Vector2, BaseExplosionObjectConfig, ExplosionView, ExplosionViewFactory>()
+               .AsSingle();
+
+            Container
+                .BindFactory<Vector2, WaveExplosionConfig, IDestroyable, WaveExplosion, WaveExplosionFactory>()
+               .AsSingle();
+        }
+
+        private void InstallInstantExplosion()
+        {
+            Container
+                .BindFactory<Vector2, InstantExplosionConfig, IDestroyable, InstantExplosion, InstantExplosionFactory>()
+                .AsSingle();
+        }    
 
         private void InstallTurretFactory()
         {

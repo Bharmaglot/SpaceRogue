@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1154e7cebf60343a5ec421ad582e25, type: 3}
   m_Name: AbilityMineConfig
   m_EditorClassIdentifier: 
-  <MinePrefab>k__BackingField: {fileID: 7168092304700788529, guid: b36d51a54de4e8e46ac6cf7e3f169bae, type: 3}
-  <MineSize>k__BackingField: 5
-  <AlarmZoneRadius>k__BackingField: 10
-  <TimeToActiveAlarmSystem>k__BackingField: 1
-  <TimeToExplosion>k__BackingField: 1.5
+  <DamageRadiusSize>k__BackingField: 5
   <DamageFromExplosion>k__BackingField: 50
   <SpeedWaveExplosion>k__BackingField: 40
+  <MinePrefab>k__BackingField: {fileID: 7168092304700788529, guid: b36d51a54de4e8e46ac6cf7e3f169bae, type: 3}
+  <MineSize>k__BackingField: 5
+  <TimeToActiveAlarmSystem>k__BackingField: 1
+  <TimeToExplosion>k__BackingField: 1.5
   <TargetUnitType>k__BackingField: 12

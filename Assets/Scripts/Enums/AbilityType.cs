@@ -7,5 +7,6 @@ namespace SpaceRogue.Enums
         ShotgunAbility = 2,
         MinigunAbility = 3,
         RailgunAbility = 4,
+        TorpedoAbility = 5,
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666af914f2d488549ae9a3742a6cd3ae, type: 3}
   m_Name: TurretConfig
   m_EditorClassIdentifier: 
-  <Range>k__BackingField: 3
+  <Range>k__BackingField: 50
   <TurningSpeed>k__BackingField: 200

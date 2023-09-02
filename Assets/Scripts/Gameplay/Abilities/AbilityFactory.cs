@@ -19,18 +19,24 @@ namespace SpaceRogue.Gameplay.Abilities
         private readonly AbilityViewFactory _abilityViewFactory;
         private readonly GravitationMineFactory _gravitationMineFactory;
         private readonly MineFactory _mineFactory;
+        private readonly InstantExplosionFactory _instantExplosionFactory;
+        private readonly TorpedoFactory _torpedoFactory;
 
         #endregion
 
 
         #region CodeLife
 
-        public AbilityFactory(TimerFactory timerFactory, AbilityViewFactory abilityViewFactory, GravitationMineFactory gravitationMineFactory, MineFactory mineFactory)
+        public AbilityFactory(TimerFactory timerFactory, AbilityViewFactory abilityViewFactory, 
+            GravitationMineFactory gravitationMineFactory, MineFactory mineFactory, 
+            TorpedoFactory torpedoFactory, InstantExplosionFactory instantExplosionFactory)
         {
             _timerFactory = timerFactory;
             _abilityViewFactory = abilityViewFactory;
             _gravitationMineFactory = gravitationMineFactory;
             _mineFactory = mineFactory;
+            _instantExplosionFactory = instantExplosionFactory;
+            _torpedoFactory = torpedoFactory;
         }
 
         #endregion
@@ -45,6 +51,7 @@ namespace SpaceRogue.Gameplay.Abilities
             AbilityType.ShotgunAbility => new ShotgunAbility(abilityConfig as ShotgunAbilityConfig, entityView, _timerFactory, _abilityViewFactory, _gravitationMineFactory),
             AbilityType.MinigunAbility => new MinigunAbility(abilityConfig as MinigunAbilityConfig, entityView, unitMovement, _timerFactory),
             AbilityType.RailgunAbility => new RailgunAbility(abilityConfig as RailgunAbilityConfig, entityView, _timerFactory, _abilityViewFactory),
+            AbilityType.TorpedoAbility => new TorpedoAbility(abilityConfig as TorpedoAbilityConfig, _torpedoFactory, _timerFactory, _instantExplosionFactory, entityView),
             _ => throw new ArgumentOutOfRangeException(nameof(abilityConfig.Type), abilityConfig.Type, $"A not-existent ability type is provided")
         };
 
